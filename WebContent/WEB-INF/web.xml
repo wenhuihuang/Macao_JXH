@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>Macao_JXH</display-name>
+  <filter>
+    <filter-name>ConnectionFilter</filter-name>
+    <filter-class>com.fg.filter.ConnectionFilter</filter-class>
+  </filter>
+  <filter>
+    <filter-name>EncodingFilter</filter-name>
+    <filter-class>com.fg.filter.EncodingFilter</filter-class>
+  </filter>
+  <filter>
+    <filter-name>UserFilter</filter-name>
+    <filter-class>com.jxh.filter.UserFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ConnectionFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>EncodingFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>UserFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+  <welcome-file-list>
+    <welcome-file>jsp/login.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
