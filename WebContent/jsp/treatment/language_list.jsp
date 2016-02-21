@@ -27,7 +27,7 @@ String basePath = request.getScheme() + "://"
         }
         
         function addRow(){
-        	location.href = "CustCase/add.do";
+        	location.href = "LanguageTreatment/add.do";
         }
         
         function modifyRow(){
@@ -77,7 +77,7 @@ String basePath = request.getScheme() + "://"
                                { line: true },
                                { text: '删除', click: itemclick, icon: 'delete' , id:"delete" }
                              ];
-            maingrid = ligerGrid("maingrid",'99%',columns,"CustCase/listPojos.do",gridToolBar,true);
+            maingrid = ligerGrid("maingrid",'99%',columns,"LanguageTreatment/list.do",gridToolBar,true);
             $("#pageloading").hide();
         });
 

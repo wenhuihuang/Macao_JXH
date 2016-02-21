@@ -185,6 +185,31 @@ public class Util {
 			}
 			
 		}
+		sb.append("\n\r\n");
+		
+		//生成表名.表字段名
+		for (int i = 0; i < colnames.length; i++) {
+			colsiz = colSizes[i]<=0? "" : (colScale[i]<=0? "("+colSizes[i]+")" : "("+colSizes[i]+","+colScale[i]+")");
+			//sb.append("\t" + colnames[i] +"	"+colTypes[i]+ colsiz+"\r\n");
+			if(i == colnames.length-1){
+				sb.append(toUpperCaseFitstOne(tablename+"."+colnames[i]));
+			}else{
+				sb.append(toUpperCaseFitstOne(tablename+"."+colnames[i])+",");
+			}
+			
+		}
+		sb.append("\n\r\n");
+		//生成表字段名=?
+		for (int i = 0; i < colnames.length; i++) {
+			colsiz = colSizes[i]<=0? "" : (colScale[i]<=0? "("+colSizes[i]+")" : "("+colSizes[i]+","+colScale[i]+")");
+			//sb.append("\t" + colnames[i] +"	"+colTypes[i]+ colsiz+"\r\n");
+			if(i == colnames.length-1){
+				sb.append(toUpperCaseFitstOne(colnames[i])+"=?");
+			}else{
+				sb.append(toUpperCaseFitstOne(colnames[i])+"=?,");
+			}
+			
+		}
 		sb.append("\n*/\r\n");
 	}
 	/**
@@ -318,7 +343,7 @@ public class Util {
 	 */
 	public static void main(String[] args) {
 		Util t = new Util();
-		t.tableToEntity("BCustCaseSummaryHandle");
+		t.tableToEntity("TreatmentTrainingWork");
 		
 	/*	String[] colNames = {"name","descr"};
 		String[] colTypes = {"String","String"};

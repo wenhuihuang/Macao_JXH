@@ -143,12 +143,12 @@ public class CustCaseServlet extends FGServlet {
 	 * @param response
 	 */
 	private void editBCustCaseRecord(HttpServletRequest request,HttpServletResponse response){
-		String caseID = request.getParameter("caseID");
+		//String caseID = request.getParameter("caseID");
 		try {
-			BCustCaseRecordPojo record = custCaseRecordDao.getBCustCaseRecordPojoByCondition(" and bCustCaseRecord.recordID = ?",
-					this.getParameterByName(request, "recordID"));
+			BCustCaseRecordPojo record = custCaseRecordDao.getBCustCaseRecordPojoByCondition(" and caseID = ?",
+					this.getParameterByName(request, "caseID"));
 			request.setAttribute("bCustCaseRecordPojo", record);
-				forwardDispatcher("../jsp/custCase/bCustCaseRecord_detail.jsp?caseID="+caseID, request, response);
+				forwardDispatcher("../jsp/custCase/bCustCaseRecord_detail.jsp", request, response);
 		} catch (IOException | ServletException | SQLException e) {
 			e.printStackTrace();
 		} 
@@ -255,7 +255,7 @@ public class CustCaseServlet extends FGServlet {
 		//個案撮要記錄
 		//BCustCaseRecord bCustCaseRecord = this.getObjectByParameter(request, BCustCaseRecord.class);
 		
-		System.out.println("bCustCaseRecordAdds=="+bCustCaseRecordAdds);
+		System.out.println("bCustCaseRecordUpdates=="+bCustCaseRecordUpdates);
 
 		String message = "";
 		if (bCustCase.getCaseID() != null && !"".equals(bCustCase.getCaseID())) {

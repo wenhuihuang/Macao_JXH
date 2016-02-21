@@ -7,16 +7,14 @@ String basePath = request.getScheme() + "://"
 		+ request.getServerName() + ":" + request.getServerPort()
 		+ path + "/";
 %>
-<%
-	String back = request.getParameter("back");
-%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<jsp:include page="/jsp/head.jsp"></jsp:include>
 <title>個案資料管理</title>
+<jsp:include page="/jsp/head.jsp"></jsp:include>
+<jsp:include page="/jsp/menberData.jsp"></jsp:include>
  <script type="text/javascript">
  	var WorkerWaysGrid,
  		bCustCaseRecordGrid;
@@ -40,7 +38,7 @@ String basePath = request.getScheme() + "://"
  		$("#bCustCaseSummaryHandleDeletes").val(getDeletedRows(WorkerWaysGrid)); 
  		console.log($("#bCustCaseRecordDeletes").val())
  		console.log($("#bCustCaseRecordUpdates").val())
- 		//$("#submit").click()
+ 		$("#submit").click()
  	}
 	ligerUiFn.back=function(){
  		location.href="jsp/custCase/list.jsp";
@@ -61,8 +59,11 @@ String basePath = request.getScheme() + "://"
 	
 	
 	$(function(){
-		
-		
+		if($("#caseID").val() != "" && $("#caseID").val() != 'null' && $("#caseID").val() != 'undefined'){
+			setTabTitle(parent.$("#framecenter"),"個案編輯")
+		}else{
+			setTabTitle(parent.$("#framecenter"),"個案新增")
+		}
 		$(".toptoolbar").ligerToolBar({ items: [
              { text: '保存', click: ligerUiFn.itemClick, icon: 'save' , id:"save" },
              { line: true },
@@ -70,127 +71,6 @@ String basePath = request.getScheme() + "://"
            ]
            });
 		
-			//會員編號
-		   $("#custNO").ligerPopupEdit({
-             /*   condition: {
-                   prefixID: 'condtion_',
-                   fields: [{ name: 'CompanyName', type: 'text', label: '客户' }]
-               }, */
-               grid: getcustNOGridOptions(true),
-               valueField: 'custNO',
-               textField: 'custNO',
-               width: 200,
-               readonly:false
-           });
-
-           function getcustNOGridOptions(checkbox) {
-               var options = {
-                   columns: [
-                   { display: '會員編號', name: 'custNO', align: 'left', width: 100, minWidth: 60 },
-                   { display: '案主姓名', name: 'fullName', minWidth: 120, width: 100 }
-                   ], switchPageSizeApplyComboBox: false,
-                  //data:{"Rows":[{"cardNO":"44071112902313264","cardStatus":1,"cardType":"1","custCode":"001002","custId":"00010000000000000105","custType":"1","fullName":"王祖蓝","fullNameEng":"","mobileTelNO":"13543212653","regDate":{"date":8,"day":5,"hours":0,"minutes":0,"month":0,"nanos":0,"seconds":0,"time":1452182400000,"timezoneOffset":-480,"year":116},"relationship":"","sex":"1","telNo":"","validDate":{"date":8,"day":5,"hours":0,"minutes":0,"month":0,"nanos":0,"seconds":0,"time":1452182400000,"timezoneOffset":-480,"year":116}},{"cardNO":"","cardStatus":0,"cardType":"1","custCode":"022222","custId":"0001000000000000011S","custType":"0","fullName":"gg","fullNameEng":"","mobileTelNO":"","regDate":{"date":15,"day":1,"hours":0,"minutes":0,"month":1,"nanos":0,"seconds":0,"time":1455465600000,"timezoneOffset":-480,"year":116},"relationship":"","sex":"1","telNo":"","validDate":{"date":15,"day":1,"hours":0,"minutes":0,"month":1,"nanos":0,"seconds":0,"time":1455465600000,"timezoneOffset":-480,"year":116}},{"cardNO":"6543012","cardStatus":1,"cardType":"1","custCode":"001001","custId":"1","custType":"1","fullName":"劉燁","fullNameEng":"Ye.Lao","mobileTelNO":"13543215712","regDate":{"date":14,"day":4,"hours":0,"minutes":0,"month":0,"nanos":0,"seconds":0,"time":1452700800000,"timezoneOffset":-480,"year":116},"relationship":"","sex":"1","telNo":"3052135","validDate":{"date":20,"day":3,"hours":0,"minutes":0,"month":0,"nanos":0,"seconds":0,"time":1453219200000,"timezoneOffset":-480,"year":116}}],"Total":3},
-                  url:"CustCase/listPojos.do",
-                  pageSize: 10
-               };
-               return options;
-           }
-           
-           //非會員編號
-           $("#custNewNO").ligerPopupEdit({
-             /*   condition: {
-                   prefixID: 'condtion_',
-                   fields: [{ name: 'CompanyName', type: 'text', label: '客户' }]
-               }, */
-               grid: getcustNewNOGridOptions(true),
-               valueField: 'custNewNO',
-               textField: 'custNewNO',
-               width: 200,
-               readonly:false
-           });
-
-           function getcustNewNOGridOptions(checkbox) {
-               var options = {
-                   columns: [
-                   { display: '非會員編號', name: 'custNewNO', align: 'left', width: 100, minWidth: 60 },
-                   { display: '案主姓名', name: 'fullName', minWidth: 120, width: 100 }
-                   ], switchPageSizeApplyComboBox: false,
-                  //data:{"Rows":[{"cardNO":"44071112902313264","cardStatus":1,"cardType":"1","custCode":"001002","custId":"00010000000000000105","custType":"1","fullName":"王祖蓝","fullNameEng":"","mobileTelNO":"13543212653","regDate":{"date":8,"day":5,"hours":0,"minutes":0,"month":0,"nanos":0,"seconds":0,"time":1452182400000,"timezoneOffset":-480,"year":116},"relationship":"","sex":"1","telNo":"","validDate":{"date":8,"day":5,"hours":0,"minutes":0,"month":0,"nanos":0,"seconds":0,"time":1452182400000,"timezoneOffset":-480,"year":116}},{"cardNO":"","cardStatus":0,"cardType":"1","custCode":"022222","custId":"0001000000000000011S","custType":"0","fullName":"gg","fullNameEng":"","mobileTelNO":"","regDate":{"date":15,"day":1,"hours":0,"minutes":0,"month":1,"nanos":0,"seconds":0,"time":1455465600000,"timezoneOffset":-480,"year":116},"relationship":"","sex":"1","telNo":"","validDate":{"date":15,"day":1,"hours":0,"minutes":0,"month":1,"nanos":0,"seconds":0,"time":1455465600000,"timezoneOffset":-480,"year":116}},{"cardNO":"6543012","cardStatus":1,"cardType":"1","custCode":"001001","custId":"1","custType":"1","fullName":"劉燁","fullNameEng":"Ye.Lao","mobileTelNO":"13543215712","regDate":{"date":14,"day":4,"hours":0,"minutes":0,"month":0,"nanos":0,"seconds":0,"time":1452700800000,"timezoneOffset":-480,"year":116},"relationship":"","sex":"1","telNo":"3052135","validDate":{"date":20,"day":3,"hours":0,"minutes":0,"month":0,"nanos":0,"seconds":0,"time":1453219200000,"timezoneOffset":-480,"year":116}}],"Total":3},
-                  url:"CustCase/listPojos.do",
-                  pageSize: 10
-               };
-               return options;
-           }
-           
-           //案生姓名
-            var full = $("#fullName").ligerPopupEdit({
-               grid: getFullNameGridOptions(true),
-               valueField: 'fullName',
-               textField: 'fullName',
-               width: 200,
-               onSelected:fullNameSelected
-           });
-
-           function getFullNameGridOptions(checkbox) {
-               var options = {
-                   columns: [
-					{ display: '會員ID', name: 'custId', minWidth: 120, width: 100 },
-                   { display: '案主姓名', name: 'fullName', minWidth: 120, width: 100 }
-                   ], switchPageSizeApplyComboBox: false,
-                   //pageSize: 10
-                  /*  checkbox: checkbox, */
-                  url:"Customer/list.do"
-                 // usePager:false
-                  
-               };
-               return options;
-           }
-           
-           function fullNameSelected(data){
-        	   console.log(data.data[0])
-        	   var custID = data.data[0].custId;
-        	   $.ajax({
-        		   type:"post",
-        		   url:"CustCase/custData.do",
-        		   data:"custID="+custID,
-        		   success:function(msg){
-        			  // var m = JSON.parse(msg);
-        			  if(msg != ""){
-        				  console.log(msg)
-	           			   var m = msg.replace(/^\[/g,"");
-	           					m = m.replace(/\]$/g,"");
-	           					m = JSON.parse(m)
-	           			   console.log(m)
-	           			   $("#custID").val(m.custID);
-	           			   $("#mobileTelNO").val(m.mobileTelNO);
-	           			   $("#father").val(m.mother);
-	           			   $("#mother").val(m.mother);
-	           			   $("#custNO").val(m.custNO);
-	           			   $("#custNewNO").val(m.custNewNO); 
-           			   		$("#linkAdr").val(m.linkAdr);
-           			   		$("#cardNO").val(m.cardNO);
-           			   		$("#birthday_ChnStr").val(m.birthday_ChnStr);
-           			   		$("#receiveDate").val(m.receiveDate_str);
-           			   		$("#caseWorker").val(m.caseWorker);
-           			   		$("#economics").val(m.economics);
-           			   			edulevel.setValue(m.edulevel);
-	           			 		isMarry.setValue(m.isMarry);
-	           			 		$("#sex").find("input").each(function(){
-	           			 			if($(this).val() == m.sex){
-	           			 				var sex = $(this).ligerRadio();
-	           			 					sex.setValue(true);
-	           			 			}else{
-	           			 				var sex = $(this).ligerRadio();
-	           			 					sex.setValue(false);
-	           			 			}
-	           			 		})
-           			   		 
-        			  }
-        			   
-        		   }
-        		   
-        	   }) 
-           }
            ligerForm("form1");
 		
 		bindingWorkerWaysGrid();
@@ -207,10 +87,6 @@ String basePath = request.getScheme() + "://"
 			}
 		}}); 
  		
-		 if("${param.back}" == 'true'){
-			 var tab = liger.get("tab");
-			tab.selectTabItem("bCustCaseRecordGrid"); 
-		} 
 		 
  		//
  		var initAssess ="${custCasePojo.initAssess}";
@@ -337,8 +213,10 @@ String basePath = request.getScheme() + "://"
 		var row = getSelectedRow(bCustCaseRecordGrid);
 		
 		if(row!=null){
+			console.log(row)
 			if(row.caseID==null||""==row.caseID){
 				//如果当前行是新增并没有保存的行
+				alert("0")
 				editBCustCaseRecordDlg = openDialog("jsp/custCase/bCustCaseRecord_detail.jsp?jsonData="+JSON.stringify(row),"编辑個案撮要記錄资料","editBCustCaseRecordByDlg");	
 			}else{
 				editBCustCaseRecordDlg = openDialog("CustCase/editBCustCaseRecord.do?caseID="+row.caseID,"编辑個案撮要記錄资料","editBCustCaseRecordByDlg");
@@ -352,6 +230,7 @@ String basePath = request.getScheme() + "://"
 		}
 	}
    	function deleteBCustCaseRecord(){
+   		bCustCaseRecordGrid.deleteSelectedRow();
    	} 
 	
 	
@@ -363,6 +242,7 @@ String basePath = request.getScheme() + "://"
 	  <form name="form1" method="post" action="CustCase/submit.do" id="form1">
 	  <input type="hidden" name="custID" id="custID" value="${custCasePojo.custID }" >
 	  <input type="hidden" name="caseID" id="caseID" value="${custCasePojo.caseID }" >
+	  <input type="hidden" name="summaryID" id="summaryID" value="${custCasePojo.summaryID }" >
 	 <input type="hidden" name="bCustCaseRecordAdds" id="bCustCaseRecordAdds">
 	  <input type="hidden" name="bCustCaseRecordUpdates" id="bCustCaseRecordUpdates">
 	  <input type="hidden" name="bCustCaseRecordDeletes" id="bCustCaseRecordDeletes">

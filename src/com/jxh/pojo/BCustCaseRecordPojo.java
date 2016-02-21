@@ -35,9 +35,9 @@ public class BCustCaseRecordPojo implements Serializable {
 	private String recordID;
 	private String custID;
 	private String fullName;
-	private Date billDate;
-	private String billDate_str;
-	private String billTime;
+	private Date talksDate;
+	private String talksDate_str;
+	private String talksTime;
 	private String form;
 	private String place;
 	private String family;
@@ -52,18 +52,19 @@ public class BCustCaseRecordPojo implements Serializable {
 	private Date handlDate;
 	private String handlDate_str;
 	private String handlSuggest;
+	private String caseID;
 
 	public BCustCaseRecordPojo(){
 		super();
 	}
-	public BCustCaseRecordPojo(String recordID, String custID, String fullName, Date billDate, String billDate_str, String billTime, String form, String place, String family, String otherMan, int times, String recordAdmin, String title, String content, String analysis, String ways, String handler, Date handlDate, String handlDate_str, String handlSuggest ){
+	public BCustCaseRecordPojo(String recordID, String custID, String fullName, Date talksDate, String talksDate_str, String talksTime, String form, String place, String family, String otherMan, int times, String recordAdmin, String title, String content, String analysis, String ways, String handler, Date handlDate, String handlDate_str, String handlSuggest,String caseID ){
 		super();
 		this.recordID=recordID;
 		this.custID=custID;
 		this.fullName=fullName;
-		this.billDate=billDate;
-		this.billDate_str = billDate_str;
-		this.billTime=billTime;
+		this.talksDate=talksDate;
+		this.talksDate_str = talksDate_str;
+		this.talksTime=talksTime;
 		this.form=form;
 		this.place=place;
 		this.family=family;
@@ -78,6 +79,7 @@ public class BCustCaseRecordPojo implements Serializable {
 		this.handlDate=handlDate;
 		this.handlDate_str = handlDate_str;
 		this.handlSuggest=handlSuggest;
+		this.caseID=caseID;
 	}
 	public void setRecordID(String recordID){
 		this.recordID=recordID;
@@ -97,17 +99,17 @@ public class BCustCaseRecordPojo implements Serializable {
 	public String getFullName(){
 		return fullName;
 	}
-	public void setBillDate(Date billDate){
-		this.billDate=billDate;
+	public void setTalksDate(Date talksDate){
+		this.talksDate=talksDate;
 	}
-	public Date getBillDate(){
-		return billDate;
+	public Date getTalksDate(){
+		return talksDate;
 	}
-	public void setBillTime(String billTime){
-		this.billTime=billTime;
+	public void setTalksTime(String talksTime){
+		this.talksTime=talksTime;
 	}
-	public String getBillTime(){
-		return billTime;
+	public String getTalksTime(){
+		return talksTime;
 	}
 	public void setForm(String form){
 		this.form=form;
@@ -190,17 +192,17 @@ public class BCustCaseRecordPojo implements Serializable {
 	
 	
 	
-	public String getBillDate_str() {
+	public String getTalksDate_str() {
 		try {
-			return billDate == null || "".equals(billDate) ? ""
-					: ToolsUtils.getDateStringByFormat(billDate, null, "yyyy-MM-dd");
+			return talksDate == null || "".equals(talksDate) ? ""
+					: ToolsUtils.getDateStringByFormat(talksDate, null, "yyyy-MM-dd");
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	public void setBillDate_str(String billDate_str) {
-		this.billDate_str = billDate_str;
+	public void setTalksDate_str(String talksDate_str) {
+		this.talksDate_str = talksDate_str;
 	}
 	
 	
@@ -217,8 +219,17 @@ public class BCustCaseRecordPojo implements Serializable {
 	public void setHandlDate_str(String handlDate_str) {
 		this.handlDate_str = handlDate_str;
 	}
+	
+	
+	
+	public String getCaseID() {
+		return caseID;
+	}
+	public void setCaseID(String caseID) {
+		this.caseID = caseID;
+	}
 	@Override
 	public String toString(){
-		return "BCustCaseRecord [recordID="+recordID+",custID="+custID+",fullName="+fullName+",billDate="+billDate+",billDate_str=" + billDate_str+",billTime="+billTime+",form="+form+",place="+place+",family="+family+",otherMan="+otherMan+",times="+times+",recordAdmin="+recordAdmin+",title="+title+",content="+content+",analysis="+analysis+",ways="+ways+",handler="+handler+",handlDate="+handlDate+ ",handlDate_str="+ handlDate_str +",handlSuggest="+handlSuggest+"]";
+		return "BCustCaseRecord [recordID="+recordID+",custID="+custID+",fullName="+fullName+",talksDate="+talksDate+",talksDate_str=" + talksDate_str+",talksTime="+talksTime+",form="+form+",place="+place+",family="+family+",otherMan="+otherMan+",times="+times+",recordAdmin="+recordAdmin+",title="+title+",content="+content+",analysis="+analysis+",ways="+ways+",handler="+handler+",handlDate="+handlDate+ ",handlDate_str="+ handlDate_str +",handlSuggest="+handlSuggest+",caseID="+caseID+"]";
 	}
 }

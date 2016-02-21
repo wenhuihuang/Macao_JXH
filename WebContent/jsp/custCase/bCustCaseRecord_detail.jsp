@@ -40,9 +40,9 @@ String basePath = request.getScheme() + "://"
      		
      		<%-- var jsonData = <%=request.getParameter("jsonData") %> --%>
      		var fullName = <%="\""+request.getParameter("fullName")+"\""%>;
-     		if(fullName != "" && fullName != null && fullName != "undefined"){
+     		if(fullName != "" && fullName != 'null' && fullName != "undefined"){
      			$("#fullName").val(fullName);
-     		}
+     		} 
      		
         });
      	
@@ -65,6 +65,7 @@ String basePath = request.getScheme() + "://"
      		dialog.recordData = formRecord.getData();
      		var time = $("#talksTime").val()+":00";
      		dialog.recordData.talksTime=time
+     		dialog.recordData.caseID=$("#caseID").val()
      		console.log(dialog.recordData.talksTime )
      		dialog.close(); 
      	}
@@ -79,7 +80,7 @@ String basePath = request.getScheme() + "://"
  	<div>
  		<div id="toptoolbar"></div>
 		<form action="" name="form2" id="form2">
-			<input type="hidden" name="caseID">
+			<input type="hidden" name="caseID" id="caseID" value="${bCustCaseRecordPojo.caseID }">
              		<table cellpadding="0" cellspacing="0" class="l-table-edit" >
              			<tbody>
              				<tr>
@@ -144,7 +145,7 @@ String basePath = request.getScheme() + "://"
              				<tr>
              					 <td align="right" class="l-table-edit-td">主管意見及建議:</td>
              					 <td align="left" class="l-table-edit-td" colspan="3">
-             					 	<textarea rows="2" cols="55" class="ui-textarea" name="handlSuggest">${custCasePojo.handlSuggest }</textarea>
+             					 	<textarea rows="2" cols="55" class="ui-textarea" name="handlSuggest">${bCustCaseRecordPojo.handlSuggest }</textarea>
              					 </td>
              				</tr>
              			</tbody>

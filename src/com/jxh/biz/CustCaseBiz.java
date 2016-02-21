@@ -39,11 +39,11 @@ public class CustCaseBiz {
 				throw new Exception("新增個案撮要失败！");
 			}
 			
-			if(updateBCustCaseRecord(custCase, bCustCaseRecordAdds)<0){
+			if(updateBCustCaseRecord(custCase, bCustCaseRecordUpdates)<0){
 				throw new Exception("新增個案撮要失败！");
 			}
 			
-			if(deleteBCustCaseRecord(custCase, bCustCaseRecordAdds)<0){
+			if(deleteBCustCaseRecord(custCase, bCustCaseRecordDeletes)<0){
 				throw new Exception("新增個案撮要失败！");
 			}
 			
@@ -351,6 +351,8 @@ public class CustCaseBiz {
 			add.setCaseID(bCustCaseSummary.getCaseID());
 			add.setSummaryID(bCustCaseSummary.getSummaryID());
 		}
+		System.out.println("进入handle");
+		System.out.println(bCustCaseSummary.getCaseID()+"=="+bCustCaseSummary.getSummaryID());
 		int[] rows = bCustCaseSummaryHandleDao.insertBCustCaseSummaryHandle(bCustCaseSummaryHandleAdds);
 		for (int i : rows) {
 			if (i < 1) {

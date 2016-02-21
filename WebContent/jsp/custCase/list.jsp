@@ -50,7 +50,7 @@ String basePath = request.getScheme() + "://"
         
         $(function ()
         {
-        	 
+        	setTabTitle(parent.$("#framecenter"),"個案列表")
             var isMemberData = [{isMember:0,text:'非會員'},{isMember:1,text:'會員'}];
             var caseStatusDate = [{caseStatus:0,text:'跟進'},{caseStatus:1,text:'結案'},{caseStatus:2,text:'轉介'}];
             var cardStatusData = [{cardStatus:0,text:'退會'},{cardStatus:1,text:'正常'},{cardStatus:2,text:'欠費'}];

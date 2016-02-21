@@ -15,7 +15,7 @@ public class CustCaseRecordDao extends DaoImpl{
 	@Override
 	protected String getSqlPropertiesPath() {
 		// TODO Auto-generated method stub
-		return "/sqls/Macao_JXH/custcase.properties";
+		return "/sqls/Macao_JXH/bcustcaserecord.properties";
 	}
 	
 	/**

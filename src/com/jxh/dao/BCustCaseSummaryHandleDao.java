@@ -44,18 +44,6 @@ public class BCustCaseSummaryHandleDao extends DaoImpl {
 	}
 	
 	
-	/**
-	 * 新增特别津贴
-	 * @param cssas
-	 * @return
-	 * @throws NoSuchFieldException
-	 * @throws SecurityException
-	 * @throws IllegalArgumentException
-	 * @throws IllegalAccessException
-	 * @throws ParseException
-	 * @throws IOException
-	 * @throws SQLException
-	 */
 	public int[] insertBCustCaseSummaryHandle(List<BCustCaseSummaryHandle> bCustCaseSummaryHandleAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException{
 		clazz = BCustCaseSummaryHandle.class;
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());

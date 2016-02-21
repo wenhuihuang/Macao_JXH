@@ -428,4 +428,13 @@ td {width: auto;}
 		}
 		
 	}
+	/**设置tab标题
+	*tabWrapID tab外id
+	*title 标题
+	*/
+	function setTabTitle(tabWrapID,title){
+		var frameNavTab = tabWrapID.ligerGetTabManager();
+		var tabID = frameNavTab.getSelectedTabItemID();
+		    frameNavTab.setHeader(tabID, title);
+	}
 </script>
