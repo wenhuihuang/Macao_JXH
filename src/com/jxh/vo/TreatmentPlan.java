@@ -7,7 +7,7 @@ import java.math.*;
 
 
 /** TreatmentPlan
-	RECORDID	INT(10)
+	PLANID	INT(10)
 	TREATMENTID	INT(10)
 	BILLDATE	DATETIME(23,3)
 	TIME	VARCHAR(20)
@@ -19,16 +19,16 @@ import java.math.*;
 	ACTIVITY	VARCHAR(128)
 	PERFORMANCE	VARCHAR(128)
 
-recordID,treatmentID,billDate,time,content,target,charge,payment,note,activity,performance
+planID,treatmentID,billDate,time,content,target,charge,payment,note,activity,performance
 ?,?,?,?,?,?,?,?,?,?,?
 
-treatmentPlan.recordID,treatmentPlan.treatmentID,treatmentPlan.billDate,treatmentPlan.time,treatmentPlan.content,treatmentPlan.target,treatmentPlan.charge,treatmentPlan.payment,treatmentPlan.note,treatmentPlan.activity,treatmentPlan.performance
+treatmentPlan.planID,treatmentPlan.treatmentID,treatmentPlan.billDate,treatmentPlan.time,treatmentPlan.content,treatmentPlan.target,treatmentPlan.charge,treatmentPlan.payment,treatmentPlan.note,treatmentPlan.activity,treatmentPlan.performance
 
-recordID=?,treatmentID=?,billDate=?,time=?,content=?,target=?,charge=?,payment=?,note=?,activity=?,performance=?
+planID=?,treatmentID=?,billDate=?,time=?,content=?,target=?,charge=?,payment=?,note=?,activity=?,performance=?
 */
 public class TreatmentPlan implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int recordID;
+	private int planID;
 	private int treatmentID;
 	private Date billDate;
 	private String time;
@@ -43,9 +43,9 @@ public class TreatmentPlan implements Serializable {
 	public TreatmentPlan(){
 		super();
 	}
-	public TreatmentPlan(int recordID, int treatmentID, Date billDate, String time, String content, String target, BigDecimal charge, BigDecimal payment, String note, String activity, String performance ){
+	public TreatmentPlan(int planID, int treatmentID, Date billDate, String time, String content, String target, BigDecimal charge, BigDecimal payment, String note, String activity, String performance ){
 		super();
-		this.recordID=recordID;
+		this.planID=planID;
 		this.treatmentID=treatmentID;
 		this.billDate=billDate;
 		this.time=time;
@@ -57,11 +57,11 @@ public class TreatmentPlan implements Serializable {
 		this.activity=activity;
 		this.performance=performance;
 	}
-	public void setRecordID(int recordID){
-		this.recordID=recordID;
+	public void setPlanID(int planID){
+		this.planID=planID;
 	}
-	public int getRecordID(){
-		return recordID;
+	public int getPlanID(){
+		return planID;
 	}
 	public void setTreatmentID(int treatmentID){
 		this.treatmentID=treatmentID;
@@ -125,7 +125,7 @@ public class TreatmentPlan implements Serializable {
 	}
 	@Override
 	public String toString(){
-		return "TreatmentPlan [recordID="+recordID+",treatmentID="+treatmentID+",billDate="+billDate+",time="+time+",content="+content+",target="+target+",charge="+charge+",payment="+payment+",note="+note+",activity="+activity+",performance="+performance+"]";
+		return "TreatmentPlan [planID="+planID+",treatmentID="+treatmentID+",billDate="+billDate+",time="+time+",content="+content+",target="+target+",charge="+charge+",payment="+payment+",note="+note+",activity="+activity+",performance="+performance+"]";
 	}
 }
 

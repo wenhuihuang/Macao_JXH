@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <script>
 $(function(){
+	var edulevel = $("#edulevel").ligerComboBox({disabled :true});
+   	var isMarry = $("#isMarry").ligerComboBox({disabled :true});
 	//會員編號
 	$("#custNO").ligerPopupEdit({
 	  /*   condition: {

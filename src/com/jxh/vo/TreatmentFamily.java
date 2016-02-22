@@ -12,13 +12,14 @@ import java.io.Serializable;
 	EDULEVEL	INT(10)
 	WORK	VARCHAR(20)
 	NOTE	VARCHAR(128)
+	LANGUAGE VARCHAR(32)
 
-familyID,treatmentID,userName,relationShip,age,eduLevel,work,note
-?,?,?,?,?,?,?,?
+familyID,treatmentID,userName,relationShip,age,eduLevel,work,note,language
+?,?,?,?,?,?,?,?,?
 
-treatmentFamily.familyID,treatmentFamily.treatmentID,treatmentFamily.userName,treatmentFamily.relationShip,treatmentFamily.age,treatmentFamily.eduLevel,treatmentFamily.work,treatmentFamily.note
+treatmentFamily.familyID,treatmentFamily.treatmentID,treatmentFamily.userName,treatmentFamily.relationShip,treatmentFamily.age,treatmentFamily.eduLevel,treatmentFamily.work,treatmentFamily.note,treatmentFamily.language
 
-familyID=?,treatmentID=?,userName=?,relationShip=?,age=?,eduLevel=?,work=?,note=?
+familyID=?,treatmentID=?,userName=?,relationShip=?,age=?,eduLevel=?,work=?,note=?,language=?
 */
 public class TreatmentFamily implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -30,11 +31,12 @@ public class TreatmentFamily implements Serializable {
 	private int eduLevel;
 	private String work;
 	private String note;
+	private String language;
 
 	public TreatmentFamily(){
 		super();
 	}
-	public TreatmentFamily(int familyID, int treatmentID, String userName, String relationShip, int age, int eduLevel, String work, String note ){
+	public TreatmentFamily(int familyID, int treatmentID, String userName, String relationShip, int age, int eduLevel, String work, String note ,String language ){
 		super();
 		this.familyID=familyID;
 		this.treatmentID=treatmentID;
@@ -44,6 +46,7 @@ public class TreatmentFamily implements Serializable {
 		this.eduLevel=eduLevel;
 		this.work=work;
 		this.note=note;
+		this.language=language;
 	}
 	public void setFamilyID(int familyID){
 		this.familyID=familyID;
@@ -93,9 +96,18 @@ public class TreatmentFamily implements Serializable {
 	public String getNote(){
 		return note;
 	}
+	
+	
+	
+	public String getLanguage() {
+		return language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
+	}
 	@Override
 	public String toString(){
-		return "TreatmentFamily [familyID="+familyID+",treatmentID="+treatmentID+",userName="+userName+",relationShip="+relationShip+",age="+age+",eduLevel="+eduLevel+",work="+work+",note="+note+"]";
+		return "TreatmentFamily [familyID="+familyID+",treatmentID="+treatmentID+",userName="+userName+",relationShip="+relationShip+",age="+age+",eduLevel="+eduLevel+",work="+work+",note="+note+",language="+language+"]";
 	}
 }
 

@@ -1,6 +1,7 @@
 package com.jxh.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -17,11 +18,24 @@ import com.fg.ligerui.LigerUITools;
 import com.fg.servlet.FGServlet;
 import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
+import com.jxh.dao.BCustomerSchoolDao;
 import com.jxh.dao.TreatmentDao;
+import com.jxh.dao.TreatmentFamilyDao;
+import com.jxh.dao.TreatmentHistoryDao;
+import com.jxh.dao.TreatmentPlanDao;
+import com.jxh.dao.TreatmentRecordDao;
 import com.jxh.pojo.CustCasePojo;
 import com.jxh.pojo.LanguageTreatmentPojo;
 import com.jxh.vo.BCustomer;
+import com.jxh.vo.BCustomerSchool;
+import com.jxh.vo.CSSA;
 import com.jxh.vo.Treatment;
+import com.jxh.vo.TreatmentFamily;
+import com.jxh.vo.TreatmentHistory;
+import com.jxh.vo.TreatmentPlan;
+import com.jxh.vo.TreatmentRecord;
+
+import net.sf.json.JSONArray;
 
 /**
  * Servlet implementation class LanguageTreatmentSerlvet
@@ -30,6 +44,11 @@ import com.jxh.vo.Treatment;
 public class LanguageTreatmentSerlvet extends FGServlet {
 	private static final long serialVersionUID = 1L;
 	private TreatmentDao treatmentDao = new TreatmentDao();
+	private BCustomerSchoolDao bCustomerSchoolDao = new BCustomerSchoolDao();
+	private TreatmentHistoryDao treatmentHistoryDao = new TreatmentHistoryDao();
+	private TreatmentPlanDao treatmentPlanDao = new TreatmentPlanDao();
+	private TreatmentRecordDao treatmentRecordDao = new TreatmentRecordDao();
+	private TreatmentFamilyDao treatmentFamilyDao = new TreatmentFamilyDao();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -89,6 +108,51 @@ public class LanguageTreatmentSerlvet extends FGServlet {
 			e.printStackTrace();
 		}
 
+	}
+
+	private void getBCustomerSchool(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+		String custId = this.getParameterByName(request, "custID");
+		PageUtils<BCustomerSchool> page = this.getPage(request);
+		String condition = " and custID = ? ";
+		bCustomerSchoolDao.getBCustomerSchoolByCondition(page, condition, custId);
+		
+		LigerUITools.writeGridJson(page, response);
+	}
+	
+	private void getTreatmentHistory(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+		String custId = this.getParameterByName(request, "custID");
+		PageUtils<TreatmentHistory> page = this.getPage(request);
+		String condition = " and custID = ? ";
+		treatmentHistoryDao.getTreatmentHistoryByCondition(page, condition, custId);
+		
+		LigerUITools.writeGridJson(page, response);
+	}
+	
+	private void getTreatmentPlan(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+		String treatmentID = this.getParameterByName(request, "treatmentID");
+		PageUtils<TreatmentPlan> page = this.getPage(request);
+		String condition = " and treatmentID = ? ";
+		treatmentPlanDao.getTreatmentPlanByCondition(page, condition, treatmentID);
+		
+		LigerUITools.writeGridJson(page, response);
+	}
+	
+	private void getTreatmentRecord(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+		String treatmentID = this.getParameterByName(request, "treatmentID");
+		PageUtils<TreatmentRecord> page = this.getPage(request);
+		String condition = " and treatmentID = ? ";
+		treatmentRecordDao.getTreatmentRecordByCondition(page, condition, treatmentID);
+		
+		LigerUITools.writeGridJson(page, response);
+	}
+	
+	private void getTreatmentFamily(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+		String treatmentID = this.getParameterByName(request, "treatmentID");
+		PageUtils<TreatmentFamily> page = this.getPage(request);
+		String condition = " and treatmentID = ? ";
+		treatmentFamilyDao.getTreatmentFamilyByCondition(page, condition, treatmentID);
+		
+		LigerUITools.writeGridJson(page, response);
 	}
 
 }

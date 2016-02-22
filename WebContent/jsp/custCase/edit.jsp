@@ -75,8 +75,7 @@ String basePath = request.getScheme() + "://"
 		
 		bindingWorkerWaysGrid();
 		bindingBCustCaseRecordGrid();
-  		var edulevel = $("#edulevel").ligerComboBox({disabled :true});
-	   	var isMarry = $("#isMarry").ligerComboBox({disabled :true});
+  	
 		
 		
  		 $("#tab").ligerTab({onAfterSelectTabItem:function(targettabid){
