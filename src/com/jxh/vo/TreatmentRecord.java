@@ -29,7 +29,7 @@ recordID=?,treatmentID=?,billDate=?,time=?,content=?,target=?,charge=?,payment=?
 public class TreatmentRecord implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int recordID;
-	private int treatmentID;
+	private String treatmentID;
 	private Date billDate;
 	private String time;
 	private String content;
@@ -43,7 +43,7 @@ public class TreatmentRecord implements Serializable {
 	public TreatmentRecord(){
 		super();
 	}
-	public TreatmentRecord(int recordID, int treatmentID, Date billDate, String time, String content, String target, BigDecimal charge, BigDecimal payment, String note, String activity, String performance ){
+	public TreatmentRecord(int recordID, String treatmentID, Date billDate, String time, String content, String target, BigDecimal charge, BigDecimal payment, String note, String activity, String performance ){
 		super();
 		this.recordID=recordID;
 		this.treatmentID=treatmentID;
@@ -63,10 +63,10 @@ public class TreatmentRecord implements Serializable {
 	public int getRecordID(){
 		return recordID;
 	}
-	public void setTreatmentID(int treatmentID){
+	public void setTreatmentID(String treatmentID){
 		this.treatmentID=treatmentID;
 	}
-	public int getTreatmentID(){
+	public String getTreatmentID(){
 		return treatmentID;
 	}
 	public void setBillDate(Date billDate){

@@ -44,13 +44,13 @@ public class BCustomerSchoolDao extends DaoImpl<BCustomerSchool>{
 	
 	
 	
-	public int[] insertCSSA(List<BCustomerSchool> bCustomerSchool) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException{
+	public int[] insertBCustomerSchool(List<BCustomerSchool> bCustomerSchool) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		return insertBatchByList(sql, bCustomerSchool);
 	}
 	
 	
-	public int updateCSSA(List<BCustomerSchool> bCustomerSchool) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException{
+	public int updateBCustomerSchool(List<BCustomerSchool> bCustomerSchool) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		
 		int[] rows = updateBatchByList(sql, bCustomerSchool);
@@ -60,7 +60,7 @@ public class BCustomerSchoolDao extends DaoImpl<BCustomerSchool>{
 	
 	
 	
-	public int deleteCSSA(List<BCustomerSchool> bCustomerSchool) throws IOException, SQLException{
+	public int deleteBCustomerSchool(List<BCustomerSchool> bCustomerSchool) throws IOException, SQLException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		Object[][] params = new Object[bCustomerSchool.size()][1];
 		for (int i = 0;i<bCustomerSchool.size();i++) {

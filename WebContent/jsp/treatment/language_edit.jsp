@@ -50,7 +50,7 @@ String basePath = request.getScheme() + "://"
 		
 		var url = "LanguageTreatment/getTreatmentFamily.do?treatmentID="+$("#treatmenuID").val();
 		
-		familyDataGrid = ligerGrid("familyDataGrid",null,familyDataGridColumn,url,familyDataGridToolBar,false);
+		familyDataGrid = ligerGrid("familyDataGrid",null,familyDataGridColumn,url,familyDataGridToolBar,false,true);
 		
 	}
 	function addFamilyData(){
@@ -79,7 +79,7 @@ String basePath = request.getScheme() + "://"
 		
 		var url = "LanguageTreatment/getBCustomerSchool.do?custID="+$("#custID").val();
 		
-		schoolDataGrid = ligerGrid("schoolDataGrid",null,schoolDataGridColumn,url,schoolDataGridToolBar,false);
+		schoolDataGrid = ligerGrid("schoolDataGrid",null,schoolDataGridColumn,url,schoolDataGridToolBar,false,true);
 		
 	}
 	function addSchoolData(){
@@ -110,7 +110,7 @@ String basePath = request.getScheme() + "://"
 		
 		var url = "LanguageTreatment/getTreatmentHistory.do?custID="+$("#custID").val();
 		
-		cureDataGrid = ligerGrid("cureDataGrid",null,cureDataGridColumn,url,cureDataGridToolBar,false);
+		cureDataGrid = ligerGrid("cureDataGrid",null,cureDataGridColumn,url,cureDataGridToolBar,false,true);
 		
 	}
 	function addCureData(){
@@ -142,7 +142,7 @@ String basePath = request.getScheme() + "://"
 		
 		var url = "LanguageTreatment/getTreatmentPlan.do?treatmentID="+$("#treatmentID").val();
 		
-		planDataGrid = ligerGrid("planDataGrid",null,planDataGridColumn,url,planDataGridToolBar,false);
+		planDataGrid = ligerGrid("planDataGrid",null,planDataGridColumn,url,planDataGridToolBar,false,true);
 		
 	}
 	function addPlanData(){
@@ -174,7 +174,7 @@ String basePath = request.getScheme() + "://"
 		
 		var url = "LanguageTreatment/getTreatmentRecord.do?treatmentID="+$("#treatmentID").val();
 		
-		recordDataGrid = ligerGrid("recordDataGrid",null,recordDataGridColumn,url,recordDataGridToolBar,false);
+		recordDataGrid = ligerGrid("recordDataGrid",null,recordDataGridColumn,url,recordDataGridToolBar,false,true);
 		
 	}
 	function addRecordData(){
@@ -183,13 +183,32 @@ String basePath = request.getScheme() + "://"
 	function deleteRecordData(){
 		recordDataGrid.deleteSelectedRow();
 	}
+	
+	function itemclick(item){
+		switch (item.id){
+			case "save":
+				save();
+			break;
+			case "back":
+				back();
+			break;
+		}
+		
+	}
+	
+	function save(){
+		$("#Button1").click();	
+	}
+	function back(){
+		location.href=""
+	}
     
 	$(function(){
 		
 		$(".toptoolbar").ligerToolBar({ items: [
-            { text: '保存', click: ligerUiFn.itemClick, icon: 'save' , id:"save" },
+            { text: '保存', click: itemclick, icon: 'save' , id:"save" },
             { line: true },
-            { text: '取消', click: ligerUiFn.itemClick, icon: 'back' , id:"back" }
+            { text: '取消', click: itemclick, icon: 'back' , id:"back" }
           ]
           });
 		
@@ -203,12 +222,15 @@ String basePath = request.getScheme() + "://"
 		bindingRecordDataGrid();
 		
 	 $("#tab").ligerTab({onAfterSelectTabItem:function(targettabid){
+		 console.log(recordDataGrid.get("isTabCover"));
 			switch(targettabid){
-				case "serviceData":showGridInTab(familyDataGrid);break;
-				case "schoolDataGrid": showGridInTab(schoolDataGrid);break;
-				case "cureDataGrid":showGridInTab(cureDataGrid);break;
-				case "planDataGrid": showGridInTab(planDataGrid);break;
-				case "recordDataGrid": showGridInTab(recordDataGrid);break;
+				case "serviceData":
+						showGridInTab(familyDataGrid);
+						showGridInTab(schoolDataGrid);
+						showGridInTab(cureDataGrid);
+					break;
+				case "plan":showGridInTab(planDataGrid);break;
+				case "record":showGridInTab(recordDataGrid);break;
 				default:break;
 			}
 		}}); 
@@ -263,7 +285,7 @@ String basePath = request.getScheme() + "://"
 		</tbody>
 	</table>
 	<div id="tab">
-		  	<div title="登記服務資料" id="serviceData"><!-- 登記服務資料 -->
+		  	<div title="登記服務資料" tabid="serviceData"><!-- 登記服務資料 -->
 		  		
 		  		<table cellpadding="0" cellspacing="0" class="l-table-edit" >
 			        <tbody>
@@ -466,7 +488,7 @@ String basePath = request.getScheme() + "://"
 			       
 		  	</div>
 		  	
-		  	<div id="presentation" title="語言治療評估簡報"><!-- 語言治療評估簡報 -->
+		  	<div tabid="presentation" title="語言治療評估簡報"><!-- 語言治療評估簡報 -->
                		<table cellpadding="0" cellspacing="0" class="l-table-edit" >
                			<tbody>
                				<tr>
@@ -747,21 +769,21 @@ String basePath = request.getScheme() + "://"
 						</div>
 		  	</div>
 		  	
-		  	<div id="plan" title="言語治療計畫"><!-- 言語治療計畫 -->
+		  	<div tabid="plan" title="言語治療計畫"><!-- 言語治療計畫 -->
 		  			<div id="plan_tab" style="height:auto;overflow:auto;">
 			            <div id="planDataGrid"></div>
 		            </div>
 		  	   
 		  	</div>
 		  	
-		  	<div id="record" title="言語治療課堂記錄"><!-- 言語治療課堂記錄 -->
+		  	<div tabid="record" title="言語治療課堂記錄"><!-- 言語治療課堂記錄 -->
 		  			<div id="record_tab" style="height:auto;overflow:auto;">
 			            <div id="recordDataGrid"></div>
 		            </div>
 		  	   	
 		  	</div>
 		  	
-		  	<div id="report" title="中止/結案報告"><!-- 中止/結案報告 -->
+		  	<div tabid="report" title="中止/結案報告"><!-- 中止/結案報告 -->
                		 <table>
           			<tbody>
           				<tr>

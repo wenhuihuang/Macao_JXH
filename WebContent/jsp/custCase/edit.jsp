@@ -79,6 +79,7 @@ String basePath = request.getScheme() + "://"
 		
 		
  		 $("#tab").ligerTab({onAfterSelectTabItem:function(targettabid){
+ 			 console.log(WorkerWaysGrid)
 			switch(targettabid){
 				case "bCustCaseSummaryGrid":showGridInTab(WorkerWaysGrid);break;
 				case "bCustCaseRecordGrid": showGridInTab(bCustCaseRecordGrid);break;

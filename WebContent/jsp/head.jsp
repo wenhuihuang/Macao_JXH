@@ -421,7 +421,6 @@ td {width: auto;}
 				
 				grid.deleteSelectedRow();
 			}
-			
 		
 			grid.deleteSelectedRow();
 			grid.set("isTabCover",false);

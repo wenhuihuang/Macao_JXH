@@ -29,7 +29,7 @@ planID=?,treatmentID=?,billDate=?,time=?,content=?,target=?,charge=?,payment=?,n
 public class TreatmentPlan implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int planID;
-	private int treatmentID;
+	private String treatmentID;
 	private Date billDate;
 	private String time;
 	private String content;
@@ -43,7 +43,7 @@ public class TreatmentPlan implements Serializable {
 	public TreatmentPlan(){
 		super();
 	}
-	public TreatmentPlan(int planID, int treatmentID, Date billDate, String time, String content, String target, BigDecimal charge, BigDecimal payment, String note, String activity, String performance ){
+	public TreatmentPlan(int planID, String treatmentID, Date billDate, String time, String content, String target, BigDecimal charge, BigDecimal payment, String note, String activity, String performance ){
 		super();
 		this.planID=planID;
 		this.treatmentID=treatmentID;
@@ -63,10 +63,10 @@ public class TreatmentPlan implements Serializable {
 	public int getPlanID(){
 		return planID;
 	}
-	public void setTreatmentID(int treatmentID){
+	public void setTreatmentID(String treatmentID){
 		this.treatmentID=treatmentID;
 	}
-	public int getTreatmentID(){
+	public String getTreatmentID(){
 		return treatmentID;
 	}
 	public void setBillDate(Date billDate){

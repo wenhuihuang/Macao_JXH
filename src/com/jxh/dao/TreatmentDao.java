@@ -2,6 +2,7 @@ package com.jxh.dao;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 import com.fg.daoImpl.DaoImpl;
@@ -9,6 +10,8 @@ import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
 import com.jxh.pojo.CustCasePojo;
 import com.jxh.pojo.LanguageTreatmentPojo;
+import com.jxh.vo.BCustCase;
+import com.jxh.vo.Treatment;
 
 public class TreatmentDao extends DaoImpl {
 	
@@ -41,5 +44,21 @@ public class TreatmentDao extends DaoImpl {
 		return  (LanguageTreatmentPojo) this.findForObject(sql, params);
 	}
 
+	public int updateTreatment(Treatment treatment) throws IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException {
+		// TODO Auto-generated method stub
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		Object[] params = getUpdateParams(sql, treatment);
+		return this.update(sql, params);
+	}
+	
+	public String getPrimaryKey(String corpId) throws SQLException{
+		return this.getPrimaryKey("BCUSTOMER", corpId, 20);
+	}
+	
+	public int insertTreatment(Treatment treatment) throws SQLException, IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException{
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		Object[] params = getInsertParams(sql, treatment);
+		return this.update(sql, params);
+	}
 	
 }
