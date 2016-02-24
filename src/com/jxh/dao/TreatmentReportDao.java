@@ -8,13 +8,14 @@ import java.util.List;
 import com.fg.daoImpl.DaoImpl;
 import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
+import com.jxh.vo.Treatment;
 import com.jxh.vo.TreatmentReport;
 
 public class TreatmentReportDao extends DaoImpl {
 	
 	@Override
 	protected String getSqlPropertiesPath() {
-		return "/sqls/Macao_JXH/treatmentReport.properties";
+		return "/sqls/Macao_JXH/treatmentreport.properties";
 	}
 	
 	public PageUtils<TreatmentReport> getTreatmentReport(PageUtils<TreatmentReport> page,String condition,Object...params) throws IOException, SQLException{
@@ -46,6 +47,22 @@ public class TreatmentReportDao extends DaoImpl {
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		Object[] params = getUpdateParams(sql, treatment);
 		return this.update(sql, params);
+	}
+	
+	
+	public int deleteTreatmentReportByTreatmentID(String treatmentID) throws SQLException{
+		String sql = "delete from TreatmentReport where treatmentID = ? ";
+		return this.update(sql, treatmentID);
+	}
+	
+	public int insertTreatmentReport(TreatmentReport treatmentReport) throws SQLException, IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException{
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		Object[] params = getInsertParams(sql, treatmentReport);
+		return this.update(sql, params);
+	}
+	
+	public String getPrimaryKey(String corpId) throws SQLException{
+		return this.getPrimaryKey("BCUSTOMER", corpId, 20);
 	}
 
 	

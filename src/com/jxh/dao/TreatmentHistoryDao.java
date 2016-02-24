@@ -43,8 +43,6 @@ public class TreatmentHistoryDao extends DaoImpl<TreatmentHistory>{
 	}
 	
 	
-	
-	
 	public int[] insertTreatmentHistory(List<TreatmentHistory> treatmentHistory) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		return insertBatchByList(sql, treatmentHistory);

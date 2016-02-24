@@ -24,7 +24,7 @@ familyID=?,treatmentID=?,userName=?,relationShip=?,age=?,eduLevel=?,work=?,note=
 public class TreatmentFamily implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int familyID;
-	private int treatmentID;
+	private String treatmentID;
 	private String userName;
 	private String relationShip;
 	private int age;
@@ -36,7 +36,7 @@ public class TreatmentFamily implements Serializable {
 	public TreatmentFamily(){
 		super();
 	}
-	public TreatmentFamily(int familyID, int treatmentID, String userName, String relationShip, int age, int eduLevel, String work, String note ,String language ){
+	public TreatmentFamily(int familyID, String treatmentID, String userName, String relationShip, int age, int eduLevel, String work, String note ,String language ){
 		super();
 		this.familyID=familyID;
 		this.treatmentID=treatmentID;
@@ -54,10 +54,10 @@ public class TreatmentFamily implements Serializable {
 	public int getFamilyID(){
 		return familyID;
 	}
-	public void setTreatmentID(int treatmentID){
+	public void setTreatmentID(String treatmentID){
 		this.treatmentID=treatmentID;
 	}
-	public int getTreatmentID(){
+	public String getTreatmentID(){
 		return treatmentID;
 	}
 	public void setUserName(String userName){

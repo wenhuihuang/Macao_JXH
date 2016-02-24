@@ -52,13 +52,18 @@ public class TreatmentDao extends DaoImpl {
 	}
 	
 	public String getPrimaryKey(String corpId) throws SQLException{
-		return this.getPrimaryKey("BCUSTOMER", corpId, 20);
+		return this.getPrimaryKey("TREATMENT", corpId, 20);
 	}
 	
 	public int insertTreatment(Treatment treatment) throws SQLException, IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		Object[] params = getInsertParams(sql, treatment);
 		return this.update(sql, params);
+	}
+	
+	public int deleteTreatmentByTreatmentID(String treatmentID) throws SQLException{
+		String sql = "delete from Treatment where treatmentID = ? ";
+		return this.update(sql, treatmentID);
 	}
 	
 }

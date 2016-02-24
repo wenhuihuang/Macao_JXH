@@ -15,7 +15,7 @@ public class TreatmentAssessDao extends DaoImpl {
 	
 	@Override
 	protected String getSqlPropertiesPath() {
-		return "/sqls/Macao_JXH/treatmentAssess.properties";
+		return "/sqls/Macao_JXH/treatmentassess.properties";
 	}
 	
 	public int insertTreatmentAssess(TreatmentAssess treatmentAssess ) throws SQLException, IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException{

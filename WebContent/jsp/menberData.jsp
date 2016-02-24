@@ -107,17 +107,21 @@ $(function(){
 				   		$("#receiveDate").val(m.receiveDate_str);
 				   		$("#caseWorker").val(m.caseWorker);
 				   		$("#economics").val(m.economics);
-				   			edulevel.setValue(m.edulevel);
-	    			 		isMarry.setValue(m.isMarry);
-	    			 		$("#sex").find("input").each(function(){
-	    			 			if($(this).val() == m.sex){
-	    			 				var sex = $(this).ligerRadio();
-	    			 					sex.setValue(true);
-	    			 			}else{
-	    			 				var sex = $(this).ligerRadio();
-	    			 					sex.setValue(false);
-	    			 			}
-	    			 		})
+			   			if(edulevel != "" && edulevel != null && edulevel != 'undefined'){
+			   				edulevel.setValue(m.edulevel);
+			   			}
+				   		if(isMarry != "" && isMarry != null && isMarry!= 'nudefined'){
+				   			isMarry.setValue(m.isMarry);
+				   		}
+    			 		$("#sex").find("input").each(function(){
+    			 			if($(this).val() == m.sex){
+    			 				var sex = $(this).ligerRadio();
+    			 					sex.setValue(true);
+    			 			}else{
+    			 				var sex = $(this).ligerRadio();
+    			 					sex.setValue(false);
+    			 			}
+    			 		})
 				   		 
 				  }
 				   

@@ -35,8 +35,7 @@ public class TreatmentBiz {
 	private TreatmentReportDao treatmentReportDao = new TreatmentReportDao();
 	
 
-	public String updateTreatment(Treatment treatment, TreatmentAssess treatmentAssess, List<TreatmentPlan> treatmentPlanAdds, List<TreatmentPlan> treatmentPlanDeletes,List<TreatmentPlan> treatmentPlanUpdates, List<TreatmentRecord> treatmentRecordAdds, List<TreatmentRecord> treatmentRecordUpdates, List<TreatmentRecord> treatmentRecordDeletes, List<BCustomerSchool> bCustomerSchoolAdds, List<BCustomerSchool> bCustomerSchoolUpdates, List<BCustomerSchool> bCustomerSchoolDeletes
-			,List<TreatmentHistory> treatmentHistoryAdds,List<TreatmentHistory> treatmentHistoryUpdates,List<TreatmentHistory> treatmentHistoryDeletes,TreatmentReport treatmentReport) throws Exception {
+	public String updateTreatment(Treatment treatment,TreatmentAssess treatmentAssess,TreatmentReport treatmentReport,List<TreatmentPlan> treatmentPlanAdds,List<TreatmentPlan> treatmentPlanUpdates,List<TreatmentPlan> treatmentPlanDeletes,List<TreatmentRecord> treatmentRecordAdds,List<TreatmentRecord> treatmentRecordUpdates,List<TreatmentRecord> treatmentRecordDeletes,List<TreatmentHistory> treatmentHistoryAdds,List<TreatmentHistory> treatmentHistoryUpdates,List<TreatmentHistory> treatmentHistoryDeletes, List<BCustomerSchool> bCustomerSchoolAdds, List<BCustomerSchool> bCustomerSchoolUpdates, List<BCustomerSchool> bCustomerSchoolDeletes) throws Exception {
 
 		int row = treatmentDao.updateTreatment(treatment);
 		if (row > 0) {
@@ -98,6 +97,8 @@ public class TreatmentBiz {
 			if(updateTreatmentReport(treatment, treatmentReport)<0){
 				throw new Exception("新增個案撮要失败！");
 			}
+			
+			
 		}
 		return "操作成功！";
 	}
@@ -107,19 +108,19 @@ public class TreatmentBiz {
 		int row = treatmentDao.deleteTreatmentByTreatmentID(treatmentID);
 			if (row > 0) {
 				
-				if (deleteTreatmentAssessByCaseID(treatmentID) < 0) {
+				if (deleteTreatmentAssessByTreatmentID(treatmentID) < 0) {
 					throw new Exception("個案轉介評估刪除失敗！");
 				}
 				
-				if(deleteBCustCaseRecordByCaseID(treatmentID) < 0){
+				if(deleteTreatmentReportByTreatmentID(treatmentID) < 0){
 					throw new Exception("個案撮要記錄刪除失敗！");
 				}
 				
-				if(deleteBCustCaseSummaryHandleByCaseID(treatmentID) < 0){
+				if(deleteTreatmentPlanByTreatmentID(treatmentID) < 0){
 					throw new Exception("结案摘要工作人员处理方式刪除失敗！");
 				}
 				
-				if(deleteBCustCaseSummaryByCaseID(treatmentID) < 0){
+				if(deleteTreatmentRecordByTreatmentID(treatmentID) < 0){
 					throw new Exception("結案摘要刪除失敗！");
 				}
 				
@@ -130,72 +131,21 @@ public class TreatmentBiz {
 	}
 	
 
-	private int deleteBCustCaseSummaryHandleByCaseID(String caseID) throws SQLException {
-		return bCustCaseSummaryHandleDao.deleteBCustCaseSummaryHandleByCaseID(caseID);
+	private int deleteTreatmentReportByTreatmentID(String treatmentID) throws SQLException {
+		return treatmentReportDao.deleteTreatmentReportByTreatmentID(treatmentID);
 	}
 
-	private int deleteBCustCaseSummaryByCaseID(String caseID) throws SQLException {
-		return bCustCaseSummaryDao.deleteBCustCaseSummaryByCaseID(caseID);
+	private int deleteTreatmentPlanByTreatmentID(String treatmentID) throws SQLException {
+		return treatmentPlanDao.deleteTreatmentPlanByTreatmentID(treatmentID);
 	}
 
 	private int deleteTreatmentAssessByTreatmentID(String treatmentID) throws SQLException {
 		return treatmentAssessDao.deleteTreatmentAssessByTreatmentID(treatmentID);
 	}
-
-	/**
-	 * 刪除個案撮要記錄
-	 * @param custCase
-	 * @param bCustCaseRecordDeletes
-	 * @return
-	 * @throws IOException
-	 * @throws SQLException
-	 */
-	private int deleteBCustCaseRecord(BCustCase custCase, List<BCustCaseRecord> bCustCaseRecordDeletes) throws IOException, SQLException {
-		// TODO Auto-generated method stub
-		if (bCustCaseRecordDeletes == null || bCustCaseRecordDeletes.size() <= 0) {
-			return 1;
-		}
-		return bCustCaseRecordDao.deleteBCustCaseReord(bCustCaseRecordDeletes);
+	
+	private int deleteTreatmentRecordByTreatmentID(String treatmentID) throws SQLException {
+		return treatmentRecordDao.deleteTreatmentRecordByTreatmentID(treatmentID);
 	}
-
-
-
-	/**
-	 * 更新個案撮要記錄
-	 * @param cust
-	 * @param bCustCaseRecordUpdates
-	 * @return
-	 * @throws NoSuchFieldException
-	 * @throws SecurityException
-	 * @throws IllegalArgumentException
-	 * @throws IllegalAccessException
-	 * @throws SQLException
-	 * @throws ParseException
-	 * @throws IOException
-	 */
-	private int updateBCustCaseRecord(BCustCase custCase, List<BCustCaseRecord> bCustCaseRecordUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
-		// TODO Auto-generated method stub
-		if (bCustCaseRecordUpdates == null || bCustCaseRecordUpdates.size() <= 0) {
-			return 1;
-		}
-		return bCustCaseRecordDao.updateBCustCaseRecord(bCustCaseRecordUpdates);
-	}
-
-
-
-
-
-
-	private int deleteBCustCaseSummary(BCustCase custCase, List<BCustCaseSummary> bCustCaseSummaryDeletes) throws IOException, SQLException {
-		// TODO Auto-generated method stub
-		if (bCustCaseSummaryDeletes == null || bCustCaseSummaryDeletes.size() <= 0) {
-			return 1;
-		}
-		return bCustCaseSummaryDao.deleteBCustCaseSummary(bCustCaseSummaryDeletes);
-	}
-
-
-
 
 
 
@@ -210,52 +160,6 @@ public class TreatmentBiz {
 
 
 
-
-
-	public String insertTreatment(Treatment treatment, TreatmentAssess treatmentAssess, TreatmentReport treatmentReport, List<BCustCaseRecord> bCustCaseRecordAdds, List<TreatmentPlan> treatmentPlanAdds,List<TreatmentRecord> treatmentRecordAdds,List<BCustomerSchool> BCustomerSchoolAdds,List<TreatmentHistory> treatmentHistoryAdds) throws Exception {
-		String treatmentID = treatmentDao.getPrimaryKey(Constants.CORPID);
-		treatment.setTreatmentID(treatmentID);
-		int row = treatmentDao.insertTreatment(treatment);
-		if (row > 0) {
-			//新增個案撮要
-			if(addTreatmentAssess(treatment, treatmentAssess)<0){
-				throw new Exception("新增個案撮要失败！");
-			}
-			
-			//
-			if(addBCustCa(treatment, bCustCaseSummary,bCustCaseSummaryHandleAdds)<0){
-				throw new Exception("新增個案撮要失败！");
-			}
-			
-			//新增個案轉介評估
-			if (addBCustCaseAssess(custCase, bCustCaseAssess) < 0) {
-				throw new Exception("個案轉介評估保存失敗！");
-			}
-			
-			
-			
-			//新增個案撮要
-			if(addBCustCaseRecord(custCase, bCustCaseRecordAdds)<0){
-				throw new Exception("新增個案撮要失败！");
-			}
-			
-			
-			
-			
-		}
-		return "操作成功！";
-	}
-	
-	public String insertTreatmentAssess(Treatment treatment, TreatmentAssess treatmentAssess) throws Exception {
-		String treatmentID = treatmentDao.getPrimaryKey(Constants.CORPID);
-		treatment.setTreatmentID(treatmentID);
-		int row = treatmentAssessDao.insertTreatmentAssess(treatmentAssess);
-		if (row > 0) {
-			
-		}
-		return "操作成功！";
-	}
-
 	
 	
 	
@@ -267,26 +171,13 @@ public class TreatmentBiz {
 	 */
 	
 	
-	/**
-	 * 新增個案轉介評估
-	 * @param custCase
-	 * @param bCustCaseAssessAdds
-	 * @return
-	 * @throws NoSuchFieldException
-	 * @throws SecurityException
-	 * @throws IllegalArgumentException
-	 * @throws IllegalAccessException
-	 * @throws ParseException
-	 * @throws IOException
-	 * @throws SQLException
-	 */
-	private int addBCustCaseAssess(BCustCase custCase, BCustCaseAssess bCustCaseAssess) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
-		if (bCustCaseAssess == null || "".equals(bCustCaseAssess)) {
+	private int addTreatmentAssess(Treatment treatment, TreatmentAssess treatmentAssess) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
+		if (treatmentAssess == null || "".equals(treatmentAssess)) {
 			return 1;
 		}
-		bCustCaseAssess.setCaseID(custCase.getCaseID());
+		treatmentAssess.setTreatmentID(treatment.getTreatmentID());
 
-		bCustCaseAssessDao.insertBCustCaseAssess(bCustCaseAssess);
+		treatmentAssessDao.insertTreatmentAssess(treatmentAssess);
 		return 1;
 		
 	}
@@ -320,19 +211,16 @@ public class TreatmentBiz {
 
 
 
-	private int addBCustCaseSummary(BCustCase custCase, BCustCaseSummary bCustCaseSummary, List<BCustCaseSummaryHandle> bCustCaseSummaryHandleAdds) throws Exception {
-		String summaryID = bCustCaseSummaryDao.getPrimaryKey(Constants.CORPID);
-		if (bCustCaseSummary == null || "".equals(bCustCaseSummary)) {
+	private int addTreatmentReport(Treatment treatment, TreatmentReport treatmentReport) throws Exception {
+		String treatmentID = treatmentReportDao.getPrimaryKey(Constants.CORPID);
+		if (treatmentReport == null || "".equals(treatmentReport)) {
 			return 1;
 		}
 
-		bCustCaseSummary.setCaseID(custCase.getCaseID());
-		bCustCaseSummary.setSummaryID(summaryID);
-		int row = bCustCaseSummaryDao.insertBCustCaseSummary(bCustCaseSummary);
+		treatmentReport.setTreatmentID(treatment.getTreatmentID());
+		int row = treatmentReportDao.insertTreatmentReport(treatmentReport);
 		if(row > 0 ){
-			if(addBCustCaseSummaryHandle(bCustCaseSummary, bCustCaseSummaryHandleAdds)<0){
-				throw new Exception("新增結案記錄失败！");
-			}
+			
 		}
 		return 1;
 	}
@@ -377,13 +265,13 @@ public class TreatmentBiz {
 		}
 		
 		
-		int [] rows =treatmentRecordDao.updateTreatmentRecord(treatmentRecordUpdates);
+		int rows =treatmentRecordDao.updateTreatmentRecord(treatmentRecordUpdates);
 		
-		for (int i : rows) {
+	/*	for (int i : rows) {
 			if (i < 1) {
 				return i;
 			}
-		}
+		}*/
 		return 1;
 	}
 	
@@ -395,12 +283,12 @@ public class TreatmentBiz {
 		}
 
 		
-		int[] rows = treatmentRecordDao.deleteTreatmentRecord(treatmentRecordDeletes);
-		for (int i : rows) {
+		int rows = treatmentRecordDao.deleteTreatmentRecord(treatmentRecordDeletes);
+	/*	for (int i : rows) {
 			if (i < 1) {
 				return i;
 			}
-		}
+		}*/
 		return 1;
 	}
 	
@@ -436,7 +324,7 @@ public class TreatmentBiz {
 			add.setCustID(treatment.getCustID());
 		}
 
-		int[] rows = treatmentPlanDao.insertTreatmentPlan(treatmentHistoryAdds);
+		int[] rows = treatmentHistoryDao.insertTreatmentHistory(treatmentHistoryAdds);
 		for (int i : rows) {
 			if (i < 1) {
 				return i;
@@ -490,5 +378,49 @@ public class TreatmentBiz {
 			return 1;
 		}
 		return treatmentHistoryDao.deleteTreatmentHistory(treatmentHistoryDeletes);
+	}
+
+	public String insertTreatment(Treatment treatment, TreatmentAssess treatmentAssess, TreatmentReport treatmentReport,
+			List<TreatmentPlan> treatmentPlanAdds, List<TreatmentRecord> treatmentRecordAdds,
+			List<TreatmentHistory> treatmentHistoryAdds, List<BCustomerSchool> bCustomerSchoolAdds) throws Exception {
+		String treatmentID = treatmentDao.getPrimaryKey(Constants.CORPID);
+		treatment.setTreatmentID(treatmentID);
+		int row = treatmentDao.insertTreatment(treatment);
+		if (row > 0) {
+			
+			//新增個案轉介評估
+			if (addTreatmentAssess(treatment, treatmentAssess) < 0) {
+				throw new Exception("個案轉介評估保存失敗！");
+			}
+			
+			
+			//新增個案撮要
+			if(addTreatmentReport(treatment, treatmentReport)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			
+			//
+			if(addTreatmentPlan(treatment, treatmentPlanAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			//
+			if(addTreatmentRecord(treatment, treatmentRecordAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			//
+			if(addTreatmentHistory(treatment, treatmentHistoryAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(addBCustomerSchool(treatment, bCustomerSchoolAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			
+		}
+		return "操作成功！";
 	}
 }

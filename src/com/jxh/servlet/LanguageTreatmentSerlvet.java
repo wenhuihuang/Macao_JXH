@@ -34,10 +34,12 @@ import com.jxh.vo.CSSA;
 import com.jxh.vo.Retarded;
 import com.jxh.vo.SpecialAllowance;
 import com.jxh.vo.Treatment;
+import com.jxh.vo.TreatmentAssess;
 import com.jxh.vo.TreatmentFamily;
 import com.jxh.vo.TreatmentHistory;
 import com.jxh.vo.TreatmentPlan;
 import com.jxh.vo.TreatmentRecord;
+import com.jxh.vo.TreatmentReport;
 
 import net.sf.json.JSONArray;
 
@@ -93,7 +95,6 @@ public class LanguageTreatmentSerlvet extends FGServlet {
 
 			request.setAttribute("treatment", treatment);
 			request.setAttribute(JSPTYPE, ConstantUtils.FORMJSP);
-
 			forwardDispatcher("../jsp/treatment/language_edit.jsp", request, response);
 
 		} catch (ServletException | IOException e) {
@@ -163,34 +164,39 @@ public class LanguageTreatmentSerlvet extends FGServlet {
 	private void submit(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 
-		List<Retarded> retardedAdds = getGridListByParamerName(Retarded.class, request, "retardedAdds");
-		List<Retarded> retardedUpdates = getGridListByParamerName(Retarded.class, request, "retardedUpdates");
-		List<Retarded> retardedDeletes = getGridListByParamerName(Retarded.class, request, "retardedDeletes");
+		List<TreatmentPlan> treatmentPlanAdds = getGridListByParamerName(TreatmentPlan.class, request, "treatmentPlanAdds");
+		List<TreatmentPlan> treatmentPlanUpdates = getGridListByParamerName(TreatmentPlan.class, request, "treatmentPlanUpdates");
+		List<TreatmentPlan> treatmentPlanDeletes = getGridListByParamerName(TreatmentPlan.class, request, "treatmentPlanDeletes");
 		
 		
-		List<BCustomer>  familyAdds = getGridListByParamerName(BCustomer.class, request, "familyAdds");
-		List<BCustomer>  familyUpdates = getGridListByParamerName(BCustomer.class, request, "familyUpdates");
-		List<BCustomer>  familyDeletes = getGridListByParamerName(BCustomer.class, request, "familyDeletes");
+		List<TreatmentRecord>  treatmentRecordAdds = getGridListByParamerName(TreatmentRecord.class, request, "treatmentRecordAdds");
+		List<TreatmentRecord>  treatmentRecordUpdates = getGridListByParamerName(TreatmentRecord.class, request, "treatmentRecordUpdates");
+		List<TreatmentRecord>  treatmentRecordDeletes = getGridListByParamerName(TreatmentRecord.class, request, "treatmentRecordDeletes");
 		
 		
-		List<CSSA>  CSSAAdds = getGridListByParamerName(CSSA.class, request, "CSSAAdds");
-		List<CSSA>  CSSAUpdates = getGridListByParamerName(CSSA.class, request, "CSSAUpdates");
-		List<CSSA>  CSSADeletes = getGridListByParamerName(CSSA.class, request, "CSSADeletes");
+		List<TreatmentHistory>  treatmentHistoryAdds = getGridListByParamerName(TreatmentHistory.class, request, "treatmentHistoryAdds");
+		List<TreatmentHistory>  treatmentHistoryUpdates = getGridListByParamerName(TreatmentHistory.class, request, "treatmentHistoryUpdates");
+		List<TreatmentHistory>  treatmentHistoryDeletes = getGridListByParamerName(TreatmentHistory.class, request, "treatmentHistoryDeletes");
 		
 		
+		List<BCustomerSchool>  bCustomerSchoolAdds = getGridListByParamerName(BCustomerSchool.class, request, "bCustomerSchoolAdds");
+		List<BCustomerSchool>  bCustomerSchoolUpdates = getGridListByParamerName(BCustomerSchool.class, request, "bCustomerSchoolUpdates");
+		List<BCustomerSchool>  bCustomerSchoolDeletes = getGridListByParamerName(BCustomerSchool.class, request, "bCustomerSchoolDeletes");
 		
-		List<SpecialAllowance>  SpecialAllowanceAdds = getGridListByParamerName(SpecialAllowance.class, request, "SpecialAllowanceAdds");
-		List<SpecialAllowance>  SpecialAllowanceUpdates = getGridListByParamerName(SpecialAllowance.class, request, "SpecialAllowanceUpdates");
-		List<SpecialAllowance>  SpecialAllowanceDeletes = getGridListByParamerName(SpecialAllowance.class, request, "SpecialAllowanceDeletes");
 		
 
 		Treatment treatment = this.getObjectByParameter(request, Treatment.class);
-
+		
+		TreatmentAssess treatmentAssess = this.getObjectByParameter(request, TreatmentAssess.class);
+		TreatmentReport treatmentReport = this.getObjectByParameter(request, TreatmentReport.class);
+		
 		String message = "";
+		
+
 		if (treatment.getTreatmentID() != null && !"".equals(treatment.getTreatmentID())) {
-			message = treatmentBiz.updateTreatment(treatment, retardedAdds,retardedUpdates,retardedDeletes,familyAdds,familyUpdates,familyDeletes,CSSAAdds,CSSAUpdates,CSSADeletes,SpecialAllowanceAdds,SpecialAllowanceUpdates,SpecialAllowanceDeletes);
+			message = treatmentBiz.updateTreatment(treatment, treatmentAssess,treatmentReport,treatmentPlanAdds,treatmentPlanUpdates,treatmentPlanDeletes,treatmentRecordAdds,treatmentRecordUpdates,treatmentRecordDeletes,treatmentHistoryAdds,treatmentHistoryUpdates,treatmentHistoryDeletes,bCustomerSchoolAdds,bCustomerSchoolUpdates,bCustomerSchoolDeletes);
 		} else {
-			message = treatmentBiz.insertTreatment(treatment, retardedAdds,familyAdds,CSSAAdds,SpecialAllowanceAdds);
+			message = treatmentBiz.insertTreatment(treatment, treatmentAssess,treatmentReport,treatmentPlanAdds,treatmentRecordAdds,treatmentHistoryAdds,bCustomerSchoolAdds);
 		}
 
 		// 设置为表单jsp

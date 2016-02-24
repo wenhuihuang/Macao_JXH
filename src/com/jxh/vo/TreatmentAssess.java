@@ -86,7 +86,7 @@ assessID=?,treatmentID=?,custID=?,assessType=?,assessCategory=?,billDate=?,eduLe
 public class TreatmentAssess implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int assessID;
-	private int treatmentID;
+	private String treatmentID;
 	private String custID;
 	private int assessType;
 	private String assessCategory;
@@ -155,7 +155,7 @@ public class TreatmentAssess implements Serializable {
 	public TreatmentAssess(){
 		super();
 	}
-	public TreatmentAssess(int assessID, int treatmentID, String custID, int assessType, String assessCategory, Date billDate, int eduLevel, String worker, String otherWorkers, String otherFamily, String focus, String eyeContact, String soundsReply, String toySkill, String imitation, String communicate, String conceptual, String ability, String vocabulary, String sentenceLen, String sentenceOrg, String question, String narrative, String storyTell, String interview, String expressionOther, String words, String oralOrder, String questions, String story, String logical, String underStandConceptual, String underStandOther, int vowel, String vowelNote, int beforeConsonant, String beforeConsonantNote, int afterConsonant, String afterConsonantNote, int tone, String toneNote, String pronunciationOther, String other, int acceptService, String servicePoint, String sites, String suggestOther, String communication, String communicationNote, String cognitive, String cognitiveNote, String lMuscle, String lMuscleNote, String sMuscle, String sMuscleNote, String interpersonal, String interpersonalNote, String selfAbility, String selfAbilityNote, String sensory, String sensoryNote, String health, String healthNote, String interest, String hope, String totalSuggest ){
+	public TreatmentAssess(int assessID, String treatmentID, String custID, int assessType, String assessCategory, Date billDate, int eduLevel, String worker, String otherWorkers, String otherFamily, String focus, String eyeContact, String soundsReply, String toySkill, String imitation, String communicate, String conceptual, String ability, String vocabulary, String sentenceLen, String sentenceOrg, String question, String narrative, String storyTell, String interview, String expressionOther, String words, String oralOrder, String questions, String story, String logical, String underStandConceptual, String underStandOther, int vowel, String vowelNote, int beforeConsonant, String beforeConsonantNote, int afterConsonant, String afterConsonantNote, int tone, String toneNote, String pronunciationOther, String other, int acceptService, String servicePoint, String sites, String suggestOther, String communication, String communicationNote, String cognitive, String cognitiveNote, String lMuscle, String lMuscleNote, String sMuscle, String sMuscleNote, String interpersonal, String interpersonalNote, String selfAbility, String selfAbilityNote, String sensory, String sensoryNote, String health, String healthNote, String interest, String hope, String totalSuggest ){
 		super();
 		this.assessID=assessID;
 		this.treatmentID=treatmentID;
@@ -230,10 +230,10 @@ public class TreatmentAssess implements Serializable {
 	public int getAssessID(){
 		return assessID;
 	}
-	public void setTreatmentID(int treatmentID){
+	public void setTreatmentID(String treatmentID){
 		this.treatmentID=treatmentID;
 	}
-	public int getTreatmentID(){
+	public String getTreatmentID(){
 		return treatmentID;
 	}
 	public void setCustID(String custID){

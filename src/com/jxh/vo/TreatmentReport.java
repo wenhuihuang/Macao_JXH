@@ -30,7 +30,7 @@ reportID=?,treatmentID=?,reason=?,performance=?,suggest=?,summary=?,handler=?,ha
 public class TreatmentReport implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int reportID;
-	private int treatmentID;
+	private String treatmentID;
 	private String reason;
 	private String performance;
 	private String suggest;
@@ -43,7 +43,7 @@ public class TreatmentReport implements Serializable {
 	public TreatmentReport(){
 		super();
 	}
-	public TreatmentReport(int reportID, int treatmentID, String reason, String performance, String suggest, String summary, String handler, Date handleDate, String handleSuggest,Date closeDate ){
+	public TreatmentReport(int reportID, String treatmentID, String reason, String performance, String suggest, String summary, String handler, Date handleDate, String handleSuggest,Date closeDate ){
 		super();
 		this.reportID=reportID;
 		this.treatmentID=treatmentID;
@@ -62,10 +62,10 @@ public class TreatmentReport implements Serializable {
 	public int getReportID(){
 		return reportID;
 	}
-	public void setTreatmentID(int treatmentID){
+	public void setTreatmentID(String treatmentID){
 		this.treatmentID=treatmentID;
 	}
-	public int getTreatmentID(){
+	public String getTreatmentID(){
 		return treatmentID;
 	}
 	public void setReason(String reason){

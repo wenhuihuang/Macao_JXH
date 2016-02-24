@@ -22,6 +22,7 @@ String basePath = request.getScheme() + "://"
             switch(item.id){
             	case "add":addRow();break;
             	case "modify":modifyRow();break;
+            	case "delete":deleteRow();break;
             	default : break;
             }
         }
@@ -31,11 +32,29 @@ String basePath = request.getScheme() + "://"
         }
         
         function modifyRow(){
-        	var caseId = getRowCell(maingrid,"caseId");
+        	var treatmentID = getRowCell(maingrid,"treatmentID");
         	if(caseId!=""){
         		alert(caseId)
-	        	location.href = "CustCase/edit.do?CASEID="+caseId;        		
+	        	location.href = "LanguageTreatment/edit.do?treatmentID="+treatmentID;        		
         	}
+        }
+        function deleteRow(){
+        	var treatmentID = getRowCell(maingrid,"treatmentID");
+        	alert(treatmentID)
+      		if(confirm("是否刪除？")){
+     			$.ajax({
+         			type:"post",
+         			url:"LanguageTreatment/deleteTreatment.do",
+         			data:"treatmentID="+treatmentID,
+         			success:function(msg){
+         				alert(msg)
+         				maingrid.deleteSelectedRow()  
+         			},
+         			error:function(){
+         				alert("刪除失敗！")
+         			}
+         		})
+     		} 
         }
         
         
@@ -77,7 +96,7 @@ String basePath = request.getScheme() + "://"
                                { line: true },
                                { text: '删除', click: itemclick, icon: 'delete' , id:"delete" }
                              ];
-            maingrid = ligerGrid("maingrid",'99%',columns,"LanguageTreatment/list.do",gridToolBar,true);
+            maingrid = ligerGrid("maingrid",'99%',columns,"LanguageTreatment/list.do",gridToolBar,false,true);
             $("#pageloading").hide();
         });
 

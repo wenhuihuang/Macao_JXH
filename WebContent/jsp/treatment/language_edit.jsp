@@ -197,6 +197,21 @@ String basePath = request.getScheme() + "://"
 	}
 	
 	function save(){
+		$("#treatmentFamilyAdds").val(getAddedRows(familyDataGrid));
+ 		$("#treatmentFamilyUpdates").val(getEditedRows(familyDataGrid));
+ 		$("#treatmentFamilyDeletes").val(getDeletedRows(familyDataGrid));
+ 		$("#bCustomerSchoolAdds").val(getAddedRows(schoolDataGrid));
+ 		$("#bCustomerSchoolUpdates").val(getEditedRows(schoolDataGrid));
+ 		$("#bCustomerSchoolDeletes").val(getDeletedRows(schoolDataGrid)); 
+		$("#treatmentHistoryAdds").val(getAddedRows(cureDataGrid));
+ 		$("#treatmentHistoryUpdates").val(getEditedRows(cureDataGrid));
+ 		$("#treatmentHistoryDeletes").val(getDeletedRows(cureDataGrid)); 
+ 		$("#treatmentPlanAdds").val(getAddedRows(planDataGrid));
+ 		$("#treatmentPlanUpdates").val(getEditedRows(planDataGrid));
+ 		$("#treatmentPlanDeletes").val(getDeletedRows(planDataGrid)); 
+ 		$("#treatmentRecordAdds").val(getAddedRows(recordDataGrid));
+ 		$("#treatmentRecordUpdates").val(getEditedRows(recordDataGrid));
+ 		$("#treatmentRecordDeletes").val(getDeletedRows(recordDataGrid)); 
 		$("#Button1").click();	
 	}
 	function back(){
@@ -246,6 +261,21 @@ String basePath = request.getScheme() + "://"
 	<form name="form1" class="liger-form" method="post" action="LanguageTreatment/submit.do" id="form1" style="margin: 20px;">
 	<input type="hidden" name="custID" id="custID" value="${languageTreatmentPojo.custID }">
 	<input type="hidden" name="treatmentID" id="treatmentID" value="${languageTreatmentPojo.treatmentID }">
+	<input type="hidden" name="treatmentFamilyAdds" id="treatmentFamilyAdds">
+	<input type="hidden" name="treatmentFamilyUpdates" id="treatmentFamilyUpdates">
+	<input type="hidden" name="treatmentFamilyDeletes" id="treatmentFamilyDeletes">
+	<input type="hidden" name="bCustomerSchoolAdds" id="bCustomerSchoolAdds">
+	<input type="hidden" name="bCustomerSchoolUpdates" id="bCustomerSchoolUpdates">
+	<input type="hidden" name="bCustomerSchoolDeletes" id="bCustomerSchoolDeletes">
+	<input type="hidden" name="treatmentHistoryAdds" id="treatmentHistoryAdds">
+	<input type="hidden" name="treatmentHistoryUpdates" id="treatmentHistoryUpdates">
+	<input type="hidden" name="treatmentHistoryDeletes" id="treatmentHistoryDeletes">
+	<input type="hidden" name="treatmentPlanAdds" id="treatmentPlanAdds">
+	<input type="hidden" name="treatmentPlanUpdates" id="treatmentPlanUpdates">
+	<input type="hidden" name="treatmentPlanDeletes" id="treatmentPlanDeletes">
+	<input type="hidden" name="treatmentRecordAdds" id="treatmentRecordAdds">
+	<input type="hidden" name="treatmentRecordUpdates" id="treatmentRecordUpdates">
+	<input type="hidden" name="treatmentRecordDeletes" id="treatmentRecordDeletes">
 	<table>
 		<tbody>
             <tr>

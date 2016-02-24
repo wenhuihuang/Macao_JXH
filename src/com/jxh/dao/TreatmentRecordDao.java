@@ -69,4 +69,9 @@ public class TreatmentRecordDao extends DaoImpl<TreatmentRecord>{
 		return getflagByIntArray(rows);
 	}
 	
+	public int deleteTreatmentRecordByTreatmentID(String treatmentID) throws SQLException{
+		String sql = "delete from TreatmentRecord where treatmentID = ? ";
+		return this.update(sql, treatmentID);
+	}
+	
 }
