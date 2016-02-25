@@ -285,27 +285,27 @@ String basePath = request.getScheme() + "://"
                 </td>
             
                 <td align="right" class="l-table-edit-td">姓名：</td>
-                <td align="left" class="l-table-edit-td"><input width="120px" value="${languageTreatmentPojo.fullName }" name="fullName" type="text" id="fullName"/></td>
+                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.fullName }" name="fullName" type="text" id="fullName"/></td>
                 
                 <td align="right" class="l-table-edit-td">會員編號：</td>
-                <td align="left" class="l-table-edit-td"><input width="120px" value="${languageTreatmentPojo.custNO }" name="custNO" type="text" id="custNO" /></td>
+                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNO }" name="custNO" type="text" id="custNO" /></td>
                 
                 <td align="right" class="l-table-edit-td">非會員編號：</td>
-                <td align="left" class="l-table-edit-td"><input width="120px" value="${languageTreatmentPojo.custNewNO }" name="custNewNO" type="text" id="custNewNO" /></td>
+                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" id="custNewNO" /></td>
               </tr>
               <tr>
                  <td align="right" class="l-table-edit-td">出生日期:</td>
 				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${languageTreatmentPojo.birthday_ChnStr }" name="father" type="text" id="birthday_ChnStr" ltype="date" />
+				 	<input width="120px" value="${customer.birthday_ChnStr }" name="father" type="text" id="birthday_ChnStr" ltype="date" />
 				 </td>
 				  <td align="right" class="l-table-edit-td">聯繫電話:</td>
 				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${languageTreatmentPojo.mobileTelNO }" name="mother" type="text" id="mobileTelNO" ltype="text" />
+				 	<input width="120px" value="${customer.mobileTelNO }" name="mother" type="text" id="mobileTelNO" ltype="text" />
 				 </td>
 				  <td align="right" class="l-table-edit-td">性別:</td>
 				<td align="left" class="l-table-edit-td" id="sex">
-                	<input id="sex1" type="radio" disabled="disabled" name="sex"  value="1" <c:if test="${custCasePojo.sex != 2 }">checked="checked"</c:if> /><label for="sex1">男</label> 
-					<input id="sex2" type="radio" disabled="disabled" name="sex" value="2" <c:if test="${custCasePojo.sex == 2 }">checked="checked"</c:if> /><label for="sex2">女</label>
+                	<input id="sex1" type="radio" disabled="disabled" name="sex"  value="1" <c:if test="${customer.sex != 2 }">checked="checked"</c:if> /><label for="sex1">男</label> 
+					<input id="sex2" type="radio" disabled="disabled" name="sex" value="2" <c:if test="${customer.sex == 2 }">checked="checked"</c:if> /><label for="sex2">女</label>
                 </td>
                	<td align="right" class="l-table-edit-td">治療師：</td>
                 <td align="left" class="l-table-edit-td">
@@ -355,7 +355,7 @@ String basePath = request.getScheme() + "://"
 			                
 			                <td align="right" class="l-table-edit-td">輸候開始日期：</td>
 			                <td align="left" class="l-table-edit-td">
-			                	<input width="120px" value="${languageTreatmentPojo.mobileTelNo }" name="mobileTelNo" type="text" id="mobileTelNo" ltype="date" /> 
+			                	<input width="120px" value="${languageTreatmentPojo.startDate_str }" name="startDate" type="text" id="startDate" ltype="date" /> 
 			                </td>
 			                
 			             </tr>
@@ -533,28 +533,28 @@ String basePath = request.getScheme() + "://"
                					 <td align="left" class="l-table-edit-td"><input width="120px" value="${languageTreatmentPojo.billTime }" name="billTime" type="text" id="billTime" ltype="text" /></td>
                					   --%>
                					  <td align="right" class="l-table-edit-td">評估類別:</td>
-               					 <td align="left" class="l-table-edit-td"><input width="120px" value="${languageTreatmentPojo.assessCategory }" name="assessCategory" type="text" id="assessCategory" ltype="text" /></td>
+               					 <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentAssessPojo.assessCategory }" name="assessCategory" type="text" id="assessCategory" ltype="text" /></td>
                				</tr>
                				<tr>
             <%-- 				 <td align="right" class="l-table-edit-td">言語治療編號:</td>
                					 <td align="left" class="l-table-edit-td"><input width="120px" value="${languageTreatmentPojo.treatmentNO }" name="place" type="text" id="place" ltype="text" /></td> --%>
                					 <td align="right" class="l-table-edit-td">評估日期:</td>
-               					 <td align="left" class="l-table-edit-td"><input width="120px" value="${languageTreatmentPojo.billDate_str }" name="billDate" type="text" id="billDate" ltype="text" /></td>
+               					 <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentAssessPojo.billDate_str }" name="billDate" type="text" id="billDate" ltype="text" /></td>
                					 <td align="right" class="l-table-edit-td">評估地點:</td>
-               					 <td align="left" class="l-table-edit-td"><input width="120px" value="${languageTreatmentPojo.place }" name="place" type="text" id="place" ltype="text" /></td>
+               					 <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentAssessPojo.place }" name="place" type="text" id="place" ltype="text" /></td>
                					  <td align="right" class="l-table-edit-td">評估治療師:</td>
-               					 <td align="left" class="l-table-edit-td"><input width="120px" value="${languageTreatmentPojo.worker }" name="worker" type="text" id="worker" ltype="text" /></td>
+               					 <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentAssessPojo.worker }" name="worker" type="text" id="worker" ltype="text" /></td>
                				</tr>
                				<tr>
                					 <td align="right" class="l-table-edit-td">參與評估職員:</td>
                					 <td align="left" class="l-table-edit-td">
-               					 	<input width="120px" value="${languageTreatmentPojo.otherWokers }" name="otherWokers" type="text" id="otherWokers" ltype="text" />
+               					 	<input width="120px" value="${treatmentAssessPojo.otherWorkers }" name="otherWokers" type="text" id="otherWokers" ltype="text" />
                					 </td>
                				</tr>
                				<tr>
                					 <td align="right" class="l-table-edit-td">陪同家人/:</td>
                					 <td align="left" class="l-table-edit-td">
-               					 	<input width="120px" value="${languageTreatmentPojo.otherFamily }" name="otherFamily" type="text" id="otherFamily" ltype="text" />
+               					 	<input width="120px" value="${treatmentAssessPojo.otherFamily }" name="otherFamily" type="text" id="otherFamily" ltype="text" />
                					 </td>
                				</tr>
                			</tbody>
@@ -567,37 +567,37 @@ String basePath = request.getScheme() + "://"
 						    		<tr>
 						    			<td align="right" class="l-table-edit-td">專注能力:</td>
 		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${languageTreatmentPojo.focus }" name="focus" type="text" id="focus" ltype="text" />
+		               					 	<input width="120px" value="${treatmentAssessPojo.focus }" name="focus" type="text" id="focus" ltype="text" />
 		               					</td>
 		               					 <td align="right" class="l-table-edit-td">目光接觸:</td>
 		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${languageTreatmentPojo.eyeContact }" name="eyeContact" type="text" id="eyeContact" ltype="text" />
+		               					 	<input width="120px" value="${treatmentAssessPojo.eyeContact }" name="eyeContact" type="text" id="eyeContact" ltype="text" />
 		               					</td>
 		               					<td align="right" class="l-table-edit-td">玩具操作技巧:</td>
 		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${languageTreatmentPojo.toySkill }" name="toySkill" type="text" id="toySkill" ltype="text" />
+		               					 	<input width="120px" value="${treatmentAssessPojo.toySkill }" name="toySkill" type="text" id="toySkill" ltype="text" />
 		               					</td>
 		               					<td align="right" class="l-table-edit-td">對聲音的反應:</td>
 		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${languageTreatmentPojo.soundsReply }" name="soundsReply" type="text" id="soundsReply" ltype="text" />
+		               					 	<input width="120px" value="${treatmentAssessPojo.soundsReply }" name="soundsReply" type="text" id="soundsReply" ltype="text" />
 		               					</td>
 		               				</tr>
 		               				<tr>
 		               					<td align="right" class="l-table-edit-td">模仿能力:</td>
 		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${languageTreatmentPojo.imitation }" name="imitation" type="text" id="imitation" ltype="text" />
+		               					 	<input width="120px" value="${treatmentAssessPojo.imitation }" name="imitation" type="text" id="imitation" ltype="text" />
 		               					</td>
 		               					<td align="right" class="l-table-edit-td">備通意願:</td>
 		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${languageTreatmentPojo.communicate }" name="communicate" type="text" id="communicate" ltype="text" />
+		               					 	<input width="120px" value="${treatmentAssessPojo.communicate }" name="communicate" type="text" id="communicate" ltype="text" />
 		               					</td>
 		               					<td align="right" class="l-table-edit-td">物件概念:</td>
 		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${languageTreatmentPojo.conceptual }" name="conceptual" type="text" id="conceptual" ltype="text" />
+		               					 	<input width="120px" value="${treatmentAssessPojo.conceptual }" name="conceptual" type="text" id="conceptual" ltype="text" />
 		               					</td>
 		               					<td align="right" class="l-table-edit-td">其他:</td>
 		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${languageTreatmentPojo.ability }" name="ability" type="text" id="ability" ltype="text" />
+		               					 	<input width="120px" value="${treatmentAssessPojo.ability }" name="ability" type="text" id="ability" ltype="text" />
 		               					</td>
 						    		</tr>
 						    	</tbody>
@@ -613,7 +613,7 @@ String basePath = request.getScheme() + "://"
 						    		<tr>
 						    			<td align="right" class="l-table-edit-td">詞彙運用:</td>
 		               					<td align="left" class="l-table-edit-td">
-		               					 	<label><input type="checkbox"<c:if test="${languageTreatmentPojo.ability }"></c:if>>手勢</label>
+		               					 	<label><input type="checkbox"<c:if test="${treatmentAssessPojo.ability }"></c:if>>手勢</label>
 		               						<label><input type="checkbox">聲音</label>
 		               						<label><input type="checkbox">圖片</label>
 		               						<label><input type="checkbox">言語</label>
@@ -664,7 +664,7 @@ String basePath = request.getScheme() + "://"
 		               					</td>
 		               					<td align="right" class="l-table-edit-td">其他:</td>
 		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${languageTreatmentPojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
+		               					 	<input width="120px" value="${treatmentAssessPojo.expressionOther }" name="expressionOther" type="text" id="expressionOther" ltype="text" />
 		               					</td>
 						    		</tr>
 						    	</tbody>
@@ -680,33 +680,33 @@ String basePath = request.getScheme() + "://"
 						    		<tr>
 						    			<td align="right" class="l-table-edit-td">詞彙:</td>
 		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${languageTreatmentPojo.words }" name="words" type="text" id="words" ltype="text" />
+		               					 	<input width="120px" value="${treatmentAssessPojo.words }" name="words" type="text" id="words" ltype="text" />
 		               					</td>
 		               					 <td align="right" class="l-table-edit-td">口頭指令:</td>
 		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${languageTreatmentPojo.oralOrder }" name="oralOrder" type="text" id="oralOrder" ltype="text" />
+		               					 	<input width="120px" value="${treatmentAssessPojo.oralOrder }" name="oralOrder" type="text" id="oralOrder" ltype="text" />
 		               					</td>
 		               					<td align="right" class="l-table-edit-td">問句:</td>
 		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${languageTreatmentPojo.questions }" name="questions" type="text" id="questions" ltype="text" />
+		               					 	<input width="120px" value="${treatmentAssessPojo.questions }" name="questions" type="text" id="questions" ltype="text" />
 		               					</td>
 		               					<td align="right" class="l-table-edit-td">故事:</td>
 		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${languageTreatmentPojo.story }" name="story" type="text" id="story" ltype="text" />
+		               					 	<input width="120px" value="${treatmentAssessPojo.story }" name="story" type="text" id="story" ltype="text" />
 		               					</td>
 		               				</tr>
 		               				<tr>
 		               					<td align="right" class="l-table-edit-td">邏輯思維:</td>
 		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${languageTreatmentPojo.logical }" name="logical" type="text" id="logical" ltype="text" />
+		               					 	<input width="120px" value="${treatmentAssessPojo.logical }" name="logical" type="text" id="logical" ltype="text" />
 		               					</td>
 		               					<td align="right" class="l-table-edit-td">物件概念:</td>
 		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${languageTreatmentPojo.underStandConceptual }" name="underStandConceptual" type="text" id="underStandConceptual" ltype="text" />
+		               					 	<input width="120px" value="${treatmentAssessPojo.underStandConceptual }" name="underStandConceptual" type="text" id="underStandConceptual" ltype="text" />
 		               					</td>
 		               					<td align="right" class="l-table-edit-td">其他:</td>
 		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${languageTreatmentPojo.underStandOther }" name="underStandOther" type="text" id="underStandOther" ltype="text" />
+		               					 	<input width="120px" value="${treatmentAssessPojo.underStandOther }" name="underStandOther" type="text" id="underStandOther" ltype="text" />
 		               					</td>
 						    		</tr>
 						    	</tbody>
@@ -728,28 +728,28 @@ String basePath = request.getScheme() + "://"
 						    	<tbody>
 						    		<tr>
 						    			<th>元音/複元音</th>
-						    			<td>${languageTreatmentPojo.vowel }</td>
-						    			<td>${languageTreatmentPojo.vowelNote }</td>
+						    			<td>${treatmentAssessPojo.vowel }</td>
+						    			<td>${treatmentAssessPojo.vowelNote }</td>
 						    		</tr>
 						    		<tr>
 						    			<th>前輔音</th>
-						    			<td>${languageTreatmentPojo.beforeConsonant }</td>
-						    			<td>${languageTreatmentPojo.beforeConsonantNote }</td>
+						    			<td>${treatmentAssessPojo.beforeConsonant }</td>
+						    			<td>${treatmentAssessPojo.beforeConsonantNote }</td>
 						    		</tr>
 						    		<tr>
 						    			<th>後輔音</th>
-						    			<td>${languageTreatmentPojo.afterConsonant }</td>
-						    			<td>${languageTreatmentPojo.afterConsonantNote }</td>
+						    			<td>${treatmentAssessPojo.afterConsonant }</td>
+						    			<td>${treatmentAssessPojo.afterConsonantNote }</td>
 						    		</tr>
 						    		<tr>
 						    			<th>聲調</th>
-						    			<td>${languageTreatmentPojo.tone }</td>
-						    			<td>${languageTreatmentPojo.toneNote }</td>
+						    			<td>${treatmentAssessPojo.tone }</td>
+						    			<td>${treatmentAssessPojo.toneNote }</td>
 						    		</tr>
 						    		<tr>
 						    			<th>其他</th>
 						    			<td colspan="2">
-						    				<textarea rows="2" cols="55" name="pronunciationOther" id="pronunciationOther">${languageTreatmentPojo.pronunciationOther }</textarea>
+						    				<textarea rows="2" cols="55" name="pronunciationOther" id="pronunciationOther">${treatmentAssessPojo.pronunciationOther }</textarea>
 						    			</td>
 						    		</tr>
 						    	</tbody>
@@ -760,7 +760,7 @@ String basePath = request.getScheme() + "://"
 						<div class="panel panel-default">
 						  <div class="panel-heading">其他</div>
 						  <div class="panel-body">
-						  	<textarea name="other" rows="2" cols="55">${languageTreatmentPojo.other }</textarea>
+						  	<textarea name="other" rows="2" cols="55">${treatmentAssessPojo.other }</textarea>
 						  </div>
 						</div>
 						
@@ -786,11 +786,11 @@ String basePath = request.getScheme() + "://"
 		               					</td>
 		               					<td align="right" class="l-table-edit-td">理解口頭指令部位:</td>
 		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${languageTreatmentPojo.sites }" name="sites" type="text" id="sites" ltype="text" />
+		               					 	<input width="120px" value="${treatmentAssessPojo.sites }" name="sites" type="text" id="sites" ltype="text" />
 		               					</td>
 		               					<td align="right" class="l-table-edit-td">其他:</td>
 		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${languageTreatmentPojo.suggestOther }" name="suggestOther" type="text" id="suggestOther" ltype="text" />
+		               					 	<input width="120px" value="${treatmentAssessPojo.suggestOther }" name="suggestOther" type="text" id="suggestOther" ltype="text" />
 		               					</td>
 		               				</tr>
 						    	</tbody>
@@ -823,11 +823,11 @@ String basePath = request.getScheme() + "://"
           					 </td> --%>
           					  <td align="right" class="l-table-edit-td">治療開始日期:</td>
           					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${languageTreatmentPojo.custNo }" name="custNo" type="text" id="custNo" ltype="text" />
+          					 	<input width="120px" value="${treatmentReportPojo.custNo }" name="custNo" type="text" id="custNo" ltype="text" />
           					 </td>
           					 <td align="right" class="l-table-edit-td">治療結束日期:</td>
           					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${languageTreatmentPojo.custNewNo }" name="custNewNo" type="text" id="custNewNo" ltype="text" />
+          					 	<input width="120px" value="${treatmentReportPojo.custNewNo }" name="custNewNo" type="text" id="custNewNo" ltype="text" />
           					 </td>
           					 <%--  <td align="right" class="l-table-edit-td">治療師:</td>
           					 <td align="left" class="l-table-edit-td">
@@ -863,37 +863,37 @@ String basePath = request.getScheme() + "://"
           					 </td> --%>
           					 <td align="right" class="l-table-edit-td">中止/結案原因:</td>
           					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${languageTreatmentPojo.reason }" name="reason" type="text" id="reason" ltype="text" />
+          					 	<input width="120px" value="${treatmentReportPojo.reason }" name="reason" type="text" id="reason" ltype="text" />
           					 </td>
           					 <td align="right" class="l-table-edit-td">臨床觀察其表現:</td>
           					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${languageTreatmentPojo.performance }" name="performance" type="text" id="performance" ltype="text" />
+          					 	<input width="120px" value="${treatmentReportPojo.performance }" name="performance" type="text" id="performance" ltype="text" />
           					 </td>
           				</tr>
           				<tr>
           					 <td align="right" class="l-table-edit-td">建議:</td>
           					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${languageTreatmentPojo.suggest }" name="suggest" type="text" id="suggest" ltype="text" />
+          					 	<input width="120px" value="${treatmentReportPojo.suggest }" name="suggest" type="text" id="suggest" ltype="text" />
           					 </td>
           					 <td align="right" class="l-table-edit-td">療程小結:</td>
           					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${languageTreatmentPojo.summary }" name="summary" type="text" id="summary" ltype="text" />
+          					 	<input width="120px" value="${treatmentReportPojo.summary }" name="summary" type="text" id="summary" ltype="text" />
           					 </td>
           				</tr>
           				<tr>
           					 <td align="right" class="l-table-edit-td">主管:</td>
           					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${languageTreatmentPojo.handler }" name="handler" type="text" id="handler" ltype="text" />
+          					 	<input width="120px" value="${treatmentReportPojo.handler }" name="handler" type="text" id="handler" ltype="text" />
           					 </td>
           					  <td align="right" class="l-table-edit-td">日期:</td>
           					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${languageTreatmentPojo.handleDate_str }" name="handleDate" type="text" id="handleDate" ltype="date" />
+          					 	<input width="120px" value="${treatmentReportPojo.handleDate_str }" name="handleDate" type="text" id="handleDate" ltype="date" />
           					 </td>
           				</tr>
           				<tr>
           					 <td align="right" class="l-table-edit-td">主管意見及建議:</td>
           					 <td align="left" class="l-table-edit-td" colspan="3">
-          					 	<textarea rows="2" cols="55" class="ui-textarea" name="handleSuggest" >${languageTreatmentPojo.handleSuggest }</textarea>
+          					 	<textarea rows="2" cols="55" class="ui-textarea" name="handleSuggest" >${treatmentReportPojo.handleSuggest }</textarea>
           					 </td>
           				</tr>
           			</tbody>

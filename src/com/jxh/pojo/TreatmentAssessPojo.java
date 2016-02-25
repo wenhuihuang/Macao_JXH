@@ -1,89 +1,17 @@
-package com.jxh.vo;
+package com.jxh.pojo;
 
 
 import java.io.Serializable;
 import java.util.Date;
-import java.sql.*;
 
+import com.fg.utils.ToolsUtils;
+
+import java.sql.*;
+import java.text.ParseException;
 import java.math.*;
 
 
-/** TreatmentAssess
-	ASSESSID	INT(10)
-	TREATMENTID	INT(10)
-	CUSTID	VARCHAR(20)
-	ASSESSTYPE	INT(10)
-	ASSESSCATEGORY	VARCHAR(20)
-	BILLDATE	DATETIME(23,3)
-	PLACE	VARCHAR(128)
-	WORKER	VARCHAR(32)
-	OTHERWORKERS	VARCHAR(128)
-	OTHERFAMILY	VARCHAR(128)
-	FOCUS	VARCHAR(20)
-	EYECONTACT	VARCHAR(20)
-	SOUNDSREPLY	VARCHAR(20)
-	TOYSKILL	VARCHAR(20)
-	IMITATION	VARCHAR(20)
-	COMMUNICATE	VARCHAR(20)
-	CONCEPTUAL	VARCHAR(20)
-	ABILITY	TEXT(2147483647)
-	VOCABULARY	VARCHAR(20)
-	SENTENCELEN	VARCHAR(20)
-	SENTENCEORG	VARCHAR(20)
-	QUESTION	VARCHAR(20)
-	NARRATIVE	VARCHAR(20)
-	STORYTELL	VARCHAR(20)
-	INTERVIEW	VARCHAR(20)
-	EXPRESSIONOTHER	TEXT(2147483647)
-	WORDS	VARCHAR(20)
-	ORALORDER	VARCHAR(20)
-	QUESTIONS	VARCHAR(20)
-	STORY	VARCHAR(20)
-	LOGICAL	VARCHAR(20)
-	UNDERSTANDCONCEPTUAL	VARCHAR(20)
-	UNDERSTANDOTHER	TEXT(2147483647)
-	VOWEL	INT(10)
-	VOWELNOTE	VARCHAR(60)
-	BEFORECONSONANT	INT(10)
-	BEFORECONSONANTNOTE	VARCHAR(60)
-	AFTERCONSONANT	INT(10)
-	AFTERCONSONANTNOTE	VARCHAR(60)
-	TONE	INT(10)
-	TONENOTE	VARCHAR(60)
-	PRONUNCIATIONOTHER	TEXT(2147483647)
-	OTHER	TEXT(2147483647)
-	ACCEPTSERVICE	INT(10)
-	SERVICEPOINT	VARCHAR(20)
-	SITES	VARCHAR(128)
-	SUGGESTOTHER	TEXT(2147483647)
-	COMMUNICATION	VARCHAR(128)
-	COMMUNICATIONNOTE	VARCHAR(128)
-	COGNITIVE	VARCHAR(128)
-	COGNITIVENOTE	VARCHAR(128)
-	LMUSCLE	VARCHAR(128)
-	LMUSCLENOTE	VARCHAR(128)
-	SMUSCLE	VARCHAR(128)
-	SMUSCLENOTE	VARCHAR(128)
-	INTERPERSONAL	VARCHAR(128)
-	INTERPERSONALNOTE	VARCHAR(128)
-	SELFABILITY	VARCHAR(128)
-	SELFABILITYNOTE	VARCHAR(128)
-	SENSORY	VARCHAR(128)
-	SENSORYNOTE	VARCHAR(128)
-	HEALTH	VARCHAR(128)
-	HEALTHNOTE	VARBINARY(128)
-	INTEREST	VARCHAR(128)
-	HOPE	VARCHAR(128)
-	TOTALSUGGEST	VARCHAR(128)
-
-assessID,treatmentID,custID,assessType,assessCategory,billDate,place,worker,otherWorkers,otherFamily,focus,eyeContact,soundsReply,toySkill,imitation,communicate,conceptual,ability,vocabulary,sentenceLen,sentenceOrg,question,narrative,storyTell,interview,expressionOther,words,oralOrder,questions,story,logical,underStandConceptual,underStandOther,vowel,vowelNote,beforeConsonant,beforeConsonantNote,afterConsonant,afterConsonantNote,tone,toneNote,pronunciationOther,other,acceptService,servicePoint,sites,suggestOther,communication,communicationNote,cognitive,cognitiveNote,lMuscle,lMuscleNote,sMuscle,sMuscleNote,interpersonal,interpersonalNote,selfAbility,selfAbilityNote,sensory,sensoryNote,health,healthNote,interest,hope,totalSuggest
-?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
-
-treatmentAssess.assessID,treatmentAssess.treatmentID,treatmentAssess.custID,treatmentAssess.assessType,treatmentAssess.assessCategory,treatmentAssess.billDate,treatmentAssess.place,treatmentAssess.worker,treatmentAssess.otherWorkers,treatmentAssess.otherFamily,treatmentAssess.focus,treatmentAssess.eyeContact,treatmentAssess.soundsReply,treatmentAssess.toySkill,treatmentAssess.imitation,treatmentAssess.communicate,treatmentAssess.conceptual,treatmentAssess.ability,treatmentAssess.vocabulary,treatmentAssess.sentenceLen,treatmentAssess.sentenceOrg,treatmentAssess.question,treatmentAssess.narrative,treatmentAssess.storyTell,treatmentAssess.interview,treatmentAssess.expressionOther,treatmentAssess.words,treatmentAssess.oralOrder,treatmentAssess.questions,treatmentAssess.story,treatmentAssess.logical,treatmentAssess.underStandConceptual,treatmentAssess.underStandOther,treatmentAssess.vowel,treatmentAssess.vowelNote,treatmentAssess.beforeConsonant,treatmentAssess.beforeConsonantNote,treatmentAssess.afterConsonant,treatmentAssess.afterConsonantNote,treatmentAssess.tone,treatmentAssess.toneNote,treatmentAssess.pronunciationOther,treatmentAssess.other,treatmentAssess.acceptService,treatmentAssess.servicePoint,treatmentAssess.sites,treatmentAssess.suggestOther,treatmentAssess.communication,treatmentAssess.communicationNote,treatmentAssess.cognitive,treatmentAssess.cognitiveNote,treatmentAssess.lMuscle,treatmentAssess.lMuscleNote,treatmentAssess.sMuscle,treatmentAssess.sMuscleNote,treatmentAssess.interpersonal,treatmentAssess.interpersonalNote,treatmentAssess.selfAbility,treatmentAssess.selfAbilityNote,treatmentAssess.sensory,treatmentAssess.sensoryNote,treatmentAssess.health,treatmentAssess.healthNote,treatmentAssess.interest,treatmentAssess.hope,treatmentAssess.totalSuggest
-
-assessID=?,treatmentID=?,custID=?,assessType=?,assessCategory=?,billDate=?,place=?,worker=?,otherWorkers=?,otherFamily=?,focus=?,eyeContact=?,soundsReply=?,toySkill=?,imitation=?,communicate=?,conceptual=?,ability=?,vocabulary=?,sentenceLen=?,sentenceOrg=?,question=?,narrative=?,storyTell=?,interview=?,expressionOther=?,words=?,oralOrder=?,questions=?,story=?,logical=?,underStandConceptual=?,underStandOther=?,vowel=?,vowelNote=?,beforeConsonant=?,beforeConsonantNote=?,afterConsonant=?,afterConsonantNote=?,tone=?,toneNote=?,pronunciationOther=?,other=?,acceptService=?,servicePoint=?,sites=?,suggestOther=?,communication=?,communicationNote=?,cognitive=?,cognitiveNote=?,lMuscle=?,lMuscleNote=?,sMuscle=?,sMuscleNote=?,interpersonal=?,interpersonalNote=?,selfAbility=?,selfAbilityNote=?,sensory=?,sensoryNote=?,health=?,healthNote=?,interest=?,hope=?,totalSuggest=?
-*/
-public class TreatmentAssess implements Serializable {
+public class TreatmentAssessPojo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int assessID;
 	private String treatmentID;
@@ -151,11 +79,13 @@ public class TreatmentAssess implements Serializable {
 	private String interest;
 	private String hope;
 	private String totalSuggest;
+	
+	private String billDate_str;
 
-	public TreatmentAssess(){
+	public TreatmentAssessPojo(){
 		super();
 	}
-	public TreatmentAssess(int assessID, String treatmentID, String custID, int assessType, String assessCategory, Date billDate, String place, String worker, String otherWorkers, String otherFamily, String focus, String eyeContact, String soundsReply, String toySkill, String imitation, String communicate, String conceptual, String ability, String vocabulary, String sentenceLen, String sentenceOrg, String question, String narrative, String storyTell, String interview, String expressionOther, String words, String oralOrder, String questions, String story, String logical, String underStandConceptual, String underStandOther, int vowel, String vowelNote, int beforeConsonant, String beforeConsonantNote, int afterConsonant, String afterConsonantNote, int tone, String toneNote, String pronunciationOther, String other, int acceptService, String servicePoint, String sites, String suggestOther, String communication, String communicationNote, String cognitive, String cognitiveNote, String lMuscle, String lMuscleNote, String sMuscle, String sMuscleNote, String interpersonal, String interpersonalNote, String selfAbility, String selfAbilityNote, String sensory, String sensoryNote, String health, String healthNote, String interest, String hope, String totalSuggest ){
+	public TreatmentAssessPojo(int assessID, String treatmentID, String custID, int assessType, String assessCategory, Date billDate, String place, String worker, String otherWorkers, String otherFamily, String focus, String eyeContact, String soundsReply, String toySkill, String imitation, String communicate, String conceptual, String ability, String vocabulary, String sentenceLen, String sentenceOrg, String question, String narrative, String storyTell, String interview, String expressionOther, String words, String oralOrder, String questions, String story, String logical, String underStandConceptual, String underStandOther, int vowel, String vowelNote, int beforeConsonant, String beforeConsonantNote, int afterConsonant, String afterConsonantNote, int tone, String toneNote, String pronunciationOther, String other, int acceptService, String servicePoint, String sites, String suggestOther, String communication, String communicationNote, String cognitive, String cognitiveNote, String lMuscle, String lMuscleNote, String sMuscle, String sMuscleNote, String interpersonal, String interpersonalNote, String selfAbility, String selfAbilityNote, String sensory, String sensoryNote, String health, String healthNote, String interest, String hope, String totalSuggest ,String billDate_str){
 		super();
 		this.assessID=assessID;
 		this.treatmentID=treatmentID;
@@ -223,6 +153,7 @@ public class TreatmentAssess implements Serializable {
 		this.interest=interest;
 		this.hope=hope;
 		this.totalSuggest=totalSuggest;
+		this.billDate_str=billDate_str;
 	}
 	public void setAssessID(int assessID){
 		this.assessID=assessID;
@@ -620,9 +551,24 @@ public class TreatmentAssess implements Serializable {
 	public String getTotalSuggest(){
 		return totalSuggest;
 	}
+	
+	
+	
+	public String getBillDate_str() {
+		try {
+			return billDate == null || "".equals(billDate) ? ""
+					: ToolsUtils.getDateStringByFormat(billDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setBillDate_str(String billDate_str) {
+		this.billDate_str = billDate_str;
+	}
 	@Override
 	public String toString(){
-		return "TreatmentAssess [assessID="+assessID+",treatmentID="+treatmentID+",custID="+custID+",assessType="+assessType+",assessCategory="+assessCategory+",billDate="+billDate+",place="+place+",worker="+worker+",otherWorkers="+otherWorkers+",otherFamily="+otherFamily+",focus="+focus+",eyeContact="+eyeContact+",soundsReply="+soundsReply+",toySkill="+toySkill+",imitation="+imitation+",communicate="+communicate+",conceptual="+conceptual+",ability="+ability+",vocabulary="+vocabulary+",sentenceLen="+sentenceLen+",sentenceOrg="+sentenceOrg+",question="+question+",narrative="+narrative+",storyTell="+storyTell+",interview="+interview+",expressionOther="+expressionOther+",words="+words+",oralOrder="+oralOrder+",questions="+questions+",story="+story+",logical="+logical+",underStandConceptual="+underStandConceptual+",underStandOther="+underStandOther+",vowel="+vowel+",vowelNote="+vowelNote+",beforeConsonant="+beforeConsonant+",beforeConsonantNote="+beforeConsonantNote+",afterConsonant="+afterConsonant+",afterConsonantNote="+afterConsonantNote+",tone="+tone+",toneNote="+toneNote+",pronunciationOther="+pronunciationOther+",other="+other+",acceptService="+acceptService+",servicePoint="+servicePoint+",sites="+sites+",suggestOther="+suggestOther+",communication="+communication+",communicationNote="+communicationNote+",cognitive="+cognitive+",cognitiveNote="+cognitiveNote+",lMuscle="+lMuscle+",lMuscleNote="+lMuscleNote+",sMuscle="+sMuscle+",sMuscleNote="+sMuscleNote+",interpersonal="+interpersonal+",interpersonalNote="+interpersonalNote+",selfAbility="+selfAbility+",selfAbilityNote="+selfAbilityNote+",sensory="+sensory+",sensoryNote="+sensoryNote+",health="+health+",healthNote="+healthNote+",interest="+interest+",hope="+hope+",totalSuggest="+totalSuggest+"]";
+		return "TreatmentAssess [assessID="+assessID+",treatmentID="+treatmentID+",custID="+custID+",assessType="+assessType+",assessCategory="+assessCategory+",billDate="+billDate+",place="+place+",worker="+worker+",otherWorkers="+otherWorkers+",otherFamily="+otherFamily+",focus="+focus+",eyeContact="+eyeContact+",soundsReply="+soundsReply+",toySkill="+toySkill+",imitation="+imitation+",communicate="+communicate+",conceptual="+conceptual+",ability="+ability+",vocabulary="+vocabulary+",sentenceLen="+sentenceLen+",sentenceOrg="+sentenceOrg+",question="+question+",narrative="+narrative+",storyTell="+storyTell+",interview="+interview+",expressionOther="+expressionOther+",words="+words+",oralOrder="+oralOrder+",questions="+questions+",story="+story+",logical="+logical+",underStandConceptual="+underStandConceptual+",underStandOther="+underStandOther+",vowel="+vowel+",vowelNote="+vowelNote+",beforeConsonant="+beforeConsonant+",beforeConsonantNote="+beforeConsonantNote+",afterConsonant="+afterConsonant+",afterConsonantNote="+afterConsonantNote+",tone="+tone+",toneNote="+toneNote+",pronunciationOther="+pronunciationOther+",other="+other+",acceptService="+acceptService+",servicePoint="+servicePoint+",sites="+sites+",suggestOther="+suggestOther+",communication="+communication+",communicationNote="+communicationNote+",cognitive="+cognitive+",cognitiveNote="+cognitiveNote+",lMuscle="+lMuscle+",lMuscleNote="+lMuscleNote+",sMuscle="+sMuscle+",sMuscleNote="+sMuscleNote+",interpersonal="+interpersonal+",interpersonalNote="+interpersonalNote+",selfAbility="+selfAbility+",selfAbilityNote="+selfAbilityNote+",sensory="+sensory+",sensoryNote="+sensoryNote+",health="+health+",healthNote="+healthNote+",interest="+interest+",hope="+hope+",totalSuggest="+totalSuggest+",billDate_str="+billDate_str+"]";
 	}
 }
 

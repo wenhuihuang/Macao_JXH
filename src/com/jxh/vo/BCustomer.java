@@ -30,7 +30,7 @@ public class BCustomer implements Serializable {
 	private String edulevel;
 	private String linkAdr;
 	private String isSendLetter;
-	private String mobileTelNo;
+	private String mobileTelNO;
 	private String telNo;
 	private String email;
 	private String isJob;
@@ -61,6 +61,8 @@ public class BCustomer implements Serializable {
 	private String telNO_Work;
 	private String jobSitution;
 	private String jobType;
+	private String custNO;
+	private String custNewNO;
 
 	private String birthday_ChnStr;
 	private String validDateStr;
@@ -78,14 +80,14 @@ public class BCustomer implements Serializable {
 	public BCustomer(String custId, String custCode, String fullName, String fullNameEng, String sex, Date birthday_Chn,
 			String custType, int cardStatus, Date regDate, Date validDate, String initiationSource, String cardType,
 			String cardNo, String nativePlace, int isMarry, String edulevel, String linkAdr, String isSendLetter,
-			String mobileTelNo, String telNo, String email, String isJob, String jobPlace, String custType2,
+			String mobileTelNO, String telNo, String email, String isJob, String jobPlace, String custType2,
 			String isNormalToForever, Date changeDate, Date makeCardDate, Date reciveCardDate, String disabilityCardNo,
 			Date disabilityEndDate, String selfCareAbility, Double totalPoint, Double totalIncome,
 			String backgroundInfo, String governmentalHelp, String governmentalHelpInfo, String imgUrl,
 			String houseSitution, int isCSSA, int specialAllowance, String relationship, int isGuardian,
 			int isLiveTogether, String guardianCustID, String isMember, String telNO_Work, String jobSitution,
 			String jobType, String birthday_ChnStr, String validDateStr, String regDateStr, String changeDateStr,
-			String makeCardDateStr, String reciveCardDateStr, String disabilityEndDateStr) {
+			String makeCardDateStr, String reciveCardDateStr, String disabilityEndDateStr,String custNO,String custNewNO) {
 		super();
 		this.custId = custId;
 		this.custCode = custCode;
@@ -105,7 +107,7 @@ public class BCustomer implements Serializable {
 		this.edulevel = edulevel;
 		this.linkAdr = linkAdr;
 		this.isSendLetter = isSendLetter;
-		this.mobileTelNo = mobileTelNo;
+		this.mobileTelNO = mobileTelNO;
 		this.telNo = telNo;
 		this.email = email;
 		this.isJob = isJob;
@@ -142,6 +144,8 @@ public class BCustomer implements Serializable {
 		this.makeCardDateStr = makeCardDateStr;
 		this.reciveCardDateStr = reciveCardDateStr;
 		this.disabilityEndDateStr = disabilityEndDateStr;
+		this.custNO=custNO;
+		this.custNewNO=custNewNO;
 	}
 
 	public String getCustId() {
@@ -288,12 +292,12 @@ public class BCustomer implements Serializable {
 		this.isSendLetter = isSendLetter;
 	}
 
-	public String getMobileTelNo() {
-		return mobileTelNo;
+	public String getMobileTelNO() {
+		return mobileTelNO;
 	}
 
-	public void setMobileTelNo(String mobileTelNo) {
-		this.mobileTelNo = mobileTelNo;
+	public void setMobileTelNO(String mobileTelNO) {
+		this.mobileTelNO = mobileTelNO;
 	}
 
 	public String getTelNo() {
@@ -638,6 +642,24 @@ public class BCustomer implements Serializable {
 		this.jobType = jobType;
 	}
 
+	
+	
+	public String getCustNO() {
+		return custNO;
+	}
+
+	public void setCustNO(String custNO) {
+		this.custNO = custNO;
+	}
+
+	public String getCustNewNO() {
+		return custNewNO;
+	}
+
+	public void setCustNewNO(String custNewNO) {
+		this.custNewNO = custNewNO;
+	}
+
 	@Override
 	public String toString() {
 		return "BCustomer [custId=" + custId + ", custCode=" + custCode + ", fullName=" + fullName + ", fullNameEng="
@@ -645,7 +667,7 @@ public class BCustomer implements Serializable {
 				+ ", cardStatus=" + cardStatus + ", regDate=" + regDate + ", validDate=" + validDate
 				+ ", initiationSource=" + initiationSource + ", cardType=" + cardType + ", cardNo=" + cardNo
 				+ ", nativePlace=" + nativePlace + ", isMarry=" + isMarry + ", edulevel=" + edulevel + ", linkAdr="
-				+ linkAdr + ", isSendLetter=" + isSendLetter + ", mobileTelNo=" + mobileTelNo + ", telNo=" + telNo
+				+ linkAdr + ", isSendLetter=" + isSendLetter + ", mobileTelNO=" + mobileTelNO + ", telNo=" + telNo
 				+ ", email=" + email + ", isJob=" + isJob + ", jobPlace=" + jobPlace + ", custType2=" + custType2
 				+ ", isNormalToForever=" + isNormalToForever + ", changeDate=" + changeDate + ", makeCardDate="
 				+ makeCardDate + ", reciveCardDate=" + reciveCardDate + ", disabilityCardNo=" + disabilityCardNo
@@ -659,7 +681,7 @@ public class BCustomer implements Serializable {
 				+ ", jobType=" + jobType + ", birthday_ChnStr=" + birthday_ChnStr + ", validDateStr=" + validDateStr
 				+ ", regDateStr=" + regDateStr + ", changeDateStr=" + changeDateStr + ", makeCardDateStr="
 				+ makeCardDateStr + ", reciveCardDateStr=" + reciveCardDateStr + ", disabilityEndDateStr="
-				+ disabilityEndDateStr + "]";
+				+ disabilityEndDateStr + ",custNO="+custNO+",custNewNO="+custNewNO+"]";
 	}
 
 }

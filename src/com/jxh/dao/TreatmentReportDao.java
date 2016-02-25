@@ -8,6 +8,8 @@ import java.util.List;
 import com.fg.daoImpl.DaoImpl;
 import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
+import com.jxh.pojo.LanguageTreatmentPojo;
+import com.jxh.pojo.TreatmentReportPojo;
 import com.jxh.vo.Treatment;
 import com.jxh.vo.TreatmentReport;
 
@@ -65,5 +67,12 @@ public class TreatmentReportDao extends DaoImpl {
 		return this.getPrimaryKey("BCUSTOMER", corpId, 20);
 	}
 
-	
+	public TreatmentReportPojo getTreatmentReportPojoByCondition(String condition, Object...params) throws IOException, SQLException {
+		clazz = TreatmentReportPojo.class;
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		
+		sql += condition==null||"".equals(condition)?"":condition;
+		System.out.println(sql);
+		return  (TreatmentReportPojo) this.findForObject(sql, params);
+	}
 }

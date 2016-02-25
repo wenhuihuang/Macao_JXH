@@ -33,9 +33,9 @@ String basePath = request.getScheme() + "://"
         
         function modifyRow(){
         	var treatmentID = getRowCell(maingrid,"treatmentID");
-        	if(caseId!=""){
-        		alert(caseId)
-	        	location.href = "LanguageTreatment/edit.do?treatmentID="+treatmentID;        		
+        	var custID = getRowCell(maingrid,"custID");
+        	if(treatmentID!="" && treatmentID!=null){
+	        	location.href = "LanguageTreatment/edit.do?treatmentID="+treatmentID+"&custID="+custID;        		
         	}
         }
         function deleteRow(){
@@ -47,11 +47,15 @@ String basePath = request.getScheme() + "://"
          			url:"LanguageTreatment/deleteTreatment.do",
          			data:"treatmentID="+treatmentID,
          			success:function(msg){
-         				alert(msg)
-         				maingrid.deleteSelectedRow()  
+         				if(msg == "true" || msg == true){
+         					maingrid.deleteSelectedRow();
+         				}else{
+         					alert("刪除失敗！");
+         				}
+         				 
          			},
          			error:function(){
-         				alert("刪除失敗！")
+         				alert("刪除失敗！");
          			}
          		})
      		} 

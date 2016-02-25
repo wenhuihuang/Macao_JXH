@@ -62,7 +62,7 @@ public class CustomerDao extends DaoImpl<BCustomer>{
 				custs.add(new Customer(cust.getCustId(), cust.getCustCode(), cust.getFullName(),
 						cust.getFullNameEng(), cust.getSex(), cust.getCustType(), cust.getCardStatus(), 
 						regDate, validDate, cust.getCardType(), cust.getCardNo(),cust.getTelNo()
-						,cust.getMobileTelNo(),cust.getRelationship()));
+						,cust.getMobileTelNO(),cust.getRelationship()));
 			}
 		}
 		

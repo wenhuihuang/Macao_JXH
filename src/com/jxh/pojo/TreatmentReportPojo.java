@@ -1,33 +1,17 @@
-package com.jxh.vo;
+package com.jxh.pojo;
 
 
 import java.io.Serializable;
 import java.util.Date;
-import java.sql.*;
 
+import com.fg.utils.ToolsUtils;
+
+import java.sql.*;
+import java.text.ParseException;
 import java.math.*;
 
 
-/** TreatmentReport
-	REPORTID	INT(10)
-	TREATMENTID	INT(10)
-	REASON	TEXT(2147483647)
-	PERFORMANCE	TEXT(2147483647)
-	SUGGEST	TEXT(2147483647)
-	SUMMARY	TEXT(2147483647)
-	HANDLER	VARCHAR(32)
-	HANDLEDATE	DATETIME(23,3)
-	HANDLESUGGEST	TEXT(2147483647)
-	CLOSEDATE DATETIME
-
-reportID,treatmentID,reason,performance,suggest,summary,handler,handleDate,handleSuggest,closeDate
-?,?,?,?,?,?,?,?,?,?
-
-treatmentReport.reportID,treatmentReport.treatmentID,treatmentReport.reason,treatmentReport.performance,treatmentReport.suggest,treatmentReport.summary,treatmentReport.handler,treatmentReport.handleDate,treatmentReport.handleSuggest,treatmentReport.closeDate
-
-reportID=?,treatmentID=?,reason=?,performance=?,suggest=?,summary=?,handler=?,handleDate=?,handleSuggest=?,closeDate=?
-*/
-public class TreatmentReport implements Serializable {
+public class TreatmentReportPojo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int reportID;
 	private String treatmentID;
@@ -39,11 +23,14 @@ public class TreatmentReport implements Serializable {
 	private Date handleDate;
 	private String handleSuggest;
 	private Date closeDate;
+	
+	private String handleDate_str;
+	private String closeDate_str;
 
-	public TreatmentReport(){
+	public TreatmentReportPojo(){
 		super();
 	}
-	public TreatmentReport(int reportID, String treatmentID, String reason, String performance, String suggest, String summary, String handler, Date handleDate, String handleSuggest,Date closeDate ){
+	public TreatmentReportPojo(int reportID, String treatmentID, String reason, String performance, String suggest, String summary, String handler, Date handleDate, String handleSuggest,Date closeDate,String handleDate_str,String closeDate_str ){
 		super();
 		this.reportID=reportID;
 		this.treatmentID=treatmentID;
@@ -55,6 +42,8 @@ public class TreatmentReport implements Serializable {
 		this.handleDate=handleDate;
 		this.handleSuggest=handleSuggest;
 		this.closeDate=closeDate;
+		this.handleDate_str=handleDate_str;
+		this.closeDate_str=closeDate_str;
 	}
 	public void setReportID(int reportID){
 		this.reportID=reportID;
@@ -119,9 +108,36 @@ public class TreatmentReport implements Serializable {
 	public void setCloseDate(Date closeDate) {
 		this.closeDate = closeDate;
 	}
+	
+	
+	
+	public String getHandleDate_str() {
+		try {
+			return handleDate == null || "".equals(handleDate) ? ""
+					: ToolsUtils.getDateStringByFormat(handleDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setHandleDate_str(String handleDate_str) {
+		this.handleDate_str = handleDate_str;
+	}
+	public String getCloseDate_str() {
+		try {
+			return closeDate == null || "".equals(closeDate) ? ""
+					: ToolsUtils.getDateStringByFormat(closeDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setCloseDate_str(String closeDate_str) {
+		this.closeDate_str = closeDate_str;
+	}
 	@Override
 	public String toString(){
-		return "TreatmentReport [reportID="+reportID+",treatmentID="+treatmentID+",reason="+reason+",performance="+performance+",suggest="+suggest+",summary="+summary+",handler="+handler+",handleDate="+handleDate+",handleSuggest="+handleSuggest+",closeDate="+closeDate+"]";
+		return "TreatmentReport [reportID="+reportID+",treatmentID="+treatmentID+",reason="+reason+",performance="+performance+",suggest="+suggest+",summary="+summary+",handler="+handler+",handleDate="+handleDate+",handleSuggest="+handleSuggest+",closeDate="+closeDate+",handleDate_str="+handleDate_str+",closeDate_str="+closeDate_str+"]";
 	}
 }
 

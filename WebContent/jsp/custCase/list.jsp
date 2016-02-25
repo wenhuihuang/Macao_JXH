@@ -37,8 +37,12 @@ String basePath = request.getScheme() + "://"
          			url:"CustCase/deleteCustCase.do",
          			data:"caseID="+caseID,
          			success:function(msg){
-         				alert(msg)
-         				maingrid.deleteSelectedRow()  
+         				if(msg == true || msg == "true"){
+         					maingrid.deleteSelectedRow()  
+         				}else{
+         					alert("刪除失敗！");
+         				}
+         				
          			},
          			error:function(){
          				alert("刪除失敗！")

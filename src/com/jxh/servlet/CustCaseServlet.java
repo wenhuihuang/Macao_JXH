@@ -175,6 +175,8 @@ public class CustCaseServlet extends FGServlet {
 			CustCasePojo custCasePojo = custCaseDao.getCustCasePojoByCondition(" and bCustCase.caseID = ? ",
 					this.getParameterByName(request, "caseID"));
 			request.setAttribute("custCasePojo", custCasePojo);
+			
+			
 			forwardDispatcher("../jsp/custCase/edit.jsp", request, response);
 
 		} catch (IOException | SQLException | ServletException e) {
@@ -216,7 +218,6 @@ public class CustCaseServlet extends FGServlet {
 				e.printStackTrace();
 			}
 		} 
-		System.out.println("ser"+flag);
 		response.getWriter().print(flag);
 	}
 	

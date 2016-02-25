@@ -10,6 +10,7 @@ import com.fg.utils.ToolsUtils;
 import com.jxh.dao.BCustomerSchoolDao;
 import com.jxh.dao.TreatmentAssessDao;
 import com.jxh.dao.TreatmentDao;
+import com.jxh.dao.TreatmentFamilyDao;
 import com.jxh.dao.TreatmentHistoryDao;
 import com.jxh.dao.TreatmentPlanDao;
 import com.jxh.dao.TreatmentRecordDao;
@@ -20,6 +21,7 @@ import com.jxh.vo.BCustCaseRecord;
 import com.jxh.vo.BCustomerSchool;
 import com.jxh.vo.Treatment;
 import com.jxh.vo.TreatmentAssess;
+import com.jxh.vo.TreatmentFamily;
 import com.jxh.vo.TreatmentHistory;
 import com.jxh.vo.TreatmentPlan;
 import com.jxh.vo.TreatmentRecord;
@@ -33,9 +35,10 @@ public class TreatmentBiz {
 	private BCustomerSchoolDao bCustomerSchoolDao = new BCustomerSchoolDao();
 	private TreatmentHistoryDao treatmentHistoryDao = new TreatmentHistoryDao();
 	private TreatmentReportDao treatmentReportDao = new TreatmentReportDao();
+	private TreatmentFamilyDao treatmentFamilyDao = new TreatmentFamilyDao();
 	
 
-	public String updateTreatment(Treatment treatment,TreatmentAssess treatmentAssess,TreatmentReport treatmentReport,List<TreatmentPlan> treatmentPlanAdds,List<TreatmentPlan> treatmentPlanUpdates,List<TreatmentPlan> treatmentPlanDeletes,List<TreatmentRecord> treatmentRecordAdds,List<TreatmentRecord> treatmentRecordUpdates,List<TreatmentRecord> treatmentRecordDeletes,List<TreatmentHistory> treatmentHistoryAdds,List<TreatmentHistory> treatmentHistoryUpdates,List<TreatmentHistory> treatmentHistoryDeletes, List<BCustomerSchool> bCustomerSchoolAdds, List<BCustomerSchool> bCustomerSchoolUpdates, List<BCustomerSchool> bCustomerSchoolDeletes) throws Exception {
+	public String updateTreatment(Treatment treatment,TreatmentAssess treatmentAssess,TreatmentReport treatmentReport,List<TreatmentPlan> treatmentPlanAdds,List<TreatmentPlan> treatmentPlanUpdates,List<TreatmentPlan> treatmentPlanDeletes,List<TreatmentRecord> treatmentRecordAdds,List<TreatmentRecord> treatmentRecordUpdates,List<TreatmentRecord> treatmentRecordDeletes,List<TreatmentHistory> treatmentHistoryAdds,List<TreatmentHistory> treatmentHistoryUpdates,List<TreatmentHistory> treatmentHistoryDeletes, List<BCustomerSchool> bCustomerSchoolAdds, List<BCustomerSchool> bCustomerSchoolUpdates, List<BCustomerSchool> bCustomerSchoolDeletes,List<TreatmentFamily> treatmentFamilyAdds,List<TreatmentFamily> treatmentFamilyUpdates,List<TreatmentFamily> treatmentFamilyDeletes) throws Exception {
 
 		int row = treatmentDao.updateTreatment(treatment);
 		if (row > 0) {
@@ -93,6 +96,18 @@ public class TreatmentBiz {
 				throw new Exception("新增個案撮要失败！");
 			}
 			
+			if(addTreatmentFamily(treatment, treatmentFamilyAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(updateTreatmentFamily(treatment, treatmentFamilyUpdates)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(deleteTreatmentFamily(treatment, treatmentFamilyDeletes)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
 			//
 			if(updateTreatmentReport(treatment, treatmentReport)<0){
 				throw new Exception("新增個案撮要失败！");
@@ -103,7 +118,7 @@ public class TreatmentBiz {
 		return "操作成功！";
 	}
 
-	public boolean deleteTreatmentByCaseID(String treatmentID) throws Exception {
+	public boolean deleteTreatmentByTreatmentID(String treatmentID) throws Exception {
 		boolean flag=false;
 		int row = treatmentDao.deleteTreatmentByTreatmentID(treatmentID);
 			if (row > 0) {
@@ -193,7 +208,6 @@ public class TreatmentBiz {
 		}
 
 		for (BCustomerSchool add : bCustomerSchoolAdds) {
-			add.setCustID(treatment.getCustID());
 			add.setCustID(treatment.getCustID());
 		}
 
@@ -321,10 +335,29 @@ public class TreatmentBiz {
 
 		for (TreatmentHistory add : treatmentHistoryAdds) {
 			add.setCustID(treatment.getCustID());
-			add.setCustID(treatment.getCustID());
 		}
 
 		int[] rows = treatmentHistoryDao.insertTreatmentHistory(treatmentHistoryAdds);
+		for (int i : rows) {
+			if (i < 1) {
+				return i;
+			}
+		}
+
+		return 1;
+	}
+	
+	private int addTreatmentFamily(Treatment treatment, List<TreatmentFamily> treatmentFamilyAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
+		// TODO Auto-generated method stub
+		if (treatmentFamilyAdds == null || treatmentFamilyAdds.size() <= 0) {
+			return 1;
+		}
+
+		for (TreatmentFamily add : treatmentFamilyAdds) {
+			add.setTreatmentID(treatment.getTreatmentID());
+		}
+
+		int[] rows = treatmentFamilyDao.insertTreatmentFamily(treatmentFamilyAdds);
 		for (int i : rows) {
 			if (i < 1) {
 				return i;
@@ -340,6 +373,14 @@ public class TreatmentBiz {
 			return 1;
 		}
 		return treatmentHistoryDao.updateTreatmentHistory(treatmentHistoryUpdates);
+	}
+	
+	private int updateTreatmentFamily(Treatment treatment, List<TreatmentFamily> treatmentFamilyUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
+		// TODO Auto-generated method stub
+		if (treatmentFamilyUpdates == null || treatmentFamilyUpdates.size() <= 0) {
+			return 1;
+		}
+		return treatmentFamilyDao.updateTreatmentFamily(treatmentFamilyUpdates);
 	}
 	
 	private int updateTreatmentPlan(Treatment treatment, List<TreatmentPlan> treatmentPlanUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
@@ -379,10 +420,17 @@ public class TreatmentBiz {
 		}
 		return treatmentHistoryDao.deleteTreatmentHistory(treatmentHistoryDeletes);
 	}
+	private int deleteTreatmentFamily(Treatment treatment, List<TreatmentFamily> treatmentFamilyDeletes) throws IOException, SQLException {
+		// TODO Auto-generated method stub
+		if (treatmentFamilyDeletes == null || treatmentFamilyDeletes.size() <= 0) {
+			return 1;
+		}
+		return treatmentFamilyDao.deleteTreatmentFamily(treatmentFamilyDeletes);
+	}
 
 	public String insertTreatment(Treatment treatment, TreatmentAssess treatmentAssess, TreatmentReport treatmentReport,
 			List<TreatmentPlan> treatmentPlanAdds, List<TreatmentRecord> treatmentRecordAdds,
-			List<TreatmentHistory> treatmentHistoryAdds, List<BCustomerSchool> bCustomerSchoolAdds) throws Exception {
+			List<TreatmentHistory> treatmentHistoryAdds, List<BCustomerSchool> bCustomerSchoolAdds,List<TreatmentFamily> treatmentFamilyAdds) throws Exception {
 		String treatmentID = treatmentDao.getPrimaryKey(Constants.CORPID);
 		treatment.setTreatmentID(treatmentID);
 		int row = treatmentDao.insertTreatment(treatment);
@@ -412,6 +460,10 @@ public class TreatmentBiz {
 			
 			//
 			if(addTreatmentHistory(treatment, treatmentHistoryAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(addTreatmentFamily(treatment, treatmentFamilyAdds)<0){
 				throw new Exception("新增個案撮要失败！");
 			}
 			

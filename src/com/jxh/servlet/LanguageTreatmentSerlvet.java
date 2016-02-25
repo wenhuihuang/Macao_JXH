@@ -21,13 +21,19 @@ import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
 import com.jxh.biz.TreatmentBiz;
 import com.jxh.dao.BCustomerSchoolDao;
+import com.jxh.dao.CustomerDao;
+import com.jxh.dao.TreatmentAssessDao;
 import com.jxh.dao.TreatmentDao;
 import com.jxh.dao.TreatmentFamilyDao;
 import com.jxh.dao.TreatmentHistoryDao;
 import com.jxh.dao.TreatmentPlanDao;
 import com.jxh.dao.TreatmentRecordDao;
+import com.jxh.dao.TreatmentReportDao;
 import com.jxh.pojo.CustCasePojo;
+import com.jxh.pojo.Customer;
 import com.jxh.pojo.LanguageTreatmentPojo;
+import com.jxh.pojo.TreatmentAssessPojo;
+import com.jxh.pojo.TreatmentReportPojo;
 import com.jxh.vo.BCustomer;
 import com.jxh.vo.BCustomerSchool;
 import com.jxh.vo.CSSA;
@@ -55,6 +61,9 @@ public class LanguageTreatmentSerlvet extends FGServlet {
 	private TreatmentPlanDao treatmentPlanDao = new TreatmentPlanDao();
 	private TreatmentRecordDao treatmentRecordDao = new TreatmentRecordDao();
 	private TreatmentFamilyDao treatmentFamilyDao = new TreatmentFamilyDao();
+	private TreatmentAssessDao treatmentAssessDao = new TreatmentAssessDao();
+	private TreatmentReportDao treatmentReportDao = new TreatmentReportDao();
+	private CustomerDao customerDao = new CustomerDao();
 	private TreatmentBiz treatmentBiz = new TreatmentBiz();
        
     /**
@@ -104,10 +113,19 @@ public class LanguageTreatmentSerlvet extends FGServlet {
 	
 	private void edit(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			LanguageTreatmentPojo languageTreatmentPojo = treatmentDao.getTreatmentPojoByCondition(" and Treatment.treatmentID = ? ",
+			BCustomer customer = customerDao.getCustomerByCondition(" and custID = ? ",
+					this.getParameterByName(request, "custID"));
+			LanguageTreatmentPojo languageTreatmentPojo = treatmentDao.getTreatmentPojoByCondition(" and treatmentID = ? ",
 					this.getParameterByName(request, "treatmentID"));
+			TreatmentAssessPojo treatmentAssessPojo = treatmentAssessDao.getTreatmentAssessPojoByCondition(" and treatmentID = ? ",
+					this.getParameterByName(request, "treatmentID"));
+			TreatmentReportPojo treatmentReportPojo = treatmentReportDao.getTreatmentReportPojoByCondition(" and treatmentID = ? ",
+					this.getParameterByName(request,"treatmentID"));
+			request.setAttribute("customer", customer);
 			request.setAttribute("languageTreatmentPojo", languageTreatmentPojo);
-			forwardDispatcher("../jsp/custCase/edit.jsp", request, response);
+			request.setAttribute("treatmentAssessPojo", treatmentAssessPojo);
+			request.setAttribute("treatmentReportPojo", treatmentReportPojo);
+			forwardDispatcher("../jsp/treatment/language_edit.jsp", request, response);
 
 		} catch (IOException | SQLException | ServletException e) {
 			// TODO Auto-generated catch block
@@ -178,6 +196,9 @@ public class LanguageTreatmentSerlvet extends FGServlet {
 		List<TreatmentHistory>  treatmentHistoryUpdates = getGridListByParamerName(TreatmentHistory.class, request, "treatmentHistoryUpdates");
 		List<TreatmentHistory>  treatmentHistoryDeletes = getGridListByParamerName(TreatmentHistory.class, request, "treatmentHistoryDeletes");
 		
+		List<TreatmentFamily>  treatmentFamilyAdds = getGridListByParamerName(TreatmentFamily.class, request, "treatmentFamilyAdds");
+		List<TreatmentFamily>  treatmentFamilyUpdates = getGridListByParamerName(TreatmentFamily.class, request, "treatmentFamilyUpdates");
+		List<TreatmentFamily>  treatmentFamilyDeletes = getGridListByParamerName(TreatmentFamily.class, request, "treatmentFamilyDeletes");
 		
 		List<BCustomerSchool>  bCustomerSchoolAdds = getGridListByParamerName(BCustomerSchool.class, request, "bCustomerSchoolAdds");
 		List<BCustomerSchool>  bCustomerSchoolUpdates = getGridListByParamerName(BCustomerSchool.class, request, "bCustomerSchoolUpdates");
@@ -194,9 +215,9 @@ public class LanguageTreatmentSerlvet extends FGServlet {
 		
 
 		if (treatment.getTreatmentID() != null && !"".equals(treatment.getTreatmentID())) {
-			message = treatmentBiz.updateTreatment(treatment, treatmentAssess,treatmentReport,treatmentPlanAdds,treatmentPlanUpdates,treatmentPlanDeletes,treatmentRecordAdds,treatmentRecordUpdates,treatmentRecordDeletes,treatmentHistoryAdds,treatmentHistoryUpdates,treatmentHistoryDeletes,bCustomerSchoolAdds,bCustomerSchoolUpdates,bCustomerSchoolDeletes);
+			message = treatmentBiz.updateTreatment(treatment, treatmentAssess,treatmentReport,treatmentPlanAdds,treatmentPlanUpdates,treatmentPlanDeletes,treatmentRecordAdds,treatmentRecordUpdates,treatmentRecordDeletes,treatmentHistoryAdds,treatmentHistoryUpdates,treatmentHistoryDeletes,bCustomerSchoolAdds,bCustomerSchoolUpdates,bCustomerSchoolDeletes,treatmentFamilyAdds,treatmentFamilyUpdates,treatmentFamilyDeletes);
 		} else {
-			message = treatmentBiz.insertTreatment(treatment, treatmentAssess,treatmentReport,treatmentPlanAdds,treatmentRecordAdds,treatmentHistoryAdds,bCustomerSchoolAdds);
+			message = treatmentBiz.insertTreatment(treatment, treatmentAssess,treatmentReport,treatmentPlanAdds,treatmentRecordAdds,treatmentHistoryAdds,bCustomerSchoolAdds,treatmentFamilyAdds);
 		}
 
 		// 设置为表单jsp
@@ -210,6 +231,15 @@ public class LanguageTreatmentSerlvet extends FGServlet {
 			forwardDispatcher("../jsp/treatment/language_edit.jsp", request, response);
 		}
 
+	}
+	
+	private void deleteTreatment(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		boolean flag = false;
+		String treatmentID = request.getParameter("treatmentID");
+		if(treatmentID != null && !"".equals(treatmentID)){
+			flag = treatmentBiz.deleteTreatmentByTreatmentID(treatmentID);
+		}
+		response.getWriter().print(flag);
 	}
 
 }
