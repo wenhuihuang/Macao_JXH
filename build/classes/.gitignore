@@ -1,2 +1,5 @@
+/c3p0-config.xml
 /com/
+/connswitch.properties
+/dbcp.properties
 /sqls/

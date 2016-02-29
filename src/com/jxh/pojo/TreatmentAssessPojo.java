@@ -79,13 +79,14 @@ public class TreatmentAssessPojo implements Serializable {
 	private String interest;
 	private String hope;
 	private String totalSuggest;
+	private String sketch;
 	
 	private String assessDate_str;
 
 	public TreatmentAssessPojo(){
 		super();
 	}
-	public TreatmentAssessPojo(int assessID, String treatmentID, String custID, int assessType, String assessCategory, Date assessDate, String place, String worker, String otherWorkers, String otherFamily, String focus, String eyeContact, String soundsReply, String toySkill, String imitation, String communicate, String conceptual, String ability, String vocabulary, String sentenceLen, String sentenceOrg, String question, String narrative, String storyTell, String interview, String expressionOther, String words, String oralOrder, String questions, String story, String logical, String underStandConceptual, String underStandOther, int vowel, String vowelNote, int beforeConsonant, String beforeConsonantNote, int afterConsonant, String afterConsonantNote, int tone, String toneNote, String pronunciationOther, String other, int acceptService, String servicePoint, String sites, String suggestOther, String communication, String communicationNote, String cognitive, String cognitiveNote, String lMuscle, String lMuscleNote, String sMuscle, String sMuscleNote, String interpersonal, String interpersonalNote, String selfAbility, String selfAbilityNote, String sensory, String sensoryNote, String health, String healthNote, String interest, String hope, String totalSuggest ,String assessDate_str){
+	public TreatmentAssessPojo(int assessID, String treatmentID, String custID, int assessType, String assessCategory, Date assessDate, String place, String worker, String otherWorkers, String otherFamily, String focus, String eyeContact, String soundsReply, String toySkill, String imitation, String communicate, String conceptual, String ability, String vocabulary, String sentenceLen, String sentenceOrg, String question, String narrative, String storyTell, String interview, String expressionOther, String words, String oralOrder, String questions, String story, String logical, String underStandConceptual, String underStandOther, int vowel, String vowelNote, int beforeConsonant, String beforeConsonantNote, int afterConsonant, String afterConsonantNote, int tone, String toneNote, String pronunciationOther, String other, int acceptService, String servicePoint, String sites, String suggestOther, String communication, String communicationNote, String cognitive, String cognitiveNote, String lMuscle, String lMuscleNote, String sMuscle, String sMuscleNote, String interpersonal, String interpersonalNote, String selfAbility, String selfAbilityNote, String sensory, String sensoryNote, String health, String healthNote, String interest, String hope, String totalSuggest ,String assessDate_str,String sketch){
 		super();
 		this.assessID=assessID;
 		this.treatmentID=treatmentID;
@@ -154,6 +155,7 @@ public class TreatmentAssessPojo implements Serializable {
 		this.hope=hope;
 		this.totalSuggest=totalSuggest;
 		this.assessDate_str=assessDate_str;
+		this.sketch=sketch;
 	}
 	public void setAssessID(int assessID){
 		this.assessID=assessID;
@@ -461,30 +463,6 @@ public class TreatmentAssessPojo implements Serializable {
 	public String getCognitiveNote(){
 		return cognitiveNote;
 	}
-	public void setLMuscle(String lMuscle){
-		this.lMuscle=lMuscle;
-	}
-	public String getLMuscle(){
-		return lMuscle;
-	}
-	public void setLMuscleNote(String lMuscleNote){
-		this.lMuscleNote=lMuscleNote;
-	}
-	public String getLMuscleNote(){
-		return lMuscleNote;
-	}
-	public void setSMuscle(String sMuscle){
-		this.sMuscle=sMuscle;
-	}
-	public String getSMuscle(){
-		return sMuscle;
-	}
-	public void setSMuscleNote(String sMuscleNote){
-		this.sMuscleNote=sMuscleNote;
-	}
-	public String getSMuscleNote(){
-		return sMuscleNote;
-	}
 	public void setInterpersonal(String interpersonal){
 		this.interpersonal=interpersonal;
 	}
@@ -566,9 +544,42 @@ public class TreatmentAssessPojo implements Serializable {
 	public void setAssessDate_str(String assessDate_str) {
 		this.assessDate_str = assessDate_str;
 	}
+	
+	
+	
+	public String getlMuscle() {
+		return lMuscle;
+	}
+	public void setlMuscle(String lMuscle) {
+		this.lMuscle = lMuscle;
+	}
+	public String getlMuscleNote() {
+		return lMuscleNote;
+	}
+	public void setlMuscleNote(String lMuscleNote) {
+		this.lMuscleNote = lMuscleNote;
+	}
+	public String getsMuscle() {
+		return sMuscle;
+	}
+	public void setsMuscle(String sMuscle) {
+		this.sMuscle = sMuscle;
+	}
+	public String getsMuscleNote() {
+		return sMuscleNote;
+	}
+	public void setsMuscleNote(String sMuscleNote) {
+		this.sMuscleNote = sMuscleNote;
+	}
+	public String getSketch() {
+		return sketch;
+	}
+	public void setSketch(String sketch) {
+		this.sketch = sketch;
+	}
 	@Override
 	public String toString(){
-		return "TreatmentAssess [assessID="+assessID+",treatmentID="+treatmentID+",custID="+custID+",assessType="+assessType+",assessCategory="+assessCategory+",assessDate="+assessDate+",place="+place+",worker="+worker+",otherWorkers="+otherWorkers+",otherFamily="+otherFamily+",focus="+focus+",eyeContact="+eyeContact+",soundsReply="+soundsReply+",toySkill="+toySkill+",imitation="+imitation+",communicate="+communicate+",conceptual="+conceptual+",ability="+ability+",vocabulary="+vocabulary+",sentenceLen="+sentenceLen+",sentenceOrg="+sentenceOrg+",question="+question+",narrative="+narrative+",storyTell="+storyTell+",interview="+interview+",expressionOther="+expressionOther+",words="+words+",oralOrder="+oralOrder+",questions="+questions+",story="+story+",logical="+logical+",underStandConceptual="+underStandConceptual+",underStandOther="+underStandOther+",vowel="+vowel+",vowelNote="+vowelNote+",beforeConsonant="+beforeConsonant+",beforeConsonantNote="+beforeConsonantNote+",afterConsonant="+afterConsonant+",afterConsonantNote="+afterConsonantNote+",tone="+tone+",toneNote="+toneNote+",pronunciationOther="+pronunciationOther+",other="+other+",acceptService="+acceptService+",servicePoint="+servicePoint+",sites="+sites+",suggestOther="+suggestOther+",communication="+communication+",communicationNote="+communicationNote+",cognitive="+cognitive+",cognitiveNote="+cognitiveNote+",lMuscle="+lMuscle+",lMuscleNote="+lMuscleNote+",sMuscle="+sMuscle+",sMuscleNote="+sMuscleNote+",interpersonal="+interpersonal+",interpersonalNote="+interpersonalNote+",selfAbility="+selfAbility+",selfAbilityNote="+selfAbilityNote+",sensory="+sensory+",sensoryNote="+sensoryNote+",health="+health+",healthNote="+healthNote+",interest="+interest+",hope="+hope+",totalSuggest="+totalSuggest+",assessDate_str="+assessDate_str+"]";
+		return "TreatmentAssess [assessID="+assessID+",treatmentID="+treatmentID+",custID="+custID+",assessType="+assessType+",assessCategory="+assessCategory+",assessDate="+assessDate+",place="+place+",worker="+worker+",otherWorkers="+otherWorkers+",otherFamily="+otherFamily+",focus="+focus+",eyeContact="+eyeContact+",soundsReply="+soundsReply+",toySkill="+toySkill+",imitation="+imitation+",communicate="+communicate+",conceptual="+conceptual+",ability="+ability+",vocabulary="+vocabulary+",sentenceLen="+sentenceLen+",sentenceOrg="+sentenceOrg+",question="+question+",narrative="+narrative+",storyTell="+storyTell+",interview="+interview+",expressionOther="+expressionOther+",words="+words+",oralOrder="+oralOrder+",questions="+questions+",story="+story+",logical="+logical+",underStandConceptual="+underStandConceptual+",underStandOther="+underStandOther+",vowel="+vowel+",vowelNote="+vowelNote+",beforeConsonant="+beforeConsonant+",beforeConsonantNote="+beforeConsonantNote+",afterConsonant="+afterConsonant+",afterConsonantNote="+afterConsonantNote+",tone="+tone+",toneNote="+toneNote+",pronunciationOther="+pronunciationOther+",other="+other+",acceptService="+acceptService+",servicePoint="+servicePoint+",sites="+sites+",suggestOther="+suggestOther+",communication="+communication+",communicationNote="+communicationNote+",cognitive="+cognitive+",cognitiveNote="+cognitiveNote+",lMuscle="+lMuscle+",lMuscleNote="+lMuscleNote+",sMuscle="+sMuscle+",sMuscleNote="+sMuscleNote+",interpersonal="+interpersonal+",interpersonalNote="+interpersonalNote+",selfAbility="+selfAbility+",selfAbilityNote="+selfAbilityNote+",sensory="+sensory+",sensoryNote="+sensoryNote+",health="+health+",healthNote="+healthNote+",interest="+interest+",hope="+hope+",totalSuggest="+totalSuggest+",assessDate_str="+assessDate_str+",sketch="+sketch+"]";
 	}
 }
 

@@ -130,6 +130,10 @@ public class TreatmentPojo implements Serializable {
 	private String fullName;
 	private String isMember;
 	
+	private String caseWorker;
+	private Date receiveDate;
+	private int caseStatus;
+	
 	private Date assessDate;
 	
 	private Date closeDate;
@@ -146,6 +150,8 @@ public class TreatmentPojo implements Serializable {
 	
 	private String assessDate_str;
 	private String closeDate_str;
+	
+	private String receiveDate_str;
 
 	public TreatmentPojo(){
 		super();
@@ -175,7 +181,8 @@ public class TreatmentPojo implements Serializable {
 								String hobby, String morningLife, String afternoonLife, String nightLife, String lifeEnvironment,
 								String workerNote, String behaviourNote,String applyDate_str,String physicalDate_str,
 								String visionDate_str,String hearingDate_str, String iQDate_str,String speechDate_str,String behaviorDate_str,
-								Date startDate,String startDate_str,Date awaitDate,String awaitDate_str,String fullName, String isMember,Date assessDate,Date closeDate,String assessDate_str,String closeDate_str){
+								Date startDate,String startDate_str,Date awaitDate,String awaitDate_str,String fullName, String isMember,Date assessDate,Date closeDate,
+								String assessDate_str,String closeDate_str,String caseWorker,int caseStatus,Date receiveDate,String receiveDate_str){
 		super();
 		this.treatmentID=treatmentID;
 		this.treatmentType=treatmentType;
@@ -294,6 +301,11 @@ public class TreatmentPojo implements Serializable {
 		
 		this.fullName=fullName;
 		this.isMember=isMember;
+		
+		this.caseWorker=caseWorker;
+		this.caseStatus=caseStatus;
+		this.receiveDate=receiveDate;
+		this.receiveDate_str=receiveDate_str;
 		
 		this.assessDate=assessDate;
 		
@@ -1166,6 +1178,39 @@ public class TreatmentPojo implements Serializable {
 	public void setCloseDate_str(String closeDate_str) {
 		this.closeDate_str = closeDate_str;
 	}
+	
+	
+	
+	public String getCaseWorker() {
+		return caseWorker;
+	}
+	public void setCaseWorker(String caseWorker) {
+		this.caseWorker = caseWorker;
+	}
+	public Date getReceiveDate() {
+		return receiveDate;
+	}
+	public void setReceiveDate(Date receiveDate) {
+		this.receiveDate = receiveDate;
+	}
+	public int getCaseStatus() {
+		return caseStatus;
+	}
+	public void setCaseStatus(int caseStatus) {
+		this.caseStatus = caseStatus;
+	}
+	public String getReceiveDate_str() {
+		try {
+			return receiveDate == null || "".equals(receiveDate) ? ""
+					: ToolsUtils.getDateStringByFormat(receiveDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setReceiveDate_str(String receiveDate_str) {
+		this.receiveDate_str = receiveDate_str;
+	}
 	@Override
 	public String toString(){
 		return "Treatment [treatmentID="+treatmentID+",treatmentType="+treatmentType+",custID="+custID+
@@ -1205,6 +1250,7 @@ public class TreatmentPojo implements Serializable {
 				",visionDate_str="+visionDate_str+",hearingDate_str="+hearingDate_str+",iQDate_str="+iQDate_str+",speechDate_str="+speechDate_str+
 				",behaviorDate_str="+behaviorDate_str+",startDate="+startDate+",startDate_str"+startDate_str+
 				",awaitDate="+awaitDate+",awaitDate_str="+awaitDate_str+",fullName="+fullName+",isMember="+isMember+
-				",assessDate="+assessDate+",closeDate="+closeDate+",assessDate_str="+assessDate_str+",closeDate_str="+closeDate_str+"]";
+				",assessDate="+assessDate+",closeDate="+closeDate+",assessDate_str="+assessDate_str+",closeDate_str="+closeDate_str+
+				",caseWorker="+caseWorker+",caseStatus="+caseStatus+",receiveDate="+receiveDate+",receiveDate_str="+receiveDate_str+"]";
 	}
 }

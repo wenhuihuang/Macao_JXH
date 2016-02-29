@@ -256,6 +256,7 @@ String basePath = request.getScheme() + "://"
          width : 240,
          cancelable: false
      }); */
+     
 		
     })
         
@@ -366,6 +367,10 @@ String basePath = request.getScheme() + "://"
 			                <td align="left" class="l-table-edit-td">
 			                <input width="120px" value="${treatmentPojo.worker }" name="worker" type="text" id="worker" ltype="text"/>
 			                </td> --%>
+			                <td align="right" class="l-table-edit-td">案件來源：</td>
+			                <td align="left" class="l-table-edit-td">
+			                <input width="120px" value="${custCasePojo.CaseSource }" name="caseSource" type="text" id="caseSource" ltype="text"/>
+			                </td>
 			                
 			                <td align="right" class="l-table-edit-td">申請服務日期：</td>
 			                <td align="left" class="l-table-edit-td">
@@ -650,289 +655,126 @@ String basePath = request.getScheme() + "://"
                					 <td align="left" class="l-table-edit-td">
                					 	<input width="120px" value="${treatmentAssessPojo.otherFamily }" name="otherFamily" type="text" id="otherFamily" ltype="text" />
                					 </td>
+               					  <td align="right" class="l-table-edit-td">評估簡述:</td>
+               					 <td align="left" class="l-table-edit-td">
+               					 	<textarea rows="2" cols="55" name="otherReason" id="otherReason">${treatmentAssessPojo.sketch }</textarea>
+               					 </td>
                				</tr>
                			</tbody>
                		</table> 
-               			<div class="panel panel-default">
-						  <div class="panel-heading">語言前技能</div>
+						
+						<div class="panel panel-default">
+						  <div class="panel-heading">評估工具</div>
 						  <div class="panel-body">
-						    <table>
-						    	<tbody>
-						    		<tr>
-						    			<td align="right" class="l-table-edit-td">專注能力:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${treatmentAssessPojo.focus }" name="focus" type="text" id="focus" ltype="text" />
-		               					</td>
-		               					 <td align="right" class="l-table-edit-td">目光接觸:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${treatmentAssessPojo.eyeContact }" name="eyeContact" type="text" id="eyeContact" ltype="text" />
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">玩具操作技巧:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${treatmentAssessPojo.toySkill }" name="toySkill" type="text" id="toySkill" ltype="text" />
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">對聲音的反應:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${treatmentAssessPojo.soundsReply }" name="soundsReply" type="text" id="soundsReply" ltype="text" />
-		               					</td>
-		               				</tr>
-		               				<tr>
-		               					<td align="right" class="l-table-edit-td">模仿能力:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${treatmentAssessPojo.imitation }" name="imitation" type="text" id="imitation" ltype="text" />
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">備通意願:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${treatmentAssessPojo.communicate }" name="communicate" type="text" id="communicate" ltype="text" />
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">物件概念:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${treatmentAssessPojo.conceptual }" name="conceptual" type="text" id="conceptual" ltype="text" />
-		               					</td>
-		               				</tr><tr>
-		               					<td align="right" class="l-table-edit-td">其他:</td>
-		               					<td align="left" class="l-table-edit-td">
-				                			<textarea rows="2" cols="55" name="ability" id="ability">${treatmentAssessPojo.ability }</textarea>
-		               					 	<%-- <input width="120px" value="${treatmentAssessPojo.ability }" name="ability" type="text" id="ability" ltype="text" /> --%>
-		               					</td>
-						    		</tr>
-						    	</tbody>
-						    </table>
+						  	<h5>發展能力評估紀錄</h5>
+						  	 	<table  class="table-center table-edit" border="1">
+						  			<thead>
+						  				<tr>
+							    			<th height="28px" width="120px">項目</th>
+							    			<th width="30%">能力現況描述</th>
+							    			<th>備註</th>
+							    		</tr>
+						  			</thead>
+						  			<tbody>
+						  				<tr>
+						  					<th>溝通能力</th>
+						  					<td>
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  					<td>
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  				</tr>
+						  				<tr>
+						  					<th>認知能力</th>
+						  					<td>
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  					<td>
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  				</tr>
+						  				<tr>
+						  					<th>大肌肉動作能力</th>
+						  					<td>
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  					<td>
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  				</tr>
+						  				<tr>
+						  					<th>小肌肉/精細動作能力</th>
+						  					<td>
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  					<td>
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  				</tr>
+						  				<tr>
+						  					<th>情緒及社會人際關係</th>
+						  					<td>
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  					<td>
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  				</tr>
+						  				<tr>
+						  					<th>生活自理能力</th>
+						  					<td>
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  					<td>
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  				</tr>
+						  				<tr>
+						  					<th>感官功能</th>
+						  					<td>
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  					<td>
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  				</tr>
+						  				<tr>
+						  					<th>健康狀況</th>
+						  					<td>
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  					<td>
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  				</tr>
+						  				<tr>
+						  					<th>興趣/休閒娛樂</th>
+						  					<td>
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  					<td>
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  				</tr>
+						  				<tr>
+						  					<th>家長期待</th>
+						  					<td colspan="2">
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  				</tr>
+						  				<tr>
+						  					<th>綜合能力評估和建議</th>
+						  					<td colspan="2">
+						  						<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
+						  					</td>
+						  				</tr>
+						  			</tbody>
+						  		</table>
 						  </div>
 						</div>
 						
-						<div class="panel panel-default">
-						  <div class="panel-heading">語言表達</div>
-						  <div class="panel-body">
-						    <table>
-						    	<tbody>
-						    		<tr>
-						    			<td align="right" class="l-table-edit-td">詞彙運用:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<label for="wordsGesture"><input class="vocabulary" type="checkbox" value="0" id="wordsGesture" <c:if test="${(treatmentAssessPojo.vocabulary).indexOf('0') != -1 }">checked="checked"</c:if>>手勢</label>
-		               						<label for="wordsSound"><input class="vocabulary" type="checkbox" value="1" id="wordsSound" <c:if test="${(treatmentAssessPojo.vocabulary).indexOf('1') != -1 }">checked="checked"</c:if>>聲音</label>
-		               						<label for="wordsPicture"><input class="vocabulary" type="checkbox" value="2" id="wordsPicture" <c:if test="${(treatmentAssessPojo.vocabulary).indexOf('2') != -1 }">checked="checked"</c:if>>圖片</label>
-		               						<label for="wordsLanguage"><input class="vocabulary" type="checkbox" value="3" id="wordsLanguage" <c:if test="${(treatmentAssessPojo.vocabulary).indexOf('3') != -1 }">checked="checked"</c:if>>言語</label>
-		               					</td>
-		               					 <td align="right" class="l-table-edit-td">句子長度:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<label><input type="checkbox" class="sentenceLen" value="0" <c:if test="${(treatmentAssessPojo.sentenceLen).indexOf('0') != -1 }">checked="checked"</c:if>>手勢</label>
-		               						<label><input type="checkbox" class="sentenceLen" value="1" <c:if test="${(treatmentAssessPojo.sentenceLen).indexOf('1') != -1 }">checked="checked"</c:if>>聲音</label>
-		               						<label><input type="checkbox" class="sentenceLen" value="2" <c:if test="${(treatmentAssessPojo.sentenceLen).indexOf('2') != -1 }">checked="checked"</c:if>>圖片</label>
-		               						<label><input type="checkbox" class="sentenceLen" value="3" <c:if test="${(treatmentAssessPojo.sentenceLen).indexOf('3') != -1 }">checked="checked"</c:if>>言語</label>
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">句子組成:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<label><input type="checkbox" class="sentenceOrg" value="0" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('0') != -1 }">checked="checked"</c:if>>手勢</label>
-		               						<label><input type="checkbox" class="sentenceOrg" value="1" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('1') != -1 }">checked="checked"</c:if>>聲音</label>
-		               						<label><input type="checkbox" class="sentenceOrg" value="2" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('2') != -1 }">checked="checked"</c:if>>圖片</label>
-		               						<label><input type="checkbox" class="sentenceOrg" value="3" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('3') != -1 }">checked="checked"</c:if>>言語</label>
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">問句運用:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<label><input type="checkbox" class="question" value="0" <c:if test="${(treatmentAssessPojo.question).indexOf('0') != -1 }">checked="checked"</c:if>>手勢</label>
-		               						<label><input type="checkbox" class="question" value="1" <c:if test="${(treatmentAssessPojo.question).indexOf('1') != -1 }">checked="checked"</c:if>>聲音</label>
-		               						<label><input type="checkbox" class="question" value="2" <c:if test="${(treatmentAssessPojo.question).indexOf('2') != -1 }">checked="checked"</c:if>>圖片</label>
-		               						<label><input type="checkbox" class="question" value="3" <c:if test="${(treatmentAssessPojo.question).indexOf('3') != -1 }">checked="checked"</c:if>>言語</label>
-		               					</td>
-		               				</tr>
-		               				<tr>
-		               					<td align="right" class="l-table-edit-td">敘事能力:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<label><input type="checkbox" class="narrative" value="0" <c:if test="${(treatmentAssessPojo.narrative).indexOf('0') != -1 }">checked="checked"</c:if>>手勢</label>
-		               						<label><input type="checkbox" class="narrative" value="1" <c:if test="${(treatmentAssessPojo.narrative).indexOf('1') != -1 }">checked="checked"</c:if>>聲音</label>
-		               						<label><input type="checkbox" class="narrative" value="2" <c:if test="${(treatmentAssessPojo.narrative).indexOf('2') != -1 }">checked="checked"</c:if>>圖片</label>
-		               						<label><input type="checkbox" class="narrative" value="3" <c:if test="${(treatmentAssessPojo.narrative).indexOf('3') != -1 }">checked="checked"</c:if>>言語</label>
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">說故事技巧:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<label><input type="checkbox" class="storyTell" value="0" <c:if test="${(treatmentAssessPojo.storyTell).indexOf('0') != -1 }">checked="checked"</c:if>>手勢</label>
-		               						<label><input type="checkbox" class="storyTell" value="1" <c:if test="${(treatmentAssessPojo.storyTell).indexOf('1') != -1 }">checked="checked"</c:if>>聲音</label>
-		               						<label><input type="checkbox" class="storyTell" value="2" <c:if test="${(treatmentAssessPojo.storyTell).indexOf('2') != -1 }">checked="checked"</c:if>>圖片</label>
-		               						<label><input type="checkbox" class="storyTell" value="3" <c:if test="${(treatmentAssessPojo.storyTell).indexOf('3') != -1 }">checked="checked"</c:if>>言語</label>
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">對答技巧:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<label><input type="checkbox" class="interview" value="0" <c:if test="${(treatmentAssessPojo.interview).indexOf('0') != -1 }">checked="checked"</c:if>>手勢</label>
-		               						<label><input type="checkbox" class="interview" value="1" <c:if test="${(treatmentAssessPojo.interview).indexOf('1') != -1 }">checked="checked"</c:if>>聲音</label>
-		               						<label><input type="checkbox" class="interview" value="2" <c:if test="${(treatmentAssessPojo.interview).indexOf('2') != -1 }">checked="checked"</c:if>>圖片</label>
-		               						<label><input type="checkbox" class="interview" value="3" <c:if test="${(treatmentAssessPojo.interview).indexOf('3') != -1 }">checked="checked"</c:if>>言語</label>
-		               					</td>
-		               				</tr><tr>
-		               					<td align="right" class="l-table-edit-td">其他:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               						<textarea rows="2" cols="55" name="expressionOther" id="expressionOther">${treatmentAssessPojo.expressionOther }</textarea>
-		               					 	<%-- <input width="120px" value="${treatmentAssessPojo.expressionOther }" name="expressionOther" type="text" id="expressionOther" ltype="text" /> --%>
-		               					</td>
-						    		</tr>
-						    	</tbody>
-						    </table>
-						  </div>
-						</div>
 						
-						<div class="panel panel-default">
-						  <div class="panel-heading">語言理解</div>
-						  <div class="panel-body">
-						    <table>
-						    	<tbody>
-						    		<tr>
-						    			<td align="right" class="l-table-edit-td">詞彙:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${treatmentAssessPojo.words }" name="words" type="text" id="words" ltype="text" />
-		               					</td>
-		               					 <td align="right" class="l-table-edit-td">口頭指令:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${treatmentAssessPojo.oralOrder }" name="oralOrder" type="text" id="oralOrder" ltype="text" />
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">問句:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${treatmentAssessPojo.questions }" name="questions" type="text" id="questions" ltype="text" />
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">故事:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${treatmentAssessPojo.story }" name="story" type="text" id="story" ltype="text" />
-		               					</td>
-		               				</tr>
-		               				<tr>
-		               					<td align="right" class="l-table-edit-td">邏輯思維:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${treatmentAssessPojo.logical }" name="logical" type="text" id="logical" ltype="text" />
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">物件概念:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${treatmentAssessPojo.underStandConceptual }" name="underStandConceptual" type="text" id="underStandConceptual" ltype="text" />
-		               					</td>
-		               				</tr>
-		               				<tr>
-		               					<td align="right" class="l-table-edit-td">其他:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               						<textarea rows="2" cols="55" name="underStandOther" id="underStandOther">${treatmentAssessPojo.underStandOther }</textarea>
-		               					 	<%-- <input width="120px" value="${treatmentAssessPojo.underStandOther }" name="underStandOther" type="text" id="underStandOther" ltype="text" /> --%>
-		               					</td>
-						    		</tr>
-						    	</tbody>
-						    </table>
-						  </div>
-						</div>
-						
-						<div class="panel panel-default">
-						  <div class="panel-heading">兒童在發音方面有以下困難</div>
-						  <div class="panel-body">
-						    <table  class="table-center table-edit" border="1">
-						    	<thead>
-						    		<tr>
-						    			<th height="28px" width="120px">項目</th>
-						    			<th width="120px">有/無</th>
-						    			<th>描述</th>
-						    		</tr>
-						    	</thead>
-						    	<tbody>
-						    		<tr>
-						    			<th>元音/複元音</th>
-						    			<td>
-						    				<select name="vowel" id="vowel" ltype="select" width="120px" >
-						                		<option value="0" <c:if test="${treatmentAssessPojo.vowel != '1' }">selected="selected"</c:if> >無</option>
-						                		<option value="1" <c:if test="${treatmentAssessPojo.vowel == '1' }">selected="selected"</c:if> >有</option>
-						                	</select> 
-						    			</td>
-						    			<td>
-						    				<input width="120px" value="${treatmentAssessPojo.vowelNote }" name="vowelNote" type="text" id="vowelNote" ltype="text" />
-						    			</td>
-						    		</tr>
-						    		<tr>
-						    			<th>前輔音</th>
-						    			<td>
-						    				<select name="beforeConsonant" id="beforeConsonant" ltype="select" width="120px" >
-						                		<option value="0" <c:if test="${treatmentAssessPojo.beforeConsonant != '1' }">selected="selected"</c:if> >無</option>
-						                		<option value="1" <c:if test="${treatmentAssessPojo.beforeConsonant == '1' }">selected="selected"</c:if> >有</option>
-						                	</select> 
-						    			</td>
-						    			<td>
-						    				<input width="120px" value="${treatmentAssessPojo.beforeConsonantNote }" name="beforeConsonantNote" type="text" id="beforeConsonantNote" ltype="text" />
-						    			</td>
-						    		</tr>
-						    		<tr>
-						    			<th>後輔音</th>
-						    			<td>
-						    				<select name="afterConsonant" id="afterConsonant" ltype="select" width="120px" >
-						                		<option value="0" <c:if test="${treatmentAssessPojo.afterConsonant != '1' }">selected="selected"</c:if> >無</option>
-						                		<option value="1" <c:if test="${treatmentAssessPojo.afterConsonant == '1' }">selected="selected"</c:if> >有</option>
-						                	</select> 
-						    			</td>
-						    			<td>
-						    				<input width="120px" value="${treatmentAssessPojo.afterConsonantNote }" name="afterConsonantNote" type="text" id="afterConsonantNote" ltype="text" />
-						    			</td>
-						    		
-						    		</tr>
-						    		<tr>
-						    			<th>聲調</th>
-						    			<td>
-						    				<select name="tone" id="tone" ltype="select" width="120px" >
-						                		<option value="0" <c:if test="${treatmentAssessPojo.tone != '1' }">selected="selected"</c:if> >無</option>
-						                		<option value="1" <c:if test="${treatmentAssessPojo.tone == '1' }">selected="selected"</c:if> >有</option>
-						                	</select> 
-						    			</td>
-						    			<td>
-						    				<input width="120px" value="${treatmentAssessPojo.toneNote }" name="toneNote" type="text" id="toneNote" ltype="text" />
-						    			</td>
-						    		</tr>
-						    	</tbody>
-						    </table>
-						    <div class="inline-group">
-		            			<label style="text-align:right;">其他：</label>
-		                		<textarea rows="2" cols="55" name="pronunciationOther" id="pronunciationOther">${treatmentAssessPojo.pronunciationOther }</textarea>
-		            		</div>
-						  </div>
-						</div>
-						
-						<div class="panel panel-default">
-						  <div class="panel-heading">其他</div>
-						  <div class="panel-body">
-						  	<textarea name="other" rows="2" cols="55">${treatmentAssessPojo.other }</textarea>
-						  </div>
-						</div>
-						
-						<div class="panel panel-default">
-						  <div class="panel-heading">建議</div>
-						  <div class="panel-body">
-						  		<div class="inline-group">
-						  			<label style="width:180px;text-align:right">接受言語治療服務：</label>
-						  			<select name="acceptService" ltype="select" width="120px">
-               					 		<option value="0" <c:if test="${treatmentAssessPojo.acceptService != '1' }">selected="selected"</c:if>>是</option>
-               					 		<option value="1" <c:if test="${treatmentAssessPojo.acceptService == '1' }">selected="selected"</c:if>>否</option>
-               					 	</select>
-						  		</div>
-						  		<div class="inline-group">
-						  			<label style="width:180px;text-align:right">接受言語治療服務，訓練重點為：</label>
-						  			<div class="checkbox-group">
-						  				<p>
-						  					<label><input type="checkbox" value="0" class="servicePoint" <c:if test="${(treatmentAssessPojo.servicePoint).indexOf('0') != -1 }">checked="checked"</c:if>>提高溝通意識 </label>
-			               					<label><input type="checkbox" value="1"  class="servicePoint" <c:if test="${(treatmentAssessPojo.servicePoint).indexOf('1') != -1 }">checked="checked"</c:if>>擴闊詞彙的理解和表達 </label>
-			               				</p>
-			               				<p>
-			               				<label><input type="checkbox" value="2"  class="servicePoint" <c:if test="${(treatmentAssessPojo.servicePoint).indexOf('2') != -1 }">checked="checked"</c:if>> 增長句子的長度及複雜度 </label>
-			               				<label><input type="checkbox" value="3"  class="servicePoint" <c:if test="${(treatmentAssessPojo.servicePoint).indexOf('3') != -1 }">checked="checked"</c:if>>增強說話的組織能力 </label>
-			               				</p>
-			               				<p>
-			               				<label><input type="checkbox" value="4"  class="servicePoint" <c:if test="${(treatmentAssessPojo.servicePoint).indexOf('4') != -1 }">checked="checked"</c:if>> 增強邏輯性思維 </label>
-		               					<label><input type="checkbox" value="5"  class="servicePoint" <c:if test="${(treatmentAssessPojo.servicePoint).indexOf('5') != -1 }">checked="checked"</c:if>>增強口肌能力  </label>
-		               					</p>
-		               					<p>
-		               					<label><input type="checkbox" value="6"  class="servicePoint" <c:if test="${(treatmentAssessPojo.servicePoint).indexOf('6') != -1 }">checked="checked"</c:if>>改善發音，以提升說話的清晰度</label>
-		               					</p>
-						  			</div>
-						  			
-						  		</div>
-						  		<div class="inline-group">
-						  			<label style="width:180px;text-align:right">理解口頭指令部位：</label>
-						  			<input width="120px" value="${treatmentAssessPojo.sites }" name="sites" type="text" id="sites" ltype="text" />
-						  		</div>
-						  		<div class="inline-group">
-						  			<label style="width:180px;text-align:right">其他：</label>
-						  			<textarea rows="2" cols="55" name="suggestOther" id="suggestOther">${treatmentAssessPojo.suggestOther }</textarea>
-						  		</div>
-						  </div>
-						</div>
 		  	</div>
 		  	
 		  	<div tabid="plan" title="特別治療計劃">

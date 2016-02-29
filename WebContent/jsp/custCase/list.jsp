@@ -56,7 +56,7 @@ String basePath = request.getScheme() + "://"
         {
         	setTabTitle(parent.$("#framecenter"),"個案列表")
             var isMemberData = [{isMember:0,text:'非會員'},{isMember:1,text:'會員'}];
-            var caseStatusDate = [{caseStatus:0,text:'跟進'},{caseStatus:1,text:'結案'},{caseStatus:2,text:'轉介'}];
+            var caseStatusData = [{caseStatus:0,text:'跟進'},{caseStatus:1,text:'結案'},{caseStatus:2,text:'轉介'}];
             var cardStatusData = [{cardStatus:0,text:'退會'},{cardStatus:1,text:'正常'},{cardStatus:2,text:'欠費'}];
             var cardTypeData = [{cardType:1,text:'永久身份證'},{cardType:2,text:'非永久身份證'},{cardType:3,text:'其他'}];
         	
@@ -73,10 +73,10 @@ String basePath = request.getScheme() + "://"
     	                //{ display: '會談日期', name: '', width: 100, minWidth: 60 },//暫時沒有寫
     	                { display: '結案日期', name: 'closeDate', minWidth: 140 },
     	                { display: '個案狀態', name: 'caseStatus', minWidth: 100
-    	                	,editor: { data: caseStatusDate, valueField: 'caseStatus' },
+    	                	,editor: { data: caseStatusData, valueField: 'caseStatus' },
 	                        render: function (item)
 	                        {
-	                        	return getGridSelectedData(caseStatusDate[parseInt(item.caseStatus)]);
+	                        	return getGridSelectedData(caseStatusData[parseInt(item.caseStatus)]);
 	                        }  },
     	                { display: '接案社工', name: 'caseWorker', minWidth: 140 },
     	                { display: '結案社工', name: 'closeWorker', minWidth: 140 },

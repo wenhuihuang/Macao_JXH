@@ -63,8 +63,41 @@ table.table-center th,table.table-center td{
 	border:none;
 	text-align:center;
 }
+.table-edit .input-group div.l-text,.table-edit .input-group div.l-text-wrapper{
+	width:174px !important;
+	border:1px solid #ccc;
+	text-align:left;
+	display:inline-block;
+	vertical-align: middle;
+}
+.table-edit .input-group div.l-text input {
+	text-align:left;
+}
 .checkbox-group p label{
 	width:220px;
 	height:28px;
 	line-height:28px;
+}
+.col-2{
+	display:inline-block;
+	width:48%;
+}
+.checkbox-group p{
+	margin:10px 0;
+}
+.checkbox-group p label{
+	display:inline-block;
+	vertical-align: middle;
+}
+table.td-padding10 tbody td {
+	padding:8px 0;
+}
+.input-group p{
+	margin:8px 0;
+}
+.input-group p label{
+	display:inline-block;
+	vertical-align: middle;
+	width:80px;
+	text-align:right
 }

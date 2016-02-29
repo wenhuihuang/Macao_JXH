@@ -22,28 +22,54 @@ String basePath = request.getScheme() + "://"
             switch(item.id){
             	case "add":addRow();break;
             	case "modify":modifyRow();break;
+            	case "delete":deleteRow();break;
             	default : break;
             }
         }
         
         function addRow(){
-        	location.href = "CustCase/add.do";
+        	location.href = "Treatment/add.do?treatmentType=5";
         }
         
         function modifyRow(){
-        	var caseId = getRowCell(maingrid,"caseId");
-        	if(caseId!=""){
-        		alert(caseId)
-	        	location.href = "CustCase/edit.do?CASEID="+caseId;        		
+        	var treatmentID = getRowCell(maingrid,"treatmentID");
+        	var custID = getRowCell(maingrid,"custID");
+        	alert(custID+"=custID");
+        	if(treatmentID!="" && treatmentID!=null){
+	        	location.href = "Treatment/edit.do?treatmentType=5&treatmentID="+treatmentID+"&custID="+custID;        		
         	}
+        }
+        function deleteRow(){
+        	var treatmentID = getRowCell(maingrid,"treatmentID");
+        	var custID = getRowCell(maingrid,"custID");
+        	alert(treatmentID)
+      		if(confirm("是否刪除？")){
+     			$.ajax({
+         			type:"post",
+         			url:"Treatment/deleteTreatment.do",
+         			data:"treatmentID="+treatmentID+"&custID="+custID,
+         			success:function(msg){
+         				if(msg == "true" || msg == true){
+         					maingrid.deleteSelectedRow();
+         				}else{
+         					alert("刪除失敗！");
+         				}
+         				 
+         			},
+         			error:function(){
+         				alert("刪除失敗！");
+         			}
+         		})
+     		} 
         }
         
         
         $(function ()
         {
-        	 
+        	setTabTitle(parent.$("#framecenter"),"職能訓練列表") 
+        	
             var isMemberData = [{isMember:0,text:'非會員'},{isMember:1,text:'會員'}];
-            var serviceStatusData = [{serviceStatus:0,text:'沒有服務'},{serviceStatus:1,text:'服務中'},{serviceStatus:2,text:'服務完成'}];
+        	 var caseStatusData = [{caseStatus:0,text:'跟進'},{caseStatus:1,text:'結案'},{caseStatus:2,text:'轉介'}];
         	
             var columns = [
        	                { display: '檔案編號', name: 'treatmentNO', align: 'left', width: 100, minWidth: 60 },
@@ -54,19 +80,20 @@ String basePath = request.getScheme() + "://"
 	                        {
 	                        	return getGridSelectedData(isMemberData[parseInt(item.isMember)]);
 	                        } },
-    	                { display: '治療師', name: 'billDate', width: 100, minWidth: 60 },
-    	                { display: '申服務日期', name: '', width: 100, minWidth: 60 },//暫時沒有寫
-    	                { display: '評估日期', name: 'closeDate', minWidth: 140 },
-    	                { display: '服務狀態', name: 'serviceStatus', minWidth: 100
-    	                	,editor: { data: serviceStatusData, valueField: 'serviceStatus' },
+    	                { display: '接案社工', name: 'caseWorker', width: 100, minWidth: 60 },
+    	                { display: '接案日期', name: 'receiveDate', width: 100, minWidth: 60 },
+    	                { display: '申請日期', name: 'applyDate', width: 100, minWidth: 60 },
+    	                { display: '評估日期', name: 'assessDate', minWidth: 140 },
+    	                { display: '個案狀態', name: 'caseStatus', minWidth: 100
+    	                	,editor: { data: caseStatusData, valueField: 'caseStatus' },
 	                        render: function (item)
 	                        {
-	                        	return getGridSelectedData(serviceStatusData[parseInt(item.serviceStatus)]);
+	                        	return getGridSelectedData(caseStatusData[parseInt(item.caseStatus)]);
 	                        }  },
-    	                { display: '輸候開始日期', name: 'caseWorker', minWidth: 140 },
-    	                { display: '治療開始日期', name: 'closeWorker', minWidth: 140 },
-    	                { display: '治療結束日期', name: 'note', minWidth: 140 },
-    	                { display: '中止/結案原因', name: 'note', minWidth: 140 },
+    	                { display: '輸候開始日期', name: 'awaitDate', minWidth: 140 },
+    	                { display: '訓練開始日期', name: 'startDate', minWidth: 140 },
+    	                { display: '訓練結束日期', name: 'closeDate', minWidth: 140 },
+    	                { display: '中止/結案原因', name: 'reason', minWidth: 140 },
     	                { display: '備註', name: 'note', minWidth: 140 }
                     ] ;
             
@@ -77,7 +104,7 @@ String basePath = request.getScheme() + "://"
                                { line: true },
                                { text: '删除', click: itemclick, icon: 'delete' , id:"delete" }
                              ];
-            maingrid = ligerGrid("maingrid",'99%',columns,"CustCase/listPojos.do",gridToolBar,true);
+            maingrid = ligerGrid("maingrid",'99%',columns,"Treatment/list.do?treatmentType=5",gridToolBar,false,true);
             $("#pageloading").hide();
         });
 

@@ -12,44 +12,38 @@ String basePath = request.getScheme() + "://"
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<jsp:include page="/jsp/head.jsp"></jsp:include>
 <title>個案資料管理</title>
+<jsp:include page="/jsp/head.jsp"></jsp:include>
+<jsp:include page="/jsp/menberData.jsp"></jsp:include>
 <script type="text/javascript">
         var familyDataGrid,
         	schoolDataGrid,
         	cureDataGrid,
         	planDataGrid,
-        	recordDataGrid;
+        	recordDataGrid,
+        	groupPlanDataGrid,
+        	groupRecordDataGrid,
+        	flowPlanDataGrid,
+        	//stateRecordDataGrid,
+        	manifestationDataGrid;
         
         //家庭背景
 		function bindingFamilyDataGrid(){
-		//大腦發育遲緩/自閉症/唐氏綜合症/腦癱/多動症/情緒行為障礙/語言障礙/身體障礙/其他障礙
-		var retardedTypeData = [{ retardedType: 1, text: '大腦發育遲緩' }, { retardedType: 2, text: '自閉症'}, { retardedType: 3, text: '唐氏綜合症'}, { retardedType: 4, text: '腦癱'}, { retardedType: 5, text: '多動症'}, { retardedType: 6, text: '情緒行為障礙'}, { retardedType: 7, text: '語言障礙'}, { retardedType: 8, text: '身體障礙'}, { retardedType: 9, text: '其他障礙'}];
-		//輕/中/重/機種
-		var retardedDegreeData = [{retardedDegree:1,text:'輕'},{retardedDegree:2,text:'中'},{retardedDegree:3,text:'重'}];
-		//有/無
-		var hasRetardedReportData = [{hasRetardedReport:0,text:'無'},{hasRetardedReport:1,text:'有'}];
-		//山頂醫院 /鏡湖醫院/教青局 /復康服務綜合評估中心 /其他
-		var retardedReportSourceData = [{retardedReportSource:1,text:'山頂醫院 '},{retardedReportSource:2,text:'鏡湖醫院'},{retardedReportSource:3,text:'教青局'},{retardedReportSource:4,text:'復康服務綜合評估中心'},{retardedReportSource:5,text:'其他'}];
+		var eduLevelData = [{eduLevel:1,text:'無 '},{eduLevel:2,text:'小學'},{eduLevel:3,text:'中學'},{eduLevel:4,text:'大學'}];
 		
 		var familyDataGridColumn = [
-									{ display: 'retardedID', name: 'retardedID', hide:true },
-				                    { display: '姓名', name: 'retardedType', align: 'left',  width: 150 
-				                    	,editor: { type: 'select', data: retardedTypeData, valueField: 'retardedType' },
+									{ display: 'familyID', name: 'familyID', hide:true },
+				                    { display: '姓名', name: 'userName', width: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '關係', name: 'relationShip', width: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '年齡', name: 'age', width: 100 ,type:"text",editor: { type: 'text'}},
+				                    { display: '教育程度', name: 'eduLevel',width:120
+			                        	,editor: { type: 'select', data: eduLevelData, valueField: 'eduLevel' },
 				                        render: function (item)
 				                        {
-				                            return getGridSelectedData(retardedTypeData[parseInt(item.retardedType)-1]);
+				                        	return getGridSelectedData(eduLevelData[parseInt(item.eduLevel)-1]);
 				                        }},
-				                    { display: '關係', name: 'retardedDegree', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '年齡', name: 'hasRetardedReport', width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '教育程度', name: 'retardedReportSource',width:250
-			                        	,editor: { type: 'select', data: retardedReportSourceData, valueField: 'retardedReportSource' },
-				                        render: function (item)
-				                        {
-				                        	return getGridSelectedData(retardedReportSourceData[parseInt(item.retardedReportSource)-1]);
-				                        }},
-				                    { display: '職業', name: 'assessDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '所說語言', name: 'note',width:300, type:"text", editor: { type: 'text'}},
+				                    { display: '職業', name: 'work', width: 150 ,type:"text",editor: { type: 'text'}},
+				                    { display: '所說語言', name: 'language',width:300, type:"text", editor: { type: 'text'}},
 				                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
 				                  ];
 				
@@ -59,9 +53,9 @@ String basePath = request.getScheme() + "://"
 	          { line: true },
 	          { text: '删除', click: deleteFamilyData, icon: 'delete' , id:"delete" }];
 		
-		var url = "Customer/getRetarded.do?CUSTID="+$("#custId").val();
+		var url = "Treatment/getTreatmentFamily.do?treatmentID="+$("#treatmentID").val();
 		
-		familyDataGrid = ligerGrid("familyDataGrid",null,familyDataGridColumn,url,familyDataGridToolBar,false);
+		familyDataGrid = ligerGrid("familyDataGrid",null,familyDataGridColumn,url,familyDataGridToolBar,false,true);
 		
 	}
 	function addFamilyData(){
@@ -73,31 +67,13 @@ String basePath = request.getScheme() + "://"
 	
 	//學校資料
 	function bindingSchoolDataGrid(){
-		var retardedTypeData = [{ retardedType: 1, text: '大腦發育遲緩' }, { retardedType: 2, text: '自閉症'}, { retardedType: 3, text: '唐氏綜合症'}, { retardedType: 4, text: '腦癱'}, { retardedType: 5, text: '多動症'}, { retardedType: 6, text: '情緒行為障礙'}, { retardedType: 7, text: '語言障礙'}, { retardedType: 8, text: '身體障礙'}, { retardedType: 9, text: '其他障礙'}];
-		//輕/中/重/機種
-		var retardedDegreeData = [{retardedDegree:1,text:'輕'},{retardedDegree:2,text:'中'},{retardedDegree:3,text:'重'}];
-		//有/無
-		var hasRetardedReportData = [{hasRetardedReport:0,text:'無'},{hasRetardedReport:1,text:'有'}];
-		//山頂醫院 /鏡湖醫院/教青局 /復康服務綜合評估中心 /其他
-		var retardedReportSourceData = [{retardedReportSource:1,text:'山頂醫院 '},{retardedReportSource:2,text:'鏡湖醫院'},{retardedReportSource:3,text:'教青局'},{retardedReportSource:4,text:'復康服務綜合評估中心'},{retardedReportSource:5,text:'其他'}];
-		
 		var schoolDataGridColumn = [
-									{ display: 'retardedID', name: 'retardedID', hide:true },
-				                    { display: '學校', name: 'retardedType', align: 'left',  width: 150 
-				                    	,editor: { type: 'select', data: retardedTypeData, valueField: 'retardedType' },
-				                        render: function (item)
-				                        {
-				                            return getGridSelectedData(retardedTypeData[parseInt(item.retardedType)-1]);
-				                        }},
-				                    { display: '開始日期', name: 'retardedDegree', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '結束日期', name: 'hasRetardedReport', width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '級別', name: 'retardedReportSource',width:250
-			                        	,editor: { type: 'select', data: retardedReportSourceData, valueField: 'retardedReportSource' },
-				                        render: function (item)
-				                        {
-				                        	return getGridSelectedData(retardedReportSourceData[parseInt(item.retardedReportSource)-1]);
-				                        }},
-				                    { display: '備註', name: 'assessDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+									{ display: 'schoolID', name: 'schoolID', hide:true },
+				                    { display: '學校', name: 'schoolName', align: 'left',  width: 150 ,type:"text",editor: { type: 'text'}},
+				                    { display: '開始日期', name: 'startDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '結束日期', name: 'endDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '級別', name: 'grade', width: 150 ,type:"text",editor: { type: 'text'}},
+				                    { display: '備註', name: 'schoolNote', width: 150 ,type:"text",editor: { type: 'text'}}
 				                  ];
 				
 				
@@ -106,9 +82,9 @@ String basePath = request.getScheme() + "://"
 	          { line: true },
 	          { text: '删除', click: deleteSchoolData, icon: 'delete' , id:"delete" }];
 		
-		var url = "Customer/getRetarded.do?CUSTID="+$("#custId").val();
+		var url = "Treatment/getBCustomerSchool.do?custID="+$("#custID").val();
 		
-		schoolDataGrid = ligerGrid("schoolDataGrid",null,schoolDataGridColumn,url,schoolDataGridToolBar,false);
+		schoolDataGrid = ligerGrid("schoolDataGrid",null,schoolDataGridColumn,url,schoolDataGridToolBar,false,true);
 		
 	}
 	function addSchoolData(){
@@ -120,32 +96,14 @@ String basePath = request.getScheme() + "://"
 	
 	//過去治療史
 	function bindingCureDataGrid(){
-		var retardedTypeData = [{ retardedType: 1, text: '大腦發育遲緩' }, { retardedType: 2, text: '自閉症'}, { retardedType: 3, text: '唐氏綜合症'}, { retardedType: 4, text: '腦癱'}, { retardedType: 5, text: '多動症'}, { retardedType: 6, text: '情緒行為障礙'}, { retardedType: 7, text: '語言障礙'}, { retardedType: 8, text: '身體障礙'}, { retardedType: 9, text: '其他障礙'}];
-		//輕/中/重/機種
-		var retardedDegreeData = [{retardedDegree:1,text:'輕'},{retardedDegree:2,text:'中'},{retardedDegree:3,text:'重'}];
-		//有/無
-		var hasRetardedReportData = [{hasRetardedReport:0,text:'無'},{hasRetardedReport:1,text:'有'}];
-		//山頂醫院 /鏡湖醫院/教青局 /復康服務綜合評估中心 /其他
-		var retardedReportSourceData = [{retardedReportSource:1,text:'山頂醫院 '},{retardedReportSource:2,text:'鏡湖醫院'},{retardedReportSource:3,text:'教青局'},{retardedReportSource:4,text:'復康服務綜合評估中心'},{retardedReportSource:5,text:'其他'}];
 		
 		var cureDataGridColumn = [
-									{ display: 'retardedID', name: 'retardedID', hide:true },
-				                    { display: '治療項目', name: 'retardedType', align: 'left',  width: 150 
-				                    	,editor: { type: 'select', data: retardedTypeData, valueField: 'retardedType' },
-				                        render: function (item)
-				                        {
-				                            return getGridSelectedData(retardedTypeData[parseInt(item.retardedType)-1]);
-				                        }},
-				                    { display: '機構', name: 'retardedDegree', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '治療開始日期', name: 'hasRetardedReport', width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '治療結束日期', name: 'retardedReportSource',width:250
-			                        	,editor: { type: 'select', data: retardedReportSourceData, valueField: 'retardedReportSource' },
-				                        render: function (item)
-				                        {
-				                        	return getGridSelectedData(retardedReportSourceData[parseInt(item.retardedReportSource)-1]);
-				                        }},
-				                    { display: '治療內容', name: 'assessDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                  	{ display: '備註', name: 'assessDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+									{ display: 'historyID', name: 'historyID', hide:true },
+									{ display: '機構', name: 'org', width: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '開始日期', name: 'tStartDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '結束日期', name: 'tEndDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '服務內容', name: 'content', width: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '備註', name: 'tNote', width: 100,type:"text",editor: { type: 'text' }},
 								];
 				
 				
@@ -154,9 +112,9 @@ String basePath = request.getScheme() + "://"
 	          { line: true },
 	          { text: '删除', click: deleteCureData, icon: 'delete' , id:"delete" }];
 		
-		var url = "Customer/getRetarded.do?CUSTID="+$("#custId").val();
+		var url = "Treatment/getTreatmentHistory.do?custID="+$("#custID").val();
 		
-		cureDataGrid = ligerGrid("cureDataGrid",null,cureDataGridColumn,url,cureDataGridToolBar,false);
+		cureDataGrid = ligerGrid("cureDataGrid",null,cureDataGridColumn,url,cureDataGridToolBar,false,true);
 		
 	}
 	function addCureData(){
@@ -170,16 +128,14 @@ String basePath = request.getScheme() + "://"
 	function bindingPlanDataGrid(){
 		
 		var planDataGridColumn = [
-									{ display: 'retardedID', name: 'retardedID', hide:true },
-				                    { display: '日期', name: 'retardedType', align: 'left',  width: 150 
-				                    	,editor: { type: 'date',}},
-				                    { display: '時間', name: 'retardedDegree', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '治療內容', name: 'hasRetardedReport', width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '治療目標', name: 'retardedReportSource',width:250
-			                        	,editor: { type: 'text',}},
-				                    { display: '收費金額', name: 'assessDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                  	{ display: '繳費金額', name: 'assessDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                  	{ display: '備註', name: 'assessDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+									{ display: 'planID', name: 'planID', hide:true },
+									{ display: '日期', name: 'billDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '時間', name: 'time', width: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '治療內容', name: 'content', width: 150 ,type:"text",editor: { type: 'text'}},
+				                    { display: '治療目標', name: 'target', width: 150 ,type:"text",editor: { type: 'text'}},
+				                    { display: '收費金額', name: 'charge', width: 150 ,type:"text",editor: { type: 'text'}},
+				                    { display: '繳費金額', name: 'payment', width: 150 ,type:"text",editor: { type: 'text'}},
+				                    { display: '備註', name: 'note', width: 150 ,type:"text",editor: { type: 'text'}},
 								];
 				
 				
@@ -188,9 +144,9 @@ String basePath = request.getScheme() + "://"
 	          { line: true },
 	          { text: '删除', click: deletePlanData, icon: 'delete' , id:"delete" }];
 		
-		var url = "Customer/getRetarded.do?CUSTID="+$("#custId").val();
+		var url = "Treatment/getTreatmentPlan.do?treatmentID="+$("#treatmentID").val();
 		
-		planDataGrid = ligerGrid("planDataGrid",null,planDataGridColumn,url,planDataGridToolBar,false);
+		planDataGrid = ligerGrid("planDataGrid",null,planDataGridColumn,url,planDataGridToolBar,false,true);
 		
 	}
 	function addPlanData(){
@@ -202,32 +158,16 @@ String basePath = request.getScheme() + "://"
 	
 	//言語治療課堂記錄
 	function bindingRecordDataGrid(){
-		var retardedTypeData = [{ retardedType: 1, text: '大腦發育遲緩' }, { retardedType: 2, text: '自閉症'}, { retardedType: 3, text: '唐氏綜合症'}, { retardedType: 4, text: '腦癱'}, { retardedType: 5, text: '多動症'}, { retardedType: 6, text: '情緒行為障礙'}, { retardedType: 7, text: '語言障礙'}, { retardedType: 8, text: '身體障礙'}, { retardedType: 9, text: '其他障礙'}];
-		//輕/中/重/機種
-		var retardedDegreeData = [{retardedDegree:1,text:'輕'},{retardedDegree:2,text:'中'},{retardedDegree:3,text:'重'}];
-		//有/無
-		var hasRetardedReportData = [{hasRetardedReport:0,text:'無'},{hasRetardedReport:1,text:'有'}];
-		//山頂醫院 /鏡湖醫院/教青局 /復康服務綜合評估中心 /其他
-		var retardedReportSourceData = [{retardedReportSource:1,text:'山頂醫院 '},{retardedReportSource:2,text:'鏡湖醫院'},{retardedReportSource:3,text:'教青局'},{retardedReportSource:4,text:'復康服務綜合評估中心'},{retardedReportSource:5,text:'其他'}];
 		
 		var recordDataGridColumn = [
-									{ display: 'retardedID', name: 'retardedID', hide:true },
-				                    { display: '治療項目', name: 'retardedType', align: 'left',  width: 150 
-				                    	,editor: { type: 'select', data: retardedTypeData, valueField: 'retardedType' },
-				                        render: function (item)
-				                        {
-				                            return getGridSelectedData(retardedTypeData[parseInt(item.retardedType)-1]);
-				                        }},
-				                    { display: '機構', name: 'retardedDegree', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '治療開始日期', name: 'hasRetardedReport', width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '治療結束日期', name: 'retardedReportSource',width:250
-			                        	,editor: { type: 'select', data: retardedReportSourceData, valueField: 'retardedReportSource' },
-				                        render: function (item)
-				                        {
-				                        	return getGridSelectedData(retardedReportSourceData[parseInt(item.retardedReportSource)-1]);
-				                        }},
-				                    { display: '治療內容', name: 'assessDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                  	{ display: '備註', name: 'assessDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+									{ display: 'planID', name: 'planID', hide:true },
+									{ display: '日期', name: 'billDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+									{ display: '時間', name: 'time', width: 100,type:"text",editor: { type: 'text' }},
+									{ display: '治療內容', name: 'content', width: 150 ,type:"text",editor: { type: 'text'}},
+									{ display: '治療目標', name: 'target', width: 150 ,type:"text",editor: { type: 'text'}},
+									{ display: '活動', name: 'activity', width: 150 ,type:"text",editor: { type: 'text'}},
+									{ display: '學生表現', name: 'performance', width: 150 ,type:"text",editor: { type: 'text'}},
+									{ display: '備註', name: 'note', width: 150 ,type:"text",editor: { type: 'text'}},
 								];
 				
 				
@@ -236,9 +176,9 @@ String basePath = request.getScheme() + "://"
 	          { line: true },
 	          { text: '删除', click: deleteRecordData, icon: 'delete' , id:"delete" }];
 		
-		var url = "Customer/getRetarded.do?CUSTID="+$("#custId").val();
+		var url = "Treatment/getTreatmentRecord.do?treatmentID="+$("#treatmentID").val();
 		
-		recordDataGrid = ligerGrid("recordDataGrid",null,recordDataGridColumn,url,recordDataGridToolBar,false);
+		recordDataGrid = ligerGrid("recordDataGrid",null,recordDataGridColumn,url,recordDataGridToolBar,false,true);
 		
 	}
 	function addRecordData(){
@@ -247,105 +187,472 @@ String basePath = request.getScheme() + "://"
 	function deleteRecordData(){
 		recordDataGrid.deleteSelectedRow();
 	}
+	
+	//小組訓練計畫
+	function bindingGroupPlanDataGrid(){
+		
+		var groupPlanDataGridColumn = [
+									{ display: 'GSID', name: 'GSID', hide:true },
+				                    { display: '小組編號', name: 'GSNO', width: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '小組名稱', name: 'groupName', width: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '小組目標', name: 'target', width: 100 ,type:"text",editor: { type: 'text'}},
+				                    { display: '負責人', name: 'handler', width: 100 ,type:"text",editor: { type: 'text'}},
+				                    { display: '開始日期', name: 'beginDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '結束日期', name: 'endDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
+				                  ];
+				
+				
+		var groupPlanDataGridToolBar = [
+	          { text: '新增', click: addGroupPlanData, icon: 'add' , id:"add" },
+	          { line: true },
+	          { text: '删除', click: deleteGroupPlanData, icon: 'delete' , id:"delete" }];
+		
+		var url = "Treatment/getTreatmentGroupPlan.do?treatmentID="+$("#treatmentID").val();
+		
+		groupPlanDataGrid = ligerGrid("groupPlanDataGrid",null,groupPlanDataGridColumn,url,groupPlanDataGridToolBar,false,true);
+		
+	}
+	function addGroupPlanData(){
+		groupPlanDataGrid.addRow();
+	}
+	function deleteGroupPlanData(){
+		groupPlanDataGrid.deleteSelectedRow();
+	}
+	
+	//小組訓練記錄
+	function bindingGroupRecordDataGrid(){
+		
+		var groupRecordDataGridColumn = [
+									{ display: 'GSID', name: 'GSID', hide:true },
+				                    { display: '小組編號', name: 'GSNO', width: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '訓練日期', name: 'beginDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '表現', name: 'note',width:300, type:"text", editor: { type: 'text'}},
+				                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
+				                  ];
+				
+				
+		var groupRecordDataGridToolBar = [
+	          { text: '新增', click: addGroupRecordData, icon: 'add' , id:"add" },
+	          { line: true },
+	          { text: '删除', click: deleteGroupRecordData, icon: 'delete' , id:"delete" }];
+		
+		var url = "Treatment/getTreatmentGroupRecord.do?treatmentID="+$("#treatmentID").val();
+		
+		groupRecordDataGrid = ligerGrid("groupRecordDataGrid",null,groupRecordDataGridColumn,url,groupRecordDataGridToolBar,false,true);
+		
+	}
+	function addGroupRecordData(){
+		groupRecordDataGrid.addRow();
+	}
+	function deleteGroupRecordData(){
+		groupRecordDataGrid.deleteSelectedRow();
+	}
+	
+	//流程計畫
+	function bindingFlowPlanDataGrid(){
+		
+		var flowPlanDataGridColumn = [
+									{ display: 'GSID', name: 'GSID', hide:true },
+				                    { display: '活動編號', name: 'GSNO', width: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '活動名稱', name: 'GSNO', width: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '日期', name: 'beginDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '時間', name: 'note',width:300, type:"text", editor: { type: 'text'}},
+				                    { display: '活動流程', name: 'note',width:300, type:"text", editor: { type: 'text'}},
+				                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
+				                  ];
+				
+				
+		var flowPlanDataGridToolBar = [
+	          { text: '新增', click: addFlowPlanData, icon: 'add' , id:"add" },
+	          { line: true },
+	          { text: '删除', click: deleteFlowPlanData, icon: 'delete' , id:"delete" }];
+		
+		var url = "Treatment/getTreatmentFlowPlan.do?treatmentID="+$("#treatmentID").val();
+		
+		flowPlanDataGrid = ligerGrid("flowPlanDataGrid",null,flowPlanDataGridColumn,url,flowPlanDataGridToolBar,false,true);
+		
+	}
+	function addFlowPlanData(){
+		flowPlanDataGrid.addRow();
+	}
+	function deleteFlowPlanData(){
+		flowPlanDataGrid.deleteSelectedRow();
+	}
+	
+	//員工試工表現
+	function bindingManifestationDataGrid(){
+		
+		var manifestationDataGridColumn = [
+									{ display: 'GSID', name: 'GSID', hide:true },
+				                    { display: '活動編號', name: 'GSNO', width: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '活動名稱', name: 'GSNO', width: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '日期', name: 'beginDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '時間', name: 'note',width:300, type:"text", editor: { type: 'text'}},
+				                    { display: '活動流程', name: 'note',width:300, type:"text", editor: { type: 'text'}},
+				                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
+				                  ];
+				
+				
+		var manifestationDataGridToolBar = [
+	          { text: '新增', click: addManifestationData, icon: 'add' , id:"add" },
+	          { line: true },
+	          { text: '删除', click: deleteManifestationData, icon: 'delete' , id:"delete" }];
+		
+		var url = "Treatment/getTreatmentManifestation.do?treatmentID="+$("#treatmentID").val();
+		
+		manifestationDataGrid = ligerGrid("manifestationDataGrid",null,manifestationDataGridColumn,url,manifestationDataGridToolBar,false,true);
+		
+	}
+	function addManifestationData(){
+		manifestationDataGrid.addRow();
+	}
+	function deleteManifestationData(){
+		manifestationDataGrid.deleteSelectedRow();
+	}
+	
+	function itemclick(item){
+		switch (item.id){
+			case "save":
+				save();
+			break;
+			case "back":
+				location.href="jsp/treatment/language_list.jsp";
+			break;
+		}
+		
+	}
+	
+	function save(){
+		$("#treatmentFamilyAdds").val(getAddedRows(familyDataGrid));
+ 		$("#treatmentFamilyUpdates").val(getEditedRows(familyDataGrid));
+ 		$("#treatmentFamilyDeletes").val(getDeletedRows(familyDataGrid));
+ 		$("#bCustomerSchoolAdds").val(getAddedRows(schoolDataGrid));
+ 		$("#bCustomerSchoolUpdates").val(getEditedRows(schoolDataGrid));
+ 		$("#bCustomerSchoolDeletes").val(getDeletedRows(schoolDataGrid)); 
+		$("#treatmentHistoryAdds").val(getAddedRows(cureDataGrid));
+ 		$("#treatmentHistoryUpdates").val(getEditedRows(cureDataGrid));
+ 		$("#treatmentHistoryDeletes").val(getDeletedRows(cureDataGrid)); 
+ 		$("#treatmentPlanAdds").val(getAddedRows(planDataGrid));
+ 		$("#treatmentPlanUpdates").val(getEditedRows(planDataGrid));
+ 		$("#treatmentPlanDeletes").val(getDeletedRows(planDataGrid)); 
+ 		$("#treatmentRecordAdds").val(getAddedRows(recordDataGrid));
+ 		$("#treatmentRecordUpdates").val(getEditedRows(recordDataGrid));
+ 		$("#treatmentRecordDeletes").val(getDeletedRows(recordDataGrid)); 
+ 		checkboxValue(["vocabulary","sentenceLen","sentenceOrg","question","narrative","storyTell","interview","servicePoint"])
+		$("#Button1").click();	
+	}
     
 	$(function(){
-		//var navtab=null;
-		 // $("#tab").ligerTab();
-          //navtab = $("#tab").ligerGetTabManager();
+		if($("#treatmentID").val() != "" && $("#treatmentID").val() != 'null' && $("#treatmentID").val() != 'undefined'){
+			setTabTitle(parent.$("#framecenter"),"職能訓練編輯")
+		}else{
+			setTabTitle(parent.$("#framecenter"),"職能訓練新增")
+		}
+		
+		$(".toptoolbar").ligerToolBar({ items: [
+            { text: '保存', click: itemclick, icon: 'save' , id:"save" },
+            { line: true },
+            { text: '取消', click: itemclick, icon: 'back' , id:"back" }
+          ]
+          });
+		
+		
+		
 		ligerForm("form1");
-		ligerForm("form3");
 		bindingFamilyDataGrid();
 		bindingSchoolDataGrid();
 		bindingCureDataGrid();
 		bindingPlanDataGrid();
 		bindingRecordDataGrid();
-		$("#tab").ligerTab({onAfterSelectTabItem:function(targettabid){
-			
-		}});
+		bindingGroupPlanDataGrid();
+		bindingGroupRecordDataGrid();
+		bindingFlowPlanDataGrid();
+		bindingManifestationDataGrid();
+		
+	 $("#tab").ligerTab({onAfterSelectTabItem:function(targettabid){
+		 console.log(recordDataGrid.get("isTabCover"));
+			switch(targettabid){
+				case "fn":
+						showGridInTab(familyDataGrid);
+						showGridInTab(schoolDataGrid);
+						showGridInTab(cureDataGrid);
+					break;
+				case "groupTraining":
+						showGridInTab(groupPlanDataGrid);
+						showGridInTab(groupRecordDataGrid)
+					break;
+				case "ndividualTraining":
+						showGridInTab(flowPlanDataGrid);
+						//showGridInTab(flowPlanDataGrid);
+					break;
+				case "tryRecord":
+						//showGridInTab(stateRecordDataGrid);
+						showGridInTab(manifestationDataGrid);
+					break;
+				default:break;
+			}
+		}}); 
+/* 	 $("#physicalAssess").ligerComboBox({
+         width : 240,
+         cancelable: false
+     }); */
+		
     })
         
     </script>
 </head>
 <body>
+	<div class="toptoolbar"></div>
+	<form name="form1" class="liger-form" method="post" action="Treatment/submit.do" id="form1" style="margin: 20px;">
+	<input type="hidden" name="treatmentType" id="treatmentType" value="1">
+	<input type="hidden" name="custID" id="custID" value="${treatmentPojo.custID }">
+	<input type="hidden" name="treatmentID" id="treatmentID" value="${treatmentPojo.treatmentID }">
+	<input type="hidden" name="treatmentFamilyAdds" id="treatmentFamilyAdds">
+	<input type="hidden" name="treatmentFamilyUpdates" id="treatmentFamilyUpdates">
+	<input type="hidden" name="treatmentFamilyDeletes" id="treatmentFamilyDeletes">
+	<input type="hidden" name="bCustomerSchoolAdds" id="bCustomerSchoolAdds">
+	<input type="hidden" name="bCustomerSchoolUpdates" id="bCustomerSchoolUpdates">
+	<input type="hidden" name="bCustomerSchoolDeletes" id="bCustomerSchoolDeletes">
+	<input type="hidden" name="treatmentHistoryAdds" id="treatmentHistoryAdds">
+	<input type="hidden" name="treatmentHistoryUpdates" id="treatmentHistoryUpdates">
+	<input type="hidden" name="treatmentHistoryDeletes" id="treatmentHistoryDeletes">
+	<input type="hidden" name="treatmentPlanAdds" id="treatmentPlanAdds">
+	<input type="hidden" name="treatmentPlanUpdates" id="treatmentPlanUpdates">
+	<input type="hidden" name="treatmentPlanDeletes" id="treatmentPlanDeletes">
+	<input type="hidden" name="treatmentRecordAdds" id="treatmentRecordAdds">
+	<input type="hidden" name="treatmentRecordUpdates" id="treatmentRecordUpdates">
+	<input type="hidden" name="treatmentRecordDeletes" id="treatmentRecordDeletes">
+	
+	<input type="hidden" name="vocabulary" id="vocabulary">
+	<input type="hidden" name="sentenceLen" id="sentenceLen">
+	<input type="hidden" name="sentenceOrg" id="sentenceOrg">
+	<input type="hidden" name="question" id="question">
+	<input type="hidden" name="narrative" id="narrative">
+	<input type="hidden" name="storyTell" id="storyTell">
+	<input type="hidden" name="interview" id="interview">
+	
+	<input type="hidden" name="servicePoint" id="servicePoint">
 	<div id="tab">
-		  	<div title="職能訓練" id="serviceData"><!-- 職能訓練 -->
-		  		<form name="form1" class="liger-form" method="post" action="CustCase/submit.do" id="form1" style="margin: 20px;">
-		  		<table cellpadding="0" cellspacing="0" class="l-table-edit" >
-			        <tbody>
-			            <tr>
-			                <td align="right" class="l-table-edit-td">姓名：</td><!-- 有name -->
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${custCasePojo.caseNo }" name="caseNo" type="text" class="caseNo" ltype="text" validate="{required:true,notnull:true}"/></td>
-			                
-			                <td align="right" class="l-table-edit-td">會員編號：</td><!-- 有name -->
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${custCasePojo.billDate_str }" name="billDate" type="text" id="billDate" ltype="date" validate="{required:true,notnull:true}"/></td>
-			                
-			                <td align="right" class="l-table-edit-td">非會員編號：</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${custCasePojo.caseWorker }" name="caseWorker" type="text" id="caseWorker" ltype="text" /></td>
-			                
-			                <td align="right" class="l-table-edit-td">檔案編號：</td>
-			                <td align="left" class="l-table-edit-td">
-			                	<input type="text" id="caseStatus">
-			                </td>
-			
-			              
-			            </tr>
-			           	
-			          
-			             <tr>
-			             	
-			             	<td align="right" class="l-table-edit-td">接案日期：</td>
-			                <td align="left" class="l-table-edit-td">
-			                <input width="120px" value="${custCasePojo.custNo }" name="custNo" type="text" id="custNo" ltype="text" validate="{required:true,notnull:true}"/>
-			                </td>
-			                
-			                <td align="right" class="l-table-edit-td">申請日期：</td>
-			                <td align="left" class="l-table-edit-td">
-			                <input width="120px" value="${custCasePojo.custNewNo }" name="caseNewNo" type="text" id="caseNewNo" ltype="text" validate="{required:true,notnull:true}"/>
-			                </td>
-			                
-			                <td align="right" class="l-table-edit-td">評估日期：</td>
-			                <td align="left" class="l-table-edit-td">
-			                <input width="120px" value="${custCasePojo.custNewNo }" name="caseNewNo" type="text" id="caseNewNo" ltype="text" validate="{required:true,notnull:true}"/>
-			                </td>
-			                
-			                <td align="right" class="l-table-edit-td">個案狀態：</td><!-- 有name -->
-			                <td align="left" class="l-table-edit-td"><input width="120px"  value="${custCasePojo.fullName }" name="fullName" type="text" nameText="fullName" ltype="text" validate="{required:true,notnull:true}"/></td>
-			                
-			                <td align="right" class="l-table-edit-td">輸候開始日期：</td>
-			                <td align="left" class="l-table-edit-td">
-			                	<input id="sex1" type="radio" name="sex" value="1" <c:if test="${custCasePojo.sex != 2 }">checked="checked"</c:if> /><label for="sex1">男</label> 
-								<input id="sex2" type="radio" name="sex" value="2" <c:if test="${custCasePojo.sex == 2 }">checked="checked"</c:if> /><label for="sex2">女</label>
-			                </td>
-			                
-			             </tr>
-			            <tr>
-			            	
-			                
-			                <td align="right" class="l-table-edit-td">接案來源：</td>
-			                <td align="left" class="l-table-edit-td">
-			                <input width="120px" value="${custCasePojo.birthday_ChnStr }" name="validDate" type="text" id="validDate" ltype="date" validate="{required:true,notnull:true}"/>
-			                </td>
-			                <td align="right" class="l-table-edit-td">接案社工:</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px"  value="${custCasePojo.cardNo }" name="cardNo" class="cardNo" type="text" ltype="text" validate="{required:true,notnull:true}"/></td>
-			                <td align="right" class="l-table-edit-td">健康狀況：</td>
-			                <td align="left" class="l-table-edit-td">
-			                	<input width="120px" value="${custCasePojo.custNewNo }" name="caseNewNo" type="text" id="caseNewNo" ltype="text" validate="{required:true,notnull:true}"/>
-			                </td>
-			                <td align="right" class="l-table-edit-td">疾病：</td>
-			                <td align="left" class="l-table-edit-td">
-			                	<label><input type="checkbox">癲癇</label>
-			                	<label><input type="checkbox">乙型肝炎</label>
-			                	<label><input type="checkbox">糖尿病</label>
-			                	<label><input type="checkbox">心臟病</label>
-			                	<label><input type="checkbox">高血壓</label>
-			                	<label><input type="checkbox">氣喘</label>
-			                </td>
-			                
-			            </tr>  
-			                 
-			            
-			            </tbody>
-			        </table>
+	<div title="職能訓練" tabid="fn">
+	<table>
+		<tbody>
+            <tr>
+            	<td align="right" class="l-table-edit-td">檔案編號：</td>
+                <td align="left" class="l-table-edit-td">
+                	<input width="120px" value="${treatmentPojo.treatmentNO }" name="treatmentNO" type="text" id="treatmentNO" ltype="text"">
+                </td>
+            
+                <td align="right" class="l-table-edit-td">姓名：</td>
+                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.fullName }" name="fullName" type="text" id="fullName"/></td>
+                
+                <td align="right" class="l-table-edit-td">會員編號：</td>
+                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNO }" name="custNO" type="text" id="custNO" /></td>
+                
+                <td align="right" class="l-table-edit-td">非會員編號：</td>
+                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" id="custNewNO" /></td>
+              </tr>
+            <tr>
+            	  <td align="right" class="l-table-edit-td">接案日期:</td>
+				 <td align="left" class="l-table-edit-td">
+				 	<input width="120px" value="${treatmentPojo.startDate_str }" name="startDate" type="text" id="startDate" ltype="date" />
+				 </td>
+				 
+				 <td align="right" class="l-table-edit-td">輪候開始日期:</td>
+				 <td align="left" class="l-table-edit-td">
+				 	<input width="120px" value="${treatmentPojo.startDate_str }" name="startDate" type="text" id="startDate" ltype="date" />
+				 </td>
+				  <td align="right" class="l-table-edit-td">評估日期:</td>
+				 <td align="left" class="l-table-edit-td">
+				 	<input width="120px" value="${treatmentPojo.startDate_str }" name="startDate" type="text" id="startDate" ltype="date" />
+				 </td>
+				   <td align="right" class="l-table-edit-td">個案狀態:</td>
+				 <td align="left" class="l-table-edit-td">
+				 	<input width="120px" value="${customer.mobileTelNO }" name="mother" type="text" id="mobileTelNO" ltype="text" />
+				 </td>
+				   <td align="right" class="l-table-edit-td">接案來源:</td>
+				 <td align="left" class="l-table-edit-td">
+				 	<input width="120px" value="${customer.mobileTelNO }" name="mother" type="text" id="mobileTelNO" ltype="text" />
+				 </td>
+				   <td align="right" class="l-table-edit-td">接案社工:</td>
+				 <td align="left" class="l-table-edit-td">
+				 	<input width="120px" value="${customer.mobileTelNO }" name="mother" type="text" id="mobileTelNO" ltype="text" />
+				 </td>
+				 
+            </tr>
+		</tbody>
+	</table>
+	<div>
+		<div class="inline-group col-2">
+   			<label style="width:100px;text-align:right;">疾病：</label>
+   				<div class="checkbox-group">
+	  				<p>
+	  					<span style="display:inline-block;width:48px;text-align:right"></span>
+  						<label><input type="checkbox" value="0" class="servicePoint" <c:if test="${(treatmentAssessPojo.servicePoint).indexOf('0') != -1 }">checked="checked"</c:if>>癲癇</label>
+         				<label><input type="checkbox" value="1"  class="servicePoint" <c:if test="${(treatmentAssessPojo.servicePoint).indexOf('1') != -1 }">checked="checked"</c:if>>乙型肝炎 </label>
+         			</p>
+          			<p>
+          				<span style="display:inline-block;width:48px;text-align:right"></span>
+          				<label><input type="checkbox" value="2"  class="servicePoint" <c:if test="${(treatmentAssessPojo.servicePoint).indexOf('2') != -1 }">checked="checked"</c:if>> 糖尿病 </label>
+          				<label><input type="checkbox" value="3"  class="servicePoint" <c:if test="${(treatmentAssessPojo.servicePoint).indexOf('3') != -1 }">checked="checked"</c:if>>心臟病</label>
+          			</p>
+          			<p>
+          				<span style="display:inline-block;width:48px;text-align:right"></span>
+          				<label><input type="checkbox" value="4"  class="servicePoint" <c:if test="${(treatmentAssessPojo.servicePoint).indexOf('4') != -1 }">checked="checked"</c:if>> 高血壓 </label>
+         				<label><input type="checkbox" value="5"  class="servicePoint" <c:if test="${(treatmentAssessPojo.servicePoint).indexOf('5') != -1 }">checked="checked"</c:if>>氣喘  </label>
+         			</p>
+         			<p>
+         				<span style="display:inline-block;width:48px;text-align:right">其他</span>
+         				<textarea rows="2" cols="55" name="suggestOther" id="suggestOther">${treatmentAssessPojo.suggestOther }</textarea>
+         			</p>
+         			<p>
+         				<span style="display:inline-block;width:48px;text-algin:right">遺傳疾病</span>
+         				<textarea rows="2" cols="55" name="suggestOther" id="suggestOther">${treatmentAssessPojo.suggestOther }</textarea>
+         			</p>
+	  			</div>
+   		</div>
+   		<div class="inline-group col-2">
+   			<label style="width:100px;text-align:right;">過敏反應：</label>
+   				<div class="checkbox-group">
+         			<p>
+         				<span style="display:inline-block;width:48px;text-align:right">食物</span>
+         				<textarea rows="2" cols="55" name="suggestOther" id="suggestOther">${treatmentAssessPojo.suggestOther }</textarea>
+         			</p>
+         			<p>
+         				<span style="display:inline-block;width:48px;text-align:right">藥物</span>
+         				<textarea rows="2" cols="55" name="suggestOther" id="suggestOther">${treatmentAssessPojo.suggestOther }</textarea>
+         			</p>
+         			<p>
+         				<span style="display:inline-block;width:48px;text-align:right">其他</span>
+         				<textarea rows="2" cols="55" name="suggestOther" id="suggestOther">${treatmentAssessPojo.suggestOther }</textarea>
+         			</p>
+	  			</div>
+   		</div>
+   		<div class="inline-group col-2">
+   			<label style="width:100px;text-align:right;">服藥時間：</label>
+   				<div class="checkbox-group">
+   					<p>
+   						<span style="display:inline-block;width:48px;text-align:right"></span>
+	 					<select name="serviceStatus" id="serviceStatus" ltype="select" width="120px" >
+	                		<option value="0" <c:if test="${treatmentPojo.serviceStatus != '1' and treatmentPojo.serviceStatus != '2'}">selected="selected"</c:if> >沒有</option>
+	                		<option value="1" <c:if test="${treatmentPojo.serviceStatus == '1' }">selected="selected"</c:if> >間歇性服藥</option>
+	                		<option value="2" <c:if test="${treatmentPojo.serviceStatus == '2' }">selected="selected"</c:if> >持續性服藥</option>
+	                		<option value="2" <c:if test="${treatmentPojo.serviceStatus == '2' }">selected="selected"</c:if> >三餐前</option>
+	                		<option value="2" <c:if test="${treatmentPojo.serviceStatus == '2' }">selected="selected"</c:if> >三餐後</option>
+	                		<option value="2" <c:if test="${treatmentPojo.serviceStatus == '2' }">selected="selected"</c:if> >早</option>
+	                		<option value="2" <c:if test="${treatmentPojo.serviceStatus == '2' }">selected="selected"</c:if> >午</option>
+	                		<option value="2" <c:if test="${treatmentPojo.serviceStatus == '2' }">selected="selected"</c:if> >晚</option>
+	                	</select> 
+   					</p>
+         			<p>
+         				<span style="display:inline-block;width:48px;text-align:right">其他</span>
+         				<textarea rows="2" cols="55" name="suggestOther" id="suggestOther">${treatmentAssessPojo.suggestOther }</textarea>
+         			</p>
+	  			</div>
+   		</div>
+   		<div class="inline-group col-2">
+   			<label style="width:100px;text-align:right;">病史：</label>
+   				<div class="checkbox-group">
+         			<p>
+         				<span style="display:inline-block;width:48px;text-align:right"></span>
+         				<textarea rows="2" cols="55" name="suggestOther" id="suggestOther">${treatmentAssessPojo.suggestOther }</textarea>
+         			</p>
+	  			</div>
+   		</div>
+	</div>
+	
+				 	<div class="panel panel-default">
+							<div class="panel-heading">語言運用</div>
+							<div class="panel-body">
+									<table class="table-center table-edit" border="1">
+				            		<thead>
+				            			<tr>
+				            				<th height="28px" width="120px">語言</th>
+				            				<th width="25%">講</th>
+				            				<th width="25%">讀</th>
+				            				<th width="25%">聽</th>
+				            				<th>寫</th>
+				            			</tr>
+				            		</thead>
+				            		<tbody>
+				            			<tr>
+				            				<th>廣東話</th>
+				            				<td>
+				            					<select name="physicalAssess" id="physicalAssess" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.physicalAssess != '1' }">selected="selected"</c:if> >完全不懂（0）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >以單字表達意思（1）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >以單句表達意思（2）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能表達完整的意思（3）</option>
+							                	</select> 
+				            				</td>
+				            				<td>
+				            					<select name="physicalAssess" id="physicalAssess" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.physicalAssess != '1' }">selected="selected"</c:if> >完全不懂（0）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹單詞（1）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹一條學員守則（2）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹部分學員守則（3）</option>
+							                	</select> 
+				            				</td>
+				            				<td>
+				            					<select name="physicalAssess" id="physicalAssess" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.physicalAssess != '1' }">selected="selected"</c:if> >完全不懂（0）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >以單字表達意思（1）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >以單句表達意思（2）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能表達完整的意思（3）</option>
+							                	</select> 
+				            				</td>
+				            				<td>
+				            					<select name="physicalAssess" id="physicalAssess" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.physicalAssess != '1' }">selected="selected"</c:if> >完全不懂（0）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹單詞（1）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹一條學員守則（2）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹部分學員守則（3）</option>
+							                	</select> 
+				            				</td>
+				            			</tr>
+				            			<tr>
+				            				<th>普通話</th>
+				            				<td>
+				            					<select name="physicalAssess" id="physicalAssess" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.physicalAssess != '1' }">selected="selected"</c:if> >完全不懂（0）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >以單字表達意思（1）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >以單句表達意思（2）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能表達完整的意思（3）</option>
+							                	</select> 
+				            				</td>
+				            				<td>
+				            					<select name="physicalAssess" id="physicalAssess" ltype="select" width="120px" >
+              										<option value="0" <c:if test="${treatmentPojo.physicalAssess != '1' }">selected="selected"</c:if> >完全不懂（0）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹單詞（1）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹一條學員守則（2）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹部分學員守則（3）</option>
+							                	</select> 
+				            				</td>
+				            				<td>
+				            					<select name="physicalAssess" id="physicalAssess" ltype="select" width="120px" >
+							              			<option value="0" <c:if test="${treatmentPojo.physicalAssess != '1' }">selected="selected"</c:if> >完全不懂（0）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >以單字表達意思（1）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >以單句表達意思（2）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能表達完整的意思（3）</option>
+							                	</select> 
+				            				</td>
+				            				<td>
+				            					<select name="physicalAssess" id="physicalAssess" ltype="select" width="120px" >
+							             			<option value="0" <c:if test="${treatmentPojo.physicalAssess != '1' }">selected="selected"</c:if> >完全不懂（0）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹單詞（1）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹一條學員守則（2）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹部分學員守則（3）</option>
+							                	</select> 
+				            				</td>
+				            			</tr>
+				            			<tr>
+				            				<th>其他</th>
+				            				<td colspan="4"><input value="${treatmentPojo.physicalDate_str }" name="physicalDate" type="text" id="physicalDate" ltype="text" /></td>
+				            			</tr>
+				            		</tbody>
+				            		</table>
+							</div>
+						</div> 		
 			        
 			        <div id="" style="height:auto;overflow:auto;">
 			        	<div class="panel panel-default">
@@ -354,7 +661,8 @@ String basePath = request.getScheme() + "://"
 							    <div id="familyDataGrid"></div>
 							    <div class="inline-group">
 							    	<label>家庭狀況：</label>
-							   		<input ltype="text" /> 	
+							    	<textarea rows="2" cols="55" name="familySituation" id="familySituation">${treatmentPojo.familySituation }</textarea>
+							   		<%-- <input width="120px" value="${treatmentPojo.familySituation }" name="familySituation" type="text" id="familySituation" ltype="text" /> --%>
 							    </div>
 							</div>
 						</div>
@@ -364,80 +672,151 @@ String basePath = request.getScheme() + "://"
 		            	<div class="panel panel-default">
 		            		<div class="panel-heading">身體背景資料</div>
 		            		<div class="panel-body">
-		            			<table class="table table-bordered">
+		            			<table class="table-center table-edit" border="1">
 				            		<thead>
 				            			<tr>
-				            				<th>項目</th>
-				            				<th>是否做過評估</th>
-				            				<th>程度</th>
-				            				<th>評估時間</th>
+				            				<th height="28px" width="120px">項目</th>
+				            				<th width="120px">是否做過評估</th>
+				            				<th width="120px">程度</th>
+				            				<th width="140px">評估時間</th>
 				            				<th>評估地點</th>
 				            				<th>評估描述</th>
-				            				<th>備註</th>
+				            				<th>&nbsp;&nbsp;備註&nbsp;&nbsp;</th>
 				            			</tr>
 				            		</thead>
 				            		<tbody>
 				            			<tr>
 				            				<th>體能</th>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
+				            				<td>
+				            					<select name="physicalAssess" id="physicalAssess" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.physicalAssess != '1' }">selected="selected"</c:if> >是</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >否</option>
+							                	</select> 
+				            					<%-- <input value="${treatmentPojo.physicalAssess }" name="physicalAssess" type="text" id="physicalAssess" ltype="text" /> --%>
+				            				</td>
+				            				<td>
+				            					<select name="physicalLevel" id="physicalLevel" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.physicalLevel != '1' and treatmentPojo.physicalLevel != '2'}">selected="selected"</c:if> >正常</option>
+							                		<option value="1" <c:if test="${treatmentPojo.physicalLevel == '1' }">selected="selected"</c:if> >遲緩</option>
+							                		<option value="2" <c:if test="${treatmentPojo.physicalLevel == '2' }">selected="selected"</c:if> >障礙</option>
+							                	</select> 
+				            					<%-- <input value="${treatmentPojo.physicalLevel }" name="physicalLevel" type="text" id="physicalLevel" ltype="text" /> --%>
+				            				</td>
+				            				<td><input value="${treatmentPojo.physicalDate_str }" name="physicalDate" type="text" id="physicalDate" ltype="date" /></td>
+				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            				<td><input value="${treatmentPojo.physicalDescribe }" name="physicalDescribe" type="text" id="physicalDescribe" ltype="text" /></td>
+				            				<td><input value="${treatmentPojo.physicalNote }" name="physicalNote" type="text" id="physicalNote" ltype="text" /></td>
 				            			</tr>
 				            			<tr>
 				            				<th>視力</th>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
+				            				<td>
+				            					<select name="visionAssess" id="visionAssess" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.visionAssess != '1' }">selected="selected"</c:if> >是</option>
+							                		<option value="1" <c:if test="${treatmentPojo.visionAssess == '1' }">selected="selected"</c:if> >否</option>
+							                	</select> 
+				            				</td>
+				            				<td>
+				            					<select name="visionLevel" id="visionLevel" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.visionLevel != '1' and treatmentPojo.visionLevel != '2'}">selected="selected"</c:if> >正常</option>
+							                		<option value="1" <c:if test="${treatmentPojo.visionLevel == '1' }">selected="selected"</c:if> >遲緩</option>
+							                		<option value="2" <c:if test="${treatmentPojo.visionLevel == '2' }">selected="selected"</c:if> >障礙</option>
+							                	</select> 
+				            				</td>
+				            				<td><input value="${treatmentPojo.visionDate_str }" name="visionDate" type="text" id="physicavisionDatelDate" ltype="date" /></td>
+				            				<td><input value="${treatmentPojo.visionPlace }" name="visionPlace" type="text" id="visionPlace" ltype="text" /></td>
+				            				<td><input value="${treatmentPojo.visionDescribe }" name="visionDescribe" type="text" id="visionDescribe" ltype="text" /></td>
+				            				<td><input value="${treatmentPojo.visionNote }" name="visionNote" type="text" id="visionNote" ltype="text" /></td>
 				            			</tr>
 				            			<tr>
 				            				<th>聽力</th>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
+				            				<td>
+				            					<select name="hearingAssess" id="hearingAssess" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.hearingAssess != '1' }">selected="selected"</c:if> >是</option>
+							                		<option value="1" <c:if test="${treatmentPojo.hearingAssess == '1' }">selected="selected"</c:if> >否</option>
+							                	</select> 
+				            				</td>
+				            				<td>
+				            					<select name="hearingLevel" id="hearingLevel" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.hearingLevel != '1' and treatmentPojo.hearingLevel != '2'}">selected="selected"</c:if> >正常</option>
+							                		<option value="1" <c:if test="${treatmentPojo.hearingLevel == '1' }">selected="selected"</c:if> >遲緩</option>
+							                		<option value="2" <c:if test="${treatmentPojo.hearingLevel == '2' }">selected="selected"</c:if> >障礙</option>
+							                	</select> 
+				            				</td>
+				            				<td><input value="${treatmentPojo.hearingDate_str }" name="hearingDate" type="text" id="hearingDate" ltype="date" /></td>
+				            				<td><input value="${treatmentPojo.hearingPlace }" name="hearingPlace" type="text" id="hearingPlace" ltype="text" /></td>
+				            				<td><input value="${treatmentPojo.hearingDescribe }" name="hearingDescribe" type="text" id="hearingDescribe" ltype="text" /></td>
+				            				<td><input value="${treatmentPojo.hearingNote }" name="hearingNote" type="text" id="hearingNote" ltype="text" /></td>
+				            			
 				            			</tr>
 				            			<tr>
 				            				<th>智力</th>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
+				            				<td>
+				            					<select name="iQAssess" id="iQAssess" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.iQAssess != '1' }">selected="selected"</c:if> >是</option>
+							                		<option value="1" <c:if test="${treatmentPojo.iQAssess == '1' }">selected="selected"</c:if> >否</option>
+							                	</select> 
+				            				</td>
+				            				<td>
+				            					<select name="iQLevel" id="iQLevel" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.iQLevel != '1' and treatmentPojo.iQLevel != '2'}">selected="selected"</c:if> >正常</option>
+							                		<option value="1" <c:if test="${treatmentPojo.iQLevel == '1' }">selected="selected"</c:if> >遲緩</option>
+							                		<option value="2" <c:if test="${treatmentPojo.iQLevel == '2' }">selected="selected"</c:if> >障礙</option>
+							                	</select> 
+				            				</td>
+				            				<td><input value="${treatmentPojo.iQDate_str }" name="iQDate" type="text" id="iQDate" ltype="date" /></td>
+				            				<td><input value="${treatmentPojo.iQPlace }" name="iQPlace" type="text" id="iQPlace" ltype="text" /></td>
+				            				<td><input value="${treatmentPojo.iQDescribe }" name="iQDescribe" type="text" id="iQDescribe" ltype="text" /></td>
+				            				<td><input value="${treatmentPojo.iQNote }" name="iQNote" type="text" id="iQNote" ltype="text" /></td>
+				            			
 				            			</tr>
 				            			<tr>
 				            				<th>言語</th>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
+				            				<td>
+				            					<select name="speechAssess" id="speechAssess" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.speechAssess != '1' }">selected="selected"</c:if> >是</option>
+							                		<option value="1" <c:if test="${treatmentPojo.speechAssess == '1' }">selected="selected"</c:if> >否</option>
+							                	</select> 
+				            				</td>
+				            				<td>
+				            					<select name="iQLevel" id="iQLevel" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.speechLevel != '1' and treatmentPojo.speechLevel != '2'}">selected="selected"</c:if> >正常</option>
+							                		<option value="1" <c:if test="${treatmentPojo.speechLevel == '1' }">selected="selected"</c:if> >遲緩</option>
+							                		<option value="2" <c:if test="${treatmentPojo.speechLevel == '2' }">selected="selected"</c:if> >障礙</option>
+							                	</select> 
+				            				</td>
+				            				<td><input value="${treatmentPojo.speechDate_str }" name="speechDate" type="text" id="speechDate" ltype="date" /></td>
+				            				<td><input value="${treatmentPojo.speechPlace }" name="speechPlace" type="text" id="speechPlace" ltype="text" /></td>
+				            				<td><input value="${treatmentPojo.speechDescribe }" name="speechDescribe" type="text" id="speechDescribe" ltype="text" /></td>
+				            				<td><input value="${treatmentPojo.speechNote }" name="speechNote" type="text" id="speechNote" ltype="text" /></td>
+				            			
 				            			</tr>
 				            			<tr>
 				            				<th>行為情緒</th>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
-				            				<td></td>
+				            				<td>
+				            					<select name="behaviorAssess" id="behaviorAssess" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.behaviorAssess != '1' }">selected="selected"</c:if> >是</option>
+							                		<option value="1" <c:if test="${treatmentPojo.behaviorAssess == '1' }">selected="selected"</c:if> >否</option>
+							                	</select> 
+				            				</td>
+				            				<td>
+				            					<select name="iQLevel" id="iQLevel" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.behaviorLevel != '1' and treatmentPojo.behaviorLevel != '2'}">selected="selected"</c:if> >正常</option>
+							                		<option value="1" <c:if test="${treatmentPojo.behaviorLevel == '1' }">selected="selected"</c:if> >遲緩</option>
+							                		<option value="2" <c:if test="${treatmentPojo.behaviorLevel == '2' }">selected="selected"</c:if> >障礙</option>
+							                	</select> 
+				            				</td>
+				            				<td><input value="${treatmentPojo.behaviorDate_str }" name="behaviorDate" type="text" id="behaviorDate" ltype="date" /></td>
+				            				<td><input value="${treatmentPojo.behaviorPlace }" name="behaviorPlace" type="text" id="behaviorPlace" ltype="text" /></td>
+				            				<td><input value="${treatmentPojo.behaviorDescribe }" name="behaviorDescribe" type="text" id="behaviorDescribe" ltype="text" /></td>
+				            				<td><input value="${treatmentPojo.behaviorNote }" name="behaviorNote" type="text" id="behaviorNote" ltype="text" /></td>
 				            			</tr>
 				            		</tbody>
 				            	</table>
-				            	<div class="form-group">
-				                	<label class="col-md-2 control-label">其他：</label>
-				                	<div class="col-md-10">
-				                		<input class="form-control" type="text" />
-				                	</div>
+				            	<div>
+				            		<div class="inline-group">
+				            			<label>其他：</label>
+				                		<textarea rows="2" cols="55" name="familySituation" id="familySituation">${treatmentPojo.familySituation }</textarea>
+				            		</div>
 				                </div>
 		            		</div>
 		            	</div>
@@ -454,436 +833,404 @@ String basePath = request.getScheme() + "://"
 		            
 		            <div id="cure_tab" style="height:auto;overflow:auto;">
 		            	<div class="panel panel-default">
-		            		<div class="panel-heading">過去治療史</div>
+		            		<div class="panel-heading">曾接受機構服務資料</div>
 		            		<div class="panel-body">
 		            			<div id="cureDataGrid"></div>
-					                <div class="form-group">
-					                	<label class="col-md-2 control-label">接受物理評估原因：</label>
-					                	<div class="col-md-10">
-					                		<input class="form-control" type="text" />
-					                	</div>
-					                </div>
-					                <div class="form-group">
-					                	<label class="col-md-2 control-label">何以得知有此服務：</label>
-					                	<div class="col-md-10">
-					                		<input class="form-control" type="text" />
-					                	</div>
-					                </div>
-					                <div class="form-group">
-					                	<label class="col-md-2 control-label">對職業治療服務的期望：</label>
-					                	<div class="col-md-10">
-					                		<input class="form-control" type="text" />
-					                	</div>
-					                </div>
-					                <div class="form-group">
-					                	<label class="col-md-2 control-label">其他：</label>
-					                	<div class="col-md-10">
-					                		<input class="form-control" type="text" />
-					                	</div>
-					                </div>
+		            			
 		            		</div>
 		            	</div>
-			                
 		            </div>
-		            
-			       </form>
+		            <div class="panel panel-default">
+	            		<div class="panel-heading">適應技能方面：(評估分數為1-5分，1分最低，5分最高)</div>
+	            		<div class="panel-body">
+	            				<table class="table-center table-edit" border="1">
+				            		<thead>
+				            			<tr>
+				            				<th height="28px" width="120px">項目</th>
+				            				<th width="70%">說明</th>
+				            				<th width="">能力程度</th>
+				            			</tr>
+				            		</thead>
+				            		<tbody>
+				            			<tr>
+				            				<th>1.溝通</th>
+				            				<td>
+				            					透過語言或／與非語言方式表達與交換資訊
+				            				</td>
+				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            			</tr>
+				            			<tr>
+				            				<th>2.自我照顧</th>
+				            				<td>
+				            					指生活自理能力，包括飲食、穿衣、如廁、個人衛生儀容等方面的能力
+				            				</td>
+				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            			</tr>
+				            			<tr>
+				            				<th>3.居家生活</th>
+				            				<td>
+				            					在家庭中的日常生活能力，如料理食物、整理家務、規劃家庭預算、採買家庭用品、居家安全等
+				            				</td>
+				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            			</tr>
+				            			<tr>
+				            				<th>4.社交技能</th>
+				            				<td>
+				            					指的是交友情形與人際關係維持，包括微笑、基本社交禮儀、情緒表達、信賴關係、與他人合作關係、關心他人等
+				            				</td>
+				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            			</tr>
+				            			<tr>
+				            				<th>5.使用社區資源</th>
+				            				<td>
+				            					能夠適當地使用社區資源，如在社區中的移動能力、銀行或郵政使用、商店購物或取得服務、公共設施的使用
+				            				</td>
+				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            			</tr>
+				            			<tr>
+				            				<th>6.自我引導</th>
+				            				<td>
+				            					指做決定的能力，能促進自我成長的選擇能力
+				            				</td>
+				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            			</tr>
+				            			<tr>
+				            				<th>7.健康興安全</th>
+				            				<td>
+				            					能注意自己的身體，維持良好的健康習慣，注意平衡的飲食、身體安全、對疾病的基本認識與預防、就醫等
+				            				</td>
+				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            			</tr>
+				            			<tr>
+				            				<th>8.功能性學科能力</th>
+				            				<td>
+				            					指日常生活與學校所學的知識與相關技能，亦即認知能力，包括基本語文、數學、自然等，能運用基本認知融入生活與工作當中，促進個人獨力生活的能力
+				            				</td>
+				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            			</tr>
+				            			<tr>
+				            				<th>9.休閒娛樂</th>
+				            				<td>
+				            					包括社交技巧、移動能力、主動性、運用認知與資源等能力
+				            				</td>
+				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            			</tr>
+				            			<tr>
+				            				<th>10.工作</th>
+				            				<td>
+				            					個人工作能力
+				            				</td>
+				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            			</tr>
+				            		</tbody>
+				            	</table>
+	            			
+	            		</div>
+	            	</div>
+	            	
+	            		<div class="panel panel-default">
+		            		<div class="panel-heading">行為和愛好：(由社工觀察、家人/照顧者提供及在其轉介資料中取得)</div>
+		            		<div class="panel-body">
+								<div>
+									<div class="inline-group">
+									 	<label>1.社交方面</label>
+									 	<div>
+									 		<select>
+									 			<option>抗拒</option>
+									 			<option>羞怯</option>
+									 			<option>沉默</option>
+									 			<option>友善</option>
+									 			<option>善於交際</option>
+									 		</select>
+									 	</div>
+									 </div>  
+									 	<div class="inline-group">
+									 	<label>2.情緒方面</label>
+									 	<div>
+									 		<label><input type="checkbox" class="sentenceOrg" value="0" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('0') != -1 }">checked="checked"</c:if>>穩定</label>
+		               						<label><input type="checkbox" class="sentenceOrg" value="1" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('1') != -1 }">checked="checked"</c:if>>普通穩定</label>
+		               						<label><input type="checkbox" class="sentenceOrg" value="2" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('2') != -1 }">checked="checked"</c:if>>不穩定</label>
+									 	</div>
+									 	<label>導因：</label>
+									 	<input type="text" ltype="text">
+									 	<label>解決方法：</label>
+									 	<input type="text" ltype="text">
+									 </div> 
+								</div>   
+								<table class="table-center table-edit td-padding10" border="1">
+									<tbody>
+										<tr>
+											<td rowspan="4">不尋常行為</td>
+											<td>攻擊行為</td>
+											<td>
+												<div>
+													<label><input type="checkbox" class="sentenceOrg" value="0" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('0') != -1 }">checked="checked"</c:if>>向自己</label>
+		               								<label><input type="checkbox" class="sentenceOrg" value="1" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('1') != -1 }">checked="checked"</c:if>>向他人</label>
+		               								<label><input type="checkbox" class="sentenceOrg" value="2" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('2') != -1 }">checked="checked"</c:if>>向物件</label>
+		               								<label><input type="checkbox" class="sentenceOrg" value="2" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('2') != -1 }">checked="checked"</c:if>>沒有</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td>發脾氣</td>
+											<td>
+												<div>
+													<label><input type="checkbox" class="sentenceOrg" value="0" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('0') != -1 }">checked="checked"</c:if>>向自己</label>
+		               								<label><input type="checkbox" class="sentenceOrg" value="1" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('1') != -1 }">checked="checked"</c:if>>向他人</label>
+		               								<label><input type="checkbox" class="sentenceOrg" value="2" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('2') != -1 }">checked="checked"</c:if>>向物件</label>
+		               								<label><input type="checkbox" class="sentenceOrg" value="2" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('2') != -1 }">checked="checked"</c:if>>沒有</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td>其他</td>
+											<td>
+												<div>
+		               								<label><input type="checkbox" class="sentenceOrg" value="2" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('2') != -1 }">checked="checked"</c:if>>多動</label>
+		               								<label><input type="checkbox" class="sentenceOrg" value="2" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('2') != -1 }">checked="checked"</c:if>>退縮</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td>處理</td>
+											<td>
+											<input type="text" ltype="text">
+											</td>
+										</tr>
+										<tr>
+											<td rowspan="3">興趣</td>
+											<td>運動</td>
+											<td><input type="text" ltype="text"></td>
+										</tr>
+										<tr>
+											<td>藝術</td>
+											<td><input type="text" ltype="text"></td>
+										</tr>
+										<tr>
+											<td>愛好</td>
+											<td><input type="text" ltype="text"></td>
+										</tr>
+										<tr>
+											<td rowspan="3">日常生活時間表</td>
+											<td>上午</td>
+											<td><input type="text" ltype="text"></td>
+										</tr>
+										<tr>
+											<td>下午</td>
+											<td><input type="text" ltype="text"></td>
+										</tr>
+										<tr>
+											<td>晚上</td>
+											<td><input type="text" ltype="text"></td>
+										</tr>
+										<tr>
+											<td>支持系統</td>
+											<td colspan="2" style="text-align:left;">
+												<div class="input-group">
+												<p>
+													<label>支持者：</label>
+													<input type="text" ltype="text">
+													<label>冷淡者：</label>
+													<input type="text" ltype="text">
+												</p>
+												<p>
+													<label>縱容者：</label>
+													<input type="text" ltype="text">
+													<label>忽視者：</label>
+													<input type="text" ltype="text">
+												</p>
+												<p>
+													<label>過分保護者：</label>
+													<input type="text" ltype="text">
+													<label>嚴厲者：</label>
+													<input type="text" ltype="text">
+												</p>
+												</div>
+												
+											</td>
+										</tr>
+									</tbody>
+								</table>   
+								<div class="inline-group">
+									<label style="width:78px;text-align:right;">居住環境：</label>
+									<textarea rows="2" cols="55" name="familySituation" id="familySituation">${treatmentPojo.familySituation }</textarea>
+								</div>   		
+								<div class="inline-group">
+									<label style="width:78px;text-align:right;">工作員觀察：</label>
+									<textarea rows="2" cols="55" name="familySituation" id="familySituation">${treatmentPojo.familySituation }</textarea>
+								</div>   
+								<div class="inline-group">
+									<label style="width:78px;text-align:right;">建議：</label>
+									<textarea rows="2" cols="55" name="familySituation" id="familySituation">${treatmentPojo.familySituation }</textarea>
+								</div> 	
+		            		</div>
+		            	</div>
+			       
 		  	</div>
 		  	
-		  	<div id="presentation" title="語言治療評估簡報"><!-- 語言治療評估簡報 -->
-		  		<form action="">
-               		<table cellpadding="0" cellspacing="0" class="l-table-edit" >
-               			<tbody>
-               				<tr>
-               					 <td align="right" class="l-table-edit-td" >姓名:</td>
-               					 <td align="left" class="l-table-edit-td">
-               					 <input width="120px" value="${custCasePojo.fullName }" type="text" class="fullName" ltype="text" />
-               					 </td>
-               					 
-               					  <td align="right" class="l-table-edit-td">會員編號:</td>
-               					 <td align="left" class="l-table-edit-td"><input width="120px" value="${custCasePojo.billDate_str }" name="billDate_str" type="text" id="billDate_str" ltype="date" /></td>
-               					 <td align="right" class="l-table-edit-td">非會員編號:</td>
-               					 <td align="left" class="l-table-edit-td"><input width="120px" value="${custCasePojo.billTime }" name="billTime" type="text" id="billTime" ltype="text" /></td>
-               					  <td align="right" class="l-table-edit-td">評估類別:</td>
-               					 <td align="left" class="l-table-edit-td"><input width="120px" value="${custCasePojo.form }" name="form" type="text" id="form" ltype="text" /></td>
-               				</tr>
-               				<tr>
-               					 <td align="right" class="l-table-edit-td">言語治療編號:</td>
-               					 <td align="left" class="l-table-edit-td"><input width="120px" value="${custCasePojo.place }" name="place" type="text" id="place" ltype="text" /></td>
-               					 <td align="right" class="l-table-edit-td">評估日期:</td>
-               					 <td align="left" class="l-table-edit-td"><input width="120px" value="${custCasePojo.family }" name="family" type="text" id="family" ltype="text" /></td>
-               					 <td align="right" class="l-table-edit-td">評估地點:</td>
-               					 <td align="left" class="l-table-edit-td"><input width="120px" value="${custCasePojo.otherMan }" name="otherMan" type="text" id="otherMan" ltype="text" /></td>
-               					  <td align="right" class="l-table-edit-td">評估治療師:</td>
-               					 <td align="left" class="l-table-edit-td"><input width="120px" value="${custCasePojo.times }" name="times" type="text" id="times" ltype="text" /></td>
-               				</tr>
-               				<tr>
-               					 <td align="right" class="l-table-edit-td">引而參與評估職員:</td>
-               					 <td align="left" class="l-table-edit-td">
-               					 	<input width="120px" value="${custCasePojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
-               					 </td>
-               				</tr>
-               				<tr>
-               					 <td align="right" class="l-table-edit-td">陪同家人/:</td>
-               					 <td align="left" class="l-table-edit-td" colspan="3">
-               					 	<textarea rows="2" cols="55" class="ui-textarea"  validate="{required:true}" name="title">${custCasePojo.title }</textarea>
-               					 </td>
-               				</tr>
-               			</tbody>
-               		</table> 
+		  	<div tabid="groupTraining" title="小組訓練">
                			<div class="panel panel-default">
-						  <div class="panel-heading">語言前技能</div>
+						  <div class="panel-heading">小組訓練計劃</div>
 						  <div class="panel-body">
-						    <table>
-						    	<tbody>
-						    		<tr>
-						    			<td align="right" class="l-table-edit-td">專注能力:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${custCasePojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
-		               					</td>
-		               					 <td align="right" class="l-table-edit-td">目光接觸:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${custCasePojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">玩具操作技巧:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${custCasePojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">對聲音的反應:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${custCasePojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
-		               					</td>
-		               				</tr>
-		               				<tr>
-		               					<td align="right" class="l-table-edit-td">模仿能力:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${custCasePojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">備通意願:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${custCasePojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">物件概念:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${custCasePojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">其他:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${custCasePojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
-		               					</td>
-						    		</tr>
-						    	</tbody>
-						    </table>
+						  	<div id="groupPlanDataGrid"></div>
 						  </div>
 						</div>
 						
 						<div class="panel panel-default">
-						  <div class="panel-heading">語言表達</div>
+						  <div class="panel-heading">小組訓練記錄</div>
 						  <div class="panel-body">
-						    <table>
-						    	<tbody>
-						    		<tr>
-						    			<td align="right" class="l-table-edit-td">詞彙運用:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<label><input type="checkbox">手勢</label>
-		               						<label><input type="checkbox">聲音</label>
-		               						<label><input type="checkbox">圖片</label>
-		               						<label><input type="checkbox">言語</label>
-		               					</td>
-		               					 <td align="right" class="l-table-edit-td">句子長度:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<label><input type="checkbox">手勢</label>
-		               						<label><input type="checkbox">聲音</label>
-		               						<label><input type="checkbox">圖片</label>
-		               						<label><input type="checkbox">言語</label>
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">句子組成:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<label><input type="checkbox">手勢</label>
-		               						<label><input type="checkbox">聲音</label>
-		               						<label><input type="checkbox">圖片</label>
-		               						<label><input type="checkbox">言語</label>
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">問句運用:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<label><input type="checkbox">手勢</label>
-		               						<label><input type="checkbox">聲音</label>
-		               						<label><input type="checkbox">圖片</label>
-		               						<label><input type="checkbox">言語</label>
-		               					</td>
-		               				</tr>
-		               				<tr>
-		               					<td align="right" class="l-table-edit-td">敘事能力:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<label><input type="checkbox">手勢</label>
-		               						<label><input type="checkbox">聲音</label>
-		               						<label><input type="checkbox">圖片</label>
-		               						<label><input type="checkbox">言語</label>
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">說故事技巧:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<label><input type="checkbox">手勢</label>
-		               						<label><input type="checkbox">聲音</label>
-		               						<label><input type="checkbox">圖片</label>
-		               						<label><input type="checkbox">言語</label>
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">對答技巧:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<label><input type="checkbox">手勢</label>
-		               						<label><input type="checkbox">聲音</label>
-		               						<label><input type="checkbox">圖片</label>
-		               						<label><input type="checkbox">言語</label>
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">其他:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${custCasePojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
-		               					</td>
-						    		</tr>
-						    	</tbody>
-						    </table>
+						  	<div id="groupRecordDataGrid"></div>
 						  </div>
 						</div>
 						
-						<div class="panel panel-default">
-						  <div class="panel-heading">語言理解</div>
-						  <div class="panel-body">
-						    <table>
-						    	<tbody>
-						    		<tr>
-						    			<td align="right" class="l-table-edit-td">詞彙:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${custCasePojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
-		               					</td>
-		               					 <td align="right" class="l-table-edit-td">口頭指令:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${custCasePojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">問句:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${custCasePojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">故事:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${custCasePojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
-		               					</td>
-		               				</tr>
-		               				<tr>
-		               					<td align="right" class="l-table-edit-td">邏輯思維:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${custCasePojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">物件概念:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${custCasePojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">其他:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${custCasePojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
-		               					</td>
-						    		</tr>
-						    	</tbody>
-						    </table>
-						  </div>
-						</div>
 						
-						<div class="panel panel-default">
-						  <div class="panel-heading">兒童在發音方面有以下困難</div>
-						  <div class="panel-body">
-						    <table class="table table-bordered">
-						    	<thead>
-						    		<tr>
-						    			<th>項目</th>
-						    			<th>有/無</th>
-						    			<th>描述</th>
-						    		</tr>
-						    	</thead>
-						    	<tbody>
-						    		<tr>
-						    			<th>元音/複元音</th>
-						    			<td></td>
-						    			<td></td>
-						    		</tr>
-						    		<tr>
-						    			<th>前輔音</th>
-						    			<td></td>
-						    			<td></td>
-						    		</tr>
-						    		<tr>
-						    			<th>後輔音</th>
-						    			<td></td>
-						    			<td></td>
-						    		</tr>
-						    		<tr>
-						    			<th>聲調</th>
-						    			<td></td>
-						    			<td></td>
-						    		</tr>
-						    		<tr>
-						    			<th>其他</th>
-						    			<td colspan="2"></td>
-						    		</tr>
-						    	</tbody>
-						    </table>
-						  </div>
-						</div>
-						
-						<div class="panel panel-default">
-						  <div class="panel-heading">其他</div>
-						  <div class="panel-body">
-						  	<textarea name="" rows="" cols=""></textarea>
-						  </div>
-						</div>
-						
-						<div class="panel panel-default">
-						  <div class="panel-heading">建議</div>
-						  <div class="panel-body">
-						    	    <table>
-						    	<tbody>
-						    		<tr>
-						    			<td align="right" class="l-table-edit-td">接受言語治療服務:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	
-		               					</td>
-		               					 <td align="right" class="l-table-edit-td">接受言語治療服務，訓練重點為:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<label><input type="checkbox">提高溝通意識 </label>
-		               					 	<label><input type="checkbox">擴闊詞彙的理解和表達 </label>
-		               					 	<label><input type="checkbox"> 增長句子的長度及複雜度 </label>
-		               					 	<label><input type="checkbox">增強說話的組織能力 </label>
-		               						<label><input type="checkbox"> 增強邏輯性思維 </label>
-		               						<label><input type="checkbox">增強口肌能力  </label>
-		               						<label><input type="checkbox">改善發音，以提升說話的清晰度</label>
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">理解口頭指令部位:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${custCasePojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
-		               					</td>
-		               					<td align="right" class="l-table-edit-td">其他:</td>
-		               					<td align="left" class="l-table-edit-td">
-		               					 	<input width="120px" value="${custCasePojo.recordAdmin }" name="recordAmin" type="text" id="recordAmin" ltype="text" />
-		               					</td>
-		               				</tr>
-						    	</tbody>
-						    </table>
-						  </div>
-						</div>
-               	</form>
 		  	</div>
 		  	
-		  	<div id="plan" title="言語治療計畫"><!-- 言語治療計畫 -->
-		  		<form name="form3" id="form3">
-		  			<div id="plan_tab" style="height:auto;overflow:auto;">
-			            <div id="planDataGrid"></div>
-		            </div>
-		  		</form>
-		  	   
+		  	<div tabid="ndividualTraining" title="個別訓練">
+		  	   	<table>
+					<tbody>
+			            <tr>
+			            	<td align="right" class="l-table-edit-td">個別訓練編號：</td>
+			                <td align="left" class="l-table-edit-td">
+			                	<input width="120px" value="${treatmentPojo.treatmentNO }" name="treatmentNO" type="text" id="treatmentNO" ltype="text"">
+			                </td>
+			            
+			                <td align="right" class="l-table-edit-td">姓名：</td>
+			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.fullName }" name="fullName" type="text" id="fullName"/></td>
+			                
+			                <td align="right" class="l-table-edit-td">會員編號：</td>
+			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNO }" name="custNO" type="text" id="custNO" /></td>
+			                
+			                <td align="right" class="l-table-edit-td">非會員編號：</td>
+			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" id="custNewNO" /></td>
+			              </tr>
+			              <tr>
+			                 <td align="right" class="l-table-edit-td">訓練項目:</td>
+							 <td align="left" class="l-table-edit-td">
+							 	<input width="120px" value="${customer.birthday_ChnStr }" name="father" type="text" id="birthday_ChnStr" ltype="date" />
+							 </td>
+							  <td align="right" class="l-table-edit-td">訓練目標:</td>
+							 <td align="left" class="l-table-edit-td">
+							 	<input width="120px" value="${customer.mobileTelNO }" name="mother" type="text" id="mobileTelNO" ltype="text" />
+							 </td>
+							  <td align="right" class="l-table-edit-td">執行訓練人員:</td>
+							<td align="left" class="l-table-edit-td" id="sex">
+			                	<input id="sex1" type="radio" disabled="disabled" name="sex"  value="1" <c:if test="${customer.sex != 2 }">checked="checked"</c:if> /><label for="sex1">男</label> 
+								<input id="sex2" type="radio" disabled="disabled" name="sex" value="2" <c:if test="${customer.sex == 2 }">checked="checked"</c:if> /><label for="sex2">女</label>
+			                </td>
+			               	<td align="right" class="l-table-edit-td">訓練日期：</td>
+			                <td align="left" class="l-table-edit-td">
+			                	<input width="120px" value="${treatmentPojo.worker }" name="worker" type="text" id="worker" ltype="text"/>
+			                	至
+			                	<input width="120px" value="${treatmentPojo.worker }" name="worker" type="text" id="worker" ltype="text"/>
+			                </td>
+			            </tr>
+			            <tr>
+			            	  <td align="right" class="l-table-edit-td">訓練地點:</td>
+							 <td align="left" class="l-table-edit-td">
+							 	<input width="120px" value="${treatmentPojo.startDate_str }" name="startDate" type="text" id="startDate" ltype="date" />
+							 </td>
+							 
+			            </tr>
+					</tbody>
+				</table>
+				<div class="panel panel-default">
+            		<div class="panel-heading">流程計畫</div>
+            		<div class="panel-body">
+            			<div id="flowPlanDataGrid"></div>
+            			
+            		</div>
+            	</div>
+            	<div class="panel panel-default">
+            		<div class="panel-heading">學員訓練狀況記錄</div>
+            		<div class="panel-body">
+            			<!-- <div id="stateRecordDataGrid"></div> -->
+            			
+            		</div>
+            	</div>
 		  	</div>
 		  	
-		  	<div id="record" title="言語治療課堂記錄"><!-- 言語治療課堂記錄 -->
-		  		<form>
-		  			<div id="record_tab" style="height:auto;overflow:auto;">
-			            <div id="recordDataGrid"></div>
-		            </div>
-		  		</form>
+		  	<div tabid="tryRecord" title="試工記錄">
+		  		<table>
+					<tbody>
+			            <tr>
+			            	<td align="right" class="l-table-edit-td">學員名稱：</td>
+			                <td align="left" class="l-table-edit-td">
+			                	<input width="120px" value="${treatmentPojo.treatmentNO }" name="treatmentNO" type="text" id="treatmentNO" ltype="text"">
+			                </td>
+			            
+			                <td align="right" class="l-table-edit-td">試工開始時間：</td>
+			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.fullName }" name="fullName" type="text" id="fullName"/></td>
+			                
+			                <td align="right" class="l-table-edit-td">試工結束時間：</td>
+			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNO }" name="custNO" type="text" id="custNO" /></td>
+			                
+			                <td align="right" class="l-table-edit-td">試工職位：</td>
+			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" id="custNewNO" /></td>
+			              </tr>
+			              <tr>
+			                 <td align="right" class="l-table-edit-td">試工公司/店鋪:</td>
+							 <td align="left" class="l-table-edit-td">
+							 	<input width="120px" value="${customer.birthday_ChnStr }" name="father" type="text" id="birthday_ChnStr" ltype="date" />
+							 </td>
+							  <td align="right" class="l-table-edit-td">試工地址:</td>
+							 <td align="left" class="l-table-edit-td">
+							 	<input width="120px" value="${customer.mobileTelNO }" name="mother" type="text" id="mobileTelNO" ltype="text" />
+							 </td>
+							  <td align="right" class="l-table-edit-td">工作時間:</td>
+							<td align="left" class="l-table-edit-td" id="sex">
+			                	<input id="sex1" type="radio" disabled="disabled" name="sex"  value="1" <c:if test="${customer.sex != 2 }">checked="checked"</c:if> /><label for="sex1">男</label> 
+								<input id="sex2" type="radio" disabled="disabled" name="sex" value="2" <c:if test="${customer.sex == 2 }">checked="checked"</c:if> /><label for="sex2">女</label>
+			                </td>
+			               	<td align="right" class="l-table-edit-td">工作內容：</td>
+			                <td align="left" class="l-table-edit-td">
+			                	<input width="120px" value="${treatmentPojo.worker }" name="worker" type="text" id="worker" ltype="text"/>
+			                	至
+			                	<input width="120px" value="${treatmentPojo.worker }" name="worker" type="text" id="worker" ltype="text"/>
+			                </td>
+			            </tr>
+			            <tr>
+			            	  <td align="right" class="l-table-edit-td">工作流程:</td>
+							 <td align="left" class="l-table-edit-td">
+							 	<input width="120px" value="${treatmentPojo.startDate_str }" name="startDate" type="text" id="startDate" ltype="date" />
+							 </td>
+							  <td align="right" class="l-table-edit-td">現場環境觀察:</td>
+							 <td align="left" class="l-table-edit-td">
+							 	<input width="120px" value="${treatmentPojo.startDate_str }" name="startDate" type="text" id="startDate" ltype="date" />
+							 </td>
+							 
+			            </tr>
+					</tbody>
+				</table>
+				
+				<div class="panel panel-default">
+            		<div class="panel-heading">員工試工表現</div>
+            		<div class="panel-body">
+            			<div id="manifestationDataGrid"></div>
+            			
+            		</div>
+            	</div>
+            	<div class="inline-group">
+            		<label>負責人：</label>
+            		<input type="text" ltype="text">
+            		<label>日期：</label>
+            		<input type="text" ltype="text">
+            	</div>
+            	<div class="inline-block">
+            		<label>意見／建議:</label>
+            		<textarea rows="2" cols="55" name="note" id="note">${treatmentPojo.note }</textarea>
+            	</div>
 		  	   	
 		  	</div>
 		  	
-		  	<div id="report" title="中止/結案報告"><!-- 中止/結案報告 -->
-               <form>
-               		 <table>
-          			<tbody>
-          				<tr>
-          					 <td align="right" class="l-table-edit-td">言語治療編號:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.caseNo }" type="text" class="caseNo" ltype="text" />
-          					 </td>
-          					  <td align="right" class="l-table-edit-td">治療開始日期:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.custNo }" name="custNo" type="text" id="custNo" ltype="text" />
-          					 </td>
-          					 <td align="right" class="l-table-edit-td">治療結束日期:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.custNewNo }" name="custNewNo" type="text" id="custNewNo" ltype="text" />
-          					 </td>
-          					  <td align="right" class="l-table-edit-td">治療師:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.fullName }" class="fullName" type="text" ltype="text" />
-          					 </td>
-          				</tr>
-          				<tr>
-          					 <td align="right" class="l-table-edit-td">會員編號:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.birthday_ChnStr }" name="birthday_ChnStr" type="text" id="birthday_ChnStr" ltype="date" />
-          					 </td>
-          					 <td align="right" class="l-table-edit-td">非會員編號:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.cardNo }" name="cardNo" type="text" id="cardNo" ltype="text" />
-          					 </td>
-          					 <td align="right" class="l-table-edit-td">姓名:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.sex }" name="sex" type="text" id="sex" ltype="text" />
-          					 </td>
-          					  <td align="right" class="l-table-edit-td">性別:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.mobileTelNo }" name="mobileTelNo" type="text" id="mobileTelNo" ltype="text" />
-          					 </td>
-          				</tr>
-          				<tr>
-          					 <td align="right" class="l-table-edit-td">出生日期:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.father }" name="father" type="text" id="father" ltype="text" />
-          					 </td>
-          					  <td align="right" class="l-table-edit-td">聯繫電話:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.mother }" name="mother" type="text" id="mother" ltype="text" />
-          					 </td>
-          					 <td align="right" class="l-table-edit-td">中止/結案原因:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.linkAdr }" name="linkAdr" type="text" id="linkAdr" ltype="text" />
-          					 </td>
-          					 <td align="right" class="l-table-edit-td">臨床觀察其表現:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.isMarry }" name="isMarry" type="text" id="isMarry" ltype="text" />
-          					 </td>
-          				</tr>
-          				<tr>
-          					 <td align="right" class="l-table-edit-td">建議:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.edulevel }" name="edulevel" type="text" id="edulevel" ltype="text" />
-          					 </td>
-          					 <td align="right" class="l-table-edit-td">療程小結:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.economics }" name="economics" type="text" id="economics" ltype="text" />
-          					 </td>
-          				</tr>
-          				<tr>
-          					 <td align="right" class="l-table-edit-td">主管:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.assessWorker }" name="assessWorker" type="text" id="assessWorker" ltype="text" />
-          					 </td>
-          					  <td align="right" class="l-table-edit-td">日期:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.billDate_str }" name="billDate_str" type="text" id="billDate_str" ltype="date" />
-          					 </td>
-          				</tr>
-          				<tr>
-          					 <td align="right" class="l-table-edit-td">主管意見及建議:</td>
-          					 <td align="left" class="l-table-edit-td" colspan="3">
-          					 	<textarea rows="2" cols="55" class="ui-textarea" name="background"  validate="{required:true}">${custCasePojo.background }</textarea>
-          					 </td>
-          				</tr>
-          			</tbody>
-          		</table>
-               </form>
-              
-		  	</div>
 	  </div>
        
-	
-         
+		<input type="submit" value="提交" id="Button1" class="l-button l-button-submit" style="display: none;" />
+          </form>
         
         
         
-        <!--<input type="submit" value="提交" id="Button1" class="l-button l-button-submit" style="display: none;" />-->
+        
     
     
     
