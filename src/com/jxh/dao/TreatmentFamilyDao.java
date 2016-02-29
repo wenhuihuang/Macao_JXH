@@ -69,4 +69,10 @@ public class TreatmentFamilyDao extends DaoImpl<TreatmentFamily>{
 		return getflagByIntArray(rows);
 	}
 	
+	public int deleteTreatmentFamilyByTreatmentID(String treatmentID) throws SQLException, IOException{
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		//String sql = "delete from treatmentFamily where treatmentID = ? ";
+		return this.update(sql, treatmentID);
+	}
+	
 }

@@ -23,6 +23,7 @@ public class TreatmentReportPojo implements Serializable {
 	private Date handleDate;
 	private String handleSuggest;
 	private Date closeDate;
+	private String custID;
 	
 	private String handleDate_str;
 	private String closeDate_str;
@@ -30,7 +31,7 @@ public class TreatmentReportPojo implements Serializable {
 	public TreatmentReportPojo(){
 		super();
 	}
-	public TreatmentReportPojo(int reportID, String treatmentID, String reason, String performance, String suggest, String summary, String handler, Date handleDate, String handleSuggest,Date closeDate,String handleDate_str,String closeDate_str ){
+	public TreatmentReportPojo(int reportID, String treatmentID, String reason, String performance, String suggest, String summary, String handler, Date handleDate, String handleSuggest,Date closeDate,String handleDate_str,String closeDate_str,String custID ){
 		super();
 		this.reportID=reportID;
 		this.treatmentID=treatmentID;
@@ -44,6 +45,7 @@ public class TreatmentReportPojo implements Serializable {
 		this.closeDate=closeDate;
 		this.handleDate_str=handleDate_str;
 		this.closeDate_str=closeDate_str;
+		this.custID=custID;
 	}
 	public void setReportID(int reportID){
 		this.reportID=reportID;
@@ -135,9 +137,18 @@ public class TreatmentReportPojo implements Serializable {
 	public void setCloseDate_str(String closeDate_str) {
 		this.closeDate_str = closeDate_str;
 	}
+	
+	
+	
+	public String getCustID() {
+		return custID;
+	}
+	public void setCustID(String custID) {
+		this.custID = custID;
+	}
 	@Override
 	public String toString(){
-		return "TreatmentReport [reportID="+reportID+",treatmentID="+treatmentID+",reason="+reason+",performance="+performance+",suggest="+suggest+",summary="+summary+",handler="+handler+",handleDate="+handleDate+",handleSuggest="+handleSuggest+",closeDate="+closeDate+",handleDate_str="+handleDate_str+",closeDate_str="+closeDate_str+"]";
+		return "TreatmentReport [reportID="+reportID+",treatmentID="+treatmentID+",reason="+reason+",performance="+performance+",suggest="+suggest+",summary="+summary+",handler="+handler+",handleDate="+handleDate+",handleSuggest="+handleSuggest+",closeDate="+closeDate+",handleDate_str="+handleDate_str+",closeDate_str="+closeDate_str+",custID="+custID+"]";
 	}
 }
 

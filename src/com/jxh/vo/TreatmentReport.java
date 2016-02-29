@@ -9,23 +9,13 @@ import java.math.*;
 
 
 /** TreatmentReport
-	REPORTID	INT(10)
-	TREATMENTID	INT(10)
-	REASON	TEXT(2147483647)
-	PERFORMANCE	TEXT(2147483647)
-	SUGGEST	TEXT(2147483647)
-	SUMMARY	TEXT(2147483647)
-	HANDLER	VARCHAR(32)
-	HANDLEDATE	DATETIME(23,3)
-	HANDLESUGGEST	TEXT(2147483647)
-	CLOSEDATE DATETIME
 
-reportID,treatmentID,reason,performance,suggest,summary,handler,handleDate,handleSuggest,closeDate
-?,?,?,?,?,?,?,?,?,?
+reportID,treatmentID,reason,performance,suggest,summary,handler,handleDate,handleSuggest,closeDate,custID
+?,?,?,?,?,?,?,?,?,?,?
 
-treatmentReport.reportID,treatmentReport.treatmentID,treatmentReport.reason,treatmentReport.performance,treatmentReport.suggest,treatmentReport.summary,treatmentReport.handler,treatmentReport.handleDate,treatmentReport.handleSuggest,treatmentReport.closeDate
+treatmentReport.reportID,treatmentReport.treatmentID,treatmentReport.reason,treatmentReport.performance,treatmentReport.suggest,treatmentReport.summary,treatmentReport.handler,treatmentReport.handleDate,treatmentReport.handleSuggest,treatmentReport.closeDate,custID
 
-reportID=?,treatmentID=?,reason=?,performance=?,suggest=?,summary=?,handler=?,handleDate=?,handleSuggest=?,closeDate=?
+reportID=?,treatmentID=?,reason=?,performance=?,suggest=?,summary=?,handler=?,handleDate=?,handleSuggest=?,closeDate=?,custID=?
 */
 public class TreatmentReport implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -39,11 +29,12 @@ public class TreatmentReport implements Serializable {
 	private Date handleDate;
 	private String handleSuggest;
 	private Date closeDate;
+	private String custID;
 
 	public TreatmentReport(){
 		super();
 	}
-	public TreatmentReport(int reportID, String treatmentID, String reason, String performance, String suggest, String summary, String handler, Date handleDate, String handleSuggest,Date closeDate ){
+	public TreatmentReport(int reportID, String treatmentID, String reason, String performance, String suggest, String summary, String handler, Date handleDate, String handleSuggest,Date closeDate,String custID ){
 		super();
 		this.reportID=reportID;
 		this.treatmentID=treatmentID;
@@ -55,6 +46,7 @@ public class TreatmentReport implements Serializable {
 		this.handleDate=handleDate;
 		this.handleSuggest=handleSuggest;
 		this.closeDate=closeDate;
+		this.custID=custID;
 	}
 	public void setReportID(int reportID){
 		this.reportID=reportID;
@@ -119,9 +111,17 @@ public class TreatmentReport implements Serializable {
 	public void setCloseDate(Date closeDate) {
 		this.closeDate = closeDate;
 	}
+	
+	
+	public String getCustID() {
+		return custID;
+	}
+	public void setCustID(String custID) {
+		this.custID = custID;
+	}
 	@Override
 	public String toString(){
-		return "TreatmentReport [reportID="+reportID+",treatmentID="+treatmentID+",reason="+reason+",performance="+performance+",suggest="+suggest+",summary="+summary+",handler="+handler+",handleDate="+handleDate+",handleSuggest="+handleSuggest+",closeDate="+closeDate+"]";
+		return "TreatmentReport [reportID="+reportID+",treatmentID="+treatmentID+",reason="+reason+",performance="+performance+",suggest="+suggest+",summary="+summary+",handler="+handler+",handleDate="+handleDate+",handleSuggest="+handleSuggest+",closeDate="+closeDate+",custID="+custID+"]";
 	}
 }
 

@@ -69,8 +69,9 @@ public class TreatmentPlanDao extends DaoImpl<TreatmentPlan>{
 		return getflagByIntArray(rows);
 	}
 	
-	public int deleteTreatmentPlanByTreatmentID(String treatmentID) throws SQLException{
-		String sql = "delete from TreatmentPlan where treatmentID = ? ";
+	public int deleteTreatmentPlanByTreatmentID(String treatmentID) throws SQLException, IOException{
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		//String sql = "delete from TreatmentPlan where treatmentID = ? ";
 		return this.update(sql, treatmentID);
 	}
 	

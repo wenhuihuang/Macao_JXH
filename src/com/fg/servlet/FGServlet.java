@@ -194,7 +194,6 @@ public abstract class FGServlet extends HttpServlet {
 			Class<?> valueType = field.getType();
 			String typeName = valueType.getName();
 			
-			
 			String valueStr = request.getParameter(name);
 
 			Object value = null;

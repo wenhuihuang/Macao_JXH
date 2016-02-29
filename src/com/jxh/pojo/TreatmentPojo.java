@@ -10,17 +10,7 @@ import java.sql.*;
 import java.text.ParseException;
 import java.math.*;
 
-
-/** Treatment
-
-treatmentID,treatmentType,custID,treatmentNO,worker,applyDate,assessDate,serviceStatus,reason,note,familySituation,physicalAssess,physicalLevel,physicalDate,physicalPlace,physicalDescribe,physicalNote,visionAssess,visionLevel,visionDate,visionPlace,visionDescribe,visionNote,hearingAssess,hearingLevel,hearingDate,hearingPlace,hearingDescribe,hearingNote,iQAssess,iQLevel,iQDate,iQPlace,iQDescribe,iQNote,speechAssess,speechLevel,speechDate,speechPlace,speechDescribe,speechNote,behaviorAssess,behaviorLevel,behaviorDate,behaviorPlace,behaviorDescribe,behaviorNote,communication,communicationNote,life,lifeNote,useResources,useResourcesNote,selfGuided,selfGuidedNote,functional,functionalNote,play,playNote,work,workNote,cognitive,cognitiveNote,lMuscle,lMuscleNote,sMuscle,sMuscleNote,interpersonal,interpersonalNote,selfAbility,selfAbilityNote,sensory,sensoryNote,health,healthNote,disease,diseaseNote,allergy,allergyNote,medication,medicationNote,history,sCantonese,rCantonese,lCantonese,wCantonese,sMandarin,rSMandarin,lSMandarin,wSMandarin,sRLWOther,others,physicalReason,knowReason,wish,otherReason,socially,emotional,inducements,solve,attack,temper,behavior,behaviorHandle,sport,art,hobby,morningLife,afternoonLife,nightLife,lifeEnvironment,workerNote,behaviourNote
-?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
-
-treatment.treatmentID,treatment.treatmentType,treatment.custID,treatment.treatmentNO,treatment.worker,treatment.applyDate,treatment.assessDate,treatment.serviceStatus,treatment.reason,treatment.note,treatment.familySituation,treatment.physicalAssess,treatment.physicalLevel,treatment.physicalDate,treatment.physicalPlace,treatment.physicalDescribe,treatment.physicalNote,treatment.visionAssess,treatment.visionLevel,treatment.visionDate,treatment.visionPlace,treatment.visionDescribe,treatment.visionNote,treatment.hearingAssess,treatment.hearingLevel,treatment.hearingDate,treatment.hearingPlace,treatment.hearingDescribe,treatment.hearingNote,treatment.iQAssess,treatment.iQLevel,treatment.iQDate,treatment.iQPlace,treatment.iQDescribe,treatment.iQNote,treatment.speechAssess,treatment.speechLevel,treatment.speechDate,treatment.speechPlace,treatment.speechDescribe,treatment.speechNote,treatment.behaviorAssess,treatment.behaviorLevel,treatment.behaviorDate,treatment.behaviorPlace,treatment.behaviorDescribe,treatment.behaviorNote,treatment.communication,treatment.communicationNote,treatment.life,treatment.lifeNote,treatment.useResources,treatment.useResourcesNote,treatment.selfGuided,treatment.selfGuidedNote,treatment.functional,treatment.functionalNote,treatment.play,treatment.playNote,treatment.work,treatment.workNote,treatment.cognitive,treatment.cognitiveNote,treatment.lMuscle,treatment.lMuscleNote,treatment.sMuscle,treatment.sMuscleNote,treatment.interpersonal,treatment.interpersonalNote,treatment.selfAbility,treatment.selfAbilityNote,treatment.sensory,treatment.sensoryNote,treatment.health,treatment.healthNote,treatment.disease,treatment.diseaseNote,treatment.allergy,treatment.allergyNote,treatment.medication,treatment.medicationNote,treatment.history,treatment.sCantonese,treatment.rCantonese,treatment.lCantonese,treatment.wCantonese,treatment.sMandarin,treatment.rSMandarin,treatment.lSMandarin,treatment.wSMandarin,treatment.sRLWOther,treatment.others,treatment.physicalReason,treatment.knowReason,treatment.wish,treatment.otherReason,treatment.socially,treatment.emotional,treatment.inducements,treatment.solve,treatment.attack,treatment.temper,treatment.behavior,treatment.behaviorHandle,treatment.sport,treatment.art,treatment.hobby,treatment.morningLife,treatment.afternoonLife,treatment.nightLife,treatment.lifeEnvironment,treatment.workerNote,treatment.behaviourNote
-
-treatmentID=?,treatmentType=?,custID=?,treatmentNO=?,worker=?,applyDate=?,assessDate=?,serviceStatus=?,reason=?,note=?,familySituation=?,physicalAssess=?,physicalLevel=?,physicalDate=?,physicalPlace=?,physicalDescribe=?,physicalNote=?,visionAssess=?,visionLevel=?,visionDate=?,visionPlace=?,visionDescribe=?,visionNote=?,hearingAssess=?,hearingLevel=?,hearingDate=?,hearingPlace=?,hearingDescribe=?,hearingNote=?,iQAssess=?,iQLevel=?,iQDate=?,iQPlace=?,iQDescribe=?,iQNote=?,speechAssess=?,speechLevel=?,speechDate=?,speechPlace=?,speechDescribe=?,speechNote=?,behaviorAssess=?,behaviorLevel=?,behaviorDate=?,behaviorPlace=?,behaviorDescribe=?,behaviorNote=?,communication=?,communicationNote=?,life=?,lifeNote=?,useResources=?,useResourcesNote=?,selfGuided=?,selfGuidedNote=?,functional=?,functionalNote=?,play=?,playNote=?,work=?,workNote=?,cognitive=?,cognitiveNote=?,lMuscle=?,lMuscleNote=?,sMuscle=?,sMuscleNote=?,interpersonal=?,interpersonalNote=?,selfAbility=?,selfAbilityNote=?,sensory=?,sensoryNote=?,health=?,healthNote=?,disease=?,diseaseNote=?,allergy=?,allergyNote=?,medication=?,medicationNote=?,history=?,sCantonese=?,rCantonese=?,lCantonese=?,wCantonese=?,sMandarin=?,rSMandarin=?,lSMandarin=?,wSMandarin=?,sRLWOther=?,others=?,physicalReason=?,knowReason=?,wish=?,otherReason=?,socially=?,emotional=?,inducements=?,solve=?,attack=?,temper=?,behavior=?,behaviorHandle=?,sport=?,art=?,hobby=?,morningLife=?,afternoonLife=?,nightLife=?,lifeEnvironment=?,workerNote=?,behaviourNote=?
-*/
-public class LanguageTreatmentPojo implements Serializable {
+public class TreatmentPojo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String treatmentID;
 	private int treatmentType;
@@ -28,7 +18,6 @@ public class LanguageTreatmentPojo implements Serializable {
 	private String treatmentNO;
 	private String worker;
 	private Date applyDate;
-	private Date assessDate;
 	private int serviceStatus;
 	private String reason;
 	private String note;
@@ -138,8 +127,14 @@ public class LanguageTreatmentPojo implements Serializable {
 	private Date startDate;
 	private Date awaitDate;
 	
+	private String fullName;
+	private String isMember;
+	
+	private Date assessDate;
+	
+	private Date closeDate;
+	
 	private String applyDate_str;
-	private String assessDate_str;
 	private String physicalDate_str;
 	private String visionDate_str;
 	private String hearingDate_str;
@@ -148,12 +143,15 @@ public class LanguageTreatmentPojo implements Serializable {
 	private String behaviorDate_str;
 	private String startDate_str;
 	private String awaitDate_str;
+	
+	private String assessDate_str;
+	private String closeDate_str;
 
-	public LanguageTreatmentPojo(){
+	public TreatmentPojo(){
 		super();
 	}
-	public LanguageTreatmentPojo(String treatmentID, int treatmentType, String custID, String treatmentNO, String worker,
-								Date applyDate, Date assessDate, int serviceStatus, String reason, String note,
+	public TreatmentPojo(String treatmentID, int treatmentType, String custID, String treatmentNO, String worker,
+								Date applyDate, int serviceStatus, String reason, String note,
 								String familySituation, int physicalAssess, int physicalLevel, Date physicalDate, 
 								String physicalPlace, String physicalDescribe, String physicalNote, int visionAssess,
 								int visionLevel, Date visionDate, String visionPlace, String visionDescribe,
@@ -175,9 +173,9 @@ public class LanguageTreatmentPojo implements Serializable {
 								String knowReason, String wish, String otherReason, int socially, int emotional, String inducements,
 								String solve, int attack, int temper, int behavior, String behaviorHandle, String sport, String art,
 								String hobby, String morningLife, String afternoonLife, String nightLife, String lifeEnvironment,
-								String workerNote, String behaviourNote,String applyDate_str, String assessDate_str,String physicalDate_str,
+								String workerNote, String behaviourNote,String applyDate_str,String physicalDate_str,
 								String visionDate_str,String hearingDate_str, String iQDate_str,String speechDate_str,String behaviorDate_str,
-								Date startDate,String startDate_str,Date awaitDate,String awaitDate_str){
+								Date startDate,String startDate_str,Date awaitDate,String awaitDate_str,String fullName, String isMember,Date assessDate,Date closeDate,String assessDate_str,String closeDate_str){
 		super();
 		this.treatmentID=treatmentID;
 		this.treatmentType=treatmentType;
@@ -185,7 +183,6 @@ public class LanguageTreatmentPojo implements Serializable {
 		this.treatmentNO=treatmentNO;
 		this.worker=worker;
 		this.applyDate=applyDate;
-		this.assessDate=assessDate;
 		this.serviceStatus=serviceStatus;
 		this.reason=reason;
 		this.note=note;
@@ -295,8 +292,14 @@ public class LanguageTreatmentPojo implements Serializable {
 		this.startDate=startDate;
 		this.awaitDate=awaitDate;
 		
+		this.fullName=fullName;
+		this.isMember=isMember;
+		
+		this.assessDate=assessDate;
+		
+		this.closeDate=closeDate;
+		
 		this.applyDate_str=applyDate_str;
-		this.assessDate_str=assessDate_str;
 		this.physicalDate_str=physicalDate_str;
 		this.visionDate_str=visionDate_str;
 		this.hearingDate_str=hearingDate_str;
@@ -305,6 +308,8 @@ public class LanguageTreatmentPojo implements Serializable {
 		this.behaviorDate_str=behaviorDate_str;
 		this.startDate_str=startDate_str;
 		this.awaitDate_str=awaitDate_str;
+		this.assessDate_str=assessDate_str;
+		this.closeDate_str=closeDate_str;
 	}
 	public void setTreatmentID(String treatmentID){
 		this.treatmentID=treatmentID;
@@ -341,12 +346,6 @@ public class LanguageTreatmentPojo implements Serializable {
 	}
 	public Date getApplyDate(){
 		return applyDate;
-	}
-	public void setAssessDate(Date assessDate){
-		this.assessDate=assessDate;
-	}
-	public Date getAssessDate(){
-		return assessDate;
 	}
 	public void setServiceStatus(int serviceStatus){
 		this.serviceStatus=serviceStatus;
@@ -684,30 +683,6 @@ public class LanguageTreatmentPojo implements Serializable {
 	public String getCognitiveNote(){
 		return cognitiveNote;
 	}
-	public void setLMuscle(String lMuscle){
-		this.lMuscle=lMuscle;
-	}
-	public String getLMuscle(){
-		return lMuscle;
-	}
-	public void setLMuscleNote(String lMuscleNote){
-		this.lMuscleNote=lMuscleNote;
-	}
-	public String getLMuscleNote(){
-		return lMuscleNote;
-	}
-	public void setSMuscle(String sMuscle){
-		this.sMuscle=sMuscle;
-	}
-	public String getSMuscle(){
-		return sMuscle;
-	}
-	public void setSMuscleNote(String sMuscleNote){
-		this.sMuscleNote=sMuscleNote;
-	}
-	public String getSMuscleNote(){
-		return sMuscleNote;
-	}
 	public void setInterpersonal(String interpersonal){
 		this.interpersonal=interpersonal;
 	}
@@ -797,60 +772,6 @@ public class LanguageTreatmentPojo implements Serializable {
 	}
 	public String getHistory(){
 		return history;
-	}
-	public void setSCantonese(int sCantonese){
-		this.sCantonese=sCantonese;
-	}
-	public int getSCantonese(){
-		return sCantonese;
-	}
-	public void setRCantonese(int rCantonese){
-		this.rCantonese=rCantonese;
-	}
-	public int getRCantonese(){
-		return rCantonese;
-	}
-	public void setLCantonese(int lCantonese){
-		this.lCantonese=lCantonese;
-	}
-	public int getLCantonese(){
-		return lCantonese;
-	}
-	public void setWCantonese(int wCantonese){
-		this.wCantonese=wCantonese;
-	}
-	public int getWCantonese(){
-		return wCantonese;
-	}
-	public void setSMandarin(int sMandarin){
-		this.sMandarin=sMandarin;
-	}
-	public int getSMandarin(){
-		return sMandarin;
-	}
-	public void setRSMandarin(int rSMandarin){
-		this.rSMandarin=rSMandarin;
-	}
-	public int getRSMandarin(){
-		return rSMandarin;
-	}
-	public void setLSMandarin(int lSMandarin){
-		this.lSMandarin=lSMandarin;
-	}
-	public int getLSMandarin(){
-		return lSMandarin;
-	}
-	public void setWSMandarin(int wSMandarin){
-		this.wSMandarin=wSMandarin;
-	}
-	public int getWSMandarin(){
-		return wSMandarin;
-	}
-	public void setSRLWOther(String sRLWOther){
-		this.sRLWOther=sRLWOther;
-	}
-	public String getSRLWOther(){
-		return sRLWOther;
 	}
 	public void setOthers(String others){
 		this.others=others;
@@ -999,18 +920,6 @@ public class LanguageTreatmentPojo implements Serializable {
 	public void setApplyDate_str(String applyDate_str) {
 		this.applyDate_str = applyDate_str;
 	}
-	public String getAssessDate_str() {
-		try {
-			return assessDate == null || "".equals(assessDate) ? ""
-					: ToolsUtils.getDateStringByFormat(assessDate, null, "yyyy-MM-dd");
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	public void setAssessDate_str(String assessDate_str) {
-		this.assessDate_str = assessDate_str;
-	}
 	public String getPhysicalDate_str() {
 		try {
 			return physicalDate == null || "".equals(physicalDate) ? ""
@@ -1122,11 +1031,146 @@ public class LanguageTreatmentPojo implements Serializable {
 	public void setStartDate_str(String startDate_str) {
 		this.startDate_str = startDate_str;
 	}
+	
+	
+	
+	public String getFullName() {
+		return fullName;
+	}
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+	public String getIsMember() {
+		return isMember;
+	}
+	public void setIsMember(String isMember) {
+		this.isMember = isMember;
+	}
+	
+	
+	
+	public String getlMuscle() {
+		return lMuscle;
+	}
+	public void setlMuscle(String lMuscle) {
+		this.lMuscle = lMuscle;
+	}
+	public String getlMuscleNote() {
+		return lMuscleNote;
+	}
+	public void setlMuscleNote(String lMuscleNote) {
+		this.lMuscleNote = lMuscleNote;
+	}
+	public String getsMuscle() {
+		return sMuscle;
+	}
+	public void setsMuscle(String sMuscle) {
+		this.sMuscle = sMuscle;
+	}
+	public String getsMuscleNote() {
+		return sMuscleNote;
+	}
+	public void setsMuscleNote(String sMuscleNote) {
+		this.sMuscleNote = sMuscleNote;
+	}
+	public int getsCantonese() {
+		return sCantonese;
+	}
+	public void setsCantonese(int sCantonese) {
+		this.sCantonese = sCantonese;
+	}
+	public int getrCantonese() {
+		return rCantonese;
+	}
+	public void setrCantonese(int rCantonese) {
+		this.rCantonese = rCantonese;
+	}
+	public int getlCantonese() {
+		return lCantonese;
+	}
+	public void setlCantonese(int lCantonese) {
+		this.lCantonese = lCantonese;
+	}
+	public int getwCantonese() {
+		return wCantonese;
+	}
+	public void setwCantonese(int wCantonese) {
+		this.wCantonese = wCantonese;
+	}
+	public int getsMandarin() {
+		return sMandarin;
+	}
+	public void setsMandarin(int sMandarin) {
+		this.sMandarin = sMandarin;
+	}
+	public int getrSMandarin() {
+		return rSMandarin;
+	}
+	public void setrSMandarin(int rSMandarin) {
+		this.rSMandarin = rSMandarin;
+	}
+	public int getlSMandarin() {
+		return lSMandarin;
+	}
+	public void setlSMandarin(int lSMandarin) {
+		this.lSMandarin = lSMandarin;
+	}
+	public int getwSMandarin() {
+		return wSMandarin;
+	}
+	public void setwSMandarin(int wSMandarin) {
+		this.wSMandarin = wSMandarin;
+	}
+	public String getsRLWOther() {
+		return sRLWOther;
+	}
+	public void setsRLWOther(String sRLWOther) {
+		this.sRLWOther = sRLWOther;
+	}
+	
+	
+	
+	public Date getAssessDate() {
+		return assessDate;
+	}
+	public void setAssessDate(Date assessDate) {
+		this.assessDate = assessDate;
+	}
+	public Date getCloseDate() {
+		return closeDate;
+	}
+	public void setCloseDate(Date closeDate) {
+		this.closeDate = closeDate;
+	}
+	public String getAssessDate_str() {
+		try {
+			return assessDate == null || "".equals(assessDate) ? ""
+					: ToolsUtils.getDateStringByFormat(assessDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setAssessDate_str(String assessDate_str) {
+		this.assessDate_str = assessDate_str;
+	}
+	public String getCloseDate_str() {
+		try {
+			return closeDate == null || "".equals(closeDate) ? ""
+					: ToolsUtils.getDateStringByFormat(closeDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setCloseDate_str(String closeDate_str) {
+		this.closeDate_str = closeDate_str;
+	}
 	@Override
 	public String toString(){
 		return "Treatment [treatmentID="+treatmentID+",treatmentType="+treatmentType+",custID="+custID+
 				",treatmentNO="+treatmentNO+",worker="+worker+",applyDate="+applyDate+
-				",assessDate="+assessDate+",serviceStatus="+serviceStatus+",reason="+reason+
+				",serviceStatus="+serviceStatus+",reason="+reason+
 				",note="+note+",familySituation="+familySituation+",physicalAssess="+physicalAssess+
 				",physicalLevel="+physicalLevel+",physicalDate="+physicalDate+
 				",physicalPlace="+physicalPlace+",physicalDescribe="+physicalDescribe+
@@ -1157,9 +1201,10 @@ public class LanguageTreatmentPojo implements Serializable {
 				",behavior="+behavior+",behaviorHandle="+behaviorHandle+",sport="+sport+",art="+art+",hobby="+hobby+
 				",morningLife="+morningLife+",afternoonLife="+afternoonLife+",nightLife="+nightLife+
 				",lifeEnvironment="+lifeEnvironment+",workerNote="+workerNote+",behaviourNote="+behaviourNote+
-				",applyDate_str="+applyDate_str+",assessDate_str="+assessDate_str+",physicalDate_str="+physicalDate_str+
+				",applyDate_str="+applyDate_str+",physicalDate_str="+physicalDate_str+
 				",visionDate_str="+visionDate_str+",hearingDate_str="+hearingDate_str+",iQDate_str="+iQDate_str+",speechDate_str="+speechDate_str+
 				",behaviorDate_str="+behaviorDate_str+",startDate="+startDate+",startDate_str"+startDate_str+
-				",awaitDate="+awaitDate+",awaitDate_str="+awaitDate_str+"]";
+				",awaitDate="+awaitDate+",awaitDate_str="+awaitDate_str+",fullName="+fullName+",isMember="+isMember+
+				",assessDate="+assessDate+",closeDate="+closeDate+",assessDate_str="+assessDate_str+",closeDate_str="+closeDate_str+"]";
 	}
 }

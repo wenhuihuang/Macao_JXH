@@ -9,7 +9,7 @@
 	]
     },
     { text: '治療',isexpand:false, children: [ 
-  		{url:"jsp/treatment/language_list.jsp",text:"言語治療設定" },
+  		{url:"jsp/treatment/language_list.jsp",text:"言語治療" },
   		{url:"jsp/treatment/job_list.jsp",text:"職業治療" },
   		{url:"jsp/treatment/physics_list.jsp",text:"物理治療" },
   		{url:"jsp/treatment/special_list.jsp",text:"特殊教育及IEP" },

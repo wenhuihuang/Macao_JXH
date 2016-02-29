@@ -9,7 +9,7 @@ import com.fg.daoImpl.DaoImpl;
 import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
 import com.jxh.pojo.CustCasePojo;
-import com.jxh.pojo.LanguageTreatmentPojo;
+import com.jxh.pojo.TreatmentPojo;
 import com.jxh.vo.BCustCase;
 import com.jxh.vo.Treatment;
 
@@ -20,28 +20,28 @@ public class TreatmentDao extends DaoImpl {
 		return "/sqls/Macao_JXH/treatment.properties";
 	}
 	
-	public PageUtils<LanguageTreatmentPojo> getLanguageTreatmentPojo(PageUtils<LanguageTreatmentPojo> page,String condition,Object...params) throws IOException, SQLException{
-		clazz = LanguageTreatmentPojo.class;
+	public PageUtils<TreatmentPojo> getTreatmentPojo(PageUtils<TreatmentPojo> page,String condition,Object...params) throws IOException, SQLException{
+		clazz = TreatmentPojo.class;
 		//获取SQL
 		condition = condition ==null?"":condition;
 		String sql = getSqlByPropKey(ToolsUtils.getCurrentMethodName())+condition;
 		//获取总页数
 		Integer count = (Integer) this.findElement(getCountSql(sql), params);
 		page.setRowCount(count);
-		List<LanguageTreatmentPojo> languageTreatmentPojos = this.findForList(sql, params);
+		List<TreatmentPojo> languageTreatmentPojos = this.findForList(sql, params);
 		page.setList(languageTreatmentPojos);
 		
 		return page;
 	}
 
-	public LanguageTreatmentPojo getTreatmentPojoByCondition(String condition, Object...params) throws IOException, SQLException {
-		clazz = LanguageTreatmentPojo.class;
+	public TreatmentPojo getTreatmentPojoByCondition(String condition, Object...params) throws IOException, SQLException {
+		clazz = TreatmentPojo.class;
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		
 		sql += condition==null||"".equals(condition)?"":condition;
 		//System.out.println("sql++"+condition);
 		System.out.println(sql);
-		return  (LanguageTreatmentPojo) this.findForObject(sql, params);
+		return  (TreatmentPojo) this.findForObject(sql, params);
 	}
 
 	public int updateTreatment(Treatment treatment) throws IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException {
@@ -61,8 +61,9 @@ public class TreatmentDao extends DaoImpl {
 		return this.update(sql, params);
 	}
 	
-	public int deleteTreatmentByTreatmentID(String treatmentID) throws SQLException{
-		String sql = "delete from Treatment where treatmentID = ? ";
+	public int deleteTreatmentByTreatmentID(String treatmentID) throws SQLException, IOException{
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		//String sql = "delete from Treatment where treatmentID = ? ";
 		return this.update(sql, treatmentID);
 	}
 	

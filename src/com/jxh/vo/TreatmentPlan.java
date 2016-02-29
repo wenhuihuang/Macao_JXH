@@ -16,15 +16,13 @@ import java.math.*;
 	CHARGE	DECIMAL(18,2)
 	PAYMENT	DECIMAL(18,2)
 	NOTE	VARCHAR(128)
-	ACTIVITY	VARCHAR(128)
-	PERFORMANCE	VARCHAR(128)
 
-planID,treatmentID,billDate,time,content,target,charge,payment,note,activity,performance
-?,?,?,?,?,?,?,?,?,?,?
+planID,treatmentID,billDate,time,content,target,charge,payment,note
+?,?,?,?,?,?,?,?,?
 
-treatmentPlan.planID,treatmentPlan.treatmentID,treatmentPlan.billDate,treatmentPlan.time,treatmentPlan.content,treatmentPlan.target,treatmentPlan.charge,treatmentPlan.payment,treatmentPlan.note,treatmentPlan.activity,treatmentPlan.performance
+treatmentPlan.planID,treatmentPlan.treatmentID,treatmentPlan.billDate,treatmentPlan.time,treatmentPlan.content,treatmentPlan.target,treatmentPlan.charge,treatmentPlan.payment,treatmentPlan.note
 
-planID=?,treatmentID=?,billDate=?,time=?,content=?,target=?,charge=?,payment=?,note=?,activity=?,performance=?
+planID=?,treatmentID=?,billDate=?,time=?,content=?,target=?,charge=?,payment=?,note=?
 */
 public class TreatmentPlan implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -37,13 +35,11 @@ public class TreatmentPlan implements Serializable {
 	private BigDecimal charge;
 	private BigDecimal payment;
 	private String note;
-	private String activity;
-	private String performance;
 
 	public TreatmentPlan(){
 		super();
 	}
-	public TreatmentPlan(int planID, String treatmentID, Date billDate, String time, String content, String target, BigDecimal charge, BigDecimal payment, String note, String activity, String performance ){
+	public TreatmentPlan(int planID, String treatmentID, Date billDate, String time, String content, String target, BigDecimal charge, BigDecimal payment, String note ){
 		super();
 		this.planID=planID;
 		this.treatmentID=treatmentID;
@@ -54,8 +50,6 @@ public class TreatmentPlan implements Serializable {
 		this.charge=charge;
 		this.payment=payment;
 		this.note=note;
-		this.activity=activity;
-		this.performance=performance;
 	}
 	public void setPlanID(int planID){
 		this.planID=planID;
@@ -111,21 +105,9 @@ public class TreatmentPlan implements Serializable {
 	public String getNote(){
 		return note;
 	}
-	public void setActivity(String activity){
-		this.activity=activity;
-	}
-	public String getActivity(){
-		return activity;
-	}
-	public void setPerformance(String performance){
-		this.performance=performance;
-	}
-	public String getPerformance(){
-		return performance;
-	}
 	@Override
 	public String toString(){
-		return "TreatmentPlan [planID="+planID+",treatmentID="+treatmentID+",billDate="+billDate+",time="+time+",content="+content+",target="+target+",charge="+charge+",payment="+payment+",note="+note+",activity="+activity+",performance="+performance+"]";
+		return "TreatmentPlan [planID="+planID+",treatmentID="+treatmentID+",billDate="+billDate+",time="+time+",content="+content+",target="+target+",charge="+charge+",payment="+payment+",note="+note+"]";
 	}
 }
 

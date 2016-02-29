@@ -70,4 +70,10 @@ public class BCustomerSchoolDao extends DaoImpl<BCustomerSchool>{
 		return getflagByIntArray(rows);
 	}
 	
+	public int deleteBCustomerSchoolByCustID(String custID) throws SQLException, IOException{
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		//String sql = "delete from bCustomerSchool where custID = ? ";
+		return this.update(sql, custID);
+	}
+	
 }

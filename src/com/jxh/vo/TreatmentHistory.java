@@ -14,13 +14,14 @@ import java.math.*;
 	TENDDATE	DATETIME(23,3)
 	CONTENT	VARCHAR(128)
 	TNOTE	VARCHAR(128)
+	ORG VARCHAR(32)
 
-historyID,custID,treatmentItem,tStartDate,tEndDate,content,tNote
-?,?,?,?,?,?,?
+historyID,custID,treatmentItem,tStartDate,tEndDate,content,tNote,org
+?,?,?,?,?,?,?,?
 
-treatmentHistory.historyID,treatmentHistory.custID,treatmentHistory.treatmentItem,treatmentHistory.tStartDate,treatmentHistory.tEndDate,treatmentHistory.content,treatmentHistory.tNote
 
-historyID=?,custID=?,treatmentItem=?,tStartDate=?,tEndDate=?,content=?,tNote=?
+
+historyID=?,custID=?,treatmentItem=?,tStartDate=?,tEndDate=?,content=?,tNote=?,org=?
 */
 public class TreatmentHistory implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -31,11 +32,12 @@ public class TreatmentHistory implements Serializable {
 	private Date tEndDate;
 	private String content;
 	private String tNote;
+	private String org;
 
 	public TreatmentHistory(){
 		super();
 	}
-	public TreatmentHistory(int historyID, String custID, String treatmentItem, Date tStartDate, Date tEndDate, String content, String tNote ){
+	public TreatmentHistory(int historyID, String custID, String treatmentItem, Date tStartDate, Date tEndDate, String content, String tNote, String org ){
 		super();
 		this.historyID=historyID;
 		this.custID=custID;
@@ -44,6 +46,7 @@ public class TreatmentHistory implements Serializable {
 		this.tEndDate=tEndDate;
 		this.content=content;
 		this.tNote=tNote;
+		this.org=org;
 	}
 	public void setHistoryID(int historyID){
 		this.historyID=historyID;
@@ -63,16 +66,16 @@ public class TreatmentHistory implements Serializable {
 	public String getTreatmentItem(){
 		return treatmentItem;
 	}
-	public void setTStartDate(Date tStartDate){
+	public void settStartDate(Date tStartDate){
 		this.tStartDate=tStartDate;
 	}
-	public Date getTStartDate(){
+	public Date gettStartDate(){
 		return tStartDate;
 	}
-	public void setTEndDate(Date tEndDate){
+	public void settEndDate(Date tEndDate){
 		this.tEndDate=tEndDate;
 	}
-	public Date getTEndDate(){
+	public Date gettEndDate(){
 		return tEndDate;
 	}
 	public void setContent(String content){
@@ -81,15 +84,25 @@ public class TreatmentHistory implements Serializable {
 	public String getContent(){
 		return content;
 	}
-	public void setTNote(String tNote){
+	public void settNote(String tNote){
 		this.tNote=tNote;
 	}
-	public String getTNote(){
+	public String gettNote(){
 		return tNote;
+	}
+	
+	
+	
+	
+	public String getOrg() {
+		return org;
+	}
+	public void setOrg(String org) {
+		this.org = org;
 	}
 	@Override
 	public String toString(){
-		return "TreatmentHistory [historyID="+historyID+",custID="+custID+",treatmentItem="+treatmentItem+",tStartDate="+tStartDate+",tEndDate="+tEndDate+",content="+content+",tNote="+tNote+"]";
+		return "TreatmentHistory [historyID="+historyID+",custID="+custID+",treatmentItem="+treatmentItem+",tStartDate="+tStartDate+",tEndDate="+tEndDate+",content="+content+",tNote="+tNote+",org="+org+"]";
 	}
 }
 

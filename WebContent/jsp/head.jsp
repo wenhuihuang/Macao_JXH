@@ -436,4 +436,22 @@ td {width: auto;}
 		var tabID = frameNavTab.getSelectedTabItemID();
 		    frameNavTab.setHeader(tabID, title);
 	}
+	
+	/**
+	*將checkbox的值合成字符串 保存在隱藏input中傳到後台
+	*param 是name id class   param為一個數組
+	*/
+	function checkboxValue(param){
+		for(var j = 0;j<param.length;j++){
+			var v ='';
+	 		for(var i = 0;i<$("."+param[j]).length ;i++){
+	 			if($("."+param[j]).eq(i).siblings("a").hasClass("l-checkbox-checked")){
+	 				v+=$("."+param[j]).eq(i).val()
+	 			}
+	 			
+	 		}
+	 		var vocabulary= $("#"+param[j]).val(v)
+		}
+
+	}
 </script>

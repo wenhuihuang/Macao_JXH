@@ -8,7 +8,7 @@ import java.util.List;
 import com.fg.daoImpl.DaoImpl;
 import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
-import com.jxh.pojo.LanguageTreatmentPojo;
+import com.jxh.pojo.TreatmentPojo;
 import com.jxh.pojo.TreatmentAssessPojo;
 import com.jxh.vo.Treatment;
 import com.jxh.vo.TreatmentAssess;
@@ -33,8 +33,9 @@ public class TreatmentAssessDao extends DaoImpl {
 		return this.update(sql, params);
 	}
 
-	public int deleteTreatmentAssessByTreatmentID(String treatmentID) throws SQLException{
-		String sql = "delete from Treatment where treatmentID = ? ";
+	public int deleteTreatmentAssessByTreatmentID(String treatmentID) throws SQLException, IOException{
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		//String sql = "delete from TreatmentAssess where treatmentID = ? ";
 		return this.update(sql, treatmentID);
 	}
 	

@@ -40,7 +40,31 @@ textarea{
 .panel-body {
     padding: 15px;
 }
+.inline-group{
+	margin-top:10px;
+}
 .inline-group div,.inline-group label{
 	display:inline-block;
 	vertical-align: middle;
+}
+.inline-group textarea{
+	vertical-align:middle;
+}
+table.table-center th,table.table-center td{
+	text-align:center;
+}
+.table-edit div.l-text,.table-edit div.l-text-wrapper{
+	width:99% !important;
+	border:none;
+	text-align:center;
+}
+.table-edit div.l-text input {
+	width:99% !important;
+	border:none;
+	text-align:center;
+}
+.checkbox-group p label{
+	width:220px;
+	height:28px;
+	line-height:28px;
 }

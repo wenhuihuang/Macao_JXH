@@ -69,4 +69,10 @@ public class TreatmentHistoryDao extends DaoImpl<TreatmentHistory>{
 		return getflagByIntArray(rows);
 	}
 	
+	public int deleteTreatmentHistoryByCustID(String custID) throws SQLException, IOException{
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		//String sql = "delete from treatmentHistory where custID = ? ";
+		return this.update(sql, custID);
+	}
+	
 }

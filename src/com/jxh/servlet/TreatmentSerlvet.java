@@ -31,7 +31,7 @@ import com.jxh.dao.TreatmentRecordDao;
 import com.jxh.dao.TreatmentReportDao;
 import com.jxh.pojo.CustCasePojo;
 import com.jxh.pojo.Customer;
-import com.jxh.pojo.LanguageTreatmentPojo;
+import com.jxh.pojo.TreatmentPojo;
 import com.jxh.pojo.TreatmentAssessPojo;
 import com.jxh.pojo.TreatmentReportPojo;
 import com.jxh.vo.BCustomer;
@@ -50,10 +50,10 @@ import com.jxh.vo.TreatmentReport;
 import net.sf.json.JSONArray;
 
 /**
- * Servlet implementation class LanguageTreatmentSerlvet
+ * Servlet implementation class TreatmentSerlvet
  */
-@WebServlet("/LanguageTreatment/*")
-public class LanguageTreatmentSerlvet extends FGServlet {
+@WebServlet("/Treatment/*")
+public class TreatmentSerlvet extends FGServlet {
 	private static final long serialVersionUID = 1L;
 	private TreatmentDao treatmentDao = new TreatmentDao();
 	private BCustomerSchoolDao bCustomerSchoolDao = new BCustomerSchoolDao();
@@ -69,7 +69,7 @@ public class LanguageTreatmentSerlvet extends FGServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LanguageTreatmentSerlvet() {
+    public TreatmentSerlvet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -91,20 +91,35 @@ public class LanguageTreatmentSerlvet extends FGServlet {
 	}
 	
 	private void list(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException{
-		PageUtils<LanguageTreatmentPojo> page = this.getPage(request);
-		treatmentDao.getLanguageTreatmentPojo(page,null);
+		PageUtils<TreatmentPojo> page = this.getPage(request);
+		String treatmentType = request.getParameter("treatmentType");
+		treatmentDao.getTreatmentPojo(page," and treatmentType="+treatmentType);
 		LigerUITools.writeGridJson(page, response);
 	}
 	
 	private void add(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
+		String treatmentType = request.getParameter("treatmentType");
 		try {
 
 			Treatment treatment = new Treatment();
 
 			request.setAttribute("treatment", treatment);
 			request.setAttribute(JSPTYPE, ConstantUtils.FORMJSP);
-			forwardDispatcher("../jsp/treatment/language_edit.jsp", request, response);
+			if("1".equals(treatmentType)){
+				forwardDispatcher("../jsp/treatment/language_edit.jsp", request, response);
+			}else if("2".equals(treatmentType)){
+				forwardDispatcher("../jsp/treatment/job_edit.jsp", request, response);
+			}else if("3".equals(treatmentType)){
+				forwardDispatcher("../jsp/treatment/physics_edit.jsp", request, response);
+			}else if("4".equals(treatmentType)){
+				forwardDispatcher("../jsp/treatment/special_edit.jsp", request, response);
+			}else if("5".equals(treatmentType)){
+				forwardDispatcher("../jsp/treatment/function_edit.jsp", request, response);
+			}else if("6".equals(treatmentType)){
+				forwardDispatcher("../jsp/treatment/collocation_edit.jsp", request, response);
+			}
+			
 
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
@@ -112,20 +127,35 @@ public class LanguageTreatmentSerlvet extends FGServlet {
 	}
 	
 	private void edit(HttpServletRequest request, HttpServletResponse response) {
+		String treatmentType=request.getParameter("treatmentType");
 		try {
 			BCustomer customer = customerDao.getCustomerByCondition(" and custID = ? ",
 					this.getParameterByName(request, "custID"));
-			LanguageTreatmentPojo languageTreatmentPojo = treatmentDao.getTreatmentPojoByCondition(" and treatmentID = ? ",
+			TreatmentPojo treatmentPojo = treatmentDao.getTreatmentPojoByCondition(" and treatmentID = ? ",
 					this.getParameterByName(request, "treatmentID"));
 			TreatmentAssessPojo treatmentAssessPojo = treatmentAssessDao.getTreatmentAssessPojoByCondition(" and treatmentID = ? ",
 					this.getParameterByName(request, "treatmentID"));
 			TreatmentReportPojo treatmentReportPojo = treatmentReportDao.getTreatmentReportPojoByCondition(" and treatmentID = ? ",
 					this.getParameterByName(request,"treatmentID"));
 			request.setAttribute("customer", customer);
-			request.setAttribute("languageTreatmentPojo", languageTreatmentPojo);
+			request.setAttribute("treatmentPojo", treatmentPojo);
 			request.setAttribute("treatmentAssessPojo", treatmentAssessPojo);
 			request.setAttribute("treatmentReportPojo", treatmentReportPojo);
-			forwardDispatcher("../jsp/treatment/language_edit.jsp", request, response);
+			
+			if("1".equals(treatmentType)){
+				forwardDispatcher("../jsp/treatment/language_edit.jsp", request, response);
+			}else if("2".equals(treatmentType)){
+				forwardDispatcher("../jsp/treatment/job_edit.jsp", request, response);
+			}else if("3".equals(treatmentType)){
+				forwardDispatcher("../jsp/treatment/physics_edit.jsp",request,response);
+			}else if("4".equals(treatmentType)){
+				forwardDispatcher("../jsp/treatment/special_edit.jsp",request,response);
+			}else if("5".equals(treatmentType)){
+				forwardDispatcher("../jsp/treatment/function_edit.jsp",request,response);
+			}else if("6".equals(treatmentType)){
+				forwardDispatcher("../jsp/treatment/collocation_edit.jsp",request,response);
+			}
+			
 
 		} catch (IOException | SQLException | ServletException e) {
 			// TODO Auto-generated catch block
@@ -181,7 +211,8 @@ public class LanguageTreatmentSerlvet extends FGServlet {
 	
 	private void submit(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-
+		String treatmentType = request.getParameter("treatmentType");
+		
 		List<TreatmentPlan> treatmentPlanAdds = getGridListByParamerName(TreatmentPlan.class, request, "treatmentPlanAdds");
 		List<TreatmentPlan> treatmentPlanUpdates = getGridListByParamerName(TreatmentPlan.class, request, "treatmentPlanUpdates");
 		List<TreatmentPlan> treatmentPlanDeletes = getGridListByParamerName(TreatmentPlan.class, request, "treatmentPlanDeletes");
@@ -207,7 +238,6 @@ public class LanguageTreatmentSerlvet extends FGServlet {
 		
 
 		Treatment treatment = this.getObjectByParameter(request, Treatment.class);
-		
 		TreatmentAssess treatmentAssess = this.getObjectByParameter(request, TreatmentAssess.class);
 		TreatmentReport treatmentReport = this.getObjectByParameter(request, TreatmentReport.class);
 		
@@ -223,12 +253,39 @@ public class LanguageTreatmentSerlvet extends FGServlet {
 		// 设置为表单jsp
 		request.setAttribute(JSPTYPE, ConstantUtils.FORMJSP);
 		request.setAttribute("msg", message);
+		
 
 		if (message.indexOf("成功") > 0) {
-			sendRedirect("../jsp/treatment/language_list.jsp", response);
+			if("1".equals(treatmentType)){
+				sendRedirect("../jsp/treatment/language_list.jsp", response);
+			}else if("2".equals(treatmentType)){
+				sendRedirect("../jsp/treatment/job_list.jsp", response);
+			}else if("3".equals(treatmentType)){
+				sendRedirect("../jsp/treatment/physics_list.jsp", response);
+			}else if("4".equals(treatmentType)){
+				sendRedirect("../jsp/treatment/special_list.jsp", response);
+			}else if("5".equals(treatmentType)){
+				sendRedirect("../jsp/treatment/function_list.jsp", response);
+			}else if("6".equals(treatmentType)){
+				sendRedirect("../jsp/treatment/collocation_list.jsp", response);
+			}
+			
 		} else {
 			request.setAttribute("treatment", treatment);
-			forwardDispatcher("../jsp/treatment/language_edit.jsp", request, response);
+			if("1".equals(treatmentType)){
+				forwardDispatcher("../jsp/treatment/language_edit.jsp", request, response);
+			}else if("2".equals(treatmentType)){
+				forwardDispatcher("../jsp/treatment/job_edit.jsp", request, response);
+			}else if("3".equals(treatmentType)){
+				forwardDispatcher("../jsp/treatment/physics_edit.jsp", request, response);
+			}else if("4".equals(treatmentType)){
+				forwardDispatcher("../jsp/treatment/special_edit.jsp", request,response);
+			}else if("5".equals(treatmentType)){
+				forwardDispatcher("../jsp/treatment/function_edit.jsp",request, response);
+			}else if("6".equals(treatmentType)){
+				forwardDispatcher("../jsp/treatment/collocation_edit.jsp", request,response);
+			}
+			
 		}
 
 	}
@@ -236,8 +293,9 @@ public class LanguageTreatmentSerlvet extends FGServlet {
 	private void deleteTreatment(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		boolean flag = false;
 		String treatmentID = request.getParameter("treatmentID");
-		if(treatmentID != null && !"".equals(treatmentID)){
-			flag = treatmentBiz.deleteTreatmentByTreatmentID(treatmentID);
+		String custID = request.getParameter("custID");
+		if(treatmentID != null && !"".equals(treatmentID) && custID != null && !"".equals(custID)){
+			flag = treatmentBiz.deleteTreatmentByTreatmentID(treatmentID,custID);
 		}
 		response.getWriter().print(flag);
 	}

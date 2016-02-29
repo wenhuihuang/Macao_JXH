@@ -118,12 +118,20 @@ public class TreatmentBiz {
 		return "操作成功！";
 	}
 
-	public boolean deleteTreatmentByTreatmentID(String treatmentID) throws Exception {
+	public boolean deleteTreatmentByTreatmentID(String treatmentID,String custID) throws Exception {
 		boolean flag=false;
 		int row = treatmentDao.deleteTreatmentByTreatmentID(treatmentID);
 			if (row > 0) {
 				
 				if (deleteTreatmentAssessByTreatmentID(treatmentID) < 0) {
+					throw new Exception("個案轉介評估刪除失敗！");
+				}
+				
+				if (deleteTreatmentHistoryByCustID(custID) < 0) {
+					throw new Exception("個案轉介評估刪除失敗！");
+				}
+				
+				if (deleteTreatmentFamilyByTreatmentID(treatmentID) < 0) {
 					throw new Exception("個案轉介評估刪除失敗！");
 				}
 				
@@ -139,6 +147,10 @@ public class TreatmentBiz {
 					throw new Exception("結案摘要刪除失敗！");
 				}
 				
+				if(deleteBCustomerSchoolByCustID(custID) < 0){
+					throw new Exception("結案摘要刪除失敗！");
+				}
+				
 				flag=true;
 				
 			}
@@ -146,22 +158,33 @@ public class TreatmentBiz {
 	}
 	
 
-	private int deleteTreatmentReportByTreatmentID(String treatmentID) throws SQLException {
+	private int deleteTreatmentReportByTreatmentID(String treatmentID) throws SQLException, IOException {
 		return treatmentReportDao.deleteTreatmentReportByTreatmentID(treatmentID);
 	}
 
-	private int deleteTreatmentPlanByTreatmentID(String treatmentID) throws SQLException {
+	private int deleteTreatmentPlanByTreatmentID(String treatmentID) throws SQLException, IOException {
 		return treatmentPlanDao.deleteTreatmentPlanByTreatmentID(treatmentID);
 	}
 
-	private int deleteTreatmentAssessByTreatmentID(String treatmentID) throws SQLException {
+	private int deleteTreatmentAssessByTreatmentID(String treatmentID) throws SQLException, IOException {
 		return treatmentAssessDao.deleteTreatmentAssessByTreatmentID(treatmentID);
 	}
 	
-	private int deleteTreatmentRecordByTreatmentID(String treatmentID) throws SQLException {
+	private int deleteTreatmentRecordByTreatmentID(String treatmentID) throws SQLException, IOException {
 		return treatmentRecordDao.deleteTreatmentRecordByTreatmentID(treatmentID);
 	}
-
+	
+	private int deleteTreatmentHistoryByCustID(String custID) throws SQLException, IOException {
+		return treatmentHistoryDao.deleteTreatmentHistoryByCustID(custID);
+	}
+	
+	private int deleteBCustomerSchoolByCustID(String custID) throws SQLException, IOException {
+		return bCustomerSchoolDao.deleteBCustomerSchoolByCustID(custID);
+	}
+	
+	private int deleteTreatmentFamilyByTreatmentID(String treatmentID) throws SQLException, IOException {
+		return treatmentFamilyDao.deleteTreatmentFamilyByTreatmentID(treatmentID);
+	}
 
 
 	private int updateTreatmentReport(Treatment treatment, TreatmentReport treatmentReport) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
