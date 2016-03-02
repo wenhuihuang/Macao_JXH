@@ -9,32 +9,18 @@ import java.math.*;
 
 
 /** TreatmentTrainingWork
-	WORKID	VARCHAR(20)
-	TREATMENTID	INT(10)
-	BEGINDATE	DATETIME(23,3)
-	ENDDATE	DATETIME(23,3)
-	DUTY	VARCHAR(20)
-	CORP	VARCHAR(32)
-	PLACE	VARCHAR(128)
-	WORKTIME	INT(10)
-	CONTENT	VARCHAR(128)
-	WORKDETAIL	VARCHAR(128)
-	ENVIOMENT	VARCHAR(128)
-	HANDLER	VARCHAR(32)
-	HANDLEDATE	DATETIME(23,3)
-	HANDLESUGGEST	TEXT(2147483647)
 
-workID,treatmentID,beginDate,endDate,duty,corp,place,workTime,content,workDetail,envioment,handler,handleDate,handleSuggest
+workID,trainingID,beginDate,endDate,duty,corp,place,workTime,content,workDetail,envioment,handler,handleDate,handleSuggest
 ?,?,?,?,?,?,?,?,?,?,?,?,?,?
 
-treatmentTrainingWork.workID,treatmentTrainingWork.treatmentID,treatmentTrainingWork.beginDate,treatmentTrainingWork.endDate,treatmentTrainingWork.duty,treatmentTrainingWork.corp,treatmentTrainingWork.place,treatmentTrainingWork.workTime,treatmentTrainingWork.content,treatmentTrainingWork.workDetail,treatmentTrainingWork.envioment,treatmentTrainingWork.handler,treatmentTrainingWork.handleDate,treatmentTrainingWork.handleSuggest
+treatmentTrainingWork.workID,treatmentTrainingWork.trainingID,treatmentTrainingWork.beginDate,treatmentTrainingWork.endDate,treatmentTrainingWork.duty,treatmentTrainingWork.corp,treatmentTrainingWork.place,treatmentTrainingWork.workTime,treatmentTrainingWork.content,treatmentTrainingWork.workDetail,treatmentTrainingWork.envioment,treatmentTrainingWork.handler,treatmentTrainingWork.handleDate,treatmentTrainingWork.handleSuggest
 
-workID=?,treatmentID=?,beginDate=?,endDate=?,duty=?,corp=?,place=?,workTime=?,content=?,workDetail=?,envioment=?,handler=?,handleDate=?,handleSuggest=?
+workID=?,trainingID=?,beginDate=?,endDate=?,duty=?,corp=?,place=?,workTime=?,content=?,workDetail=?,envioment=?,handler=?,handleDate=?,handleSuggest=?
 */
 public class TreatmentTrainingWork implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String workID;
-	private int treatmentID;
+	private String trainingID;
 	private Date beginDate;
 	private Date endDate;
 	private String duty;
@@ -51,10 +37,10 @@ public class TreatmentTrainingWork implements Serializable {
 	public TreatmentTrainingWork(){
 		super();
 	}
-	public TreatmentTrainingWork(String workID, int treatmentID, Date beginDate, Date endDate, String duty, String corp, String place, int workTime, String content, String workDetail, String envioment, String handler, Date handleDate, String handleSuggest ){
+	public TreatmentTrainingWork(String workID, String trainingID, Date beginDate, Date endDate, String duty, String corp, String place, int workTime, String content, String workDetail, String envioment, String handler, Date handleDate, String handleSuggest ){
 		super();
 		this.workID=workID;
-		this.treatmentID=treatmentID;
+		this.trainingID=trainingID;
 		this.beginDate=beginDate;
 		this.endDate=endDate;
 		this.duty=duty;
@@ -74,11 +60,11 @@ public class TreatmentTrainingWork implements Serializable {
 	public String getWorkID(){
 		return workID;
 	}
-	public void setTreatmentID(int treatmentID){
-		this.treatmentID=treatmentID;
+	public void setTrainingID(String trainingID){
+		this.trainingID=trainingID;
 	}
-	public int getTreatmentID(){
-		return treatmentID;
+	public String getTrainingID(){
+		return trainingID;
 	}
 	public void setBeginDate(Date beginDate){
 		this.beginDate=beginDate;
@@ -154,7 +140,7 @@ public class TreatmentTrainingWork implements Serializable {
 	}
 	@Override
 	public String toString(){
-		return "TreatmentTrainingWork [workID="+workID+",treatmentID="+treatmentID+",beginDate="+beginDate+",endDate="+endDate+",duty="+duty+",corp="+corp+",place="+place+",workTime="+workTime+",content="+content+",workDetail="+workDetail+",envioment="+envioment+",handler="+handler+",handleDate="+handleDate+",handleSuggest="+handleSuggest+"]";
+		return "TreatmentTrainingWork [workID="+workID+",trainingID="+trainingID+",beginDate="+beginDate+",endDate="+endDate+",duty="+duty+",corp="+corp+",place="+place+",workTime="+workTime+",content="+content+",workDetail="+workDetail+",envioment="+envioment+",handler="+handler+",handleDate="+handleDate+",handleSuggest="+handleSuggest+"]";
 	}
 }
 

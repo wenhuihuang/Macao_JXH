@@ -29,6 +29,8 @@ import com.jxh.dao.TreatmentHistoryDao;
 import com.jxh.dao.TreatmentPlanDao;
 import com.jxh.dao.TreatmentRecordDao;
 import com.jxh.dao.TreatmentReportDao;
+import com.jxh.dao.TreatmentTrainingDao;
+import com.jxh.dao.TreatmentTrainingWorkDao;
 import com.jxh.pojo.CustCasePojo;
 import com.jxh.pojo.Customer;
 import com.jxh.pojo.TreatmentPojo;
@@ -46,6 +48,8 @@ import com.jxh.vo.TreatmentHistory;
 import com.jxh.vo.TreatmentPlan;
 import com.jxh.vo.TreatmentRecord;
 import com.jxh.vo.TreatmentReport;
+import com.jxh.vo.TreatmentTraining;
+import com.jxh.vo.TreatmentTrainingWork;
 
 import net.sf.json.JSONArray;
 
@@ -65,6 +69,8 @@ public class TreatmentSerlvet extends FGServlet {
 	private TreatmentReportDao treatmentReportDao = new TreatmentReportDao();
 	private CustomerDao customerDao = new CustomerDao();
 	private TreatmentBiz treatmentBiz = new TreatmentBiz();
+	private TreatmentTrainingDao treatmentTrainingDao = new TreatmentTrainingDao();
+	private TreatmentTrainingWorkDao treatmentTrainingWorkDao = new TreatmentTrainingWorkDao();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -137,6 +143,7 @@ public class TreatmentSerlvet extends FGServlet {
 					this.getParameterByName(request, "treatmentID"));
 			TreatmentReportPojo treatmentReportPojo = treatmentReportDao.getTreatmentReportPojoByCondition(" and treatmentID = ? ",
 					this.getParameterByName(request,"treatmentID"));
+		
 			request.setAttribute("customer", customer);
 			request.setAttribute("treatmentPojo", treatmentPojo);
 			request.setAttribute("treatmentAssessPojo", treatmentAssessPojo);
@@ -151,6 +158,13 @@ public class TreatmentSerlvet extends FGServlet {
 			}else if("4".equals(treatmentType)){
 				forwardDispatcher("../jsp/treatment/special_edit.jsp",request,response);
 			}else if("5".equals(treatmentType)){
+				TreatmentTraining treatmentTraining = treatmentTrainingDao.getTreatmentTrainingByCondition(" and treatmentID = ? ",
+						this.getParameterByName(request,"treatmentID"));
+				TreatmentTrainingWork treatmentTrainingWork = treatmentTrainingWorkDao.getTreatmentTrainingWorkByCondition(" and trainingID = ?  ",
+						this.getParameterByName(request, "trainingID"));
+				
+				request.setAttribute("treatmentTraining", treatmentTraining);
+				request.setAttribute("treatmentTrainingWork", treatmentTrainingWork);
 				forwardDispatcher("../jsp/treatment/function_edit.jsp",request,response);
 			}else if("6".equals(treatmentType)){
 				forwardDispatcher("../jsp/treatment/collocation_edit.jsp",request,response);

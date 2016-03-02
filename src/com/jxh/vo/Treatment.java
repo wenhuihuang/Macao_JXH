@@ -10,12 +10,12 @@ import java.math.*;
 
 /** Treatment
 
-treatmentID,treatmentType,custID,treatmentNO,worker,applyDate,serviceStatus,reason,note,familySituation,physicalAssess,physicalLevel,physicalDate,physicalPlace,physicalDescribe,physicalNote,visionAssess,visionLevel,visionDate,visionPlace,visionDescribe,visionNote,hearingAssess,hearingLevel,hearingDate,hearingPlace,hearingDescribe,hearingNote,iQAssess,iQLevel,iQDate,iQPlace,iQDescribe,iQNote,speechAssess,speechLevel,speechDate,speechPlace,speechDescribe,speechNote,behaviorAssess,behaviorLevel,behaviorDate,behaviorPlace,behaviorDescribe,behaviorNote,communication,communicationNote,life,lifeNote,useResources,useResourcesNote,selfGuided,selfGuidedNote,functional,functionalNote,play,playNote,work,workNote,cognitive,cognitiveNote,lMuscle,lMuscleNote,sMuscle,sMuscleNote,interpersonal,interpersonalNote,selfAbility,selfAbilityNote,sensory,sensoryNote,health,healthNote,disease,diseaseNote,allergy,allergyNote,medication,medicationNote,history,sCantonese,rCantonese,lCantonese,wCantonese,sMandarin,rSMandarin,lSMandarin,wSMandarin,sRLWOther,others,physicalReason,knowReason,wish,otherReason,socially,emotional,inducements,solve,attack,temper,behavior,behaviorHandle,sport,art,hobby,morningLife,afternoonLife,nightLife,lifeEnvironment,workerNote,behaviourNote,startDate,awaitDate
-?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
+treatmentID,treatmentType,custID,treatmentNO,worker,applyDate,serviceStatus,reason,note,familySituation,physicalAssess,physicalLevel,physicalDate,physicalPlace,physicalDescribe,physicalNote,visionAssess,visionLevel,visionDate,visionPlace,visionDescribe,visionNote,hearingAssess,hearingLevel,hearingDate,hearingPlace,hearingDescribe,hearingNote,iQAssess,iQLevel,iQDate,iQPlace,iQDescribe,iQNote,speechAssess,speechLevel,speechDate,speechPlace,speechDescribe,speechNote,behaviorAssess,behaviorLevel,behaviorDate,behaviorPlace,behaviorDescribe,behaviorNote,communication,communicationNote,life,lifeNote,useResources,useResourcesNote,selfGuided,selfGuidedNote,functional,functionalNote,play,playNote,work,workNote,cognitive,cognitiveNote,lMuscle,lMuscleNote,sMuscle,sMuscleNote,interpersonal,interpersonalNote,selfAbility,selfAbilityNote,sensory,sensoryNote,health,healthNote,disease,diseaseOther,allergyFood,allergyOther,medication,medicationNote,history,sCantonese,rCantonese,lCantonese,wCantonese,sMandarin,rMandarin,lMandarin,wMandarin,sRLWOther,others,physicalReason,knowReason,wish,otherReason,socially,emotional,inducements,solve,attack,temper,behavior,behaviorHandle,sport,art,hobby,morningLife,afternoonLife,nightLife,lifeEnvironment,workerNote,behaviourNote,startDate,awaitDate,diseaseHeredity,allergyDrug,communicationLevel,selfLevel,lifeLevel,socialLevel,recourceLevel,guideLevel,safetyLevel,fnLevel,playLevel,workerLevel,supportPeople,coldnessPeople,connivePeople,neglectPeople,protectPeople,severePeople
+?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
 
-treatment.treatmentID,treatment.treatmentType,treatment.custID,treatment.treatmentNO,treatment.worker,treatment.applyDate,treatment.serviceStatus,treatment.reason,treatment.note,treatment.familySituation,treatment.physicalAssess,treatment.physicalLevel,treatment.physicalDate,treatment.physicalPlace,treatment.physicalDescribe,treatment.physicalNote,treatment.visionAssess,treatment.visionLevel,treatment.visionDate,treatment.visionPlace,treatment.visionDescribe,treatment.visionNote,treatment.hearingAssess,treatment.hearingLevel,treatment.hearingDate,treatment.hearingPlace,treatment.hearingDescribe,treatment.hearingNote,treatment.iQAssess,treatment.iQLevel,treatment.iQDate,treatment.iQPlace,treatment.iQDescribe,treatment.iQNote,treatment.speechAssess,treatment.speechLevel,treatment.speechDate,treatment.speechPlace,treatment.speechDescribe,treatment.speechNote,treatment.behaviorAssess,treatment.behaviorLevel,treatment.behaviorDate,treatment.behaviorPlace,treatment.behaviorDescribe,treatment.behaviorNote,treatment.communication,treatment.communicationNote,treatment.life,treatment.lifeNote,treatment.useResources,treatment.useResourcesNote,treatment.selfGuided,treatment.selfGuidedNote,treatment.functional,treatment.functionalNote,treatment.play,treatment.playNote,treatment.work,treatment.workNote,treatment.cognitive,treatment.cognitiveNote,treatment.lMuscle,treatment.lMuscleNote,treatment.sMuscle,treatment.sMuscleNote,treatment.interpersonal,treatment.interpersonalNote,treatment.selfAbility,treatment.selfAbilityNote,treatment.sensory,treatment.sensoryNote,treatment.health,treatment.healthNote,treatment.disease,treatment.diseaseNote,treatment.allergy,treatment.allergyNote,treatment.medication,treatment.medicationNote,treatment.history,treatment.sCantonese,treatment.rCantonese,treatment.lCantonese,treatment.wCantonese,treatment.sMandarin,treatment.rSMandarin,treatment.lSMandarin,treatment.wSMandarin,treatment.sRLWOther,treatment.others,treatment.physicalReason,treatment.knowReason,treatment.wish,treatment.otherReason,treatment.socially,treatment.emotional,treatment.inducements,treatment.solve,treatment.attack,treatment.temper,treatment.behavior,treatment.behaviorHandle,treatment.sport,treatment.art,treatment.hobby,treatment.morningLife,treatment.afternoonLife,treatment.nightLife,treatment.lifeEnvironment,treatment.workerNote,treatment.behaviourNote,treatment.startDate,treatment.awaitDate
+treatment.treatmentID,treatment.treatmentType,treatment.custID,treatment.treatmentNO,treatment.worker,treatment.applyDate,treatment.serviceStatus,treatment.reason,treatment.note,treatment.familySituation,treatment.physicalAssess,treatment.physicalLevel,treatment.physicalDate,treatment.physicalPlace,treatment.physicalDescribe,treatment.physicalNote,treatment.visionAssess,treatment.visionLevel,treatment.visionDate,treatment.visionPlace,treatment.visionDescribe,treatment.visionNote,treatment.hearingAssess,treatment.hearingLevel,treatment.hearingDate,treatment.hearingPlace,treatment.hearingDescribe,treatment.hearingNote,treatment.iQAssess,treatment.iQLevel,treatment.iQDate,treatment.iQPlace,treatment.iQDescribe,treatment.iQNote,treatment.speechAssess,treatment.speechLevel,treatment.speechDate,treatment.speechPlace,treatment.speechDescribe,treatment.speechNote,treatment.behaviorAssess,treatment.behaviorLevel,treatment.behaviorDate,treatment.behaviorPlace,treatment.behaviorDescribe,treatment.behaviorNote,treatment.communication,treatment.communicationNote,treatment.life,treatment.lifeNote,treatment.useResources,treatment.useResourcesNote,treatment.selfGuided,treatment.selfGuidedNote,treatment.functional,treatment.functionalNote,treatment.play,treatment.playNote,treatment.work,treatment.workNote,treatment.cognitive,treatment.cognitiveNote,treatment.lMuscle,treatment.lMuscleNote,treatment.sMuscle,treatment.sMuscleNote,treatment.interpersonal,treatment.interpersonalNote,treatment.selfAbility,treatment.selfAbilityNote,treatment.sensory,treatment.sensoryNote,treatment.health,treatment.healthNote,treatment.disease,treatment.diseaseOther,treatment.allergyFood,treatment.allergyOther,treatment.medication,treatment.medicationNote,treatment.history,treatment.sCantonese,treatment.rCantonese,treatment.lCantonese,treatment.wCantonese,treatment.sMandarin,treatment.rMandarin,treatment.lMandarin,treatment.wMandarin,treatment.sRLWOther,treatment.others,treatment.physicalReason,treatment.knowReason,treatment.wish,treatment.otherReason,treatment.socially,treatment.emotional,treatment.inducements,treatment.solve,treatment.attack,treatment.temper,treatment.behavior,treatment.behaviorHandle,treatment.sport,treatment.art,treatment.hobby,treatment.morningLife,treatment.afternoonLife,treatment.nightLife,treatment.lifeEnvironment,treatment.workerNote,treatment.behaviourNote,treatment.startDate,treatment.awaitDate,treatment.diseaseHeredity,treatment.allergyDrug,treatment.communicationLevel,treatment.selfLevel,treatment.lifeLevel,treatment.socialLevel,treatment.recourceLevel,treatment.guideLevel,treatment.safetyLevel,treatment.fnLevel,treatment.playLevel,treatment.workerLevel,treatment.supportPeople,treatment.coldnessPeople,treatment.connivePeople,treatment.neglectPeople,treatment.protectPeople,treatment.severePeople
 
-treatmentID=?,treatmentType=?,custID=?,treatmentNO=?,worker=?,applyDate=?,serviceStatus=?,reason=?,note=?,familySituation=?,physicalAssess=?,physicalLevel=?,physicalDate=?,physicalPlace=?,physicalDescribe=?,physicalNote=?,visionAssess=?,visionLevel=?,visionDate=?,visionPlace=?,visionDescribe=?,visionNote=?,hearingAssess=?,hearingLevel=?,hearingDate=?,hearingPlace=?,hearingDescribe=?,hearingNote=?,iQAssess=?,iQLevel=?,iQDate=?,iQPlace=?,iQDescribe=?,iQNote=?,speechAssess=?,speechLevel=?,speechDate=?,speechPlace=?,speechDescribe=?,speechNote=?,behaviorAssess=?,behaviorLevel=?,behaviorDate=?,behaviorPlace=?,behaviorDescribe=?,behaviorNote=?,communication=?,communicationNote=?,life=?,lifeNote=?,useResources=?,useResourcesNote=?,selfGuided=?,selfGuidedNote=?,functional=?,functionalNote=?,play=?,playNote=?,work=?,workNote=?,cognitive=?,cognitiveNote=?,lMuscle=?,lMuscleNote=?,sMuscle=?,sMuscleNote=?,interpersonal=?,interpersonalNote=?,selfAbility=?,selfAbilityNote=?,sensory=?,sensoryNote=?,health=?,healthNote=?,disease=?,diseaseNote=?,allergy=?,allergyNote=?,medication=?,medicationNote=?,history=?,sCantonese=?,rCantonese=?,lCantonese=?,wCantonese=?,sMandarin=?,rSMandarin=?,lSMandarin=?,wSMandarin=?,sRLWOther=?,others=?,physicalReason=?,knowReason=?,wish=?,otherReason=?,socially=?,emotional=?,inducements=?,solve=?,attack=?,temper=?,behavior=?,behaviorHandle=?,sport=?,art=?,hobby=?,morningLife=?,afternoonLife=?,nightLife=?,lifeEnvironment=?,workerNote=?,behaviourNote=?,startDate=?,awaitDate=?
+treatmentID=?,treatmentType=?,custID=?,treatmentNO=?,worker=?,applyDate=?,serviceStatus=?,reason=?,note=?,familySituation=?,physicalAssess=?,physicalLevel=?,physicalDate=?,physicalPlace=?,physicalDescribe=?,physicalNote=?,visionAssess=?,visionLevel=?,visionDate=?,visionPlace=?,visionDescribe=?,visionNote=?,hearingAssess=?,hearingLevel=?,hearingDate=?,hearingPlace=?,hearingDescribe=?,hearingNote=?,iQAssess=?,iQLevel=?,iQDate=?,iQPlace=?,iQDescribe=?,iQNote=?,speechAssess=?,speechLevel=?,speechDate=?,speechPlace=?,speechDescribe=?,speechNote=?,behaviorAssess=?,behaviorLevel=?,behaviorDate=?,behaviorPlace=?,behaviorDescribe=?,behaviorNote=?,communication=?,communicationNote=?,life=?,lifeNote=?,useResources=?,useResourcesNote=?,selfGuided=?,selfGuidedNote=?,functional=?,functionalNote=?,play=?,playNote=?,work=?,workNote=?,cognitive=?,cognitiveNote=?,lMuscle=?,lMuscleNote=?,sMuscle=?,sMuscleNote=?,interpersonal=?,interpersonalNote=?,selfAbility=?,selfAbilityNote=?,sensory=?,sensoryNote=?,health=?,healthNote=?,disease=?,diseaseOther=?,allergyFood=?,allergyOther=?,medication=?,medicationNote=?,history=?,sCantonese=?,rCantonese=?,lCantonese=?,wCantonese=?,sMandarin=?,rMandarin=?,lMandarin=?,wMandarin=?,sRLWOther=?,others=?,physicalReason=?,knowReason=?,wish=?,otherReason=?,socially=?,emotional=?,inducements=?,solve=?,attack=?,temper=?,behavior=?,behaviorHandle=?,sport=?,art=?,hobby=?,morningLife=?,afternoonLife=?,nightLife=?,lifeEnvironment=?,workerNote=?,behaviourNote=?,startDate=?,awaitDate=?,diseaseHeredity=?,allergyDrug=?,communicationLevel=?,selfLevel=?,lifeLevel=?,socialLevel=?,recourceLevel=?,guideLevel=?,safetyLevel=?,fnLevel=?,playLevel=?,workerLevel=?,supportPeople=?,coldnessPeople=?,connivePeople=?,neglectPeople=?,protectPeople=?,severePeople=?
 */
 public class Treatment implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -93,10 +93,10 @@ public class Treatment implements Serializable {
 	private String sensoryNote;
 	private String health;
 	private String healthNote;
-	private int disease;
-	private String diseaseNote;
-	private int allergy;
-	private String allergyNote;
+	private String disease;
+	private String diseaseOther;
+	private String allergyFood;
+	private String allergyOther;
 	private int medication;
 	private String medicationNote;
 	private String history;
@@ -105,9 +105,9 @@ public class Treatment implements Serializable {
 	private int lCantonese;
 	private int wCantonese;
 	private int sMandarin;
-	private int rSMandarin;
-	private int lSMandarin;
-	private int wSMandarin;
+	private int rMandarin;
+	private int lMandarin;
+	private int wMandarin;
 	private String sRLWOther;
 	private String others;
 	private String physicalReason;
@@ -115,12 +115,12 @@ public class Treatment implements Serializable {
 	private String wish;
 	private String otherReason;
 	private int socially;
-	private int emotional;
+	private String emotional;
 	private String inducements;
 	private String solve;
-	private int attack;
-	private int temper;
-	private int behavior;
+	private String attack;
+	private String temper;
+	private String behavior;
 	private String behaviorHandle;
 	private String sport;
 	private String art;
@@ -133,12 +133,29 @@ public class Treatment implements Serializable {
 	private String behaviourNote;
 	private Date startDate;
 	private Date awaitDate;
+	private String diseaseHeredity;
+	private String allergyDrug;
+	private int communicationLevel;
+	private int selfLevel;
+	private int lifeLevel;
+	private int socialLevel;
+	private int recourceLevel;
+	private int guideLevel;
+	private int safetyLevel;
+	private int fnLevel;
+	private int playLevel;
+	private int workerLevel;
+	private String supportPeople;
+	private String coldnessPeople;
+	private String connivePeople;
+	private String neglectPeople;
+	private String protectPeople;
+	private String severePeople;
 
 	public Treatment(){
 		super();
 	}
-	public Treatment(String treatmentID, int treatmentType, String custID, String treatmentNO, String worker, Date applyDate, int serviceStatus, String reason, String note, String familySituation, int physicalAssess, int physicalLevel, Date physicalDate, String physicalPlace, String physicalDescribe, String physicalNote, int visionAssess, int visionLevel, Date visionDate, String visionPlace, String visionDescribe, String visionNote, int hearingAssess, int hearingLevel, Date hearingDate, String hearingPlace, String hearingDescribe, String hearingNote, int iQAssess, int iQLevel, Date iQDate, String iQPlace, String iQDescribe, String iQNote, int speechAssess, int speechLevel, Date speechDate, String speechPlace, String speechDescribe, String speechNote, int behaviorAssess, int behaviorLevel, Date behaviorDate, String behaviorPlace, String behaviorDescribe, String behaviorNote, String communication, String communicationNote, String life, String lifeNote, String useResources, String useResourcesNote, String selfGuided, String selfGuidedNote, String functional, String functionalNote, String play, String playNote, String work, String workNote, String cognitive, String cognitiveNote, String lMuscle, String lMuscleNote, String sMuscle, String sMuscleNote, String interpersonal, String interpersonalNote, String selfAbility, String selfAbilityNote, String sensory, String sensoryNote, String health, String healthNote, int disease, String diseaseNote, int allergy, String allergyNote, int medication, String medicationNote, String history, int sCantonese, int rCantonese, int lCantonese, int wCantonese, int sMandarin, int rSMandarin, int lSMandarin, int wSMandarin, String sRLWOther, String others, String physicalReason, String knowReason, String wish, String otherReason, int socially, int emotional, String inducements, String solve, int attack, int temper, int behavior, String behaviorHandle, String sport, String art, String hobby, String morningLife, String afternoonLife, String nightLife, String lifeEnvironment, String workerNote, String behaviourNote,
-					Date startDate,	Date awaitDate){
+	public Treatment(String treatmentID, int treatmentType, String custID, String treatmentNO, String worker, Date applyDate, int serviceStatus, String reason, String note, String familySituation, int physicalAssess, int physicalLevel, Date physicalDate, String physicalPlace, String physicalDescribe, String physicalNote, int visionAssess, int visionLevel, Date visionDate, String visionPlace, String visionDescribe, String visionNote, int hearingAssess, int hearingLevel, Date hearingDate, String hearingPlace, String hearingDescribe, String hearingNote, int iQAssess, int iQLevel, Date iQDate, String iQPlace, String iQDescribe, String iQNote, int speechAssess, int speechLevel, Date speechDate, String speechPlace, String speechDescribe, String speechNote, int behaviorAssess, int behaviorLevel, Date behaviorDate, String behaviorPlace, String behaviorDescribe, String behaviorNote, String communication, String communicationNote, String life, String lifeNote, String useResources, String useResourcesNote, String selfGuided, String selfGuidedNote, String functional, String functionalNote, String play, String playNote, String work, String workNote, String cognitive, String cognitiveNote, String lMuscle, String lMuscleNote, String sMuscle, String sMuscleNote, String interpersonal, String interpersonalNote, String selfAbility, String selfAbilityNote, String sensory, String sensoryNote, String health, String healthNote, String disease, String diseaseOther, String allergyFood, String allergyOther, int medication, String medicationNote, String history, int sCantonese, int rCantonese, int lCantonese, int wCantonese, int sMandarin, int rMandarin, int lMandarin, int wMandarin, String sRLWOther, String others, String physicalReason, String knowReason, String wish, String otherReason, int socially, String emotional, String inducements, String solve, String attack, String temper, String behavior, String behaviorHandle, String sport, String art, String hobby, String morningLife, String afternoonLife, String nightLife, String lifeEnvironment, String workerNote, String behaviourNote, Date startDate, Date awaitDate, String diseaseHeredity, String allergyDrug, int communicationLevel, int selfLevel, int lifeLevel, int socialLevel, int recourceLevel, int guideLevel, int safetyLevel, int fnLevel, int playLevel, int workerLevel, String supportPeople, String coldnessPeople, String connivePeople, String neglectPeople, String protectPeople, String severePeople ){
 		super();
 		this.treatmentID=treatmentID;
 		this.treatmentType=treatmentType;
@@ -215,9 +232,9 @@ public class Treatment implements Serializable {
 		this.health=health;
 		this.healthNote=healthNote;
 		this.disease=disease;
-		this.diseaseNote=diseaseNote;
-		this.allergy=allergy;
-		this.allergyNote=allergyNote;
+		this.diseaseOther=diseaseOther;
+		this.allergyFood=allergyFood;
+		this.allergyOther=allergyOther;
 		this.medication=medication;
 		this.medicationNote=medicationNote;
 		this.history=history;
@@ -226,9 +243,9 @@ public class Treatment implements Serializable {
 		this.lCantonese=lCantonese;
 		this.wCantonese=wCantonese;
 		this.sMandarin=sMandarin;
-		this.rSMandarin=rSMandarin;
-		this.lSMandarin=lSMandarin;
-		this.wSMandarin=wSMandarin;
+		this.rMandarin=rMandarin;
+		this.lMandarin=lMandarin;
+		this.wMandarin=wMandarin;
 		this.sRLWOther=sRLWOther;
 		this.others=others;
 		this.physicalReason=physicalReason;
@@ -253,7 +270,25 @@ public class Treatment implements Serializable {
 		this.workerNote=workerNote;
 		this.behaviourNote=behaviourNote;
 		this.startDate=startDate;
-		this.awaitDate= awaitDate;
+		this.awaitDate=awaitDate;
+		this.diseaseHeredity=diseaseHeredity;
+		this.allergyDrug=allergyDrug;
+		this.communicationLevel=communicationLevel;
+		this.selfLevel=selfLevel;
+		this.lifeLevel=lifeLevel;
+		this.socialLevel=socialLevel;
+		this.recourceLevel=recourceLevel;
+		this.guideLevel=guideLevel;
+		this.safetyLevel=safetyLevel;
+		this.fnLevel=fnLevel;
+		this.playLevel=playLevel;
+		this.workerLevel=workerLevel;
+		this.supportPeople=supportPeople;
+		this.coldnessPeople=coldnessPeople;
+		this.connivePeople=connivePeople;
+		this.neglectPeople=neglectPeople;
+		this.protectPeople=protectPeople;
+		this.severePeople=severePeople;
 	}
 	public void setTreatmentID(String treatmentID){
 		this.treatmentID=treatmentID;
@@ -423,42 +458,6 @@ public class Treatment implements Serializable {
 	public String getHearingNote(){
 		return hearingNote;
 	}
-	public void setIQAssess(int iQAssess){
-		this.iQAssess=iQAssess;
-	}
-	public int getIQAssess(){
-		return iQAssess;
-	}
-	public void setIQLevel(int iQLevel){
-		this.iQLevel=iQLevel;
-	}
-	public int getIQLevel(){
-		return iQLevel;
-	}
-	public void setIQDate(Date iQDate){
-		this.iQDate=iQDate;
-	}
-	public Date getIQDate(){
-		return iQDate;
-	}
-	public void setIQPlace(String iQPlace){
-		this.iQPlace=iQPlace;
-	}
-	public String getIQPlace(){
-		return iQPlace;
-	}
-	public void setIQDescribe(String iQDescribe){
-		this.iQDescribe=iQDescribe;
-	}
-	public String getIQDescribe(){
-		return iQDescribe;
-	}
-	public void setIQNote(String iQNote){
-		this.iQNote=iQNote;
-	}
-	public String getIQNote(){
-		return iQNote;
-	}
 	public void setSpeechAssess(int speechAssess){
 		this.speechAssess=speechAssess;
 	}
@@ -627,30 +626,6 @@ public class Treatment implements Serializable {
 	public String getCognitiveNote(){
 		return cognitiveNote;
 	}
-	public void setLMuscle(String lMuscle){
-		this.lMuscle=lMuscle;
-	}
-	public String getLMuscle(){
-		return lMuscle;
-	}
-	public void setLMuscleNote(String lMuscleNote){
-		this.lMuscleNote=lMuscleNote;
-	}
-	public String getLMuscleNote(){
-		return lMuscleNote;
-	}
-	public void setSMuscle(String sMuscle){
-		this.sMuscle=sMuscle;
-	}
-	public String getSMuscle(){
-		return sMuscle;
-	}
-	public void setSMuscleNote(String sMuscleNote){
-		this.sMuscleNote=sMuscleNote;
-	}
-	public String getSMuscleNote(){
-		return sMuscleNote;
-	}
 	public void setInterpersonal(String interpersonal){
 		this.interpersonal=interpersonal;
 	}
@@ -699,29 +674,29 @@ public class Treatment implements Serializable {
 	public String getHealthNote(){
 		return healthNote;
 	}
-	public void setDisease(int disease){
+	public void setDisease(String disease){
 		this.disease=disease;
 	}
-	public int getDisease(){
+	public String getDisease(){
 		return disease;
 	}
-	public void setDiseaseNote(String diseaseNote){
-		this.diseaseNote=diseaseNote;
+	public void setDiseaseOther(String diseaseOther){
+		this.diseaseOther=diseaseOther;
 	}
-	public String getDiseaseNote(){
-		return diseaseNote;
+	public String getDiseaseOther(){
+		return diseaseOther;
 	}
-	public void setAllergy(int allergy){
-		this.allergy=allergy;
+	public void setAllergyFood(String allergyFood){
+		this.allergyFood=allergyFood;
 	}
-	public int getAllergy(){
-		return allergy;
+	public String getAllergyFood(){
+		return allergyFood;
 	}
-	public void setAllergyNote(String allergyNote){
-		this.allergyNote=allergyNote;
+	public void setAllergyOther(String allergyOther){
+		this.allergyOther=allergyOther;
 	}
-	public String getAllergyNote(){
-		return allergyNote;
+	public String getAllergyOther(){
+		return allergyOther;
 	}
 	public void setMedication(int medication){
 		this.medication=medication;
@@ -740,60 +715,6 @@ public class Treatment implements Serializable {
 	}
 	public String getHistory(){
 		return history;
-	}
-	public void setSCantonese(int sCantonese){
-		this.sCantonese=sCantonese;
-	}
-	public int getSCantonese(){
-		return sCantonese;
-	}
-	public void setRCantonese(int rCantonese){
-		this.rCantonese=rCantonese;
-	}
-	public int getRCantonese(){
-		return rCantonese;
-	}
-	public void setLCantonese(int lCantonese){
-		this.lCantonese=lCantonese;
-	}
-	public int getLCantonese(){
-		return lCantonese;
-	}
-	public void setWCantonese(int wCantonese){
-		this.wCantonese=wCantonese;
-	}
-	public int getWCantonese(){
-		return wCantonese;
-	}
-	public void setSMandarin(int sMandarin){
-		this.sMandarin=sMandarin;
-	}
-	public int getSMandarin(){
-		return sMandarin;
-	}
-	public void setRSMandarin(int rSMandarin){
-		this.rSMandarin=rSMandarin;
-	}
-	public int getRSMandarin(){
-		return rSMandarin;
-	}
-	public void setLSMandarin(int lSMandarin){
-		this.lSMandarin=lSMandarin;
-	}
-	public int getLSMandarin(){
-		return lSMandarin;
-	}
-	public void setWSMandarin(int wSMandarin){
-		this.wSMandarin=wSMandarin;
-	}
-	public int getWSMandarin(){
-		return wSMandarin;
-	}
-	public void setSRLWOther(String sRLWOther){
-		this.sRLWOther=sRLWOther;
-	}
-	public String getSRLWOther(){
-		return sRLWOther;
 	}
 	public void setOthers(String others){
 		this.others=others;
@@ -831,10 +752,10 @@ public class Treatment implements Serializable {
 	public int getSocially(){
 		return socially;
 	}
-	public void setEmotional(int emotional){
+	public void setEmotional(String emotional){
 		this.emotional=emotional;
 	}
-	public int getEmotional(){
+	public String getEmotional(){
 		return emotional;
 	}
 	public void setInducements(String inducements){
@@ -849,22 +770,22 @@ public class Treatment implements Serializable {
 	public String getSolve(){
 		return solve;
 	}
-	public void setAttack(int attack){
+	public void setAttack(String attack){
 		this.attack=attack;
 	}
-	public int getAttack(){
+	public String getAttack(){
 		return attack;
 	}
-	public void setTemper(int temper){
+	public void setTemper(String temper){
 		this.temper=temper;
 	}
-	public int getTemper(){
+	public String getTemper(){
 		return temper;
 	}
-	public void setBehavior(int behavior){
+	public void setBehavior(String behavior){
 		this.behavior=behavior;
 	}
-	public int getBehavior(){
+	public String getBehavior(){
 		return behavior;
 	}
 	public void setBehaviorHandle(String behaviorHandle){
@@ -927,27 +848,246 @@ public class Treatment implements Serializable {
 	public String getBehaviourNote(){
 		return behaviourNote;
 	}
-	
-	
-	
-	public Date getStartDate() {
+	public void setStartDate(Date startDate){
+		this.startDate=startDate;
+	}
+	public Date getStartDate(){
 		return startDate;
 	}
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setAwaitDate(Date awaitDate){
+		this.awaitDate=awaitDate;
 	}
-	
-	
-	
-	public Date getAwaitDate() {
+	public Date getAwaitDate(){
 		return awaitDate;
 	}
-	public void setAwaitDate(Date awaitDate) {
-		this.awaitDate = awaitDate;
+	public void setDiseaseHeredity(String diseaseHeredity){
+		this.diseaseHeredity=diseaseHeredity;
+	}
+	public String getDiseaseHeredity(){
+		return diseaseHeredity;
+	}
+	public void setAllergyDrug(String allergyDrug){
+		this.allergyDrug=allergyDrug;
+	}
+	public String getAllergyDrug(){
+		return allergyDrug;
+	}
+	public void setCommunicationLevel(int communicationLevel){
+		this.communicationLevel=communicationLevel;
+	}
+	public int getCommunicationLevel(){
+		return communicationLevel;
+	}
+	public void setSelfLevel(int selfLevel){
+		this.selfLevel=selfLevel;
+	}
+	public int getSelfLevel(){
+		return selfLevel;
+	}
+	public void setLifeLevel(int lifeLevel){
+		this.lifeLevel=lifeLevel;
+	}
+	public int getLifeLevel(){
+		return lifeLevel;
+	}
+	public void setSocialLevel(int socialLevel){
+		this.socialLevel=socialLevel;
+	}
+	public int getSocialLevel(){
+		return socialLevel;
+	}
+	public void setRecourceLevel(int recourceLevel){
+		this.recourceLevel=recourceLevel;
+	}
+	public int getRecourceLevel(){
+		return recourceLevel;
+	}
+	public void setGuideLevel(int guideLevel){
+		this.guideLevel=guideLevel;
+	}
+	public int getGuideLevel(){
+		return guideLevel;
+	}
+	public void setSafetyLevel(int safetyLevel){
+		this.safetyLevel=safetyLevel;
+	}
+	public int getSafetyLevel(){
+		return safetyLevel;
+	}
+	public void setFnLevel(int fnLevel){
+		this.fnLevel=fnLevel;
+	}
+	public int getFnLevel(){
+		return fnLevel;
+	}
+	public void setPlayLevel(int playLevel){
+		this.playLevel=playLevel;
+	}
+	public int getPlayLevel(){
+		return playLevel;
+	}
+	public void setWorkerLevel(int workerLevel){
+		this.workerLevel=workerLevel;
+	}
+	public int getWorkerLevel(){
+		return workerLevel;
+	}
+	public void setSupportPeople(String supportPeople){
+		this.supportPeople=supportPeople;
+	}
+	public String getSupportPeople(){
+		return supportPeople;
+	}
+	public void setColdnessPeople(String coldnessPeople){
+		this.coldnessPeople=coldnessPeople;
+	}
+	public String getColdnessPeople(){
+		return coldnessPeople;
+	}
+	public void setConnivePeople(String connivePeople){
+		this.connivePeople=connivePeople;
+	}
+	public String getConnivePeople(){
+		return connivePeople;
+	}
+	public void setNeglectPeople(String neglectPeople){
+		this.neglectPeople=neglectPeople;
+	}
+	public String getNeglectPeople(){
+		return neglectPeople;
+	}
+	public void setProtectPeople(String protectPeople){
+		this.protectPeople=protectPeople;
+	}
+	public String getProtectPeople(){
+		return protectPeople;
+	}
+	public void setSeverePeople(String severePeople){
+		this.severePeople=severePeople;
+	}
+	public String getSeverePeople(){
+		return severePeople;
+	}
+	
+	
+	
+	public int getiQAssess() {
+		return iQAssess;
+	}
+	public void setiQAssess(int iQAssess) {
+		this.iQAssess = iQAssess;
+	}
+	public int getiQLevel() {
+		return iQLevel;
+	}
+	public void setiQLevel(int iQLevel) {
+		this.iQLevel = iQLevel;
+	}
+	public Date getiQDate() {
+		return iQDate;
+	}
+	public void setiQDate(Date iQDate) {
+		this.iQDate = iQDate;
+	}
+	public String getiQPlace() {
+		return iQPlace;
+	}
+	public void setiQPlace(String iQPlace) {
+		this.iQPlace = iQPlace;
+	}
+	public String getiQDescribe() {
+		return iQDescribe;
+	}
+	public void setiQDescribe(String iQDescribe) {
+		this.iQDescribe = iQDescribe;
+	}
+	public String getiQNote() {
+		return iQNote;
+	}
+	public void setiQNote(String iQNote) {
+		this.iQNote = iQNote;
+	}
+	public String getlMuscle() {
+		return lMuscle;
+	}
+	public void setlMuscle(String lMuscle) {
+		this.lMuscle = lMuscle;
+	}
+	public String getlMuscleNote() {
+		return lMuscleNote;
+	}
+	public void setlMuscleNote(String lMuscleNote) {
+		this.lMuscleNote = lMuscleNote;
+	}
+	public String getsMuscle() {
+		return sMuscle;
+	}
+	public void setsMuscle(String sMuscle) {
+		this.sMuscle = sMuscle;
+	}
+	public String getsMuscleNote() {
+		return sMuscleNote;
+	}
+	public void setsMuscleNote(String sMuscleNote) {
+		this.sMuscleNote = sMuscleNote;
+	}
+	public int getsCantonese() {
+		return sCantonese;
+	}
+	public void setsCantonese(int sCantonese) {
+		this.sCantonese = sCantonese;
+	}
+	public int getrCantonese() {
+		return rCantonese;
+	}
+	public void setrCantonese(int rCantonese) {
+		this.rCantonese = rCantonese;
+	}
+	public int getlCantonese() {
+		return lCantonese;
+	}
+	public void setlCantonese(int lCantonese) {
+		this.lCantonese = lCantonese;
+	}
+	public int getwCantonese() {
+		return wCantonese;
+	}
+	public void setwCantonese(int wCantonese) {
+		this.wCantonese = wCantonese;
+	}
+	public int getsMandarin() {
+		return sMandarin;
+	}
+	public void setsMandarin(int sMandarin) {
+		this.sMandarin = sMandarin;
+	}
+	public int getrMandarin() {
+		return rMandarin;
+	}
+	public void setrMandarin(int rMandarin) {
+		this.rMandarin = rMandarin;
+	}
+	public int getlMandarin() {
+		return lMandarin;
+	}
+	public void setlMandarin(int lMandarin) {
+		this.lMandarin = lMandarin;
+	}
+	public int getwMandarin() {
+		return wMandarin;
+	}
+	public void setwMandarin(int wMandarin) {
+		this.wMandarin = wMandarin;
+	}
+	public String getsRLWOther() {
+		return sRLWOther;
+	}
+	public void setsRLWOther(String sRLWOther) {
+		this.sRLWOther = sRLWOther;
 	}
 	@Override
 	public String toString(){
-		return "Treatment [treatmentID="+treatmentID+",treatmentType="+treatmentType+",custID="+custID+",treatmentNO="+treatmentNO+",worker="+worker+",applyDate="+applyDate+",serviceStatus="+serviceStatus+",reason="+reason+",note="+note+",familySituation="+familySituation+",physicalAssess="+physicalAssess+",physicalLevel="+physicalLevel+",physicalDate="+physicalDate+",physicalPlace="+physicalPlace+",physicalDescribe="+physicalDescribe+",physicalNote="+physicalNote+",visionAssess="+visionAssess+",visionLevel="+visionLevel+",visionDate="+visionDate+",visionPlace="+visionPlace+",visionDescribe="+visionDescribe+",visionNote="+visionNote+",hearingAssess="+hearingAssess+",hearingLevel="+hearingLevel+",hearingDate="+hearingDate+",hearingPlace="+hearingPlace+",hearingDescribe="+hearingDescribe+",hearingNote="+hearingNote+",iQAssess="+iQAssess+",iQLevel="+iQLevel+",iQDate="+iQDate+",iQPlace="+iQPlace+",iQDescribe="+iQDescribe+",iQNote="+iQNote+",speechAssess="+speechAssess+",speechLevel="+speechLevel+",speechDate="+speechDate+",speechPlace="+speechPlace+",speechDescribe="+speechDescribe+",speechNote="+speechNote+",behaviorAssess="+behaviorAssess+",behaviorLevel="+behaviorLevel+",behaviorDate="+behaviorDate+",behaviorPlace="+behaviorPlace+",behaviorDescribe="+behaviorDescribe+",behaviorNote="+behaviorNote+",communication="+communication+",communicationNote="+communicationNote+",life="+life+",lifeNote="+lifeNote+",useResources="+useResources+",useResourcesNote="+useResourcesNote+",selfGuided="+selfGuided+",selfGuidedNote="+selfGuidedNote+",functional="+functional+",functionalNote="+functionalNote+",play="+play+",playNote="+playNote+",work="+work+",workNote="+workNote+",cognitive="+cognitive+",cognitiveNote="+cognitiveNote+",lMuscle="+lMuscle+",lMuscleNote="+lMuscleNote+",sMuscle="+sMuscle+",sMuscleNote="+sMuscleNote+",interpersonal="+interpersonal+",interpersonalNote="+interpersonalNote+",selfAbility="+selfAbility+",selfAbilityNote="+selfAbilityNote+",sensory="+sensory+",sensoryNote="+sensoryNote+",health="+health+",healthNote="+healthNote+",disease="+disease+",diseaseNote="+diseaseNote+",allergy="+allergy+",allergyNote="+allergyNote+",medication="+medication+",medicationNote="+medicationNote+",history="+history+",sCantonese="+sCantonese+",rCantonese="+rCantonese+",lCantonese="+lCantonese+",wCantonese="+wCantonese+",sMandarin="+sMandarin+",rSMandarin="+rSMandarin+",lSMandarin="+lSMandarin+",wSMandarin="+wSMandarin+",sRLWOther="+sRLWOther+",others="+others+",physicalReason="+physicalReason+",knowReason="+knowReason+",wish="+wish+",otherReason="+otherReason+",socially="+socially+",emotional="+emotional+",inducements="+inducements+",solve="+solve+",attack="+attack+",temper="+temper+",behavior="+behavior+",behaviorHandle="+behaviorHandle+",sport="+sport+",art="+art+",hobby="+hobby+",morningLife="+morningLife+",afternoonLife="+afternoonLife+",nightLife="+nightLife+",lifeEnvironment="+lifeEnvironment+",workerNote="+workerNote+",behaviourNote="+behaviourNote+",startDate="+startDate+",awaitDate="+awaitDate+"]";
+		return "Treatment [treatmentID="+treatmentID+",treatmentType="+treatmentType+",custID="+custID+",treatmentNO="+treatmentNO+",worker="+worker+",applyDate="+applyDate+",serviceStatus="+serviceStatus+",reason="+reason+",note="+note+",familySituation="+familySituation+",physicalAssess="+physicalAssess+",physicalLevel="+physicalLevel+",physicalDate="+physicalDate+",physicalPlace="+physicalPlace+",physicalDescribe="+physicalDescribe+",physicalNote="+physicalNote+",visionAssess="+visionAssess+",visionLevel="+visionLevel+",visionDate="+visionDate+",visionPlace="+visionPlace+",visionDescribe="+visionDescribe+",visionNote="+visionNote+",hearingAssess="+hearingAssess+",hearingLevel="+hearingLevel+",hearingDate="+hearingDate+",hearingPlace="+hearingPlace+",hearingDescribe="+hearingDescribe+",hearingNote="+hearingNote+",iQAssess="+iQAssess+",iQLevel="+iQLevel+",iQDate="+iQDate+",iQPlace="+iQPlace+",iQDescribe="+iQDescribe+",iQNote="+iQNote+",speechAssess="+speechAssess+",speechLevel="+speechLevel+",speechDate="+speechDate+",speechPlace="+speechPlace+",speechDescribe="+speechDescribe+",speechNote="+speechNote+",behaviorAssess="+behaviorAssess+",behaviorLevel="+behaviorLevel+",behaviorDate="+behaviorDate+",behaviorPlace="+behaviorPlace+",behaviorDescribe="+behaviorDescribe+",behaviorNote="+behaviorNote+",communication="+communication+",communicationNote="+communicationNote+",life="+life+",lifeNote="+lifeNote+",useResources="+useResources+",useResourcesNote="+useResourcesNote+",selfGuided="+selfGuided+",selfGuidedNote="+selfGuidedNote+",functional="+functional+",functionalNote="+functionalNote+",play="+play+",playNote="+playNote+",work="+work+",workNote="+workNote+",cognitive="+cognitive+",cognitiveNote="+cognitiveNote+",lMuscle="+lMuscle+",lMuscleNote="+lMuscleNote+",sMuscle="+sMuscle+",sMuscleNote="+sMuscleNote+",interpersonal="+interpersonal+",interpersonalNote="+interpersonalNote+",selfAbility="+selfAbility+",selfAbilityNote="+selfAbilityNote+",sensory="+sensory+",sensoryNote="+sensoryNote+",health="+health+",healthNote="+healthNote+",disease="+disease+",diseaseOther="+diseaseOther+",allergyFood="+allergyFood+",allergyOther="+allergyOther+",medication="+medication+",medicationNote="+medicationNote+",history="+history+",sCantonese="+sCantonese+",rCantonese="+rCantonese+",lCantonese="+lCantonese+",wCantonese="+wCantonese+",sMandarin="+sMandarin+",rMandarin="+rMandarin+",lMandarin="+lMandarin+",wMandarin="+wMandarin+",sRLWOther="+sRLWOther+",others="+others+",physicalReason="+physicalReason+",knowReason="+knowReason+",wish="+wish+",otherReason="+otherReason+",socially="+socially+",emotional="+emotional+",inducements="+inducements+",solve="+solve+",attack="+attack+",temper="+temper+",behavior="+behavior+",behaviorHandle="+behaviorHandle+",sport="+sport+",art="+art+",hobby="+hobby+",morningLife="+morningLife+",afternoonLife="+afternoonLife+",nightLife="+nightLife+",lifeEnvironment="+lifeEnvironment+",workerNote="+workerNote+",behaviourNote="+behaviourNote+",startDate="+startDate+",awaitDate="+awaitDate+",diseaseHeredity="+diseaseHeredity+",allergyDrug="+allergyDrug+",communicationLevel="+communicationLevel+",selfLevel="+selfLevel+",lifeLevel="+lifeLevel+",socialLevel="+socialLevel+",recourceLevel="+recourceLevel+",guideLevel="+guideLevel+",safetyLevel="+safetyLevel+",fnLevel="+fnLevel+",playLevel="+playLevel+",workerLevel="+workerLevel+",supportPeople="+supportPeople+",coldnessPeople="+coldnessPeople+",connivePeople="+connivePeople+",neglectPeople="+neglectPeople+",protectPeople="+protectPeople+",severePeople="+severePeople+"]";
 	}
 }
 

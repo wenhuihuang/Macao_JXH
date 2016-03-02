@@ -1,16 +1,21 @@
-package com.jxh.pojo;
-
 
 import java.io.Serializable;
 import java.util.Date;
-
-import com.fg.utils.ToolsUtils;
-
 import java.sql.*;
-import java.text.ParseException;
+
 import java.math.*;
 
-public class TreatmentPojo implements Serializable {
+
+/** Treatment
+
+treatmentID,treatmentType,custID,treatmentNO,worker,applyDate,serviceStatus,reason,note,familySituation,physicalAssess,physicalLevel,physicalDate,physicalPlace,physicalDescribe,physicalNote,visionAssess,visionLevel,visionDate,visionPlace,visionDescribe,visionNote,hearingAssess,hearingLevel,hearingDate,hearingPlace,hearingDescribe,hearingNote,iQAssess,iQLevel,iQDate,iQPlace,iQDescribe,iQNote,speechAssess,speechLevel,speechDate,speechPlace,speechDescribe,speechNote,behaviorAssess,behaviorLevel,behaviorDate,behaviorPlace,behaviorDescribe,behaviorNote,communication,communicationNote,life,lifeNote,useResources,useResourcesNote,selfGuided,selfGuidedNote,functional,functionalNote,play,playNote,work,workNote,cognitive,cognitiveNote,lMuscle,lMuscleNote,sMuscle,sMuscleNote,interpersonal,interpersonalNote,selfAbility,selfAbilityNote,sensory,sensoryNote,health,healthNote,disease,diseaseOther,allergyFood,allergyOther,medication,medicationNote,history,sCantonese,rCantonese,lCantonese,wCantonese,sMandarin,rSMandarin,lSMandarin,wSMandarin,sRLWOther,others,physicalReason,knowReason,wish,otherReason,socially,emotional,inducements,solve,attack,temper,behavior,behaviorHandle,sport,art,hobby,morningLife,afternoonLife,nightLife,lifeEnvironment,workerNote,behaviourNote,startDate,awaitDate,diseaseHeredity,allergyDrug,communicationLevel,selfLevel,lifeLevel,socialLevel,recourceLevel,guideLevel,safetyLevel,fnLevel,playLevel,workerLevel,supportPeople,coldnessPeople,connivePeople,neglectPeole,protectPeole,severePeople
+?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
+
+treatment.treatmentID,treatment.treatmentType,treatment.custID,treatment.treatmentNO,treatment.worker,treatment.applyDate,treatment.serviceStatus,treatment.reason,treatment.note,treatment.familySituation,treatment.physicalAssess,treatment.physicalLevel,treatment.physicalDate,treatment.physicalPlace,treatment.physicalDescribe,treatment.physicalNote,treatment.visionAssess,treatment.visionLevel,treatment.visionDate,treatment.visionPlace,treatment.visionDescribe,treatment.visionNote,treatment.hearingAssess,treatment.hearingLevel,treatment.hearingDate,treatment.hearingPlace,treatment.hearingDescribe,treatment.hearingNote,treatment.iQAssess,treatment.iQLevel,treatment.iQDate,treatment.iQPlace,treatment.iQDescribe,treatment.iQNote,treatment.speechAssess,treatment.speechLevel,treatment.speechDate,treatment.speechPlace,treatment.speechDescribe,treatment.speechNote,treatment.behaviorAssess,treatment.behaviorLevel,treatment.behaviorDate,treatment.behaviorPlace,treatment.behaviorDescribe,treatment.behaviorNote,treatment.communication,treatment.communicationNote,treatment.life,treatment.lifeNote,treatment.useResources,treatment.useResourcesNote,treatment.selfGuided,treatment.selfGuidedNote,treatment.functional,treatment.functionalNote,treatment.play,treatment.playNote,treatment.work,treatment.workNote,treatment.cognitive,treatment.cognitiveNote,treatment.lMuscle,treatment.lMuscleNote,treatment.sMuscle,treatment.sMuscleNote,treatment.interpersonal,treatment.interpersonalNote,treatment.selfAbility,treatment.selfAbilityNote,treatment.sensory,treatment.sensoryNote,treatment.health,treatment.healthNote,treatment.disease,treatment.diseaseOther,treatment.allergyFood,treatment.allergyOther,treatment.medication,treatment.medicationNote,treatment.history,treatment.sCantonese,treatment.rCantonese,treatment.lCantonese,treatment.wCantonese,treatment.sMandarin,treatment.rSMandarin,treatment.lSMandarin,treatment.wSMandarin,treatment.sRLWOther,treatment.others,treatment.physicalReason,treatment.knowReason,treatment.wish,treatment.otherReason,treatment.socially,treatment.emotional,treatment.inducements,treatment.solve,treatment.attack,treatment.temper,treatment.behavior,treatment.behaviorHandle,treatment.sport,treatment.art,treatment.hobby,treatment.morningLife,treatment.afternoonLife,treatment.nightLife,treatment.lifeEnvironment,treatment.workerNote,treatment.behaviourNote,treatment.startDate,treatment.awaitDate,treatment.diseaseHeredity,treatment.allergyDrug,treatment.communicationLevel,treatment.selfLevel,treatment.lifeLevel,treatment.socialLevel,treatment.recourceLevel,treatment.guideLevel,treatment.safetyLevel,treatment.fnLevel,treatment.playLevel,treatment.workerLevel,treatment.supportPeople,treatment.coldnessPeople,treatment.connivePeople,treatment.neglectPeole,treatment.protectPeole,treatment.severePeople
+
+treatmentID=?,treatmentType=?,custID=?,treatmentNO=?,worker=?,applyDate=?,serviceStatus=?,reason=?,note=?,familySituation=?,physicalAssess=?,physicalLevel=?,physicalDate=?,physicalPlace=?,physicalDescribe=?,physicalNote=?,visionAssess=?,visionLevel=?,visionDate=?,visionPlace=?,visionDescribe=?,visionNote=?,hearingAssess=?,hearingLevel=?,hearingDate=?,hearingPlace=?,hearingDescribe=?,hearingNote=?,iQAssess=?,iQLevel=?,iQDate=?,iQPlace=?,iQDescribe=?,iQNote=?,speechAssess=?,speechLevel=?,speechDate=?,speechPlace=?,speechDescribe=?,speechNote=?,behaviorAssess=?,behaviorLevel=?,behaviorDate=?,behaviorPlace=?,behaviorDescribe=?,behaviorNote=?,communication=?,communicationNote=?,life=?,lifeNote=?,useResources=?,useResourcesNote=?,selfGuided=?,selfGuidedNote=?,functional=?,functionalNote=?,play=?,playNote=?,work=?,workNote=?,cognitive=?,cognitiveNote=?,lMuscle=?,lMuscleNote=?,sMuscle=?,sMuscleNote=?,interpersonal=?,interpersonalNote=?,selfAbility=?,selfAbilityNote=?,sensory=?,sensoryNote=?,health=?,healthNote=?,disease=?,diseaseOther=?,allergyFood=?,allergyOther=?,medication=?,medicationNote=?,history=?,sCantonese=?,rCantonese=?,lCantonese=?,wCantonese=?,sMandarin=?,rSMandarin=?,lSMandarin=?,wSMandarin=?,sRLWOther=?,others=?,physicalReason=?,knowReason=?,wish=?,otherReason=?,socially=?,emotional=?,inducements=?,solve=?,attack=?,temper=?,behavior=?,behaviorHandle=?,sport=?,art=?,hobby=?,morningLife=?,afternoonLife=?,nightLife=?,lifeEnvironment=?,workerNote=?,behaviourNote=?,startDate=?,awaitDate=?,diseaseHeredity=?,allergyDrug=?,communicationLevel=?,selfLevel=?,lifeLevel=?,socialLevel=?,recourceLevel=?,guideLevel=?,safetyLevel=?,fnLevel=?,playLevel=?,workerLevel=?,supportPeople=?,coldnessPeople=?,connivePeople=?,neglectPeole=?,protectPeole=?,severePeople=?
+*/
+public class Treatment implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String treatmentID;
 	private int treatmentType;
@@ -90,7 +95,6 @@ public class TreatmentPojo implements Serializable {
 	private String diseaseOther;
 	private String allergyFood;
 	private String allergyOther;
-	private String allergyDrug;
 	private int medication;
 	private String medicationNote;
 	private String history;
@@ -99,9 +103,9 @@ public class TreatmentPojo implements Serializable {
 	private int lCantonese;
 	private int wCantonese;
 	private int sMandarin;
-	private int rMandarin;
-	private int lMandarin;
-	private int wMandarin;
+	private int rSMandarin;
+	private int lSMandarin;
+	private int wSMandarin;
 	private String sRLWOther;
 	private String others;
 	private String physicalReason;
@@ -128,6 +132,7 @@ public class TreatmentPojo implements Serializable {
 	private Date startDate;
 	private Date awaitDate;
 	private String diseaseHeredity;
+	private String allergyDrug;
 	private int communicationLevel;
 	private int selfLevel;
 	private int lifeLevel;
@@ -141,68 +146,14 @@ public class TreatmentPojo implements Serializable {
 	private String supportPeople;
 	private String coldnessPeople;
 	private String connivePeople;
-	private String neglectPeople;
-	private String protectPeople;
+	private String neglectPeole;
+	private String protectPeole;
 	private String severePeople;
-	
-	private String fullName;
-	private String isMember;
-	
-	private String caseWorker;
-	private Date receiveDate;
-	private int caseStatus;
-	
-	private Date assessDate;
-	
-	private Date closeDate;
-	
-	private String applyDate_str;
-	private String physicalDate_str;
-	private String visionDate_str;
-	private String hearingDate_str;
-	private String iQDate_str;
-	private String speechDate_str;
-	private String behaviorDate_str;
-	private String startDate_str;
-	private String awaitDate_str;
-	
-	private String assessDate_str;
-	private String closeDate_str;
-	
-	private String receiveDate_str;
 
-	public TreatmentPojo(){
+	public Treatment(){
 		super();
 	}
-	public TreatmentPojo(String treatmentID, int treatmentType, String custID, String treatmentNO, String worker,
-								Date applyDate, int serviceStatus, String reason, String note,
-								String familySituation, int physicalAssess, int physicalLevel, Date physicalDate, 
-								String physicalPlace, String physicalDescribe, String physicalNote, int visionAssess,
-								int visionLevel, Date visionDate, String visionPlace, String visionDescribe,
-								String visionNote, int hearingAssess, int hearingLevel, Date hearingDate,
-								String hearingPlace, String hearingDescribe, String hearingNote, int iQAssess,
-								int iQLevel, Date iQDate, String iQPlace, String iQDescribe, String iQNote, 
-								int speechAssess, int speechLevel, Date speechDate, String speechPlace, 
-								String speechDescribe, String speechNote, int behaviorAssess, int behaviorLevel,
-								Date behaviorDate, String behaviorPlace, String behaviorDescribe, String behaviorNote,
-								String communication, String communicationNote, String life, String lifeNote, String useResources, 
-								String useResourcesNote, String selfGuided, String selfGuidedNote, String functional, 
-								String functionalNote, String play, String playNote, String work, String workNote, 
-								String cognitive, String cognitiveNote, String lMuscle, String lMuscleNote, String sMuscle, 
-								String sMuscleNote, String interpersonal, String interpersonalNote, String selfAbility,
-								String selfAbilityNote, String sensory, String sensoryNote, String health, String healthNote,
-								String disease, String diseaseOther, String allergyFood, String allergyOther,String allergyDrug, int medication, String medicationNote,
-								String history, int sCantonese, int rCantonese, int lCantonese, int wCantonese, int sMandarin, 
-								int rMandarin, int lMandarin, int wMandarin, String sRLWOther, String others, String physicalReason,
-								String knowReason, String wish, String otherReason, int socially, String emotional, String inducements,
-								String solve, String attack, String temper, String behavior, String behaviorHandle, String sport, String art,
-								String hobby, String morningLife, String afternoonLife, String nightLife, String lifeEnvironment,
-								String workerNote, String behaviourNote,String applyDate_str,String physicalDate_str,
-								String visionDate_str,String hearingDate_str, String iQDate_str,String speechDate_str,String behaviorDate_str,
-								Date startDate,String startDate_str,Date awaitDate,String awaitDate_str,String fullName, String isMember,Date assessDate,Date closeDate,
-								String assessDate_str,String closeDate_str,String caseWorker,int caseStatus,Date receiveDate,String receiveDate_str,
-								String diseaseHeredity, int communicationLevel, int selfLevel, int lifeLevel, int socialLevel, int recourceLevel, int guideLevel, int safetyLevel,
-								int fnLevel, int playLevel, int workerLevel, String supportPeople, String coldnessPeople, String connivePeople, String neglectPeople, String protectPeople, String severePeople){
+	public Treatment(String treatmentID, int treatmentType, String custID, String treatmentNO, String worker, Date applyDate, int serviceStatus, String reason, String note, String familySituation, int physicalAssess, int physicalLevel, Date physicalDate, String physicalPlace, String physicalDescribe, String physicalNote, int visionAssess, int visionLevel, Date visionDate, String visionPlace, String visionDescribe, String visionNote, int hearingAssess, int hearingLevel, Date hearingDate, String hearingPlace, String hearingDescribe, String hearingNote, int iQAssess, int iQLevel, Date iQDate, String iQPlace, String iQDescribe, String iQNote, int speechAssess, int speechLevel, Date speechDate, String speechPlace, String speechDescribe, String speechNote, int behaviorAssess, int behaviorLevel, Date behaviorDate, String behaviorPlace, String behaviorDescribe, String behaviorNote, String communication, String communicationNote, String life, String lifeNote, String useResources, String useResourcesNote, String selfGuided, String selfGuidedNote, String functional, String functionalNote, String play, String playNote, String work, String workNote, String cognitive, String cognitiveNote, String lMuscle, String lMuscleNote, String sMuscle, String sMuscleNote, String interpersonal, String interpersonalNote, String selfAbility, String selfAbilityNote, String sensory, String sensoryNote, String health, String healthNote, String disease, String diseaseOther, String allergyFood, String allergyOther, int medication, String medicationNote, String history, int sCantonese, int rCantonese, int lCantonese, int wCantonese, int sMandarin, int rSMandarin, int lSMandarin, int wSMandarin, String sRLWOther, String others, String physicalReason, String knowReason, String wish, String otherReason, int socially, String emotional, String inducements, String solve, String attack, String temper, String behavior, String behaviorHandle, String sport, String art, String hobby, String morningLife, String afternoonLife, String nightLife, String lifeEnvironment, String workerNote, String behaviourNote, Date startDate, Date awaitDate, String diseaseHeredity, String allergyDrug, int communicationLevel, int selfLevel, int lifeLevel, int socialLevel, int recourceLevel, int guideLevel, int safetyLevel, int fnLevel, int playLevel, int workerLevel, String supportPeople, String coldnessPeople, String connivePeople, String neglectPeole, String protectPeole, String severePeople ){
 		super();
 		this.treatmentID=treatmentID;
 		this.treatmentType=treatmentType;
@@ -282,7 +233,6 @@ public class TreatmentPojo implements Serializable {
 		this.diseaseOther=diseaseOther;
 		this.allergyFood=allergyFood;
 		this.allergyOther=allergyOther;
-		this.allergyDrug=allergyDrug;
 		this.medication=medication;
 		this.medicationNote=medicationNote;
 		this.history=history;
@@ -291,9 +241,9 @@ public class TreatmentPojo implements Serializable {
 		this.lCantonese=lCantonese;
 		this.wCantonese=wCantonese;
 		this.sMandarin=sMandarin;
-		this.rMandarin=rMandarin;
-		this.lMandarin=lMandarin;
-		this.wMandarin=wMandarin;
+		this.rSMandarin=rSMandarin;
+		this.lSMandarin=lSMandarin;
+		this.wSMandarin=wSMandarin;
 		this.sRLWOther=sRLWOther;
 		this.others=others;
 		this.physicalReason=physicalReason;
@@ -320,6 +270,7 @@ public class TreatmentPojo implements Serializable {
 		this.startDate=startDate;
 		this.awaitDate=awaitDate;
 		this.diseaseHeredity=diseaseHeredity;
+		this.allergyDrug=allergyDrug;
 		this.communicationLevel=communicationLevel;
 		this.selfLevel=selfLevel;
 		this.lifeLevel=lifeLevel;
@@ -333,33 +284,9 @@ public class TreatmentPojo implements Serializable {
 		this.supportPeople=supportPeople;
 		this.coldnessPeople=coldnessPeople;
 		this.connivePeople=connivePeople;
-		this.neglectPeople=neglectPeople;
-		this.protectPeople=protectPeople;
+		this.neglectPeole=neglectPeole;
+		this.protectPeole=protectPeole;
 		this.severePeople=severePeople;
-		
-		this.fullName=fullName;
-		this.isMember=isMember;
-		
-		this.caseWorker=caseWorker;
-		this.caseStatus=caseStatus;
-		this.receiveDate=receiveDate;
-		this.receiveDate_str=receiveDate_str;
-		
-		this.assessDate=assessDate;
-		
-		this.closeDate=closeDate;
-		
-		this.applyDate_str=applyDate_str;
-		this.physicalDate_str=physicalDate_str;
-		this.visionDate_str=visionDate_str;
-		this.hearingDate_str=hearingDate_str;
-		this.iQDate_str=iQDate_str;
-		this.speechDate_str=speechDate_str;
-		this.behaviorDate_str=behaviorDate_str;
-		this.startDate_str=startDate_str;
-		this.awaitDate_str=awaitDate_str;
-		this.assessDate_str=assessDate_str;
-		this.closeDate_str=closeDate_str;
 	}
 	public void setTreatmentID(String treatmentID){
 		this.treatmentID=treatmentID;
@@ -529,40 +456,40 @@ public class TreatmentPojo implements Serializable {
 	public String getHearingNote(){
 		return hearingNote;
 	}
-	public int getiQAssess() {
+	public void setIQAssess(int iQAssess){
+		this.iQAssess=iQAssess;
+	}
+	public int getIQAssess(){
 		return iQAssess;
 	}
-	public void setiQAssess(int iQAssess) {
-		this.iQAssess = iQAssess;
+	public void setIQLevel(int iQLevel){
+		this.iQLevel=iQLevel;
 	}
-	public int getiQLevel() {
+	public int getIQLevel(){
 		return iQLevel;
 	}
-	public void setiQLevel(int iQLevel) {
-		this.iQLevel = iQLevel;
+	public void setIQDate(Date iQDate){
+		this.iQDate=iQDate;
 	}
-	public Date getiQDate() {
+	public Date getIQDate(){
 		return iQDate;
 	}
-	public void setiQDate(Date iQDate) {
-		this.iQDate = iQDate;
-	}
-	public void setiQPlace(String iQPlace){
+	public void setIQPlace(String iQPlace){
 		this.iQPlace=iQPlace;
 	}
-	public String getiQPlace(){
+	public String getIQPlace(){
 		return iQPlace;
 	}
-	public void setiQDescribe(String iQDescribe){
+	public void setIQDescribe(String iQDescribe){
 		this.iQDescribe=iQDescribe;
 	}
-	public String getiQDescribe(){
+	public String getIQDescribe(){
 		return iQDescribe;
 	}
-	public void setiQNote(String iQNote){
+	public void setIQNote(String iQNote){
 		this.iQNote=iQNote;
 	}
-	public String getiQNote(){
+	public String getIQNote(){
 		return iQNote;
 	}
 	public void setSpeechAssess(int speechAssess){
@@ -733,6 +660,30 @@ public class TreatmentPojo implements Serializable {
 	public String getCognitiveNote(){
 		return cognitiveNote;
 	}
+	public void setLMuscle(String lMuscle){
+		this.lMuscle=lMuscle;
+	}
+	public String getLMuscle(){
+		return lMuscle;
+	}
+	public void setLMuscleNote(String lMuscleNote){
+		this.lMuscleNote=lMuscleNote;
+	}
+	public String getLMuscleNote(){
+		return lMuscleNote;
+	}
+	public void setSMuscle(String sMuscle){
+		this.sMuscle=sMuscle;
+	}
+	public String getSMuscle(){
+		return sMuscle;
+	}
+	public void setSMuscleNote(String sMuscleNote){
+		this.sMuscleNote=sMuscleNote;
+	}
+	public String getSMuscleNote(){
+		return sMuscleNote;
+	}
 	public void setInterpersonal(String interpersonal){
 		this.interpersonal=interpersonal;
 	}
@@ -793,14 +744,6 @@ public class TreatmentPojo implements Serializable {
 	public String getDiseaseOther(){
 		return diseaseOther;
 	}
-	
-	
-	public String getDiseaseHeredity() {
-		return diseaseHeredity;
-	}
-	public void setDiseaseHeredity(String diseaseHeredity) {
-		this.diseaseHeredity = diseaseHeredity;
-	}
 	public void setAllergyFood(String allergyFood){
 		this.allergyFood=allergyFood;
 	}
@@ -830,6 +773,60 @@ public class TreatmentPojo implements Serializable {
 	}
 	public String getHistory(){
 		return history;
+	}
+	public void setSCantonese(int sCantonese){
+		this.sCantonese=sCantonese;
+	}
+	public int getSCantonese(){
+		return sCantonese;
+	}
+	public void setRCantonese(int rCantonese){
+		this.rCantonese=rCantonese;
+	}
+	public int getRCantonese(){
+		return rCantonese;
+	}
+	public void setLCantonese(int lCantonese){
+		this.lCantonese=lCantonese;
+	}
+	public int getLCantonese(){
+		return lCantonese;
+	}
+	public void setWCantonese(int wCantonese){
+		this.wCantonese=wCantonese;
+	}
+	public int getWCantonese(){
+		return wCantonese;
+	}
+	public void setSMandarin(int sMandarin){
+		this.sMandarin=sMandarin;
+	}
+	public int getSMandarin(){
+		return sMandarin;
+	}
+	public void setRSMandarin(int rSMandarin){
+		this.rSMandarin=rSMandarin;
+	}
+	public int getRSMandarin(){
+		return rSMandarin;
+	}
+	public void setLSMandarin(int lSMandarin){
+		this.lSMandarin=lSMandarin;
+	}
+	public int getLSMandarin(){
+		return lSMandarin;
+	}
+	public void setWSMandarin(int wSMandarin){
+		this.wSMandarin=wSMandarin;
+	}
+	public int getWSMandarin(){
+		return wSMandarin;
+	}
+	public void setSRLWOther(String sRLWOther){
+		this.sRLWOther=sRLWOther;
+	}
+	public String getSRLWOther(){
+		return sRLWOther;
 	}
 	public void setOthers(String others){
 		this.others=others;
@@ -963,308 +960,29 @@ public class TreatmentPojo implements Serializable {
 	public String getBehaviourNote(){
 		return behaviourNote;
 	}
-	
-	
-
-	public String getApplyDate_str() {
-		try {
-			return applyDate == null || "".equals(applyDate) ? ""
-					: ToolsUtils.getDateStringByFormat(applyDate, null, "yyyy-MM-dd");
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		}
+	public void setStartDate(Date startDate){
+		this.startDate=startDate;
 	}
-	public void setApplyDate_str(String applyDate_str) {
-		this.applyDate_str = applyDate_str;
-	}
-	public String getPhysicalDate_str() {
-		try {
-			return physicalDate == null || "".equals(physicalDate) ? ""
-					: ToolsUtils.getDateStringByFormat(physicalDate, null, "yyyy-MM-dd");
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	public void setPhysicalDate_str(String physicalDate_str) {
-		this.physicalDate_str = physicalDate_str;
-	}
-	public String getVisionDate_str() {
-		try {
-			return visionDate == null || "".equals(visionDate) ? ""
-					: ToolsUtils.getDateStringByFormat(visionDate, null, "yyyy-MM-dd");
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	public void setVisionDate_str(String visionDate_str) {
-		this.visionDate_str = visionDate_str;
-	}
-	public String getHearingDate_str() {
-		try {
-			return hearingDate == null || "".equals(hearingDate) ? ""
-					: ToolsUtils.getDateStringByFormat(hearingDate, null, "yyyy-MM-dd");
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	public void setHearingDate_str(String hearingDate_str) {
-		this.hearingDate_str = hearingDate_str;
-	}
-	public String getiQDate_str() {
-		try {
-			return iQDate == null || "".equals(iQDate) ? ""
-					: ToolsUtils.getDateStringByFormat(iQDate, null, "yyyy-MM-dd");
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	public void setiQDate_str(String iQDate_str) {
-		this.iQDate_str = iQDate_str;
-	}
-	public String getSpeechDate_str() {
-		try {
-			return speechDate == null || "".equals(speechDate) ? ""
-					: ToolsUtils.getDateStringByFormat(speechDate, null, "yyyy-MM-dd");
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	public void setSpeechDate_str(String speechDate_str) {
-		this.speechDate_str = speechDate_str;
-	}
-	public String getBehaviorDate_str() {
-		try {
-			return behaviorDate == null || "".equals(behaviorDate) ? ""
-					: ToolsUtils.getDateStringByFormat(behaviorDate, null, "yyyy-MM-dd");
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	public void setBehaviorDate_str(String behaviorDate_str) {
-		this.behaviorDate_str = behaviorDate_str;
-	}
-	
-	
-	
-	public Date getAwaitDate() {
-		return awaitDate;
-	}
-	public void setAwaitDate(Date awaitDate) {
-		this.awaitDate = awaitDate;
-	}
-	public String getAwaitDate_str() {
-		try {
-			return awaitDate == null || "".equals(awaitDate) ? ""
-					: ToolsUtils.getDateStringByFormat(awaitDate, null, "yyyy-MM-dd");
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	public void setAwaitDate_str(String awaitDate_str) {
-		this.awaitDate_str = awaitDate_str;
-	}
-	public Date getStartDate() {
+	public Date getStartDate(){
 		return startDate;
 	}
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setAwaitDate(Date awaitDate){
+		this.awaitDate=awaitDate;
 	}
-	public String getStartDate_str() {
-		try {
-			return startDate == null || "".equals(startDate) ? ""
-					: ToolsUtils.getDateStringByFormat(startDate, null, "yyyy-MM-dd");
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		}
+	public Date getAwaitDate(){
+		return awaitDate;
 	}
-	public void setStartDate_str(String startDate_str) {
-		this.startDate_str = startDate_str;
+	public void setDiseaseHeredity(String diseaseHeredity){
+		this.diseaseHeredity=diseaseHeredity;
 	}
-	
-	
-	
-	public String getFullName() {
-		return fullName;
+	public String getDiseaseHeredity(){
+		return diseaseHeredity;
 	}
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setAllergyDrug(String allergyDrug){
+		this.allergyDrug=allergyDrug;
 	}
-	public String getIsMember() {
-		return isMember;
-	}
-	public void setIsMember(String isMember) {
-		this.isMember = isMember;
-	}
-	
-	
-	
-	public String getlMuscle() {
-		return lMuscle;
-	}
-	public void setlMuscle(String lMuscle) {
-		this.lMuscle = lMuscle;
-	}
-	public String getlMuscleNote() {
-		return lMuscleNote;
-	}
-	public void setlMuscleNote(String lMuscleNote) {
-		this.lMuscleNote = lMuscleNote;
-	}
-	public String getsMuscle() {
-		return sMuscle;
-	}
-	public void setsMuscle(String sMuscle) {
-		this.sMuscle = sMuscle;
-	}
-	public String getsMuscleNote() {
-		return sMuscleNote;
-	}
-	public void setsMuscleNote(String sMuscleNote) {
-		this.sMuscleNote = sMuscleNote;
-	}
-	public int getsCantonese() {
-		return sCantonese;
-	}
-	public void setsCantonese(int sCantonese) {
-		this.sCantonese = sCantonese;
-	}
-	public int getrCantonese() {
-		return rCantonese;
-	}
-	public void setrCantonese(int rCantonese) {
-		this.rCantonese = rCantonese;
-	}
-	public int getlCantonese() {
-		return lCantonese;
-	}
-	public void setlCantonese(int lCantonese) {
-		this.lCantonese = lCantonese;
-	}
-	public int getwCantonese() {
-		return wCantonese;
-	}
-	public void setwCantonese(int wCantonese) {
-		this.wCantonese = wCantonese;
-	}
-	public int getsMandarin() {
-		return sMandarin;
-	}
-	public void setsMandarin(int sMandarin) {
-		this.sMandarin = sMandarin;
-	}
-	public int getrMandarin() {
-		return rMandarin;
-	}
-	public void setrMandarin(int rMandarin) {
-		this.rMandarin = rMandarin;
-	}
-	public int getlMandarin() {
-		return lMandarin;
-	}
-	public void setlMandarin(int lMandarin) {
-		this.lMandarin = lMandarin;
-	}
-	public int getwMandarin() {
-		return wMandarin;
-	}
-	public void setwMandarin(int wMandarin) {
-		this.wMandarin = wMandarin;
-	}
-	public String getsRLWOther() {
-		return sRLWOther;
-	}
-	public void setsRLWOther(String sRLWOther) {
-		this.sRLWOther = sRLWOther;
-	}
-	
-	
-	
-	public Date getAssessDate() {
-		return assessDate;
-	}
-	public void setAssessDate(Date assessDate) {
-		this.assessDate = assessDate;
-	}
-	public Date getCloseDate() {
-		return closeDate;
-	}
-	public void setCloseDate(Date closeDate) {
-		this.closeDate = closeDate;
-	}
-	public String getAssessDate_str() {
-		try {
-			return assessDate == null || "".equals(assessDate) ? ""
-					: ToolsUtils.getDateStringByFormat(assessDate, null, "yyyy-MM-dd");
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	public void setAssessDate_str(String assessDate_str) {
-		this.assessDate_str = assessDate_str;
-	}
-	public String getCloseDate_str() {
-		try {
-			return closeDate == null || "".equals(closeDate) ? ""
-					: ToolsUtils.getDateStringByFormat(closeDate, null, "yyyy-MM-dd");
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	public void setCloseDate_str(String closeDate_str) {
-		this.closeDate_str = closeDate_str;
-	}
-	
-	
-	
-	public String getCaseWorker() {
-		return caseWorker;
-	}
-	public void setCaseWorker(String caseWorker) {
-		this.caseWorker = caseWorker;
-	}
-	public Date getReceiveDate() {
-		return receiveDate;
-	}
-	public void setReceiveDate(Date receiveDate) {
-		this.receiveDate = receiveDate;
-	}
-	public int getCaseStatus() {
-		return caseStatus;
-	}
-	public void setCaseStatus(int caseStatus) {
-		this.caseStatus = caseStatus;
-	}
-	public String getReceiveDate_str() {
-		try {
-			return receiveDate == null || "".equals(receiveDate) ? ""
-					: ToolsUtils.getDateStringByFormat(receiveDate, null, "yyyy-MM-dd");
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	public void setReceiveDate_str(String receiveDate_str) {
-		this.receiveDate_str = receiveDate_str;
-	}
-	
-	
-	
-	public String getAllergyDrug() {
+	public String getAllergyDrug(){
 		return allergyDrug;
-	}
-	public void setAllergyDrug(String allergyDrug) {
-		this.allergyDrug = allergyDrug;
 	}
 	public void setCommunicationLevel(int communicationLevel){
 		this.communicationLevel=communicationLevel;
@@ -1326,89 +1044,45 @@ public class TreatmentPojo implements Serializable {
 	public int getWorkerLevel(){
 		return workerLevel;
 	}
-	
-	
-	
-	public String getSupportPeople() {
+	public void setSupportPeople(String supportPeople){
+		this.supportPeople=supportPeople;
+	}
+	public String getSupportPeople(){
 		return supportPeople;
 	}
-	public void setSupportPeople(String supportPeople) {
-		this.supportPeople = supportPeople;
+	public void setColdnessPeople(String coldnessPeople){
+		this.coldnessPeople=coldnessPeople;
 	}
-	public String getColdnessPeople() {
+	public String getColdnessPeople(){
 		return coldnessPeople;
 	}
-	public void setColdnessPeople(String coldnessPeople) {
-		this.coldnessPeople = coldnessPeople;
+	public void setConnivePeople(String connivePeople){
+		this.connivePeople=connivePeople;
 	}
-	public String getConnivePeople() {
+	public String getConnivePeople(){
 		return connivePeople;
 	}
-	public void setConnivePeople(String connivePeople) {
-		this.connivePeople = connivePeople;
+	public void setNeglectPeole(String neglectPeole){
+		this.neglectPeole=neglectPeole;
 	}
-	public String getNeglectPeople() {
-		return neglectPeople;
+	public String getNeglectPeole(){
+		return neglectPeole;
 	}
-	public void setNeglectPeople(String neglectPeople) {
-		this.neglectPeople = neglectPeople;
+	public void setProtectPeole(String protectPeole){
+		this.protectPeole=protectPeole;
 	}
-	public String getProtectPeople() {
-		return protectPeople;
+	public String getProtectPeole(){
+		return protectPeole;
 	}
-	public void setProtectPeople(String protectPeople) {
-		this.protectPeople = protectPeople;
+	public void setSeverePeople(String severePeople){
+		this.severePeople=severePeople;
 	}
-	public String getSeverePeople() {
+	public String getSeverePeople(){
 		return severePeople;
-	}
-	public void setSeverePeople(String severePeople) {
-		this.severePeople = severePeople;
 	}
 	@Override
 	public String toString(){
-		return "Treatment [treatmentID="+treatmentID+",treatmentType="+treatmentType+",custID="+custID+
-				",treatmentNO="+treatmentNO+",worker="+worker+",applyDate="+applyDate+
-				",serviceStatus="+serviceStatus+",reason="+reason+
-				",note="+note+",familySituation="+familySituation+",physicalAssess="+physicalAssess+
-				",physicalLevel="+physicalLevel+",physicalDate="+physicalDate+
-				",physicalPlace="+physicalPlace+",physicalDescribe="+physicalDescribe+
-				",physicalNote="+physicalNote+",visionAssess="+visionAssess+",visionLevel="+visionLevel+
-				",visionDate="+visionDate+",visionPlace="+visionPlace+",visionDescribe="+visionDescribe+
-				",visionNote="+visionNote+",hearingAssess="+hearingAssess+",hearingLevel="+hearingLevel+
-				",hearingDate="+hearingDate+",hearingPlace="+hearingPlace+",hearingDescribe="+hearingDescribe+
-				",hearingNote="+hearingNote+",iQAssess="+iQAssess+",iQLevel="+iQLevel+",iQDate="+iQDate+
-				",iQPlace="+iQPlace+",iQDescribe="+iQDescribe+",iQNote="+iQNote+",speechAssess="+speechAssess+
-				",speechLevel="+speechLevel+",speechDate="+speechDate+",speechPlace="+speechPlace+
-				",speechDescribe="+speechDescribe+",speechNote="+speechNote+",behaviorAssess="+behaviorAssess+
-				",behaviorLevel="+behaviorLevel+",behaviorDate="+behaviorDate+",behaviorPlace="+behaviorPlace+
-				",behaviorDescribe="+behaviorDescribe+",behaviorNote="+behaviorNote+",communication="+communication+
-				",communicationNote="+communicationNote+",life="+life+",lifeNote="+lifeNote+",useResources="+useResources+
-				",useResourcesNote="+useResourcesNote+",selfGuided="+selfGuided+",selfGuidedNote="+selfGuidedNote+
-				",functional="+functional+",functionalNote="+functionalNote+",play="+play+",playNote="+playNote+
-				",work="+work+",workNote="+workNote+",cognitive="+cognitive+",cognitiveNote="+cognitiveNote+
-				",lMuscle="+lMuscle+",lMuscleNote="+lMuscleNote+",sMuscle="+sMuscle+",sMuscleNote="+sMuscleNote+
-				",interpersonal="+interpersonal+",interpersonalNote="+interpersonalNote+",selfAbility="+selfAbility+
-				",selfAbilityNote="+selfAbilityNote+",sensory="+sensory+",sensoryNote="+sensoryNote+",health="+health+
-				",healthNote="+healthNote+",disease="+disease+",diseaseOther="+diseaseOther+",allergyFood="+allergyFood+
-				",allergyOther="+allergyOther+",allergyDrug="+allergyDrug+",medication="+medication+",medicationNote="+medicationNote+
-				",history="+history+",sCantonese="+sCantonese+",rCantonese="+rCantonese+",lCantonese="+lCantonese+
-				",wCantonese="+wCantonese+",sMandarin="+sMandarin+",rMandarin="+rMandarin+",lMandarin="+lMandarin+
-				",wMandarin="+wMandarin+",sRLWOther="+sRLWOther+",others="+others+",physicalReason="+physicalReason+
-				",knowReason="+knowReason+",wish="+wish+",otherReason="+otherReason+",socially="+socially+
-				",emotional="+emotional+",inducements="+inducements+",solve="+solve+",attack="+attack+",temper="+temper+
-				",behavior="+behavior+",behaviorHandle="+behaviorHandle+",sport="+sport+",art="+art+",hobby="+hobby+
-				",morningLife="+morningLife+",afternoonLife="+afternoonLife+",nightLife="+nightLife+
-				",lifeEnvironment="+lifeEnvironment+",workerNote="+workerNote+",behaviourNote="+behaviourNote+
-				",applyDate_str="+applyDate_str+",physicalDate_str="+physicalDate_str+
-				",visionDate_str="+visionDate_str+",hearingDate_str="+hearingDate_str+",iQDate_str="+iQDate_str+",speechDate_str="+speechDate_str+
-				",behaviorDate_str="+behaviorDate_str+",startDate="+startDate+",startDate_str"+startDate_str+
-				",awaitDate="+awaitDate+",awaitDate_str="+awaitDate_str+",fullName="+fullName+",isMember="+isMember+
-				",assessDate="+assessDate+",closeDate="+closeDate+",assessDate_str="+assessDate_str+",closeDate_str="+closeDate_str+
-				",caseWorker="+caseWorker+",caseStatus="+caseStatus+",receiveDate="+receiveDate+",receiveDate_str="+receiveDate_str+
-				",diseaseHeredity="+diseaseHeredity+",communicationLevel="+communicationLevel+",selfLevel="+selfLevel+",lifeLevel="+lifeLevel+
-				",socialLevel="+socialLevel+",recourceLevel="+recourceLevel+",guideLevel="+guideLevel+",safetyLevel="+safetyLevel+",fnLevel="+fnLevel+",playLevel="+playLevel+
-				",workerLevel="+workerLevel+",supportPeople="+supportPeople+",coldnessPeople="+coldnessPeople+",connivePeople="+connivePeople+",neglectPeople="+neglectPeople+
-				",protectPeople="+protectPeople+",severePeople="+severePeople+"]";
+		return "Treatment [treatmentID="+treatmentID+",treatmentType="+treatmentType+",custID="+custID+",treatmentNO="+treatmentNO+",worker="+worker+",applyDate="+applyDate+",serviceStatus="+serviceStatus+",reason="+reason+",note="+note+",familySituation="+familySituation+",physicalAssess="+physicalAssess+",physicalLevel="+physicalLevel+",physicalDate="+physicalDate+",physicalPlace="+physicalPlace+",physicalDescribe="+physicalDescribe+",physicalNote="+physicalNote+",visionAssess="+visionAssess+",visionLevel="+visionLevel+",visionDate="+visionDate+",visionPlace="+visionPlace+",visionDescribe="+visionDescribe+",visionNote="+visionNote+",hearingAssess="+hearingAssess+",hearingLevel="+hearingLevel+",hearingDate="+hearingDate+",hearingPlace="+hearingPlace+",hearingDescribe="+hearingDescribe+",hearingNote="+hearingNote+",iQAssess="+iQAssess+",iQLevel="+iQLevel+",iQDate="+iQDate+",iQPlace="+iQPlace+",iQDescribe="+iQDescribe+",iQNote="+iQNote+",speechAssess="+speechAssess+",speechLevel="+speechLevel+",speechDate="+speechDate+",speechPlace="+speechPlace+",speechDescribe="+speechDescribe+",speechNote="+speechNote+",behaviorAssess="+behaviorAssess+",behaviorLevel="+behaviorLevel+",behaviorDate="+behaviorDate+",behaviorPlace="+behaviorPlace+",behaviorDescribe="+behaviorDescribe+",behaviorNote="+behaviorNote+",communication="+communication+",communicationNote="+communicationNote+",life="+life+",lifeNote="+lifeNote+",useResources="+useResources+",useResourcesNote="+useResourcesNote+",selfGuided="+selfGuided+",selfGuidedNote="+selfGuidedNote+",functional="+functional+",functionalNote="+functionalNote+",play="+play+",playNote="+playNote+",work="+work+",workNote="+workNote+",cognitive="+cognitive+",cognitiveNote="+cognitiveNote+",lMuscle="+lMuscle+",lMuscleNote="+lMuscleNote+",sMuscle="+sMuscle+",sMuscleNote="+sMuscleNote+",interpersonal="+interpersonal+",interpersonalNote="+interpersonalNote+",selfAbility="+selfAbility+",selfAbilityNote="+selfAbilityNote+",sensory="+sensory+",sensoryNote="+sensoryNote+",health="+health+",healthNote="+healthNote+",disease="+disease+",diseaseOther="+diseaseOther+",allergyFood="+allergyFood+",allergyOther="+allergyOther+",medication="+medication+",medicationNote="+medicationNote+",history="+history+",sCantonese="+sCantonese+",rCantonese="+rCantonese+",lCantonese="+lCantonese+",wCantonese="+wCantonese+",sMandarin="+sMandarin+",rSMandarin="+rSMandarin+",lSMandarin="+lSMandarin+",wSMandarin="+wSMandarin+",sRLWOther="+sRLWOther+",others="+others+",physicalReason="+physicalReason+",knowReason="+knowReason+",wish="+wish+",otherReason="+otherReason+",socially="+socially+",emotional="+emotional+",inducements="+inducements+",solve="+solve+",attack="+attack+",temper="+temper+",behavior="+behavior+",behaviorHandle="+behaviorHandle+",sport="+sport+",art="+art+",hobby="+hobby+",morningLife="+morningLife+",afternoonLife="+afternoonLife+",nightLife="+nightLife+",lifeEnvironment="+lifeEnvironment+",workerNote="+workerNote+",behaviourNote="+behaviourNote+",startDate="+startDate+",awaitDate="+awaitDate+",diseaseHeredity="+diseaseHeredity+",allergyDrug="+allergyDrug+",communicationLevel="+communicationLevel+",selfLevel="+selfLevel+",lifeLevel="+lifeLevel+",socialLevel="+socialLevel+",recourceLevel="+recourceLevel+",guideLevel="+guideLevel+",safetyLevel="+safetyLevel+",fnLevel="+fnLevel+",playLevel="+playLevel+",workerLevel="+workerLevel+",supportPeople="+supportPeople+",coldnessPeople="+coldnessPeople+",connivePeople="+connivePeople+",neglectPeole="+neglectPeole+",protectPeole="+protectPeole+",severePeople="+severePeople+"]";
 	}
 }
+

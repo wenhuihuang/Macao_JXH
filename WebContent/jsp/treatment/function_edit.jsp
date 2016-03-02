@@ -19,12 +19,9 @@ String basePath = request.getScheme() + "://"
         var familyDataGrid,
         	schoolDataGrid,
         	cureDataGrid,
-        	planDataGrid,
-        	recordDataGrid,
         	groupPlanDataGrid,
         	groupRecordDataGrid,
         	flowPlanDataGrid,
-        	//stateRecordDataGrid,
         	manifestationDataGrid;
         
         //家庭背景
@@ -124,69 +121,6 @@ String basePath = request.getScheme() + "://"
 		cureDataGrid.deleteSelectedRow();
 	}
 	
-	//治療計畫
-	function bindingPlanDataGrid(){
-		
-		var planDataGridColumn = [
-									{ display: 'planID', name: 'planID', hide:true },
-									{ display: '日期', name: 'billDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '時間', name: 'time', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '治療內容', name: 'content', width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '治療目標', name: 'target', width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '收費金額', name: 'charge', width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '繳費金額', name: 'payment', width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '備註', name: 'note', width: 150 ,type:"text",editor: { type: 'text'}},
-								];
-				
-				
-		var planDataGridToolBar = [
-	          { text: '新增', click: addPlanData, icon: 'add' , id:"add" },
-	          { line: true },
-	          { text: '删除', click: deletePlanData, icon: 'delete' , id:"delete" }];
-		
-		var url = "Treatment/getTreatmentPlan.do?treatmentID="+$("#treatmentID").val();
-		
-		planDataGrid = ligerGrid("planDataGrid",null,planDataGridColumn,url,planDataGridToolBar,false,true);
-		
-	}
-	function addPlanData(){
-		planDataGrid.addRow();
-	}
-	function deletePlanData(){
-		planDataGrid.deleteSelectedRow();
-	}
-	
-	//言語治療課堂記錄
-	function bindingRecordDataGrid(){
-		
-		var recordDataGridColumn = [
-									{ display: 'planID', name: 'planID', hide:true },
-									{ display: '日期', name: 'billDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-									{ display: '時間', name: 'time', width: 100,type:"text",editor: { type: 'text' }},
-									{ display: '治療內容', name: 'content', width: 150 ,type:"text",editor: { type: 'text'}},
-									{ display: '治療目標', name: 'target', width: 150 ,type:"text",editor: { type: 'text'}},
-									{ display: '活動', name: 'activity', width: 150 ,type:"text",editor: { type: 'text'}},
-									{ display: '學生表現', name: 'performance', width: 150 ,type:"text",editor: { type: 'text'}},
-									{ display: '備註', name: 'note', width: 150 ,type:"text",editor: { type: 'text'}},
-								];
-				
-				
-		var recordDataGridToolBar = [
-	          { text: '新增', click: addRecordData, icon: 'add' , id:"add" },
-	          { line: true },
-	          { text: '删除', click: deleteRecordData, icon: 'delete' , id:"delete" }];
-		
-		var url = "Treatment/getTreatmentRecord.do?treatmentID="+$("#treatmentID").val();
-		
-		recordDataGrid = ligerGrid("recordDataGrid",null,recordDataGridColumn,url,recordDataGridToolBar,false,true);
-		
-	}
-	function addRecordData(){
-		recordDataGrid.addRow();
-	}
-	function deleteRecordData(){
-		recordDataGrid.deleteSelectedRow();
-	}
 	
 	//小組訓練計畫
 	function bindingGroupPlanDataGrid(){
@@ -253,12 +187,12 @@ String basePath = request.getScheme() + "://"
 	function bindingFlowPlanDataGrid(){
 		
 		var flowPlanDataGridColumn = [
-									{ display: 'GSID', name: 'GSID', hide:true },
-				                    { display: '活動編號', name: 'GSNO', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '活動名稱', name: 'GSNO', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '日期', name: 'beginDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '時間', name: 'note',width:300, type:"text", editor: { type: 'text'}},
-				                    { display: '活動流程', name: 'note',width:300, type:"text", editor: { type: 'text'}},
+									{ display: 'planID', name: 'planID', hide:true },
+				                    { display: '活動編號', name: 'actNO', width: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '活動名稱', name: 'actName', width: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '日期', name: 'billDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '時間', name: 'time',width:300, type:"text", editor: { type: 'text'}},
+				                    { display: '活動流程', name: 'actDetail',width:300, type:"text", editor: { type: 'text'}},
 				                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
 				                  ];
 				
@@ -284,12 +218,11 @@ String basePath = request.getScheme() + "://"
 	function bindingManifestationDataGrid(){
 		
 		var manifestationDataGridColumn = [
-									{ display: 'GSID', name: 'GSID', hide:true },
-				                    { display: '活動編號', name: 'GSNO', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '活動名稱', name: 'GSNO', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '日期', name: 'beginDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '時間', name: 'note',width:300, type:"text", editor: { type: 'text'}},
-				                    { display: '活動流程', name: 'note',width:300, type:"text", editor: { type: 'text'}},
+								/* 	{ display: 'GSID', name: 'GSID', hide:true }, */
+				                    { display: '日期', name: 'billDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '時間', name: 'time', width: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '當天安排', name: 'content',width:300, type:"text", editor: { type: 'text'}},
+				                    { display: '學員表現', name: 'performance',width:300, type:"text", editor: { type: 'text'}},
 				                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
 				                  ];
 				
@@ -317,7 +250,7 @@ String basePath = request.getScheme() + "://"
 				save();
 			break;
 			case "back":
-				location.href="jsp/treatment/language_list.jsp";
+				location.href="jsp/treatment/function_list.jsp";
 			break;
 		}
 		
@@ -333,13 +266,13 @@ String basePath = request.getScheme() + "://"
 		$("#treatmentHistoryAdds").val(getAddedRows(cureDataGrid));
  		$("#treatmentHistoryUpdates").val(getEditedRows(cureDataGrid));
  		$("#treatmentHistoryDeletes").val(getDeletedRows(cureDataGrid)); 
- 		$("#treatmentPlanAdds").val(getAddedRows(planDataGrid));
+ 	 	$("#treatmentPlanAdds").val(getAddedRows(planDataGrid));
  		$("#treatmentPlanUpdates").val(getEditedRows(planDataGrid));
- 		$("#treatmentPlanDeletes").val(getDeletedRows(planDataGrid)); 
- 		$("#treatmentRecordAdds").val(getAddedRows(recordDataGrid));
+ 		$("#treatmentPlanDeletes").val(getDeletedRows(planDataGrid));  
+/*  	$("#treatmentRecordAdds").val(getAddedRows(recordDataGrid));
  		$("#treatmentRecordUpdates").val(getEditedRows(recordDataGrid));
- 		$("#treatmentRecordDeletes").val(getDeletedRows(recordDataGrid)); 
- 		checkboxValue(["vocabulary","sentenceLen","sentenceOrg","question","narrative","storyTell","interview","servicePoint"])
+ 		$("#treatmentRecordDeletes").val(getDeletedRows(recordDataGrid));  */
+ 		checkboxValue(["disease","attack","temper","behavior"])
 		$("#Button1").click();	
 	}
     
@@ -363,15 +296,14 @@ String basePath = request.getScheme() + "://"
 		bindingFamilyDataGrid();
 		bindingSchoolDataGrid();
 		bindingCureDataGrid();
-		bindingPlanDataGrid();
-		bindingRecordDataGrid();
+		/* bindingPlanDataGrid(); */
+		/* bindingRecordDataGrid(); */
 		bindingGroupPlanDataGrid();
 		bindingGroupRecordDataGrid();
 		bindingFlowPlanDataGrid();
 		bindingManifestationDataGrid();
 		
 	 $("#tab").ligerTab({onAfterSelectTabItem:function(targettabid){
-		 console.log(recordDataGrid.get("isTabCover"));
 			switch(targettabid){
 				case "fn":
 						showGridInTab(familyDataGrid);
@@ -405,9 +337,10 @@ String basePath = request.getScheme() + "://"
 <body>
 	<div class="toptoolbar"></div>
 	<form name="form1" class="liger-form" method="post" action="Treatment/submit.do" id="form1" style="margin: 20px;">
-	<input type="hidden" name="treatmentType" id="treatmentType" value="1">
+	<input type="hidden" name="treatmentType" id="treatmentType" value="5">
 	<input type="hidden" name="custID" id="custID" value="${treatmentPojo.custID }">
 	<input type="hidden" name="treatmentID" id="treatmentID" value="${treatmentPojo.treatmentID }">
+	<input type="hidden" name="trainingID" id="trainingID" value="${treatmentTraining.trainingID }">
 	<input type="hidden" name="treatmentFamilyAdds" id="treatmentFamilyAdds">
 	<input type="hidden" name="treatmentFamilyUpdates" id="treatmentFamilyUpdates">
 	<input type="hidden" name="treatmentFamilyDeletes" id="treatmentFamilyDeletes">
@@ -423,16 +356,15 @@ String basePath = request.getScheme() + "://"
 	<input type="hidden" name="treatmentRecordAdds" id="treatmentRecordAdds">
 	<input type="hidden" name="treatmentRecordUpdates" id="treatmentRecordUpdates">
 	<input type="hidden" name="treatmentRecordDeletes" id="treatmentRecordDeletes">
+	<input type="hidden" name="treatmentRecordAdds" id="treatmentRecordAdds">
+	<input type="hidden" name="treatmentRecordUpdates" id="treatmentRecordUpdates">
+	<input type="hidden" name="treatmentRecordDeletes" id="treatmentRecordDeletes">
 	
-	<input type="hidden" name="vocabulary" id="vocabulary">
-	<input type="hidden" name="sentenceLen" id="sentenceLen">
-	<input type="hidden" name="sentenceOrg" id="sentenceOrg">
-	<input type="hidden" name="question" id="question">
-	<input type="hidden" name="narrative" id="narrative">
-	<input type="hidden" name="storyTell" id="storyTell">
-	<input type="hidden" name="interview" id="interview">
+	<input type="hidden" name="disease" id="disease">
+	<input type="hidden" name="attack" id="attack">
+	<input type="hidden" name="temper" id="temper">
+	<input type="hidden" name="behavior" id="behavior">
 	
-	<input type="hidden" name="servicePoint" id="servicePoint">
 	<div id="tab">
 	<div title="職能訓練" tabid="fn">
 	<table>
@@ -440,7 +372,7 @@ String basePath = request.getScheme() + "://"
             <tr>
             	<td align="right" class="l-table-edit-td">檔案編號：</td>
                 <td align="left" class="l-table-edit-td">
-                	<input width="120px" value="${treatmentPojo.treatmentNO }" name="treatmentNO" type="text" id="treatmentNO" ltype="text"">
+                	<input width="120px" value="${customer.custCode }" name="custCode" type="text" ltype="text"">
                 </td>
             
                 <td align="right" class="l-table-edit-td">姓名：</td>
@@ -455,116 +387,121 @@ String basePath = request.getScheme() + "://"
             <tr>
             	  <td align="right" class="l-table-edit-td">接案日期:</td>
 				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${treatmentPojo.startDate_str }" name="startDate" type="text" id="startDate" ltype="date" />
+				 	<input width="120px" value="${custCasePojo.receiveDate_str }" name="receiveDate" type="text" ltype="date" />
 				 </td>
 				 
 				 <td align="right" class="l-table-edit-td">輪候開始日期:</td>
 				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${treatmentPojo.startDate_str }" name="startDate" type="text" id="startDate" ltype="date" />
+				 	<input width="120px" value="${treatmentPojo.awaitDate_str }" name="awaitDate" type="text" ltype="date" />
 				 </td>
 				  <td align="right" class="l-table-edit-td">評估日期:</td>
 				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${treatmentPojo.startDate_str }" name="startDate" type="text" id="startDate" ltype="date" />
+				 	<input width="120px" value="${treatmentAssessPojo.assessDate_str }" name="assessDate" type="text" ltype="date" />
 				 </td>
 				   <td align="right" class="l-table-edit-td">個案狀態:</td>
 				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${customer.mobileTelNO }" name="mother" type="text" id="mobileTelNO" ltype="text" />
+				 	<input width="120px" value="${custCasePojo.caseStatus }" name="caseStatus" type="text" id="caseStatus" ltype="text" />
 				 </td>
+			</tr>
+			<tr>
 				   <td align="right" class="l-table-edit-td">接案來源:</td>
 				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${customer.mobileTelNO }" name="mother" type="text" id="mobileTelNO" ltype="text" />
+				 	<input width="120px" value="${custCasePojo.caseSource }" name="caseSource" type="text" id="caseSource" ltype="text" />
 				 </td>
 				   <td align="right" class="l-table-edit-td">接案社工:</td>
 				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${customer.mobileTelNO }" name="mother" type="text" id="mobileTelNO" ltype="text" />
+				 	<input width="120px" value="${custCasePojo.caseWorker }" name="caseWorker" type="text" id="caseWorker" ltype="text" />
 				 </td>
-				 
+				    <td align="right" class="l-table-edit-td">健康狀況:</td>
+				 <td align="left" class="l-table-edit-td">
+				 	<textarea rows="2" cols="55" name="familySituation" id="familySituation">${treatmentPojo.sensoryNote }</textarea>
+				 </td>
             </tr>
 		</tbody>
 	</table>
 	<div>
-		<div class="inline-group col-2">
-   			<label style="width:100px;text-align:right;">疾病：</label>
-   				<div class="checkbox-group">
-	  				<p>
+	<table class="table-border input-style">
+		<tbody>
+			<tr>
+				<td style="text-align:right">疾病：</td>
+				<td>
+					<p>
 	  					<span style="display:inline-block;width:48px;text-align:right"></span>
-  						<label><input type="checkbox" value="0" class="servicePoint" <c:if test="${(treatmentAssessPojo.servicePoint).indexOf('0') != -1 }">checked="checked"</c:if>>癲癇</label>
-         				<label><input type="checkbox" value="1"  class="servicePoint" <c:if test="${(treatmentAssessPojo.servicePoint).indexOf('1') != -1 }">checked="checked"</c:if>>乙型肝炎 </label>
+  						<label><input type="checkbox" value="0" class="disease" <c:if test="${(treatmentPojo.disease).indexOf('0') != -1 }">checked="checked"</c:if>>癲癇</label>
+         				<label><input type="checkbox" value="1"  class="disease" <c:if test="${(treatmentPojo.disease).indexOf('1') != -1 }">checked="checked"</c:if>>乙型肝炎 </label>
          			</p>
           			<p>
           				<span style="display:inline-block;width:48px;text-align:right"></span>
-          				<label><input type="checkbox" value="2"  class="servicePoint" <c:if test="${(treatmentAssessPojo.servicePoint).indexOf('2') != -1 }">checked="checked"</c:if>> 糖尿病 </label>
-          				<label><input type="checkbox" value="3"  class="servicePoint" <c:if test="${(treatmentAssessPojo.servicePoint).indexOf('3') != -1 }">checked="checked"</c:if>>心臟病</label>
+          				<label><input type="checkbox" value="2"  class="disease" <c:if test="${(treatmentPojo.disease).indexOf('2') != -1 }">checked="checked"</c:if>> 糖尿病 </label>
+          				<label><input type="checkbox" value="3"  class="disease" <c:if test="${(treatmentPojo.disease).indexOf('3') != -1 }">checked="checked"</c:if>>心臟病</label>
           			</p>
           			<p>
           				<span style="display:inline-block;width:48px;text-align:right"></span>
-          				<label><input type="checkbox" value="4"  class="servicePoint" <c:if test="${(treatmentAssessPojo.servicePoint).indexOf('4') != -1 }">checked="checked"</c:if>> 高血壓 </label>
-         				<label><input type="checkbox" value="5"  class="servicePoint" <c:if test="${(treatmentAssessPojo.servicePoint).indexOf('5') != -1 }">checked="checked"</c:if>>氣喘  </label>
+          				<label><input type="checkbox" value="4"  class="disease" <c:if test="${(treatmentPojo.disease).indexOf('4') != -1 }">checked="checked"</c:if>> 高血壓 </label>
+         				<label><input type="checkbox" value="5"  class="disease" <c:if test="${(treatmentPojo.disease).indexOf('5') != -1 }">checked="checked"</c:if>>氣喘  </label>
          			</p>
          			<p>
          				<span style="display:inline-block;width:48px;text-align:right">其他</span>
-         				<textarea rows="2" cols="55" name="suggestOther" id="suggestOther">${treatmentAssessPojo.suggestOther }</textarea>
+         				<textarea rows="2" cols="55" name="diseaseOther" id="diseaseOther">${treatmentPojo.diseaseOther }</textarea>
          			</p>
          			<p>
          				<span style="display:inline-block;width:48px;text-algin:right">遺傳疾病</span>
-         				<textarea rows="2" cols="55" name="suggestOther" id="suggestOther">${treatmentAssessPojo.suggestOther }</textarea>
+         				<textarea rows="2" cols="55" name="diseaseHeredity" id="diseaseHeredity">${treatmentPojo.diseaseHeredity }</textarea>
          			</p>
-	  			</div>
-   		</div>
-   		<div class="inline-group col-2">
-   			<label style="width:100px;text-align:right;">過敏反應：</label>
-   				<div class="checkbox-group">
-         			<p>
+				</td>
+				<td style="text-align:right">過敏反應：</td>
+				<td>
+					<p>
          				<span style="display:inline-block;width:48px;text-align:right">食物</span>
-         				<textarea rows="2" cols="55" name="suggestOther" id="suggestOther">${treatmentAssessPojo.suggestOther }</textarea>
+         				<textarea rows="2" cols="55" name="allergyFood" id="allergyFood">${treatmentPojo.allergyFood }</textarea>
          			</p>
          			<p>
          				<span style="display:inline-block;width:48px;text-align:right">藥物</span>
-         				<textarea rows="2" cols="55" name="suggestOther" id="suggestOther">${treatmentAssessPojo.suggestOther }</textarea>
+         				<textarea rows="2" cols="55" name="allergyDrug" id="allergyDrug">${treatmentPojo.allergyDrug }</textarea>
          			</p>
          			<p>
-         				<span style="display:inline-block;width:48px;text-align:right">其他</span>
-         				<textarea rows="2" cols="55" name="suggestOther" id="suggestOther">${treatmentAssessPojo.suggestOther }</textarea>
+         				<span>其他</span>
+         				<textarea rows="2" cols="55" name="allergyOther" id="allergyOther">${treatmentPojo.allergyOther }</textarea>
          			</p>
-	  			</div>
-   		</div>
-   		<div class="inline-group col-2">
-   			<label style="width:100px;text-align:right;">服藥時間：</label>
-   				<div class="checkbox-group">
-   					<p>
-   						<span style="display:inline-block;width:48px;text-align:right"></span>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align:right">藥時間：</td>
+				<td>
+					<p>
+   						<span style="height:16px"></span>
 	 					<select name="serviceStatus" id="serviceStatus" ltype="select" width="120px" >
-	                		<option value="0" <c:if test="${treatmentPojo.serviceStatus != '1' and treatmentPojo.serviceStatus != '2'}">selected="selected"</c:if> >沒有</option>
-	                		<option value="1" <c:if test="${treatmentPojo.serviceStatus == '1' }">selected="selected"</c:if> >間歇性服藥</option>
-	                		<option value="2" <c:if test="${treatmentPojo.serviceStatus == '2' }">selected="selected"</c:if> >持續性服藥</option>
-	                		<option value="2" <c:if test="${treatmentPojo.serviceStatus == '2' }">selected="selected"</c:if> >三餐前</option>
-	                		<option value="2" <c:if test="${treatmentPojo.serviceStatus == '2' }">selected="selected"</c:if> >三餐後</option>
-	                		<option value="2" <c:if test="${treatmentPojo.serviceStatus == '2' }">selected="selected"</c:if> >早</option>
-	                		<option value="2" <c:if test="${treatmentPojo.serviceStatus == '2' }">selected="selected"</c:if> >午</option>
-	                		<option value="2" <c:if test="${treatmentPojo.serviceStatus == '2' }">selected="selected"</c:if> >晚</option>
+	                		<option value="0" <c:if test="${treatmentPojo.medication == '0' }">selected="selected"</c:if> >沒有</option>
+	                		<option value="1" <c:if test="${treatmentPojo.medication == '1' }">selected="selected"</c:if> >間歇性服藥</option>
+	                		<option value="2" <c:if test="${treatmentPojo.medication == '2' }">selected="selected"</c:if> >持續性服藥</option>
+	                		<option value="3" <c:if test="${treatmentPojo.medication == '3' }">selected="selected"</c:if> >三餐前</option>
+	                		<option value="4" <c:if test="${treatmentPojo.medication == '4' }">selected="selected"</c:if> >三餐後</option>
+	                		<option value="5" <c:if test="${treatmentPojo.medication == '5' }">selected="selected"</c:if> >早</option>
+	                		<option value="6" <c:if test="${treatmentPojo.medication == '6' }">selected="selected"</c:if> >午</option>
+	                		<option value="7" <c:if test="${treatmentPojo.medication == '7' }">selected="selected"</c:if> >晚</option>
 	                	</select> 
    					</p>
          			<p>
          				<span style="display:inline-block;width:48px;text-align:right">其他</span>
-         				<textarea rows="2" cols="55" name="suggestOther" id="suggestOther">${treatmentAssessPojo.suggestOther }</textarea>
+         				<textarea rows="2" cols="55" name="medicationNote" id="medicationNote">${treatmentPojo.medicationNote }</textarea>
          			</p>
-	  			</div>
-   		</div>
-   		<div class="inline-group col-2">
-   			<label style="width:100px;text-align:right;">病史：</label>
-   				<div class="checkbox-group">
-         			<p>
+				</td>
+				<td style="text-align:right">病史：</td>
+				<td>
+					<p>
          				<span style="display:inline-block;width:48px;text-align:right"></span>
-         				<textarea rows="2" cols="55" name="suggestOther" id="suggestOther">${treatmentAssessPojo.suggestOther }</textarea>
+         				<textarea rows="2" cols="55" name="history" id="history">${treatmentPojo.history }</textarea>
          			</p>
-	  			</div>
-   		</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 	</div>
 	
 				 	<div class="panel panel-default">
 							<div class="panel-heading">語言運用</div>
 							<div class="panel-body">
-									<table class="table-center table-edit" border="1">
+									<table class="table-center table-edit" border="1" >
 				            		<thead>
 				            			<tr>
 				            				<th height="28px" width="120px">語言</th>
@@ -578,76 +515,76 @@ String basePath = request.getScheme() + "://"
 				            			<tr>
 				            				<th>廣東話</th>
 				            				<td>
-				            					<select name="physicalAssess" id="physicalAssess" ltype="select" width="120px" >
-							                		<option value="0" <c:if test="${treatmentPojo.physicalAssess != '1' }">selected="selected"</c:if> >完全不懂（0）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >以單字表達意思（1）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >以單句表達意思（2）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能表達完整的意思（3）</option>
+				            					<select name="sCantonese" id="sCantonese" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.sCantonese == '0' }">selected="selected"</c:if> >完全不懂（0）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.sCantonese == '1' }">selected="selected"</c:if> >以單字表達意思（1）</option>
+							                		<option value="2" <c:if test="${treatmentPojo.sCantonese == '2' }">selected="selected"</c:if> >以單句表達意思（2）</option>
+							                		<option value="3" <c:if test="${treatmentPojo.sCantonese == '3' }">selected="selected"</c:if> >能表達完整的意思（3）</option>
 							                	</select> 
 				            				</td>
 				            				<td>
-				            					<select name="physicalAssess" id="physicalAssess" ltype="select" width="120px" >
-							                		<option value="0" <c:if test="${treatmentPojo.physicalAssess != '1' }">selected="selected"</c:if> >完全不懂（0）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹單詞（1）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹一條學員守則（2）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹部分學員守則（3）</option>
+				            					<select name="rCantonese" id="rCantonese" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.rCantonese == '0' }">selected="selected"</c:if> >完全不懂（0）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.rCantonese == '1' }">selected="selected"</c:if> >能閱讀及臨摹單詞（1）</option>
+							                		<option value="2" <c:if test="${treatmentPojo.rCantonese == '2' }">selected="selected"</c:if> >能閱讀及臨摹一條學員守則（2）</option>
+							                		<option value="3" <c:if test="${treatmentPojo.rCantonese == '3' }">selected="selected"</c:if> >能閱讀及臨摹部分學員守則（3）</option>
 							                	</select> 
 				            				</td>
 				            				<td>
-				            					<select name="physicalAssess" id="physicalAssess" ltype="select" width="120px" >
-							                		<option value="0" <c:if test="${treatmentPojo.physicalAssess != '1' }">selected="selected"</c:if> >完全不懂（0）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >以單字表達意思（1）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >以單句表達意思（2）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能表達完整的意思（3）</option>
+				            					<select name="lCantonese" id="lCantonese" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.lCantonese == '0' }">selected="selected"</c:if> >完全不懂（0）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.lCantonese == '1' }">selected="selected"</c:if> >以單字表達意思（1）</option>
+							                		<option value="2" <c:if test="${treatmentPojo.lCantonese == '2' }">selected="selected"</c:if> >以單句表達意思（2）</option>
+							                		<option value="3" <c:if test="${treatmentPojo.lCantonese == '3' }">selected="selected"</c:if> >能表達完整的意思（3）</option>
 							                	</select> 
 				            				</td>
 				            				<td>
-				            					<select name="physicalAssess" id="physicalAssess" ltype="select" width="120px" >
-							                		<option value="0" <c:if test="${treatmentPojo.physicalAssess != '1' }">selected="selected"</c:if> >完全不懂（0）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹單詞（1）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹一條學員守則（2）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹部分學員守則（3）</option>
+				            					<select name="wCantonese" id="wCantonese" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.wCantonese == '0' }">selected="selected"</c:if> >完全不懂（0）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.wCantonese == '1' }">selected="selected"</c:if> >能閱讀及臨摹單詞（1）</option>
+							                		<option value="2" <c:if test="${treatmentPojo.wCantonese == '2' }">selected="selected"</c:if> >能閱讀及臨摹一條學員守則（2）</option>
+							                		<option value="3" <c:if test="${treatmentPojo.wCantonese == '3' }">selected="selected"</c:if> >能閱讀及臨摹部分學員守則（3）</option>
 							                	</select> 
 				            				</td>
 				            			</tr>
 				            			<tr>
 				            				<th>普通話</th>
 				            				<td>
-				            					<select name="physicalAssess" id="physicalAssess" ltype="select" width="120px" >
-							                		<option value="0" <c:if test="${treatmentPojo.physicalAssess != '1' }">selected="selected"</c:if> >完全不懂（0）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >以單字表達意思（1）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >以單句表達意思（2）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能表達完整的意思（3）</option>
+				            					<select name="sMandarin" id="sMandarin" ltype="select" width="120px" >
+							                		<option value="0" <c:if test="${treatmentPojo.sMandarin == '0' }">selected="selected"</c:if> >完全不懂（0）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.sMandarin == '1' }">selected="selected"</c:if> >以單字表達意思（1）</option>
+							                		<option value="2" <c:if test="${treatmentPojo.sMandarin == '2' }">selected="selected"</c:if> >以單句表達意思（2）</option>
+							                		<option value="3" <c:if test="${treatmentPojo.sMandarin == '3' }">selected="selected"</c:if> >能表達完整的意思（3）</option>
 							                	</select> 
 				            				</td>
 				            				<td>
-				            					<select name="physicalAssess" id="physicalAssess" ltype="select" width="120px" >
-              										<option value="0" <c:if test="${treatmentPojo.physicalAssess != '1' }">selected="selected"</c:if> >完全不懂（0）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹單詞（1）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹一條學員守則（2）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹部分學員守則（3）</option>
+				            					<select name="rMandarin" id="rMandarin" ltype="select" width="120px" >
+              										<option value="0" <c:if test="${treatmentPojo.rMandarin == '0' }">selected="selected"</c:if> >完全不懂（0）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.rMandarin == '1' }">selected="selected"</c:if> >能閱讀及臨摹單詞（1）</option>
+							                		<option value="2" <c:if test="${treatmentPojo.rMandarin == '2' }">selected="selected"</c:if> >能閱讀及臨摹一條學員守則（2）</option>
+							                		<option value="3" <c:if test="${treatmentPojo.rMandarin == '3' }">selected="selected"</c:if> >能閱讀及臨摹部分學員守則（3）</option>
 							                	</select> 
 				            				</td>
 				            				<td>
-				            					<select name="physicalAssess" id="physicalAssess" ltype="select" width="120px" >
-							              			<option value="0" <c:if test="${treatmentPojo.physicalAssess != '1' }">selected="selected"</c:if> >完全不懂（0）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >以單字表達意思（1）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >以單句表達意思（2）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能表達完整的意思（3）</option>
+				            					<select name="lMandarin" id="lMandarin" ltype="select" width="120px" >
+							              			<option value="0" <c:if test="${treatmentPojo.lMandarin == '0' }">selected="selected"</c:if> >完全不懂（0）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.lMandarin == '1' }">selected="selected"</c:if> >以單字表達意思（1）</option>
+							                		<option value="2" <c:if test="${treatmentPojo.lMandarin == '2' }">selected="selected"</c:if> >以單句表達意思（2）</option>
+							                		<option value="3" <c:if test="${treatmentPojo.lMandarin == '3' }">selected="selected"</c:if> >能表達完整的意思（3）</option>
 							                	</select> 
 				            				</td>
 				            				<td>
-				            					<select name="physicalAssess" id="physicalAssess" ltype="select" width="120px" >
-							             			<option value="0" <c:if test="${treatmentPojo.physicalAssess != '1' }">selected="selected"</c:if> >完全不懂（0）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹單詞（1）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹一條學員守則（2）</option>
-							                		<option value="1" <c:if test="${treatmentPojo.physicalAssess == '1' }">selected="selected"</c:if> >能閱讀及臨摹部分學員守則（3）</option>
+				            					<select name="wMandarin" id="wMandarin" ltype="select" width="120px" >
+							             			<option value="0" <c:if test="${treatmentPojo.wMandarin == '0' }">selected="selected"</c:if> >完全不懂（0）</option>
+							                		<option value="1" <c:if test="${treatmentPojo.wMandarin == '1' }">selected="selected"</c:if> >能閱讀及臨摹單詞（1）</option>
+							                		<option value="2" <c:if test="${treatmentPojo.wMandarin == '2' }">selected="selected"</c:if> >能閱讀及臨摹一條學員守則（2）</option>
+							                		<option value="3" <c:if test="${treatmentPojo.wMandarin == '3' }">selected="selected"</c:if> >能閱讀及臨摹部分學員守則（3）</option>
 							                	</select> 
 				            				</td>
 				            			</tr>
 				            			<tr>
 				            				<th>其他</th>
-				            				<td colspan="4"><input value="${treatmentPojo.physicalDate_str }" name="physicalDate" type="text" id="physicalDate" ltype="text" /></td>
+				            				<td colspan="4"><input value="${treatmentPojo.sRLWOther }" name="sRLWOther" type="text" id="sRLWOther" ltype="text" /></td>
 				            			</tr>
 				            		</tbody>
 				            		</table>
@@ -815,7 +752,7 @@ String basePath = request.getScheme() + "://"
 				            	<div>
 				            		<div class="inline-group">
 				            			<label>其他：</label>
-				                		<textarea rows="2" cols="55" name="familySituation" id="familySituation">${treatmentPojo.familySituation }</textarea>
+				                		<textarea rows="2" cols="55" name="others" id="others">${treatmentPojo.others }</textarea>
 				            		</div>
 				                </div>
 		            		</div>
@@ -843,12 +780,12 @@ String basePath = request.getScheme() + "://"
 		            <div class="panel panel-default">
 	            		<div class="panel-heading">適應技能方面：(評估分數為1-5分，1分最低，5分最高)</div>
 	            		<div class="panel-body">
-	            				<table class="table-center table-edit" border="1">
+	            				<table class="table-edit" border="1">
 				            		<thead>
 				            			<tr>
-				            				<th height="28px" width="120px">項目</th>
-				            				<th width="70%">說明</th>
-				            				<th width="">能力程度</th>
+				            				<th height="28px" width="120px" style="text-align:center">項目</th>
+				            				<th width="70%" style="text-align:center">說明</th>
+				            				<th width="" style="text-align:center">能力程度</th>
 				            			</tr>
 				            		</thead>
 				            		<tbody>
@@ -857,70 +794,150 @@ String basePath = request.getScheme() + "://"
 				            				<td>
 				            					透過語言或／與非語言方式表達與交換資訊
 				            				</td>
-				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            				<td>
+				            					<select name="communicationLevel" id="communicationLevel" ltype="select" width="120px" >
+							                		<option value="1" <c:if test="${treatmentPojo.communicationLevel == '1' }">selected="selected"</c:if> >1分</option>
+							                		<option value="2" <c:if test="${treatmentPojo.communicationLevel == '2' }">selected="selected"</c:if> >2分</option>
+							                		<option value="3" <c:if test="${treatmentPojo.communicationLevel == '3' }">selected="selected"</c:if> >3分</option>
+							                		<option value="4" <c:if test="${treatmentPojo.communicationLevel == '4' }">selected="selected"</c:if> >4分</option>
+							                		<option value="5" <c:if test="${treatmentPojo.communicationLevel == '5' }">selected="selected"</c:if> >5分</option>
+							                	</select> 
+				            				</td>
 				            			</tr>
 				            			<tr>
 				            				<th>2.自我照顧</th>
 				            				<td>
 				            					指生活自理能力，包括飲食、穿衣、如廁、個人衛生儀容等方面的能力
 				            				</td>
-				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            				<td>
+				            					<select name="selfLevel" id="selfLevel" ltype="select" width="120px" >
+							                		<option value="1" <c:if test="${treatmentPojo.selfLevel == '1' }">selected="selected"</c:if> >1分</option>
+							                		<option value="2" <c:if test="${treatmentPojo.selfLevel == '2' }">selected="selected"</c:if> >2分</option>
+							                		<option value="3" <c:if test="${treatmentPojo.selfLevel == '3' }">selected="selected"</c:if> >3分</option>
+							                		<option value="4" <c:if test="${treatmentPojo.selfLevel == '4' }">selected="selected"</c:if> >4分</option>
+							                		<option value="5" <c:if test="${treatmentPojo.selfLevel == '5' }">selected="selected"</c:if> >5分</option>
+							                	</select> 
+				            				</td>
 				            			</tr>
 				            			<tr>
 				            				<th>3.居家生活</th>
 				            				<td>
 				            					在家庭中的日常生活能力，如料理食物、整理家務、規劃家庭預算、採買家庭用品、居家安全等
 				            				</td>
-				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            				<td>
+				            					<select name="lifeLevel" id="lifeLevel" ltype="select" width="120px" >
+							                		<option value="1" <c:if test="${treatmentPojo.lifeLevel == '1' }">selected="selected"</c:if> >1分</option>
+							                		<option value="2" <c:if test="${treatmentPojo.lifeLevel == '2' }">selected="selected"</c:if> >2分</option>
+							                		<option value="3" <c:if test="${treatmentPojo.lifeLevel == '3' }">selected="selected"</c:if> >3分</option>
+							                		<option value="4" <c:if test="${treatmentPojo.lifeLevel == '4' }">selected="selected"</c:if> >4分</option>
+							                		<option value="5" <c:if test="${treatmentPojo.lifeLevel == '5' }">selected="selected"</c:if> >5分</option>
+							                	</select> 
+				            				</td>
 				            			</tr>
 				            			<tr>
 				            				<th>4.社交技能</th>
 				            				<td>
 				            					指的是交友情形與人際關係維持，包括微笑、基本社交禮儀、情緒表達、信賴關係、與他人合作關係、關心他人等
 				            				</td>
-				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            				<td>
+				            					<select name="socialLevel" id="socialLevel" ltype="select" width="120px" >
+							                		<option value="1" <c:if test="${treatmentPojo.socialLevel == '1' }">selected="selected"</c:if> >1分</option>
+							                		<option value="2" <c:if test="${treatmentPojo.socialLevel == '2' }">selected="selected"</c:if> >2分</option>
+							                		<option value="3" <c:if test="${treatmentPojo.socialLevel == '3' }">selected="selected"</c:if> >3分</option>
+							                		<option value="4" <c:if test="${treatmentPojo.socialLevel == '4' }">selected="selected"</c:if> >4分</option>
+							                		<option value="5" <c:if test="${treatmentPojo.socialLevel == '5' }">selected="selected"</c:if> >5分</option>
+							                	</select> 
+				            				</td>
 				            			</tr>
 				            			<tr>
 				            				<th>5.使用社區資源</th>
 				            				<td>
 				            					能夠適當地使用社區資源，如在社區中的移動能力、銀行或郵政使用、商店購物或取得服務、公共設施的使用
 				            				</td>
-				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            				<td>
+				            					<select name="recourceLevel" id="recourceLevel" ltype="select" width="120px" >
+							                		<option value="1" <c:if test="${treatmentPojo.recourceLevel == '1' }">selected="selected"</c:if> >1分</option>
+							                		<option value="2" <c:if test="${treatmentPojo.recourceLevel == '2' }">selected="selected"</c:if> >2分</option>
+							                		<option value="3" <c:if test="${treatmentPojo.recourceLevel == '3' }">selected="selected"</c:if> >3分</option>
+							                		<option value="4" <c:if test="${treatmentPojo.recourceLevel == '4' }">selected="selected"</c:if> >4分</option>
+							                		<option value="5" <c:if test="${treatmentPojo.recourceLevel == '5' }">selected="selected"</c:if> >5分</option>
+							                	</select> 
+				            				</td>
 				            			</tr>
 				            			<tr>
 				            				<th>6.自我引導</th>
 				            				<td>
 				            					指做決定的能力，能促進自我成長的選擇能力
 				            				</td>
-				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            				<td>
+				            					<select name="guideLevel" id="guideLevel" ltype="select" width="120px" >
+							                		<option value="1" <c:if test="${treatmentPojo.guideLevel == '1' }">selected="selected"</c:if> >1分</option>
+							                		<option value="2" <c:if test="${treatmentPojo.guideLevel == '2' }">selected="selected"</c:if> >2分</option>
+							                		<option value="3" <c:if test="${treatmentPojo.guideLevel == '3' }">selected="selected"</c:if> >3分</option>
+							                		<option value="4" <c:if test="${treatmentPojo.guideLevel == '4' }">selected="selected"</c:if> >4分</option>
+							                		<option value="5" <c:if test="${treatmentPojo.guideLevel == '5' }">selected="selected"</c:if> >5分</option>
+							                	</select> 
+				            				</td>
 				            			</tr>
 				            			<tr>
 				            				<th>7.健康興安全</th>
 				            				<td>
 				            					能注意自己的身體，維持良好的健康習慣，注意平衡的飲食、身體安全、對疾病的基本認識與預防、就醫等
 				            				</td>
-				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            				<td>
+				            					<select name="safetyLevel" id="safetyLevel" ltype="select" width="120px" >
+							                		<option value="1" <c:if test="${treatmentPojo.safetyLevel == '1' }">selected="selected"</c:if> >1分</option>
+							                		<option value="2" <c:if test="${treatmentPojo.safetyLevel == '2' }">selected="selected"</c:if> >2分</option>
+							                		<option value="3" <c:if test="${treatmentPojo.safetyLevel == '3' }">selected="selected"</c:if> >3分</option>
+							                		<option value="4" <c:if test="${treatmentPojo.safetyLevel == '4' }">selected="selected"</c:if> >4分</option>
+							                		<option value="5" <c:if test="${treatmentPojo.safetyLevel == '5' }">selected="selected"</c:if> >5分</option>
+							                	</select> 
+				            				</td>
 				            			</tr>
 				            			<tr>
 				            				<th>8.功能性學科能力</th>
 				            				<td>
 				            					指日常生活與學校所學的知識與相關技能，亦即認知能力，包括基本語文、數學、自然等，能運用基本認知融入生活與工作當中，促進個人獨力生活的能力
 				            				</td>
-				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            				<td>
+				            					<select name="fnLevel" id="fnLevel" ltype="select" width="120px" >
+							                		<option value="1" <c:if test="${treatmentPojo.fnLevel == '1' }">selected="selected"</c:if> >1分</option>
+							                		<option value="2" <c:if test="${treatmentPojo.fnLevel == '2' }">selected="selected"</c:if> >2分</option>
+							                		<option value="3" <c:if test="${treatmentPojo.fnLevel == '3' }">selected="selected"</c:if> >3分</option>
+							                		<option value="4" <c:if test="${treatmentPojo.fnLevel == '4' }">selected="selected"</c:if> >4分</option>
+							                		<option value="5" <c:if test="${treatmentPojo.fnLevel == '5' }">selected="selected"</c:if> >5分</option>
+							                	</select> 
+				            				</td>
 				            			</tr>
 				            			<tr>
 				            				<th>9.休閒娛樂</th>
 				            				<td>
 				            					包括社交技巧、移動能力、主動性、運用認知與資源等能力
 				            				</td>
-				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            				<td>
+				            					<select name="playLevel" id="playLevel" ltype="select" width="120px" >
+							                		<option value="1" <c:if test="${treatmentPojo.playLevel == '1' }">selected="selected"</c:if> >1分</option>
+							                		<option value="2" <c:if test="${treatmentPojo.playLevel == '2' }">selected="selected"</c:if> >2分</option>
+							                		<option value="3" <c:if test="${treatmentPojo.playLevel == '3' }">selected="selected"</c:if> >3分</option>
+							                		<option value="4" <c:if test="${treatmentPojo.playLevel == '4' }">selected="selected"</c:if> >4分</option>
+							                		<option value="5" <c:if test="${treatmentPojo.playLevel == '5' }">selected="selected"</c:if> >5分</option>
+							                	</select> 
+				            				</td>
 				            			</tr>
 				            			<tr>
 				            				<th>10.工作</th>
 				            				<td>
 				            					個人工作能力
 				            				</td>
-				            				<td><input value="${treatmentPojo.physicalPlace }" name="physicalPlace" type="text" id="physicalPlace" ltype="text" /></td>
+				            				<td>
+				            					<select name="workerLevel" id="workerLevel" ltype="select" width="120px" >
+							                		<option value="1" <c:if test="${treatmentPojo.workerLevel == '1' }">selected="selected"</c:if> >1分</option>
+							                		<option value="2" <c:if test="${treatmentPojo.workerLevel == '2' }">selected="selected"</c:if> >2分</option>
+							                		<option value="3" <c:if test="${treatmentPojo.workerLevel == '3' }">selected="selected"</c:if> >3分</option>
+							                		<option value="4" <c:if test="${treatmentPojo.workerLevel == '4' }">selected="selected"</c:if> >4分</option>
+							                		<option value="5" <c:if test="${treatmentPojo.workerLevel == '5' }">selected="selected"</c:if> >5分</option>
+							                	</select> 
+				            				</td>
 				            			</tr>
 				            		</tbody>
 				            	</table>
@@ -935,27 +952,29 @@ String basePath = request.getScheme() + "://"
 									<div class="inline-group">
 									 	<label>1.社交方面</label>
 									 	<div>
-									 		<select>
-									 			<option>抗拒</option>
-									 			<option>羞怯</option>
-									 			<option>沉默</option>
-									 			<option>友善</option>
-									 			<option>善於交際</option>
+									 		<select name=socially id="socially" ltype="select">
+									 			<option value="1" <c:if test="${treatmentPojo.socially == '1' }">selected="selected"</c:if> >抗拒</option>
+									 			<option value="2" <c:if test="${treatmentPojo.socially == '2' }">selected="selected"</c:if> >羞怯</option>
+									 			<option value="3" <c:if test="${treatmentPojo.socially == '3' }">selected="selected"</c:if> >沉默</option>
+									 			<option value="4" <c:if test="${treatmentPojo.socially == '4' }">selected="selected"</c:if> >友善</option>
+									 			<option value="5" <c:if test="${treatmentPojo.socially == '5' }">selected="selected"</c:if> >善於交際</option>
 									 		</select>
 									 	</div>
 									 </div>  
 									 	<div class="inline-group">
-									 	<label>2.情緒方面</label>
-									 	<div>
-									 		<label><input type="checkbox" class="sentenceOrg" value="0" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('0') != -1 }">checked="checked"</c:if>>穩定</label>
-		               						<label><input type="checkbox" class="sentenceOrg" value="1" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('1') != -1 }">checked="checked"</c:if>>普通穩定</label>
-		               						<label><input type="checkbox" class="sentenceOrg" value="2" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('2') != -1 }">checked="checked"</c:if>>不穩定</label>
+									 		<label>2.情緒方面</label>
+									 		<label><input type="checkbox" class="emotional" value="1" <c:if test="${(treatmentPojo.emotional).indexOf('1') != -1 }">checked="checked"</c:if>>穩定</label>
+		               						<label><input type="checkbox" class="emotional" value="2" <c:if test="${(treatmentPojo.emotional).indexOf('2') != -1 }">checked="checked"</c:if>>普通穩定</label>
+		               						<label><input type="checkbox" class="emotional" value="3" <c:if test="${(treatmentPojo.emotional).indexOf('3') != -1 }">checked="checked"</c:if>>不穩定</label>
 									 	</div>
-									 	<label>導因：</label>
-									 	<input type="text" ltype="text">
-									 	<label>解決方法：</label>
-									 	<input type="text" ltype="text">
-									 </div> 
+									 	<div class="inline-group">
+									 		<label style="width:80px;text-align:right">導因：</label>
+									 		<textarea rows="2" cols="55" name="inducements" id="inducements">${treatmentPojo.inducements }</textarea>
+									 	</div>
+									 	<div class="inline-group">
+									 		<label style="width:80px;text-align:right">解決方法：</label>
+									 		<textarea rows="2" cols="55" name="solve" id="solve">${treatmentPojo.solve }</textarea>
+										</div>
 								</div>   
 								<table class="table-center table-edit td-padding10" border="1">
 									<tbody>
@@ -964,10 +983,10 @@ String basePath = request.getScheme() + "://"
 											<td>攻擊行為</td>
 											<td>
 												<div>
-													<label><input type="checkbox" class="sentenceOrg" value="0" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('0') != -1 }">checked="checked"</c:if>>向自己</label>
-		               								<label><input type="checkbox" class="sentenceOrg" value="1" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('1') != -1 }">checked="checked"</c:if>>向他人</label>
-		               								<label><input type="checkbox" class="sentenceOrg" value="2" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('2') != -1 }">checked="checked"</c:if>>向物件</label>
-		               								<label><input type="checkbox" class="sentenceOrg" value="2" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('2') != -1 }">checked="checked"</c:if>>沒有</label>
+													<label><input type="checkbox" class="attack" value="1" <c:if test="${(treatmentPojo.attack).indexOf('1') != -1 }">checked="checked"</c:if>>向自己</label>
+		               								<label><input type="checkbox" class="attack" value="2" <c:if test="${(treatmentPojo.attack).indexOf('2') != -1 }">checked="checked"</c:if>>向他人</label>
+		               								<label><input type="checkbox" class="attack" value="3" <c:if test="${(treatmentPojo.attack).indexOf('3') != -1 }">checked="checked"</c:if>>向物件</label>
+		               								<label><input type="checkbox" class="attack" value="4" <c:if test="${(treatmentPojo.attack).indexOf('4') != -1 }">checked="checked"</c:if>>沒有</label>
 												</div>
 											</td>
 										</tr>
@@ -975,10 +994,10 @@ String basePath = request.getScheme() + "://"
 											<td>發脾氣</td>
 											<td>
 												<div>
-													<label><input type="checkbox" class="sentenceOrg" value="0" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('0') != -1 }">checked="checked"</c:if>>向自己</label>
-		               								<label><input type="checkbox" class="sentenceOrg" value="1" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('1') != -1 }">checked="checked"</c:if>>向他人</label>
-		               								<label><input type="checkbox" class="sentenceOrg" value="2" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('2') != -1 }">checked="checked"</c:if>>向物件</label>
-		               								<label><input type="checkbox" class="sentenceOrg" value="2" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('2') != -1 }">checked="checked"</c:if>>沒有</label>
+													<label><input type="checkbox" class="temper" value="1" <c:if test="${(treatmentPojo.temper).indexOf('1') != -1 }">checked="checked"</c:if>>向自己</label>
+		               								<label><input type="checkbox" class="temper" value="2" <c:if test="${(treatmentPojo.temper).indexOf('2') != -1 }">checked="checked"</c:if>>向他人</label>
+		               								<label><input type="checkbox" class="temper" value="3" <c:if test="${(treatmentPojo.temper).indexOf('3') != -1 }">checked="checked"</c:if>>向物件</label>
+		               								<label><input type="checkbox" class="temper" value="4" <c:if test="${(treatmentPojo.temper).indexOf('4') != -1 }">checked="checked"</c:if>>沒有</label>
 												</div>
 											</td>
 										</tr>
@@ -986,42 +1005,42 @@ String basePath = request.getScheme() + "://"
 											<td>其他</td>
 											<td>
 												<div>
-		               								<label><input type="checkbox" class="sentenceOrg" value="2" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('2') != -1 }">checked="checked"</c:if>>多動</label>
-		               								<label><input type="checkbox" class="sentenceOrg" value="2" <c:if test="${(treatmentAssessPojo.sentenceOrg).indexOf('2') != -1 }">checked="checked"</c:if>>退縮</label>
+		               								<label><input type="checkbox" class="behavior" value="1" <c:if test="${(treatmentPojo.behavior).indexOf('1') != -1 }">checked="checked"</c:if>>多動</label>
+		               								<label><input type="checkbox" class="behavior" value="2" <c:if test="${(treatmentPojo.behavior).indexOf('2') != -1 }">checked="checked"</c:if>>退縮</label>
 												</div>
 											</td>
 										</tr>
 										<tr>
 											<td>處理</td>
 											<td>
-											<input type="text" ltype="text">
+											<input type="text" ltype="text" name="behaviorHandle" value="${treatmentPojo.behaviorHandle }">
 											</td>
 										</tr>
 										<tr>
 											<td rowspan="3">興趣</td>
 											<td>運動</td>
-											<td><input type="text" ltype="text"></td>
+											<td><input type="text" ltype="text" name="sport" value="${treatmetnPojo.sport }" ></td>
 										</tr>
 										<tr>
 											<td>藝術</td>
-											<td><input type="text" ltype="text"></td>
+											<td><input type="text" ltype="text" name="art" value="${treatmentPojo.art }" ></td>
 										</tr>
 										<tr>
 											<td>愛好</td>
-											<td><input type="text" ltype="text"></td>
+											<td><input type="text" ltype="text" name="hobby" value="${treatmentPojo.hobby }" ></td>
 										</tr>
 										<tr>
 											<td rowspan="3">日常生活時間表</td>
 											<td>上午</td>
-											<td><input type="text" ltype="text"></td>
+											<td><input type="text" ltype="text" name="morningLife" value="${treatmentPojo.morningLife }" ></td>
 										</tr>
 										<tr>
 											<td>下午</td>
-											<td><input type="text" ltype="text"></td>
+											<td><input type="text" ltype="text" name="afternoonLife" value="${treatmentPojo.afternoonLife }" ></td>
 										</tr>
 										<tr>
 											<td>晚上</td>
-											<td><input type="text" ltype="text"></td>
+											<td><input type="text" ltype="text" name="nightLife" value="${treatmentPojo.nightLife }" ></td>
 										</tr>
 										<tr>
 											<td>支持系統</td>
@@ -1029,21 +1048,21 @@ String basePath = request.getScheme() + "://"
 												<div class="input-group">
 												<p>
 													<label>支持者：</label>
-													<input type="text" ltype="text">
+													<input type="text" ltype="text" name="supportPeople" value="${treatmentPojo.supportPeople }">
 													<label>冷淡者：</label>
-													<input type="text" ltype="text">
+													<input type="text" ltype="text" name="coldnessPeople" value="${treatmentPojo.coldnessPeople }">
 												</p>
 												<p>
 													<label>縱容者：</label>
-													<input type="text" ltype="text">
+													<input type="text" ltype="text" name="connivePeople" value="${treatmentPojo.connivePeople }" >
 													<label>忽視者：</label>
-													<input type="text" ltype="text">
+													<input type="text" ltype="text" name="neglectPeople" value="${treatmentPojo.neglectPeople }" >
 												</p>
 												<p>
 													<label>過分保護者：</label>
-													<input type="text" ltype="text">
+													<input type="text" ltype="text" name="protectPeople" value="${treatmentPojo.protectPeople }">
 													<label>嚴厲者：</label>
-													<input type="text" ltype="text">
+													<input type="text" ltype="text" name="severePeople" value="${treatmentPojo.severePeople }">
 												</p>
 												</div>
 												
@@ -1053,15 +1072,15 @@ String basePath = request.getScheme() + "://"
 								</table>   
 								<div class="inline-group">
 									<label style="width:78px;text-align:right;">居住環境：</label>
-									<textarea rows="2" cols="55" name="familySituation" id="familySituation">${treatmentPojo.familySituation }</textarea>
+									<textarea rows="2" cols="55" name="lifeEnvironment" id="lifeEnvironment">${treatmentPojo.lifeEnvironment }</textarea>
 								</div>   		
 								<div class="inline-group">
 									<label style="width:78px;text-align:right;">工作員觀察：</label>
-									<textarea rows="2" cols="55" name="familySituation" id="familySituation">${treatmentPojo.familySituation }</textarea>
+									<textarea rows="2" cols="55" name="workerNote" id="workerNote">${treatmentPojo.workerNote }</textarea>
 								</div>   
 								<div class="inline-group">
 									<label style="width:78px;text-align:right;">建議：</label>
-									<textarea rows="2" cols="55" name="familySituation" id="familySituation">${treatmentPojo.familySituation }</textarea>
+									<textarea rows="2" cols="55" name="behaviourNote" id="behaviourNote">${treatmentPojo.behaviourNote }</textarea>
 								</div> 	
 		            		</div>
 		            	</div>
@@ -1092,7 +1111,7 @@ String basePath = request.getScheme() + "://"
 			            <tr>
 			            	<td align="right" class="l-table-edit-td">個別訓練編號：</td>
 			                <td align="left" class="l-table-edit-td">
-			                	<input width="120px" value="${treatmentPojo.treatmentNO }" name="treatmentNO" type="text" id="treatmentNO" ltype="text"">
+			                	<input width="120px" value="${treatmentTraining.trainingNO }" name="trainingNO" type="text" id="trainingNO" ltype="text"">
 			                </td>
 			            
 			                <td align="right" class="l-table-edit-td">姓名：</td>
@@ -1107,28 +1126,27 @@ String basePath = request.getScheme() + "://"
 			              <tr>
 			                 <td align="right" class="l-table-edit-td">訓練項目:</td>
 							 <td align="left" class="l-table-edit-td">
-							 	<input width="120px" value="${customer.birthday_ChnStr }" name="father" type="text" id="birthday_ChnStr" ltype="date" />
+							 	<input width="120px" value="${treatmentTraining.program }" name="program" type="text" id="program" ltype="text" />
 							 </td>
 							  <td align="right" class="l-table-edit-td">訓練目標:</td>
 							 <td align="left" class="l-table-edit-td">
-							 	<input width="120px" value="${customer.mobileTelNO }" name="mother" type="text" id="mobileTelNO" ltype="text" />
+							 	<input width="120px" value="${treatmentTraining.target }" name="target" type="text" id="target" ltype="text" />
 							 </td>
 							  <td align="right" class="l-table-edit-td">執行訓練人員:</td>
 							<td align="left" class="l-table-edit-td" id="sex">
-			                	<input id="sex1" type="radio" disabled="disabled" name="sex"  value="1" <c:if test="${customer.sex != 2 }">checked="checked"</c:if> /><label for="sex1">男</label> 
-								<input id="sex2" type="radio" disabled="disabled" name="sex" value="2" <c:if test="${customer.sex == 2 }">checked="checked"</c:if> /><label for="sex2">女</label>
+								<input width="120px" value="${treatmentTraining.workder }" name="workder" type="text" id="workder" ltype="text" />
 			                </td>
 			               	<td align="right" class="l-table-edit-td">訓練日期：</td>
 			                <td align="left" class="l-table-edit-td">
-			                	<input width="120px" value="${treatmentPojo.worker }" name="worker" type="text" id="worker" ltype="text"/>
+			                	<input width="120px" value="${treatmentTraining.beginDate }" name="beginDate" type="text" id="beginDate" ltype="date"/>
 			                	至
-			                	<input width="120px" value="${treatmentPojo.worker }" name="worker" type="text" id="worker" ltype="text"/>
+			                	<input width="120px" value="${treatmentTraining.endDate }" name="endDate" type="text" id="endDate" ltype="date"/>
 			                </td>
 			            </tr>
 			            <tr>
 			            	  <td align="right" class="l-table-edit-td">訓練地點:</td>
 							 <td align="left" class="l-table-edit-td">
-							 	<input width="120px" value="${treatmentPojo.startDate_str }" name="startDate" type="text" id="startDate" ltype="date" />
+							 	<input width="120px" value="${treatmentTraining.place }" name="place" type="text" id="place" ltype="text" />
 							 </td>
 							 
 			            </tr>
@@ -1144,8 +1162,38 @@ String basePath = request.getScheme() + "://"
             	<div class="panel panel-default">
             		<div class="panel-heading">學員訓練狀況記錄</div>
             		<div class="panel-body">
-            			<!-- <div id="stateRecordDataGrid"></div> -->
-            			
+						<div class="inline-group">
+							<label>注意力：</label>
+							<textarea rows="2" cols="55" name="attention" id="attention">${treatmentTraining.attention }</textarea>
+						</div>
+						<div class="inline-group">
+							<label>情緒表現：</label>
+							<textarea rows="2" cols="55" name="emotional" id="emotional">${treatmentTraining.emotional }</textarea>
+						</div>
+						<div class="inline-group">
+							<label>工作態度：</label>
+							<textarea rows="2" cols="55" name="attitude" id="attitude">${treatmentTraining.attitude }</textarea>
+						</div>
+						<div class="inline-group">	
+							<label>指令理解：</label>
+							<textarea rows="2" cols="55" name="instruction" id="instruction">${treatmentTraining.instruction }</textarea>
+						</div>
+						<div class="inline-group">
+							<label>工作耐力：</label>
+							<textarea rows="2" cols="55" name="endurance" id="endurance">${treatmentTraining.endurance }</textarea>
+						</div>
+						<div class="inline-group">
+							<label>工作技能：</label>
+							<textarea rows="2" cols="55" name="skill" id="skill">${treatmentTraining.skill }</textarea>
+						</div>
+						<div class="inline-group">
+							<label>其他：</label>
+							<textarea rows="2" cols="55" name="other" id="other">${treatmentTraining.other }</textarea>
+						</div>
+						<div class="inline-group">
+							<label>目標達成度評估：</label>
+							<textarea rows="2" cols="55" name="targetAssess" id="targetAssess">${treatmentTraining.targetAssess }</textarea>
+						</div>            			
             		</div>
             	</div>
 		  	</div>
@@ -1156,47 +1204,44 @@ String basePath = request.getScheme() + "://"
 			            <tr>
 			            	<td align="right" class="l-table-edit-td">學員名稱：</td>
 			                <td align="left" class="l-table-edit-td">
-			                	<input width="120px" value="${treatmentPojo.treatmentNO }" name="treatmentNO" type="text" id="treatmentNO" ltype="text"">
+			                	<input width="120px" value="${customer.fullName }" name="fullName" type="text" id="fullName" ltype="text">
 			                </td>
 			            
 			                <td align="right" class="l-table-edit-td">試工開始時間：</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.fullName }" name="fullName" type="text" id="fullName"/></td>
+			                <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentTrainingWork.beginDate }" name="beginDate" type="text" id="beginDate" ltype="date"/></td>
 			                
 			                <td align="right" class="l-table-edit-td">試工結束時間：</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNO }" name="custNO" type="text" id="custNO" /></td>
+			                <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentTrainingWork.endDate }" name="endDate" type="text" id="endDate" ltype="date" /></td>
 			                
 			                <td align="right" class="l-table-edit-td">試工職位：</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" id="custNewNO" /></td>
+			                <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentTrainingWork.duty }" name="duty" type="text" id="duty" ltype="text" /></td>
 			              </tr>
 			              <tr>
 			                 <td align="right" class="l-table-edit-td">試工公司/店鋪:</td>
 							 <td align="left" class="l-table-edit-td">
-							 	<input width="120px" value="${customer.birthday_ChnStr }" name="father" type="text" id="birthday_ChnStr" ltype="date" />
+							 	<input width="120px" value="${treatmentTrainingWork.corp }" name="corp" type="text" id="corp" ltype="text" />
 							 </td>
 							  <td align="right" class="l-table-edit-td">試工地址:</td>
 							 <td align="left" class="l-table-edit-td">
-							 	<input width="120px" value="${customer.mobileTelNO }" name="mother" type="text" id="mobileTelNO" ltype="text" />
+							 	<input width="120px" value="${treatmentTrainingWork.place }" name="place" type="text" id="place" ltype="text" />
 							 </td>
 							  <td align="right" class="l-table-edit-td">工作時間:</td>
-							<td align="left" class="l-table-edit-td" id="sex">
-			                	<input id="sex1" type="radio" disabled="disabled" name="sex"  value="1" <c:if test="${customer.sex != 2 }">checked="checked"</c:if> /><label for="sex1">男</label> 
-								<input id="sex2" type="radio" disabled="disabled" name="sex" value="2" <c:if test="${customer.sex == 2 }">checked="checked"</c:if> /><label for="sex2">女</label>
+							<td align="left" class="l-table-edit-td">
+								<input width="120px" value="${treatmentTrainingWork.workTime }" name="workTime" type="text" id="workTime" ltype="text" />
 			                </td>
 			               	<td align="right" class="l-table-edit-td">工作內容：</td>
 			                <td align="left" class="l-table-edit-td">
-			                	<input width="120px" value="${treatmentPojo.worker }" name="worker" type="text" id="worker" ltype="text"/>
-			                	至
-			                	<input width="120px" value="${treatmentPojo.worker }" name="worker" type="text" id="worker" ltype="text"/>
+			                	<input width="120px" value="${treatmentTrainingWork.content }" name="content" type="text" id="content" ltype="text" />
 			                </td>
 			            </tr>
 			            <tr>
 			            	  <td align="right" class="l-table-edit-td">工作流程:</td>
 							 <td align="left" class="l-table-edit-td">
-							 	<input width="120px" value="${treatmentPojo.startDate_str }" name="startDate" type="text" id="startDate" ltype="date" />
+							 	<input width="120px" value="${treatmentTrainingWork.workDetail }" name="workDetail" type="text" id="workDetail" ltype="text" />
 							 </td>
 							  <td align="right" class="l-table-edit-td">現場環境觀察:</td>
 							 <td align="left" class="l-table-edit-td">
-							 	<input width="120px" value="${treatmentPojo.startDate_str }" name="startDate" type="text" id="startDate" ltype="date" />
+							 	<input width="120px" value="${treatmentTrainingWork.envioment }" name="envioment" type="text" id="envioment" ltype="text" />
 							 </td>
 							 
 			            </tr>
@@ -1212,13 +1257,13 @@ String basePath = request.getScheme() + "://"
             	</div>
             	<div class="inline-group">
             		<label>負責人：</label>
-            		<input type="text" ltype="text">
+            		<input type="text" ltype="text" name="handler" value="${treatmentTrainingWork.handler }">
             		<label>日期：</label>
-            		<input type="text" ltype="text">
+            		<input type="text" ltype="date" name="handleDate" value="${treatmentTrainingWork.handleDate_str }">
             	</div>
             	<div class="inline-block">
             		<label>意見／建議:</label>
-            		<textarea rows="2" cols="55" name="note" id="note">${treatmentPojo.note }</textarea>
+            		<textarea rows="2" cols="55" name="handleSuggest" id="handleSuggest">${treatmentTrainingWork.handleSuggest }</textarea>
             	</div>
 		  	   	
 		  	</div>

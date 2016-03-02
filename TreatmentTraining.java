@@ -1,5 +1,3 @@
-package com.jxh.vo;
-
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,6 +7,23 @@ import java.math.*;
 
 
 /** TreatmentTraining
+	TRAININGID	VARCHAR(20)
+	TREATMENTID	INT(10)
+	PROGRAM	VARCHAR(32)
+	TARGET	VARCHAR(32)
+	WORKDER	VARCHAR(32)
+	BEGINDATE	DATETIME(23,3)
+	ENDDATE	DATETIME(23,3)
+	PLACE	VARCHAR(128)
+	ATTENTION	VARCHAR(128)
+	EMOTIONAL	VARCHAR(128)
+	ATTITUDE	VARCHAR(128)
+	INSTRUCTION	VARCHAR(128)
+	ENDURANCE	VARCHAR(128)
+	SKILL	VARCHAR(128)
+	OTHER	VARCHAR(128)
+	TARGETASSESS	TEXT(2147483647)
+	TRAININGNO	VARCHAR(32)
 
 trainingID,treatmentID,program,target,workder,beginDate,endDate,place,attention,emotional,attitude,instruction,endurance,skill,other,targetAssess,trainingNO
 ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
