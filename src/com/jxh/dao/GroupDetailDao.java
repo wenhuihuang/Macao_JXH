@@ -70,10 +70,10 @@ public class GroupDetailDao extends DaoImpl<GroupDetail>{
 		return getflagByIntArray(rows);
 	}
 	
-	public int deleteGroupDetailByDetailID(String detailID) throws SQLException, IOException{
+	public int deleteGroupDetailByCustID(String custID) throws SQLException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		//String sql = "delete from TreatmentPlan where treatmentID = ? ";
-		return this.update(sql, detailID);
+		return this.update(sql, custID);
 	}
 	
 	public GroupDetail getGroupDetailByCondition(String condition, Object...params) throws IOException, SQLException {

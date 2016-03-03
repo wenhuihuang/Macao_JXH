@@ -301,7 +301,7 @@ String basePath = request.getScheme() + "://"
                 </td>
             
                 <td align="right" class="l-table-edit-td">姓名：</td>
-                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.fullName }" name="fullName" type="text" id="fullName"/></td>
+                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.fullName }" name="fullName" type="text" class="fullName"/></td>
                 
                 <td align="right" class="l-table-edit-td">會員編號：</td>
                 <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNO }" name="custNO" type="text" id="custNO" /></td>

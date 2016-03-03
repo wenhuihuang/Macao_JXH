@@ -57,7 +57,7 @@ $(function(){
 	}
 
 	//案生姓名
-	 var full = $("#fullName").ligerPopupEdit({
+	 var full = $(".fullName").ligerPopupEdit({
 	    grid: getFullNameGridOptions(true),
 	    valueField: 'fullName',
 	    textField: 'fullName',
@@ -85,7 +85,7 @@ $(function(){
 		   var custID = data.data[0].custId;
 		   $.ajax({
 			   type:"post",
-			   url:"CustCase/custData.do",
+			   url:"Customer/custData.do",
 			   data:"custID="+custID,
 			   success:function(msg){
 				  // var m = JSON.parse(msg);
@@ -107,6 +107,7 @@ $(function(){
 				   		$("#receiveDate").val(m.receiveDate_str);
 				   		$("#caseWorker").val(m.caseWorker);
 				   		$("#economics").val(m.economics);
+				   		$(".fullName").val(m.fullName);
 			   			if(edulevel != "" && edulevel != null && edulevel != 'undefined'){
 			   				edulevel.setValue(m.edulevel);
 			   			}

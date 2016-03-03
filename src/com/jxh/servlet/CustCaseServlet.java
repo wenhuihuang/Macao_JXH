@@ -92,26 +92,6 @@ public class CustCaseServlet extends FGServlet {
 		LigerUITools.writeGridJson(page, response);
 	}
 	
-	/**
-	 * 獲取會員信息
-	 * @param request
-	 * @param response
-	 */
-	private void custData(HttpServletRequest request, HttpServletResponse response) {
-		String custID = request.getParameter("custID");
-		try {
-			PageUtils<CustCasePojo> page = getPage(request);
-			String condition = " and bCustomer.custID ='"+custID+"'";//and custID = ?
-			CustCasePojo custCasePojo = custCaseDao.getCustCasePojoByCustId(condition);
-			 PrintWriter out = response.getWriter();  
-		     out.write(JSONArray.fromObject(custCasePojo).toString());  
-			//LigerUITools.writeGridJson(page, response);
-		} catch (IOException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
 	
 	/**
 	 * 獲取個案撮要記錄

@@ -1,6 +1,7 @@
 package com.jxh.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -24,12 +25,15 @@ import com.jxh.dao.CSSADao;
 import com.jxh.dao.CustomerDao;
 import com.jxh.dao.RetardedDao;
 import com.jxh.dao.SpecialAllowanceDao;
+import com.jxh.pojo.CustCasePojo;
 import com.jxh.pojo.Customer;
 import com.jxh.vo.ActivityRecord;
 import com.jxh.vo.BCustomer;
 import com.jxh.vo.CSSA;
 import com.jxh.vo.Retarded;
 import com.jxh.vo.SpecialAllowance;
+
+import net.sf.json.JSONArray;
 
 /**
  * Servlet implementation class CustomerServlet
@@ -241,25 +245,6 @@ public class CustomerServlet extends FGServlet {
 
 	}
 	
-	/**
-	 * 獲取會員信息
-	 * @param request
-	 * @param response
-	 */
-	private void custData(HttpServletRequest request, HttpServletResponse response) {
-		String custId = request.getParameter("CUSTID");
-		try {
-			System.out.println(custId+"---");
-			PageUtils<Customer> page = getPage(request);
-			String condition = " and CustType2 != 2 and custid ='"+custId+"'";//and custid = ?
-			customerDao.getCustomerList(page, condition);
-			LigerUITools.writeGridJson(page, response);
-		} catch (IOException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
 
 	/**
 	 * 进入新增页面
@@ -356,6 +341,27 @@ public class CustomerServlet extends FGServlet {
 			String condition = " and CustType2 != 2 ";//and custid = ?
 			customerDao.getCustomerList(page, condition);
 			LigerUITools.writeGridJson(page, response);
+		} catch (IOException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	/**
+	 * 獲取會員信息
+	 * @param request
+	 * @param response
+	 */
+	private void custData(HttpServletRequest request, HttpServletResponse response) {
+		String custID = request.getParameter("custID");
+		try {
+			//PageUtils<Customer> page = getPage(request);
+			String condition = " and bCustomer.custID ='"+custID+"'";//and custID = ?
+			BCustomer customer = customerDao.getCustomerByCondition(condition);
+			 PrintWriter out = response.getWriter();  
+		     out.write(JSONArray.fromObject(customer).toString());  
+			//LigerUITools.writeGridJson(page, response);
 		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

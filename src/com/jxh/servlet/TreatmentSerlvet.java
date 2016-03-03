@@ -173,8 +173,9 @@ public class TreatmentSerlvet extends FGServlet {
 			}else if("5".equals(treatmentType)){
 				TreatmentTraining treatmentTraining = treatmentTrainingDao.getTreatmentTrainingByCondition(" and treatmentID = ? ",
 						this.getParameterByName(request,"treatmentID"));
-				TreatmentTrainingWork treatmentTrainingWork = treatmentTrainingWorkDao.getTreatmentTrainingWorkByCondition(" and trainingID = ?  ",
-						this.getParameterByName(request, "trainingID"));
+				TreatmentTrainingWork treatmentTrainingWork = treatmentTrainingWorkDao.getTreatmentTrainingWorkByCondition(" and treatmentID = ?  ",
+						this.getParameterByName(request,"treatmentID"));
+				
 				
 				request.setAttribute("treatmentTraining", treatmentTraining);
 				request.setAttribute("treatmentTrainingWork", treatmentTrainingWork);
@@ -335,7 +336,7 @@ public class TreatmentSerlvet extends FGServlet {
 			if (treatment.getTreatmentID() != null && !"".equals(treatment.getTreatmentID())) {
 				message = treatmentBiz.updateTreatment(treatment, treatmentAssess,treatmentReport,treatmentPlanAdds,treatmentPlanUpdates,treatmentPlanDeletes,treatmentRecordAdds,treatmentRecordUpdates,treatmentRecordDeletes,treatmentHistoryAdds,treatmentHistoryUpdates,treatmentHistoryDeletes,bCustomerSchoolAdds,bCustomerSchoolUpdates,bCustomerSchoolDeletes,treatmentFamilyAdds,treatmentFamilyUpdates,treatmentFamilyDeletes);
 			} else {
-					message = treatmentBiz.insertTreatment(treatment, treatmentAssess,treatmentReport,treatmentPlanAdds,treatmentRecordAdds,treatmentHistoryAdds,bCustomerSchoolAdds,treatmentFamilyAdds);
+				message = treatmentBiz.insertTreatment(treatment, treatmentAssess,treatmentReport,treatmentPlanAdds,treatmentRecordAdds,treatmentHistoryAdds,bCustomerSchoolAdds,treatmentFamilyAdds);
 			}
 		}
 	
@@ -384,8 +385,9 @@ public class TreatmentSerlvet extends FGServlet {
 		boolean flag = false;
 		String treatmentID = request.getParameter("treatmentID");
 		String custID = request.getParameter("custID");
+		String treatmentType = request.getParameter("treatmentType");
 		if(treatmentID != null && !"".equals(treatmentID) && custID != null && !"".equals(custID)){
-			flag = treatmentBiz.deleteTreatmentByTreatmentID(treatmentID,custID);
+			flag = treatmentBiz.deleteTreatmentByTreatmentID(treatmentID,custID,treatmentType);
 		}
 		response.getWriter().print(flag);
 	}

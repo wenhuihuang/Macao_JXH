@@ -69,10 +69,10 @@ public class GroupSettingRecordPerformanceDao extends DaoImpl<GroupSettingRecord
 		return getflagByIntArray(rows);
 	}
 	
-	public int deleteGroupSettingRecordPerformanceByPermanceID(String permanceID) throws SQLException, IOException{
+	public int deleteGroupSettingRecordPerformanceByCustID(String custID) throws SQLException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		//String sql = "delete from TreatmentPlan where treatmentID = ? ";
-		return this.update(sql, permanceID);
+		return this.update(sql, custID);
 	}
 	
 	public GroupSettingRecordPerformance getGroupSettingRecordPerformanceByCondition(String condition, Object...params) throws IOException, SQLException {

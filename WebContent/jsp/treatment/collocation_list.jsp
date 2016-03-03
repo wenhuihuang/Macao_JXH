@@ -22,31 +22,56 @@ String basePath = request.getScheme() + "://"
             switch(item.id){
             	case "add":addRow();break;
             	case "modify":modifyRow();break;
+            	case "delete":deleteRow();break;
             	default : break;
             }
         }
         
         function addRow(){
-        	location.href = "CustCase/add.do";
+        	location.href = "Treatment/add.do?treatmentType=6";
         }
         
         function modifyRow(){
-        	var caseId = getRowCell(maingrid,"caseId");
-        	if(caseId!=""){
-        		alert(caseId)
-	        	location.href = "CustCase/edit.do?CASEID="+caseId;        		
+        	var treatmentID = getRowCell(maingrid,"treatmentID");
+        	var custID = getRowCell(maingrid,"custID");
+        	if(treatmentID!="" && treatmentID!=null){
+	        	location.href = "Treatment/edit.do?treatmentType=6&treatmentID="+treatmentID+"&custID="+custID;        		
         	}
+        }
+        function deleteRow(){
+        	var treatmentID = getRowCell(maingrid,"treatmentID");
+        	var custID = getRowCell(maingrid,"custID");
+        	alert(treatmentID)
+      		if(confirm("是否刪除？")){
+     			$.ajax({
+         			type:"post",
+         			url:"Treatment/deleteTreatment.do",
+         			data:"treatmentID="+treatmentID+"&custID="+custID,
+         			success:function(msg){
+         				if(msg == "true" || msg == true){
+         					maingrid.deleteSelectedRow();
+         				}else{
+         					alert("刪除失敗！");
+         				}
+         				 
+         			},
+         			error:function(){
+         				alert("刪除失敗！");
+         			}
+         		})
+     		} 
         }
         
         
         $(function ()
         {
-        	 
+        	setTabTitle(parent.$("#framecenter"),"暫托服務列表") 
+        	
             var isMemberData = [{isMember:0,text:'非會員'},{isMember:1,text:'會員'}];
             var serviceStatusData = [{serviceStatus:0,text:'沒有服務'},{serviceStatus:1,text:'服務中'},{serviceStatus:2,text:'服務完成'}];
         	
             var columns = [
-       	                { display: '托管服務編號', name: 'treatmentNO', align: 'left', width: 100, minWidth: 60 },
+       	                { display: '託管服務編號', name: 'treatmentNO', align: 'left', width: 100, minWidth: 60 },
     	                { display: '姓名', name: 'fullName', minWidth: 100 },
     	                { display: '會員/非會員', name: 'isMember',width:70 
     	                	,editor: { data: isMemberData, valueField: 'isMember' },
@@ -54,18 +79,19 @@ String basePath = request.getScheme() + "://"
 	                        {
 	                        	return getGridSelectedData(isMemberData[parseInt(item.isMember)]);
 	                        } },
-    	                { display: '申服務日期', name: '', width: 100, minWidth: 60 },//暫時沒有寫
-    	                { display: '評估日期', name: 'closeDate', minWidth: 140 },
-    	                { display: '接受日期', name: 'serviceStatus', minWidth: 100
+    	                { display: '申服務日期', name: 'applyDate', width: 100, minWidth: 60 },//暫時沒有寫
+    	                { display: '評估日期', name: 'assessDate', minWidth: 140 },
+    	                { display: '接受日期', name: 'assessDate', minWidth: 140 },
+    	                { display: '狀態', name: 'serviceStatus', minWidth: 100
     	                	,editor: { data: serviceStatusData, valueField: 'serviceStatus' },
 	                        render: function (item)
 	                        {
 	                        	return getGridSelectedData(serviceStatusData[parseInt(item.serviceStatus)]);
 	                        }  },
-    	                { display: '輸候開始日期', name: 'caseWorker', minWidth: 140 },
-    	                { display: '服務類別', name: 'closeWorker', minWidth: 140 },
-    	                { display: '負責人', name: 'note', minWidth: 140 },
-    	                { display: '結束日期', name: 'note', minWidth: 140 },
+    	                { display: '輸候開始日期', name: 'awaitDate', minWidth: 140 },
+    	                { display: '服務類別', name: 'startDate', minWidth: 140 },
+    	                { display: '負責人', name: 'closeDate', minWidth: 140 },
+    	                { display: '結束日期', name: 'reason', minWidth: 140 },
                     ] ;
             
             var gridToolBar = [
@@ -75,7 +101,7 @@ String basePath = request.getScheme() + "://"
                                { line: true },
                                { text: '删除', click: itemclick, icon: 'delete' , id:"delete" }
                              ];
-            maingrid = ligerGrid("maingrid",'99%',columns,"CustCase/listPojos.do",gridToolBar,true);
+            maingrid = ligerGrid("maingrid",'99%',columns,"Treatment/list.do?treatmentType=6",gridToolBar,false,true);
             $("#pageloading").hide();
         });
 

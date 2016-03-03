@@ -3,8 +3,11 @@ package com.jxh.vo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.sql.*;
 
+import com.fg.utils.ToolsUtils;
+
+import java.sql.*;
+import java.text.ParseException;
 import java.math.*;
 
 
@@ -36,11 +39,15 @@ public class TreatmentTraining implements Serializable {
 	private String other;
 	private String targetAssess;
 	private String trainingNO;
+	
+	private String beginDate_str;
+	private String endDate_str;
 
 	public TreatmentTraining(){
 		super();
 	}
-	public TreatmentTraining(String trainingID, String treatmentID, String program, String target, String workder, Date beginDate, Date endDate, String place, String attention, String emotional, String attitude, String instruction, String endurance, String skill, String other, String targetAssess, String trainingNO ){
+	public TreatmentTraining(String trainingID, String treatmentID, String program, String target, String workder, Date beginDate, Date endDate, String place, String attention, String emotional, String attitude, String instruction, String endurance, String skill, String other, String targetAssess, String trainingNO,
+							String beginDate_str,String endDate_str ){
 		super();
 		this.trainingID=trainingID;
 		this.treatmentID=treatmentID;
@@ -59,6 +66,8 @@ public class TreatmentTraining implements Serializable {
 		this.other=other;
 		this.targetAssess=targetAssess;
 		this.trainingNO=trainingNO;
+		this.beginDate_str=beginDate_str;
+		this.endDate_str=endDate_str;
 	}
 	public void setTrainingID(String trainingID){
 		this.trainingID=trainingID;
@@ -162,9 +171,39 @@ public class TreatmentTraining implements Serializable {
 	public String getTrainingNO(){
 		return trainingNO;
 	}
+	
+	
+	
+	public String getBeginDate_str() {
+		try {
+			return beginDate == null || "".equals(beginDate) ? ""
+					: ToolsUtils.getDateStringByFormat(beginDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setBeginDate_str(String beginDate_str) {
+		this.beginDate_str = beginDate_str;
+	}
+	public String getEndDate_str() {
+		try {
+			return endDate == null || "".equals(endDate) ? ""
+					: ToolsUtils.getDateStringByFormat(endDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setEndDate_str(String endDate_str) {
+		this.endDate_str = endDate_str;
+	}
 	@Override
 	public String toString(){
-		return "TreatmentTraining [trainingID="+trainingID+",treatmentID="+treatmentID+",program="+program+",target="+target+",workder="+workder+",beginDate="+beginDate+",endDate="+endDate+",place="+place+",attention="+attention+",emotional="+emotional+",attitude="+attitude+",instruction="+instruction+",endurance="+endurance+",skill="+skill+",other="+other+",targetAssess="+targetAssess+",trainingNO="+trainingNO+"]";
+		return "TreatmentTraining [trainingID="+trainingID+",treatmentID="+treatmentID+",program="+program+",target="+target+",workder="+workder+",beginDate="+beginDate+",endDate="+endDate+",place="+place+",attention="+attention+",emotional="+emotional+",attitude="+attitude+",instruction="+instruction+",endurance="+endurance+",skill="+skill+",other="+other+",targetAssess="+targetAssess+",trainingNO="+trainingNO+
+									",beginDate_str="+beginDate_str+",endDate_str"+endDate_str+"]";
 	}
 }
 

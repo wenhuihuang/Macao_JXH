@@ -49,12 +49,15 @@ public class TreatmentTrainingWorkRecordDao extends DaoImpl<TreatmentTrainingWor
 	}
 	
 	
-	public int updateTreatmentTrainingWorkRecord(List<TreatmentTrainingWorkRecord> treatmentTrainingWorkRecord) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException{
-		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+	public int[] updateTreatmentTrainingWorkRecordBatch(List<TreatmentTrainingWorkRecord> treatmentTrainingWorkRecord) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException{
+		String sql = this.getSqlByPropKey("updateTreatmentTrainingWorkRecord");
 		
-		int[] rows = updateBatchByList(sql, treatmentTrainingWorkRecord);
+		Object[][] params = new Object[treatmentTrainingWorkRecord.size()][];
+		for (int i = 0; i < treatmentTrainingWorkRecord.size(); i++) {
+			params[i] = getUpdateParams(sql, treatmentTrainingWorkRecord.get(i));
+		}
+		return this.updateBatch(sql, params);
 		
-		return getflagByIntArray(rows);
 	}
 	
 	
@@ -69,10 +72,10 @@ public class TreatmentTrainingWorkRecordDao extends DaoImpl<TreatmentTrainingWor
 		return getflagByIntArray(rows);
 	}
 	
-	public int deleteTreatmentTrainingWorkRecordByRecordID(String recordID) throws SQLException, IOException{
+	public int deleteTreatmentTrainingWorkRecordByTreatmentID(String treatmentID) throws SQLException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		//String sql = "delete from TreatmentPlan where treatmentID = ? ";
-		return this.update(sql, recordID);
+		return this.update(sql, treatmentID);
 	}
 	
 	public TreatmentTrainingWorkRecord getTreatmentTrainingWorkRecordByCondition(String condition, Object...params) throws IOException, SQLException {

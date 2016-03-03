@@ -24,6 +24,7 @@ import com.jxh.dao.TreatmentTrainingWorkRecordDao;
 import com.jxh.utils.Constants;
 import com.jxh.vo.BCustCase;
 import com.jxh.vo.BCustCaseRecord;
+import com.jxh.vo.BCustomer;
 import com.jxh.vo.BCustomerSchool;
 import com.jxh.vo.GroupDetail;
 import com.jxh.vo.GroupSettingRecordPerformance;
@@ -136,7 +137,7 @@ public class TreatmentBiz {
 		return "操作成功！";
 	}
 
-	public boolean deleteTreatmentByTreatmentID(String treatmentID,String custID) throws Exception {
+	public boolean deleteTreatmentByTreatmentID(String treatmentID,String custID,String treatmentType) throws Exception {
 		boolean flag=false;
 		int row = treatmentDao.deleteTreatmentByTreatmentID(treatmentID);
 			if (row > 0) {
@@ -152,22 +153,53 @@ public class TreatmentBiz {
 				if (deleteTreatmentFamilyByTreatmentID(treatmentID) < 0) {
 					throw new Exception("個案轉介評估刪除失敗！");
 				}
-				
-				if(deleteTreatmentReportByTreatmentID(treatmentID) < 0){
-					throw new Exception("個案撮要記錄刪除失敗！");
-				}
-				
-				if(deleteTreatmentPlanByTreatmentID(treatmentID) < 0){
-					throw new Exception("结案摘要工作人员处理方式刪除失敗！");
-				}
-				
-				if(deleteTreatmentRecordByTreatmentID(treatmentID) < 0){
-					throw new Exception("結案摘要刪除失敗！");
-				}
-				
+
 				if(deleteBCustomerSchoolByCustID(custID) < 0){
 					throw new Exception("結案摘要刪除失敗！");
 				}
+				
+				if("5".equals(treatmentType)){
+					
+					
+					if(deleteGroupDetailByCustID(custID) < 0){
+						throw new Exception("個案撮要記錄刪除失敗！");
+					}
+					
+					if(deleteGroupSettingRecordPerformanceByCustID(custID) < 0){
+						throw new Exception("個案撮要記錄刪除失敗！");
+					}
+					
+					if(deleteTreatmentTrainingByTreatmentID(treatmentID) < 0){
+						throw new Exception("個案撮要記錄刪除失敗！");
+					}
+					
+					
+				/*	if(deleteTreatmentTrainingWorkRecordByTreatmentID(treatmentID) < 0){
+						throw new Exception("個案撮要記錄刪除失敗！");
+					}*/
+					
+					if(deleteTreatmentTrainingWorkByTreatmentID(treatmentID) < 0){
+						throw new Exception("個案撮要記錄刪除失敗！");
+					}
+					
+				}else{
+				
+					
+					if(deleteTreatmentReportByTreatmentID(treatmentID) < 0){
+						throw new Exception("個案撮要記錄刪除失敗！");
+					}
+					
+					if(deleteTreatmentPlanByTreatmentID(treatmentID) < 0){
+						throw new Exception("结案摘要工作人员处理方式刪除失敗！");
+					}
+					
+					if(deleteTreatmentRecordByTreatmentID(treatmentID) < 0){
+						throw new Exception("結案摘要刪除失敗！");
+					}
+					
+				}
+				
+			
 				
 				flag=true;
 				
@@ -175,6 +207,24 @@ public class TreatmentBiz {
 		return flag;
 	}
 	
+
+	private int deleteTreatmentTrainingWorkByTreatmentID(String treatmentID) throws SQLException, IOException {
+		treatmentTrainingWorkRecordDao.deleteTreatmentTrainingWorkRecordByTreatmentID(treatmentID);
+		return treatmentTrainingWorkDao.deleteTreatmentTrainingWorkByTreatmentID(treatmentID);
+	}
+
+	private int deleteTreatmentTrainingByTreatmentID(String treatmentID) throws SQLException, IOException {
+		treatmentTrainingPlanDao.deleteTreatmentTrainingPlanByTreatmentID(treatmentID);
+		return treatmentTrainingDao.deleteTreatmentTrainingByTreatmentID(treatmentID);
+	}
+
+	private int deleteGroupSettingRecordPerformanceByCustID(String custID) throws SQLException, IOException {
+		return groupSettingRecordPerformanceDao.deleteGroupSettingRecordPerformanceByCustID(custID);
+	}
+
+	private int deleteGroupDetailByCustID(String custID) throws SQLException, IOException {
+		return groupDetailDao.deleteGroupDetailByCustID(custID);
+	}
 
 	private int deleteTreatmentReportByTreatmentID(String treatmentID) throws SQLException, IOException {
 		return treatmentReportDao.deleteTreatmentReportByTreatmentID(treatmentID);
@@ -584,7 +634,7 @@ public class TreatmentBiz {
 				throw new Exception("新增個案撮要失败！");
 			}
 			
-			if(updateTreatmentTrainingWork(treatmentTraining, treatmentTrainingWork)<0){
+			if(updateTreatmentTrainingWork(treatment, treatmentTrainingWork)<0){
 				throw new Exception("新增個案撮要失败！");
 			}
 			
@@ -686,7 +736,21 @@ public class TreatmentBiz {
 		if (treatmentTrainingWorkRecordUpdates == null || treatmentTrainingWorkRecordUpdates.size() <= 0) {
 			return 1;
 		}
-		return treatmentTrainingWorkRecordDao.updateTreatmentTrainingWorkRecord(treatmentTrainingWorkRecordUpdates);
+		for (TreatmentTrainingWorkRecord update : treatmentTrainingWorkRecordUpdates) {
+			
+			update.setWorkID(treatmentTrainingWork.getWorkID());
+		}
+		
+		int [] rows =treatmentTrainingWorkRecordDao.updateTreatmentTrainingWorkRecordBatch(treatmentTrainingWorkRecordUpdates);
+		
+		for (int i : rows) {
+			if (i < 1) {
+				return i;
+			}
+		}
+		return 1;
+		
+		//return treatmentTrainingWorkRecordDao.updateTreatmentTrainingWorkRecord(treatmentTrainingWorkRecordUpdates);
 	}
 
 	private int updateGroupSettingRecordPerformance(Treatment treatment,
@@ -706,14 +770,14 @@ public class TreatmentBiz {
 		return groupDetailDao.updateGroupDetail(groupDetailUpdates);
 	}
 
-	private int updateTreatmentTrainingWork(TreatmentTraining treatmentTraining,
+	private int updateTreatmentTrainingWork(Treatment treatment,
 			TreatmentTrainingWork treatmentTrainingWork) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
 		
 		if (treatmentTrainingWork == null || "".equals(treatmentTrainingWork)) {
 			return 1;
 		}
 		
-		treatmentTrainingWork.setTrainingID(treatmentTraining.getTrainingID());
+		treatmentTrainingWork.setTreatmentID(treatment.getTreatmentID());
 		return treatmentTrainingWorkDao.updateTreatmentTrainingWork(treatmentTrainingWork);
 	}
 
@@ -762,7 +826,7 @@ public class TreatmentBiz {
 				throw new Exception("新增個案撮要失败！");
 			}
 			
-			if(addTreatmentTrainingWork(treatmentTraining, treatmentTrainingWork)<0){
+			if(addTreatmentTrainingWork(treatment, treatmentTrainingWork)<0){
 				throw new Exception("新增個案撮要失败！");
 			}
 			
@@ -868,13 +932,13 @@ public class TreatmentBiz {
 		return 1;
 	}
 
-	private int addTreatmentTrainingWork(TreatmentTraining treatmentTraining, TreatmentTrainingWork treatmentTrainingWork) throws SQLException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException {
+	private int addTreatmentTrainingWork(Treatment treatment, TreatmentTrainingWork treatmentTrainingWork) throws SQLException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException {
 		String workID = treatmentTrainingWorkDao.getPrimaryKey(Constants.CORPID);
 		if (treatmentTrainingWork == null || "".equals(treatmentTrainingWork)) {
 			return 1;
 		}
 		treatmentTrainingWork.setWorkID(workID);
-		treatmentTrainingWork.setTrainingID(treatmentTraining.getTrainingID());
+		treatmentTrainingWork.setTreatmentID(treatment.getTreatmentID());
 		int row = treatmentTrainingWorkDao.insertTreatmentTrainingWork(treatmentTrainingWork);
 		if(row > 0 ){
 			

@@ -15,7 +15,7 @@ public class TreatmentTrainingWorkDao extends DaoImpl<TreatmentTrainingWork>{
 	@Override
 	protected String getSqlPropertiesPath() {
 		// TODO Auto-generated method stub
-		return null;
+		return "/sqls/Macao_JXH/treatmenttrainingwork.properties";
 	}
 
 	/**
@@ -52,7 +52,8 @@ public class TreatmentTrainingWorkDao extends DaoImpl<TreatmentTrainingWork>{
 	
 	public int updateTreatmentTrainingWork(TreatmentTrainingWork treatmentTrainingWork) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
-		Object[] params = getInsertParams(sql, treatmentTrainingWork);
+		//String sql ="update TreatmentTrainingWork set treatmentID=?,beginDate=?,endDate=?,duty=?,corp=?,place=?,workTime=?,content=?,workDetail=?,envioment=?,handler=?,handleDate=?,handleSuggest=? where treatmentID = ? ";
+		Object[] params = getUpdateParams(sql, treatmentTrainingWork);
 		return this.update(sql, params);
 	}
 	

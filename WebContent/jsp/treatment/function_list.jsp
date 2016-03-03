@@ -34,7 +34,6 @@ String basePath = request.getScheme() + "://"
         function modifyRow(){
         	var treatmentID = getRowCell(maingrid,"treatmentID");
         	var custID = getRowCell(maingrid,"custID");
-        	alert(custID+"=custID");
         	if(treatmentID!="" && treatmentID!=null){
 	        	location.href = "Treatment/edit.do?treatmentType=5&treatmentID="+treatmentID+"&custID="+custID;        		
         	}
@@ -42,12 +41,12 @@ String basePath = request.getScheme() + "://"
         function deleteRow(){
         	var treatmentID = getRowCell(maingrid,"treatmentID");
         	var custID = getRowCell(maingrid,"custID");
-        	alert(treatmentID)
+        	var treatmentType = getRowCell(maingrid,"treatmentType");
       		if(confirm("是否刪除？")){
      			$.ajax({
          			type:"post",
          			url:"Treatment/deleteTreatment.do",
-         			data:"treatmentID="+treatmentID+"&custID="+custID,
+         			data:"treatmentID="+treatmentID+"&custID="+custID+"&treatmentType="+treatmentType,
          			success:function(msg){
          				if(msg == "true" || msg == true){
          					maingrid.deleteSelectedRow();
@@ -60,7 +59,7 @@ String basePath = request.getScheme() + "://"
          				alert("刪除失敗！");
          			}
          		})
-     		} 
+     		}  
         }
         
         

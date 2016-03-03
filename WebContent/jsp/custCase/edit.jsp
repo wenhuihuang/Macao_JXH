@@ -265,7 +265,7 @@ String basePath = request.getScheme() + "://"
 	                </td>
 	                
 	                 <td align="right" class="l-table-edit-td">案主姓名：</td><!-- 有name -->
-	                <td align="left" class="l-table-edit-td"><input disabled="disabled" width="120px"  value="${custCasePojo.fullName }" name="fullName" id="fullName" type="text" /></td>
+	                <td align="left" class="l-table-edit-td"><input disabled="disabled" width="120px"  value="${custCasePojo.fullName }" name="fullName" class="fullName" type="text" /></td>
 	             </tr>
 	             <tr>
 	                <td align="right" class="l-table-edit-td">性別：</td>

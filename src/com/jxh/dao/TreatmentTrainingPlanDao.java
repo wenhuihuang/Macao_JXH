@@ -69,10 +69,10 @@ public class TreatmentTrainingPlanDao extends DaoImpl<TreatmentTrainingPlan>{
 		return getflagByIntArray(rows);
 	}
 	
-	public int deleteTreatmentTrainingPlanByTrainingID(String trainingID) throws SQLException, IOException{
+	public int deleteTreatmentTrainingPlanByTreatmentID(String treatmentID) throws SQLException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		//String sql = "delete from TreatmentPlan where treatmentID = ? ";
-		return this.update(sql, trainingID);
+		return this.update(sql, treatmentID);
 	}
 	
 	public TreatmentTrainingPlan getTreatmentTrainingPlanByCondition(String condition, Object...params) throws IOException, SQLException {

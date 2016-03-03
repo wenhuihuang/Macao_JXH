@@ -202,7 +202,7 @@ String basePath = request.getScheme() + "://"
 	          { line: true },
 	          { text: '删除', click: deleteFlowPlanData, icon: 'delete' , id:"delete" }];
 		
-		var url = "Treatment/getTreatmentFlowPlan.do?treatmentID="+$("#treatmentID").val();
+		var url = "Treatment/getTreatmentFlowPlan.do?trainingID="+$("#trainingID").val();
 		
 		flowPlanDataGrid = ligerGrid("flowPlanDataGrid",null,flowPlanDataGridColumn,url,flowPlanDataGridToolBar,false,true);
 		
@@ -387,7 +387,7 @@ String basePath = request.getScheme() + "://"
                 </td>
             
                 <td align="right" class="l-table-edit-td">姓名：</td>
-                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.fullName }" name="fullName" type="text" id="fullName"/></td>
+                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.fullName }" name="fullName" type="text"  class="fullName"/></td>
                 
                 <td align="right" class="l-table-edit-td">會員編號：</td>
                 <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNO }" name="custNO" type="text" id="custNO" /></td>
@@ -1126,13 +1126,13 @@ String basePath = request.getScheme() + "://"
 			                </td>
 			            
 			                <td align="right" class="l-table-edit-td">姓名：</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.fullName }" name="fullName" type="text" id="fullName"/></td>
+			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.fullName }" name="fullName" type="text" ltype="text"  class="fullName"/></td>
 			                
 			                <td align="right" class="l-table-edit-td">會員編號：</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNO }" name="custNO" type="text" id="custNO" /></td>
+			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNO }" name="custNO" type="text" ltype="text" id="custNO" /></td>
 			                
 			                <td align="right" class="l-table-edit-td">非會員編號：</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" id="custNewNO" /></td>
+			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" ltype="text" id="custNewNO" /></td>
 			              </tr>
 			              <tr>
 			                 <td align="right" class="l-table-edit-td">訓練項目:</td>
@@ -1149,9 +1149,9 @@ String basePath = request.getScheme() + "://"
 			                </td>
 			               	<td align="right" class="l-table-edit-td">訓練日期：</td>
 			                <td align="left" class="l-table-edit-td">
-			                	<input width="120px" value="${treatmentTraining.beginDate }" name="beginDate" type="text" id="beginDate" ltype="date"/>
+			                	<input width="120px" value="${treatmentTraining.beginDate_str }" name="beginDate" type="text" id="beginDate" ltype="date"/>
 			                	至
-			                	<input width="120px" value="${treatmentTraining.endDate }" name="endDate" type="text" id="endDate" ltype="date"/>
+			                	<input width="120px" value="${treatmentTraining.endDate_str }" name="endDate" type="text" id="endDate" ltype="date"/>
 			                </td>
 			            </tr>
 			            <tr>
@@ -1215,14 +1215,14 @@ String basePath = request.getScheme() + "://"
 			            <tr>
 			            	<td align="right" class="l-table-edit-td">學員名稱：</td>
 			                <td align="left" class="l-table-edit-td">
-			                	<input width="120px" value="${customer.fullName }" name="fullName" type="text" id="fullName" ltype="text">
+			                	<input width="120px" value="${customer.fullName }" name="fullName" type="text" class="fullName" ltype="text">
 			                </td>
 			            
 			                <td align="right" class="l-table-edit-td">試工開始時間：</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentTrainingWork.beginDate }" name="beginDate" type="text" id="beginDate" ltype="date"/></td>
+			                <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentTrainingWork.beginDate_str }" name="beginDate" type="text" id="beginDate" ltype="date"/></td>
 			                
 			                <td align="right" class="l-table-edit-td">試工結束時間：</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentTrainingWork.endDate }" name="endDate" type="text" id="endDate" ltype="date" /></td>
+			                <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentTrainingWork.endDate_str }" name="endDate" type="text" id="endDate" ltype="date" /></td>
 			                
 			                <td align="right" class="l-table-edit-td">試工職位：</td>
 			                <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentTrainingWork.duty }" name="duty" type="text" id="duty" ltype="text" /></td>
