@@ -1,3 +1,5 @@
+package com.jxh.vo;
+
 
 import java.io.Serializable;
 import java.util.Date;
@@ -20,7 +22,7 @@ treatmentTrainingPlanRecord.recordID,treatmentTrainingPlanRecord.workID,treatmen
 
 recordID=?,workID=?,billDate=?,content=?,performance=?,note=?,time=?
 */
-public class TreatmentTrainingPlanRecord implements Serializable {
+public class TreatmentTrainingWorkRecord implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int recordID;
 	private String workID;
@@ -30,10 +32,10 @@ public class TreatmentTrainingPlanRecord implements Serializable {
 	private String note;
 	private String time;
 
-	public TreatmentTrainingPlanRecord(){
+	public TreatmentTrainingWorkRecord(){
 		super();
 	}
-	public TreatmentTrainingPlanRecord(int recordID, String workID, Date billDate, String content, String performance, String note, String time ){
+	public TreatmentTrainingWorkRecord(int recordID, String workID, Date billDate, String content, String performance, String note, String time ){
 		super();
 		this.recordID=recordID;
 		this.workID=workID;

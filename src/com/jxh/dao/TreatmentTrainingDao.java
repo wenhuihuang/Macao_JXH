@@ -44,31 +44,21 @@ public class TreatmentTrainingDao extends DaoImpl<TreatmentTraining>{
 	
 	
 	
-	public int[] insertTreatmentTraining(List<TreatmentTraining> treatmentTraining) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException{
+	public int insertTreatmentTraining(TreatmentTraining treatmentTraining) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
-		return insertBatchByList(sql, treatmentTraining);
+		Object[] params = getInsertParams(sql, treatmentTraining);
+		return this.update(sql, params);
 	}
 	
 	
-	public int updateTreatmentTraining(List<TreatmentTraining> treatmentTraining) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException{
+	public int updateTreatmentTraining(TreatmentTraining treatmentTraining) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
-		
-		int[] rows = updateBatchByList(sql, treatmentTraining);
-		
-		return getflagByIntArray(rows);
+		Object[] params = getUpdateParams(sql, treatmentTraining);
+		return this.update(sql, params);
 	}
 	
 	
 	
-	public int deleteTreatmentTraining(List<TreatmentTraining> treatmentTraining) throws IOException, SQLException{
-		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
-		Object[][] params = new Object[treatmentTraining.size()][1];
-		for (int i = 0;i<treatmentTraining.size();i++) {
-			params[i][0] = treatmentTraining.get(i).getTreatmentID();
-		}
-		int[] rows = this.updateBatch(sql, params);
-		return getflagByIntArray(rows);
-	}
 	
 	public int deleteTreatmentTrainingByTreatmentID(String treatmentID) throws SQLException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
@@ -83,6 +73,10 @@ public class TreatmentTrainingDao extends DaoImpl<TreatmentTraining>{
 		//System.out.println("sql++"+condition);
 		System.out.println(sql);
 		return  (TreatmentTraining) this.findForObject(sql, params);
+	}
+
+	public String getPrimaryKey(String corpId) throws SQLException{
+		return this.getPrimaryKey("TREATMENTTRAINING", corpId, 20);
 	}
 	
 }

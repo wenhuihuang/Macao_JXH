@@ -20,7 +20,7 @@ trainingID=?,treatmentID=?,program=?,target=?,workder=?,beginDate=?,endDate=?,pl
 public class TreatmentTraining implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String trainingID;
-	private int treatmentID;
+	private String treatmentID;
 	private String program;
 	private String target;
 	private String workder;
@@ -40,7 +40,7 @@ public class TreatmentTraining implements Serializable {
 	public TreatmentTraining(){
 		super();
 	}
-	public TreatmentTraining(String trainingID, int treatmentID, String program, String target, String workder, Date beginDate, Date endDate, String place, String attention, String emotional, String attitude, String instruction, String endurance, String skill, String other, String targetAssess, String trainingNO ){
+	public TreatmentTraining(String trainingID, String treatmentID, String program, String target, String workder, Date beginDate, Date endDate, String place, String attention, String emotional, String attitude, String instruction, String endurance, String skill, String other, String targetAssess, String trainingNO ){
 		super();
 		this.trainingID=trainingID;
 		this.treatmentID=treatmentID;
@@ -66,10 +66,10 @@ public class TreatmentTraining implements Serializable {
 	public String getTrainingID(){
 		return trainingID;
 	}
-	public void setTreatmentID(int treatmentID){
+	public void setTreatmentID(String treatmentID){
 		this.treatmentID=treatmentID;
 	}
-	public int getTreatmentID(){
+	public String getTreatmentID(){
 		return treatmentID;
 	}
 	public void setProgram(String program){

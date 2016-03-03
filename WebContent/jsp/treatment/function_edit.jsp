@@ -142,7 +142,7 @@ String basePath = request.getScheme() + "://"
 	          { line: true },
 	          { text: '删除', click: deleteGroupPlanData, icon: 'delete' , id:"delete" }];
 		
-		var url = "Treatment/getTreatmentGroupPlan.do?treatmentID="+$("#treatmentID").val();
+		var url = "Treatment/getTreatmentGroupPlan.do?custID="+$("#custID").val();
 		
 		groupPlanDataGrid = ligerGrid("groupPlanDataGrid",null,groupPlanDataGridColumn,url,groupPlanDataGridToolBar,false,true);
 		
@@ -158,10 +158,10 @@ String basePath = request.getScheme() + "://"
 	function bindingGroupRecordDataGrid(){
 		
 		var groupRecordDataGridColumn = [
-									{ display: 'GSID', name: 'GSID', hide:true },
+									{ display: 'planID', name: 'planID', hide:true },
 				                    { display: '小組編號', name: 'GSNO', width: 100,type:"text",editor: { type: 'text' }},
 				                    { display: '訓練日期', name: 'beginDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '表現', name: 'note',width:300, type:"text", editor: { type: 'text'}},
+				                    { display: '表現', name: 'performance',width:300, type:"text", editor: { type: 'text'}},
 				                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
 				                  ];
 				
@@ -171,7 +171,7 @@ String basePath = request.getScheme() + "://"
 	          { line: true },
 	          { text: '删除', click: deleteGroupRecordData, icon: 'delete' , id:"delete" }];
 		
-		var url = "Treatment/getTreatmentGroupRecord.do?treatmentID="+$("#treatmentID").val();
+		var url = "Treatment/getTreatmentGroupRecord.do?custID="+$("#custID").val();
 		
 		groupRecordDataGrid = ligerGrid("groupRecordDataGrid",null,groupRecordDataGridColumn,url,groupRecordDataGridToolBar,false,true);
 		
@@ -232,7 +232,7 @@ String basePath = request.getScheme() + "://"
 	          { line: true },
 	          { text: '删除', click: deleteManifestationData, icon: 'delete' , id:"delete" }];
 		
-		var url = "Treatment/getTreatmentManifestation.do?treatmentID="+$("#treatmentID").val();
+		var url = "Treatment/getTreatmentManifestation.do?workID="+$("#workID").val();
 		
 		manifestationDataGrid = ligerGrid("manifestationDataGrid",null,manifestationDataGridColumn,url,manifestationDataGridToolBar,false,true);
 		
@@ -266,12 +266,18 @@ String basePath = request.getScheme() + "://"
 		$("#treatmentHistoryAdds").val(getAddedRows(cureDataGrid));
  		$("#treatmentHistoryUpdates").val(getEditedRows(cureDataGrid));
  		$("#treatmentHistoryDeletes").val(getDeletedRows(cureDataGrid)); 
- 	 	$("#treatmentPlanAdds").val(getAddedRows(planDataGrid));
- 		$("#treatmentPlanUpdates").val(getEditedRows(planDataGrid));
- 		$("#treatmentPlanDeletes").val(getDeletedRows(planDataGrid));  
-/*  	$("#treatmentRecordAdds").val(getAddedRows(recordDataGrid));
- 		$("#treatmentRecordUpdates").val(getEditedRows(recordDataGrid));
- 		$("#treatmentRecordDeletes").val(getDeletedRows(recordDataGrid));  */
+ 	 	$("#groupDetailAdds").val(getAddedRows(groupPlanDataGrid));//GroupDetail
+ 		$("#groupDetailUpdates").val(getEditedRows(groupPlanDataGrid));
+ 		$("#groupDetailDeletes").val(getDeletedRows(groupPlanDataGrid));  
+  		$("#groupSettingRecordPerformanceAdds").val(getAddedRows(groupRecordDataGrid));//GroupSettingRecordPerformance
+ 		$("#groupSettingRecordPerformanceUpdates").val(getEditedRows(groupRecordDataGrid));
+ 		$("#groupSettingRecordPerformanceDeletes").val(getDeletedRows(groupRecordDataGrid));
+ 		$("#treatmentTrainingPlanAdds").val(getAddedRows(flowPlanDataGrid));//TreatmentTrainingPlan
+ 		$("#treatmentTrainingPlanUpdates").val(getEditedRows(flowPlanDataGrid));
+ 		$("#treatmentTrainingPlanDeletes").val(getDeletedRows(flowPlanDataGrid));  
+ 		$("#treatmentTrainingWorkRecordAdds").val(getAddedRows(manifestationDataGrid));//TreatmentTrainingWorkRecord
+ 		$("#treatmentTrainingWorkRecordUpdates").val(getEditedRows(manifestationDataGrid));
+ 		$("#treatmentTrainingWorkRecordDeletes").val(getDeletedRows(manifestationDataGrid));
  		checkboxValue(["disease","attack","temper","behavior"])
 		$("#Button1").click();	
 	}
@@ -341,6 +347,7 @@ String basePath = request.getScheme() + "://"
 	<input type="hidden" name="custID" id="custID" value="${treatmentPojo.custID }">
 	<input type="hidden" name="treatmentID" id="treatmentID" value="${treatmentPojo.treatmentID }">
 	<input type="hidden" name="trainingID" id="trainingID" value="${treatmentTraining.trainingID }">
+	<input type="hidden" name="workID" id="workID" value="${treatmentTrainingWork.workID }">
 	<input type="hidden" name="treatmentFamilyAdds" id="treatmentFamilyAdds">
 	<input type="hidden" name="treatmentFamilyUpdates" id="treatmentFamilyUpdates">
 	<input type="hidden" name="treatmentFamilyDeletes" id="treatmentFamilyDeletes">
@@ -350,15 +357,19 @@ String basePath = request.getScheme() + "://"
 	<input type="hidden" name="treatmentHistoryAdds" id="treatmentHistoryAdds">
 	<input type="hidden" name="treatmentHistoryUpdates" id="treatmentHistoryUpdates">
 	<input type="hidden" name="treatmentHistoryDeletes" id="treatmentHistoryDeletes">
-	<input type="hidden" name="treatmentPlanAdds" id="treatmentPlanAdds">
-	<input type="hidden" name="treatmentPlanUpdates" id="treatmentPlanUpdates">
-	<input type="hidden" name="treatmentPlanDeletes" id="treatmentPlanDeletes">
-	<input type="hidden" name="treatmentRecordAdds" id="treatmentRecordAdds">
-	<input type="hidden" name="treatmentRecordUpdates" id="treatmentRecordUpdates">
-	<input type="hidden" name="treatmentRecordDeletes" id="treatmentRecordDeletes">
-	<input type="hidden" name="treatmentRecordAdds" id="treatmentRecordAdds">
-	<input type="hidden" name="treatmentRecordUpdates" id="treatmentRecordUpdates">
-	<input type="hidden" name="treatmentRecordDeletes" id="treatmentRecordDeletes">
+	
+	<input type="hidden" name="groupDetailAdds" id="groupDetailAdds">
+	<input type="hidden" name="groupDetailUpdates" id="groupDetailUpdates">
+	<input type="hidden" name="groupDetailDeletes" id="groupDetailDeletes">
+	<input type="hidden" name="groupSettingRecordPerformanceAdds" id="groupSettingRecordPerformanceAdds">
+	<input type="hidden" name="groupSettingRecordPerformanceUpdates" id="groupSettingRecordPerformanceUpdates">
+	<input type="hidden" name="groupSettingRecordPerformanceDeletes" id="groupSettingRecordPerformanceDeletes">
+	<input type="hidden" name="treatmentTrainingPlanAdds" id="treatmentTrainingPlanAdds">
+	<input type="hidden" name="treatmentTrainingPlanUpdates" id="treatmentTrainingPlanUpdates">
+	<input type="hidden" name="treatmentTrainingPlanDeletes" id="treatmentTrainingPlanDeletes">
+	<input type="hidden" name="treatmentTrainingWorkRecordAdds" id="treatmentTrainingWorkRecordAdds">
+	<input type="hidden" name="treatmentTrainingWorkRecordUpdates" id="treatmentTrainingWorkRecordUpdates">
+	<input type="hidden" name="treatmentTrainingWorkRecordDeletes" id="treatmentTrainingWorkRecordDeletes">
 	
 	<input type="hidden" name="disease" id="disease">
 	<input type="hidden" name="attack" id="attack">

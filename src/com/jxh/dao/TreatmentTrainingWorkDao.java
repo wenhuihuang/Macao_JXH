@@ -43,31 +43,21 @@ public class TreatmentTrainingWorkDao extends DaoImpl<TreatmentTrainingWork>{
 	
 	
 	
-	public int[] insertTreatmentTrainingWork(List<TreatmentTrainingWork> treatmentTrainingWork) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException{
+	public int insertTreatmentTrainingWork(TreatmentTrainingWork treatmentTrainingWork) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
-		return insertBatchByList(sql, treatmentTrainingWork);
+		Object[] params = getInsertParams(sql, treatmentTrainingWork);
+		return this.update(sql, params);
 	}
 	
 	
-	public int updateTreatmentTrainingWork(List<TreatmentTrainingWork> treatmentTrainingWork) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException{
+	public int updateTreatmentTrainingWork(TreatmentTrainingWork treatmentTrainingWork) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
-		
-		int[] rows = updateBatchByList(sql, treatmentTrainingWork);
-		
-		return getflagByIntArray(rows);
+		Object[] params = getInsertParams(sql, treatmentTrainingWork);
+		return this.update(sql, params);
 	}
 	
 	
 	
-	public int deleteTreatmentTrainingWork(List<TreatmentTrainingWork> treatmentTrainingWork) throws IOException, SQLException{
-		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
-		Object[][] params = new Object[treatmentTrainingWork.size()][1];
-		for (int i = 0;i<treatmentTrainingWork.size();i++) {
-			params[i][0] = treatmentTrainingWork.get(i).getTrainingID();
-		}
-		int[] rows = this.updateBatch(sql, params);
-		return getflagByIntArray(rows);
-	}
 	
 	public int deleteTreatmentTrainingWorkByTreatmentID(String treatmentID) throws SQLException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
@@ -82,6 +72,10 @@ public class TreatmentTrainingWorkDao extends DaoImpl<TreatmentTrainingWork>{
 		//System.out.println("sql++"+condition);
 		System.out.println(sql);
 		return  (TreatmentTrainingWork) this.findForObject(sql, params);
+	}
+
+	public String getPrimaryKey(String corpId) throws SQLException{
+		return this.getPrimaryKey("TREATMENTTRAININGWORK", corpId, 20);
 	}
 	
 }

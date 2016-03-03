@@ -8,6 +8,8 @@ import java.util.List;
 
 import com.fg.utils.ToolsUtils;
 import com.jxh.dao.BCustomerSchoolDao;
+import com.jxh.dao.GroupDetailDao;
+import com.jxh.dao.GroupSettingRecordPerformanceDao;
 import com.jxh.dao.TreatmentAssessDao;
 import com.jxh.dao.TreatmentDao;
 import com.jxh.dao.TreatmentFamilyDao;
@@ -15,10 +17,16 @@ import com.jxh.dao.TreatmentHistoryDao;
 import com.jxh.dao.TreatmentPlanDao;
 import com.jxh.dao.TreatmentRecordDao;
 import com.jxh.dao.TreatmentReportDao;
+import com.jxh.dao.TreatmentTrainingDao;
+import com.jxh.dao.TreatmentTrainingPlanDao;
+import com.jxh.dao.TreatmentTrainingWorkDao;
+import com.jxh.dao.TreatmentTrainingWorkRecordDao;
 import com.jxh.utils.Constants;
 import com.jxh.vo.BCustCase;
 import com.jxh.vo.BCustCaseRecord;
 import com.jxh.vo.BCustomerSchool;
+import com.jxh.vo.GroupDetail;
+import com.jxh.vo.GroupSettingRecordPerformance;
 import com.jxh.vo.Treatment;
 import com.jxh.vo.TreatmentAssess;
 import com.jxh.vo.TreatmentFamily;
@@ -26,6 +34,10 @@ import com.jxh.vo.TreatmentHistory;
 import com.jxh.vo.TreatmentPlan;
 import com.jxh.vo.TreatmentRecord;
 import com.jxh.vo.TreatmentReport;
+import com.jxh.vo.TreatmentTraining;
+import com.jxh.vo.TreatmentTrainingPlan;
+import com.jxh.vo.TreatmentTrainingWork;
+import com.jxh.vo.TreatmentTrainingWorkRecord;
 
 public class TreatmentBiz {
 	private TreatmentDao treatmentDao = new TreatmentDao();
@@ -36,6 +48,12 @@ public class TreatmentBiz {
 	private TreatmentHistoryDao treatmentHistoryDao = new TreatmentHistoryDao();
 	private TreatmentReportDao treatmentReportDao = new TreatmentReportDao();
 	private TreatmentFamilyDao treatmentFamilyDao = new TreatmentFamilyDao();
+	private TreatmentTrainingDao treatmentTrainingDao = new TreatmentTrainingDao();
+	private TreatmentTrainingWorkDao treatmentTrainingWorkDao = new TreatmentTrainingWorkDao();
+	private GroupDetailDao groupDetailDao = new GroupDetailDao();
+	private GroupSettingRecordPerformanceDao groupSettingRecordPerformanceDao = new GroupSettingRecordPerformanceDao();
+	private TreatmentTrainingPlanDao treatmentTrainingPlanDao = new TreatmentTrainingPlanDao();
+	private TreatmentTrainingWorkRecordDao treatmentTrainingWorkRecordDao = new TreatmentTrainingWorkRecordDao();
 	
 
 	public String updateTreatment(Treatment treatment,TreatmentAssess treatmentAssess,TreatmentReport treatmentReport,List<TreatmentPlan> treatmentPlanAdds,List<TreatmentPlan> treatmentPlanUpdates,List<TreatmentPlan> treatmentPlanDeletes,List<TreatmentRecord> treatmentRecordAdds,List<TreatmentRecord> treatmentRecordUpdates,List<TreatmentRecord> treatmentRecordDeletes,List<TreatmentHistory> treatmentHistoryAdds,List<TreatmentHistory> treatmentHistoryUpdates,List<TreatmentHistory> treatmentHistoryDeletes, List<BCustomerSchool> bCustomerSchoolAdds, List<BCustomerSchool> bCustomerSchoolUpdates, List<BCustomerSchool> bCustomerSchoolDeletes,List<TreatmentFamily> treatmentFamilyAdds,List<TreatmentFamily> treatmentFamilyUpdates,List<TreatmentFamily> treatmentFamilyDeletes) throws Exception {
@@ -497,5 +515,384 @@ public class TreatmentBiz {
 			
 		}
 		return "操作成功！";
+	}
+
+
+	public String updateTreatmentFunction(Treatment treatment, TreatmentAssess treatmentAssess,
+			List<TreatmentHistory> treatmentHistoryAdds, List<TreatmentHistory> treatmentHistoryUpdates,
+			List<TreatmentHistory> treatmentHistoryDeletes, List<BCustomerSchool> bCustomerSchoolAdds,
+			List<BCustomerSchool> bCustomerSchoolUpdates, List<BCustomerSchool> bCustomerSchoolDeletes,
+			List<TreatmentFamily> treatmentFamilyAdds, List<TreatmentFamily> treatmentFamilyUpdates,
+			List<TreatmentFamily> treatmentFamilyDeletes, TreatmentTraining treatmentTraining,
+			TreatmentTrainingWork treatmentTrainingWork, List<GroupDetail> groupDetailAdds,
+			List<GroupDetail> groupDetailUpdates, List<GroupDetail> groupDetailDeletes,
+			List<GroupSettingRecordPerformance> groupSettingRecordPerformanceAdds,
+			List<GroupSettingRecordPerformance> groupSettingRecordPerformanceUpdates,
+			List<GroupSettingRecordPerformance> groupSettingRecordPerformanceDeletes,
+			List<TreatmentTrainingPlan> treatmentTrainingPlanAdds,
+			List<TreatmentTrainingPlan> treatmentTrainingPlanUpdates,
+			List<TreatmentTrainingPlan> treatmentTrainingPlanDeletes,
+			List<TreatmentTrainingWorkRecord> treatmentTrainingWorkRecordAdds,
+			List<TreatmentTrainingWorkRecord> treatmentTrainingWorkRecordUpdates,
+			List<TreatmentTrainingWorkRecord> treatmentTrainingWorkRecordDeletes) throws Exception {
+		
+		int row = treatmentDao.updateTreatment(treatment);
+		if (row > 0) {
+			
+			if (updateTreatmentAssess(treatment, treatmentAssess) < 0) {
+				throw new Exception("個案轉介評估保存失敗！");
+			}
+			
+			
+			if(addBCustomerSchool(treatment, bCustomerSchoolAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(updateBCustomerSchool(treatment, bCustomerSchoolUpdates)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(deleteBCustomerSchool(treatment, bCustomerSchoolDeletes)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(addTreatmentHistory(treatment, treatmentHistoryAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(updateTreatmentHistory(treatment, treatmentHistoryUpdates)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(deleteTreatmentHistory(treatment, treatmentHistoryDeletes)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(addTreatmentFamily(treatment, treatmentFamilyAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(updateTreatmentFamily(treatment, treatmentFamilyUpdates)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(deleteTreatmentFamily(treatment, treatmentFamilyDeletes)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(updateTreatmentTraining(treatment, treatmentTraining)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(updateTreatmentTrainingWork(treatmentTraining, treatmentTrainingWork)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(addGroupDetail(treatment, groupDetailAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(updateGroupDetail(treatment, groupDetailUpdates)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(deleteGroupDetail(treatment, groupDetailDeletes)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(addGroupSettingRecordPerformance(treatment, groupSettingRecordPerformanceAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(updateGroupSettingRecordPerformance(treatment, groupSettingRecordPerformanceUpdates)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(deleteGroupSettingRecordPerformance(treatment, groupSettingRecordPerformanceDeletes)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(addTreatmentTrainingPlan(treatmentTraining, treatmentTrainingPlanAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(updateTreatmentTrainingPlan(treatmentTraining, treatmentTrainingPlanUpdates)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(deleteTreatmentTrainingPlan(treatmentTraining, treatmentTrainingPlanDeletes)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(addTreatmentTrainingWorkRecord(treatmentTrainingWork, treatmentTrainingWorkRecordAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(updateTreatmentTrainingWorkRecord(treatmentTrainingWork, treatmentTrainingWorkRecordUpdates)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(deleteTreatmentTrainingWorkRecord(treatmentTrainingWork, treatmentTrainingWorkRecordDeletes)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+		}
+		return "操作成功！";
+	}
+
+	private int deleteTreatmentTrainingWorkRecord(TreatmentTrainingWork treatmentTrainingWork,
+			List<TreatmentTrainingWorkRecord> treatmentTrainingWorkRecordDeletes) throws IOException, SQLException {
+		if (treatmentTrainingWorkRecordDeletes == null || treatmentTrainingWorkRecordDeletes.size() <= 0) {
+			return 1;
+		}
+		return treatmentTrainingWorkRecordDao.deleteTreatmentTrainingWorkRecord(treatmentTrainingWorkRecordDeletes);
+	}
+
+	private int deleteTreatmentTrainingPlan(TreatmentTraining treatmentTraining,
+			List<TreatmentTrainingPlan> treatmentTrainingPlanDeletes) throws IOException, SQLException {
+		if (treatmentTrainingPlanDeletes == null || treatmentTrainingPlanDeletes.size() <= 0) {
+			return 1;
+		}
+		return treatmentTrainingPlanDao.deleteTreatmentTrainingPlan(treatmentTrainingPlanDeletes);
+	}
+
+	private int updateTreatmentTrainingPlan(TreatmentTraining treatmentTraining,
+			List<TreatmentTrainingPlan> treatmentTrainingPlanUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
+
+		if (treatmentTrainingPlanUpdates == null || treatmentTrainingPlanUpdates.size() <= 0) {
+			return 1;
+		}
+		return treatmentTrainingPlanDao.updateTreatmentTrainingPlan(treatmentTrainingPlanUpdates);
+	}
+
+	private int deleteGroupSettingRecordPerformance(Treatment treatment,
+			List<GroupSettingRecordPerformance> groupSettingRecordPerformanceDeletes) throws IOException, SQLException {
+		if (groupSettingRecordPerformanceDeletes == null || groupSettingRecordPerformanceDeletes.size() <= 0) {
+			return 1;
+		}
+		return groupSettingRecordPerformanceDao.deleteGroupSettingRecordPerformance(groupSettingRecordPerformanceDeletes);
+	}
+
+	private int deleteGroupDetail(Treatment treatment, List<GroupDetail> groupDetailDeletes) throws IOException, SQLException {
+		if (groupDetailDeletes == null || groupDetailDeletes.size() <= 0) {
+			return 1;
+		}
+		return groupDetailDao.deleteGroupDetail(groupDetailDeletes);
+	}
+
+	private int updateTreatmentTrainingWorkRecord(TreatmentTrainingWork treatmentTrainingWork,
+			List<TreatmentTrainingWorkRecord> treatmentTrainingWorkRecordUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
+
+		if (treatmentTrainingWorkRecordUpdates == null || treatmentTrainingWorkRecordUpdates.size() <= 0) {
+			return 1;
+		}
+		return treatmentTrainingWorkRecordDao.updateTreatmentTrainingWorkRecord(treatmentTrainingWorkRecordUpdates);
+	}
+
+	private int updateGroupSettingRecordPerformance(Treatment treatment,
+			List<GroupSettingRecordPerformance> groupSettingRecordPerformanceUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
+		
+		if (groupSettingRecordPerformanceUpdates == null || groupSettingRecordPerformanceUpdates.size() <= 0) {
+			return 1;
+		}
+		return groupSettingRecordPerformanceDao.updateGroupSettingRecordPerformance(groupSettingRecordPerformanceUpdates);
+	}
+
+	private int updateGroupDetail(Treatment treatment, List<GroupDetail> groupDetailUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
+		
+		if (groupDetailUpdates == null || groupDetailUpdates.size() <= 0) {
+			return 1;
+		}
+		return groupDetailDao.updateGroupDetail(groupDetailUpdates);
+	}
+
+	private int updateTreatmentTrainingWork(TreatmentTraining treatmentTraining,
+			TreatmentTrainingWork treatmentTrainingWork) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
+		
+		if (treatmentTrainingWork == null || "".equals(treatmentTrainingWork)) {
+			return 1;
+		}
+		
+		treatmentTrainingWork.setTrainingID(treatmentTraining.getTrainingID());
+		return treatmentTrainingWorkDao.updateTreatmentTrainingWork(treatmentTrainingWork);
+	}
+
+	private int updateTreatmentTraining(Treatment treatment, TreatmentTraining treatmentTraining) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
+		if (treatmentTraining == null || "".equals(treatmentTraining)) {
+			return 1;
+		}
+		
+		treatmentTraining.setTreatmentID(treatmentTraining.getTreatmentID());
+		return treatmentTrainingDao.updateTreatmentTraining(treatmentTraining);
+	}
+
+	public String insertTreatmentFunction(Treatment treatment, TreatmentAssess treatmentAssess,
+			List<TreatmentHistory> treatmentHistoryAdds, List<BCustomerSchool> bCustomerSchoolAdds,
+			List<TreatmentFamily> treatmentFamilyAdds, TreatmentTraining treatmentTraining,
+			TreatmentTrainingWork treatmentTrainingWork, List<GroupDetail> groupDetailAdds,
+			List<GroupSettingRecordPerformance> groupSettingRecordPerformanceAdds,
+			List<TreatmentTrainingPlan> treatmentTrainingPlanAdds,
+			List<TreatmentTrainingWorkRecord> treatmentTrainingWorkRecordAdds) throws Exception {
+		
+		String treatmentID = treatmentDao.getPrimaryKey(Constants.CORPID);
+		treatment.setTreatmentID(treatmentID);
+		int row = treatmentDao.insertTreatment(treatment);
+		if (row > 0) {
+			
+			//新增個案轉介評估
+			if (addTreatmentAssess(treatment, treatmentAssess) < 0) {
+				throw new Exception("個案轉介評估保存失敗！");
+			}
+			
+			
+			//
+			if(addTreatmentHistory(treatment, treatmentHistoryAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(addTreatmentFamily(treatment, treatmentFamilyAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(addBCustomerSchool(treatment, bCustomerSchoolAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(addTreatmentTraining(treatment, treatmentTraining)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(addTreatmentTrainingWork(treatmentTraining, treatmentTrainingWork)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(addGroupDetail(treatment, groupDetailAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(addGroupSettingRecordPerformance(treatment, groupSettingRecordPerformanceAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(addTreatmentTrainingPlan(treatmentTraining, treatmentTrainingPlanAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+			if(addTreatmentTrainingWorkRecord(treatmentTrainingWork, treatmentTrainingWorkRecordAdds)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			
+		}
+		return "操作成功！";
+	}
+
+	private int addTreatmentTrainingWorkRecord(TreatmentTrainingWork treatmentTrainingWork,
+			List<TreatmentTrainingWorkRecord> treatmentTrainingWorkRecordAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
+		
+		if (treatmentTrainingWorkRecordAdds == null || treatmentTrainingWorkRecordAdds.size() <= 0) {
+			return 1;
+		}
+
+		for (TreatmentTrainingWorkRecord add : treatmentTrainingWorkRecordAdds) {
+			add.setWorkID(treatmentTrainingWork.getWorkID());
+		}
+
+		int[] rows = treatmentTrainingWorkRecordDao.insertTreatmentTrainingWorkRecord(treatmentTrainingWorkRecordAdds);
+		for (int i : rows) {
+			if (i < 1) {
+				return i;
+			}
+		}
+
+		return 1;
+	}
+
+	private int addTreatmentTrainingPlan(TreatmentTraining treatmentTraining,
+			List<TreatmentTrainingPlan> treatmentTrainingPlanAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
+		
+		if (treatmentTrainingPlanAdds == null || treatmentTrainingPlanAdds.size() <= 0) {
+			return 1;
+		}
+
+		for (TreatmentTrainingPlan add : treatmentTrainingPlanAdds) {
+			add.setTrainingID(treatmentTraining.getTrainingID());
+		}
+
+		int[] rows = treatmentTrainingPlanDao.insertTreatmentTrainingPlan(treatmentTrainingPlanAdds);
+		for (int i : rows) {
+			if (i < 1) {
+				return i;
+			}
+		}
+
+		return 1;
+	}
+
+	private int addGroupSettingRecordPerformance(Treatment treatment,
+			List<GroupSettingRecordPerformance> groupSettingRecordPerformanceAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
+		
+		if (groupSettingRecordPerformanceAdds == null || groupSettingRecordPerformanceAdds.size() <= 0) {
+			return 1;
+		}
+
+		for (GroupSettingRecordPerformance add : groupSettingRecordPerformanceAdds) {
+			add.setCustID(treatment.getCustID());
+		}
+
+		int[] rows = groupSettingRecordPerformanceDao.insertGroupSettingRecordPerformance(groupSettingRecordPerformanceAdds);
+		for (int i : rows) {
+			if (i < 1) {
+				return i;
+			}
+		}
+
+		return 1;
+	}
+
+	private int addGroupDetail(Treatment treatment, List<GroupDetail> groupDetailAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
+		if (groupDetailAdds == null || groupDetailAdds.size() <= 0) {
+			return 1;
+		}
+
+		for (GroupDetail add : groupDetailAdds) {
+			add.setCustID(treatment.getCustID());
+		}
+
+		int[] rows = groupDetailDao.insertGroupDetail(groupDetailAdds);
+		for (int i : rows) {
+			if (i < 1) {
+				return i;
+			}
+		}
+
+		return 1;
+	}
+
+	private int addTreatmentTrainingWork(TreatmentTraining treatmentTraining, TreatmentTrainingWork treatmentTrainingWork) throws SQLException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException {
+		String workID = treatmentTrainingWorkDao.getPrimaryKey(Constants.CORPID);
+		if (treatmentTrainingWork == null || "".equals(treatmentTrainingWork)) {
+			return 1;
+		}
+		treatmentTrainingWork.setWorkID(workID);
+		treatmentTrainingWork.setTrainingID(treatmentTraining.getTrainingID());
+		int row = treatmentTrainingWorkDao.insertTreatmentTrainingWork(treatmentTrainingWork);
+		if(row > 0 ){
+			
+		}
+		return 1;
+	}
+
+	private int addTreatmentTraining(Treatment treatment, TreatmentTraining treatmentTraining) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
+		String trainingID = treatmentTrainingDao.getPrimaryKey(Constants.CORPID);
+		if (treatmentTraining == null || "".equals(treatmentTraining)) {
+			return 1;
+		}
+		treatmentTraining.setTrainingID(trainingID);
+		treatmentTraining.setTreatmentID(treatment.getTreatmentID());
+		int row = treatmentTrainingDao.insertTreatmentTraining(treatmentTraining);
+		if(row > 0 ){
+			
+		}
+		return 1;
 	}
 }

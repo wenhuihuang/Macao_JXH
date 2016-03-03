@@ -7,8 +7,7 @@ import java.math.*;
 
 
 /** GroupSetting
-	GSID	INT(10)
-	TREATMENTID	INT(10)
+	GSID	VARCHAR(20)
 	HANDLER	INT(10)
 	GROUPNAME	VARCHAR(32)
 	TARGET	VARCHAR(32)
@@ -22,17 +21,16 @@ import java.math.*;
 	GSNO	VARCHAR(32)
 	NOTE	VARCHAR(128)
 
-gSID,treatmentID,handler,groupName,target,beginDate,endDate,leader,toll,place,device,configuration,gSNO,note
-?,?,?,?,?,?,?,?,?,?,?,?,?,?
+gSID,handler,groupName,target,beginDate,endDate,leader,toll,place,device,configuration,gSNO,note
+?,?,?,?,?,?,?,?,?,?,?,?,?
 
-groupSetting.gSID,groupSetting.treatmentID,groupSetting.handler,groupSetting.groupName,groupSetting.target,groupSetting.beginDate,groupSetting.endDate,groupSetting.leader,groupSetting.toll,groupSetting.place,groupSetting.device,groupSetting.configuration,groupSetting.gSNO,groupSetting.note
+groupSetting.gSID,groupSetting.handler,groupSetting.groupName,groupSetting.target,groupSetting.beginDate,groupSetting.endDate,groupSetting.leader,groupSetting.toll,groupSetting.place,groupSetting.device,groupSetting.configuration,groupSetting.gSNO,groupSetting.note
 
-gSID=?,treatmentID=?,handler=?,groupName=?,target=?,beginDate=?,endDate=?,leader=?,toll=?,place=?,device=?,configuration=?,gSNO=?,note=?
+gSID=?,handler=?,groupName=?,target=?,beginDate=?,endDate=?,leader=?,toll=?,place=?,device=?,configuration=?,gSNO=?,note=?
 */
 public class GroupSetting implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int gSID;
-	private int treatmentID;
+	private String gSID;
 	private int handler;
 	private String groupName;
 	private String target;
@@ -49,10 +47,9 @@ public class GroupSetting implements Serializable {
 	public GroupSetting(){
 		super();
 	}
-	public GroupSetting(int gSID, int treatmentID, int handler, String groupName, String target, Date beginDate, Date endDate, String leader, BigDecimal toll, String place, String device, String configuration, String gSNO, String note ){
+	public GroupSetting(String gSID, int handler, String groupName, String target, Date beginDate, Date endDate, String leader, BigDecimal toll, String place, String device, String configuration, String gSNO, String note ){
 		super();
 		this.gSID=gSID;
-		this.treatmentID=treatmentID;
 		this.handler=handler;
 		this.groupName=groupName;
 		this.target=target;
@@ -65,18 +62,6 @@ public class GroupSetting implements Serializable {
 		this.configuration=configuration;
 		this.gSNO=gSNO;
 		this.note=note;
-	}
-	public void setGSID(int gSID){
-		this.gSID=gSID;
-	}
-	public int getGSID(){
-		return gSID;
-	}
-	public void setTreatmentID(int treatmentID){
-		this.treatmentID=treatmentID;
-	}
-	public int getTreatmentID(){
-		return treatmentID;
 	}
 	public void setHandler(int handler){
 		this.handler=handler;
@@ -138,21 +123,27 @@ public class GroupSetting implements Serializable {
 	public String getConfiguration(){
 		return configuration;
 	}
-	public void setGSNO(String gSNO){
-		this.gSNO=gSNO;
-	}
-	public String getGSNO(){
-		return gSNO;
-	}
 	public void setNote(String note){
 		this.note=note;
 	}
 	public String getNote(){
 		return note;
 	}
+	public String getgSID() {
+		return gSID;
+	}
+	public void setgSID(String gSID) {
+		this.gSID = gSID;
+	}
+	public String getgSNO() {
+		return gSNO;
+	}
+	public void setgSNO(String gSNO) {
+		this.gSNO = gSNO;
+	}
 	@Override
 	public String toString(){
-		return "GroupSetting [gSID="+gSID+",treatmentID="+treatmentID+",handler="+handler+",groupName="+groupName+",target="+target+",beginDate="+beginDate+",endDate="+endDate+",leader="+leader+",toll="+toll+",place="+place+",device="+device+",configuration="+configuration+",gSNO="+gSNO+",note="+note+"]";
+		return "GroupSetting [gSID="+gSID+",handler="+handler+",groupName="+groupName+",target="+target+",beginDate="+beginDate+",endDate="+endDate+",leader="+leader+",toll="+toll+",place="+place+",device="+device+",configuration="+configuration+",gSNO="+gSNO+",note="+note+"]";
 	}
 }
 
