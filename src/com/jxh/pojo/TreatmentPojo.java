@@ -144,6 +144,8 @@ public class TreatmentPojo implements Serializable {
 	private String neglectPeople;
 	private String protectPeople;
 	private String severePeople;
+	private String treatmentCategory;
+	private Date acceptDate;
 	
 	private String fullName;
 	private String isMember;
@@ -165,6 +167,7 @@ public class TreatmentPojo implements Serializable {
 	private String behaviorDate_str;
 	private String startDate_str;
 	private String awaitDate_str;
+	private String acceptDate_str;
 	
 	private String assessDate_str;
 	private String closeDate_str;
@@ -202,7 +205,8 @@ public class TreatmentPojo implements Serializable {
 								Date startDate,String startDate_str,Date awaitDate,String awaitDate_str,String fullName, String isMember,Date assessDate,Date closeDate,
 								String assessDate_str,String closeDate_str,String caseWorker,int caseStatus,Date receiveDate,String receiveDate_str,
 								String diseaseHeredity, int communicationLevel, int selfLevel, int lifeLevel, int socialLevel, int recourceLevel, int guideLevel, int safetyLevel,
-								int fnLevel, int playLevel, int workerLevel, String supportPeople, String coldnessPeople, String connivePeople, String neglectPeople, String protectPeople, String severePeople){
+								int fnLevel, int playLevel, int workerLevel, String supportPeople, String coldnessPeople, String connivePeople, String neglectPeople, String protectPeople,
+								String severePeople,String treatmentCategory,Date acceptDate,String acceptDate_str){
 		super();
 		this.treatmentID=treatmentID;
 		this.treatmentType=treatmentType;
@@ -336,6 +340,8 @@ public class TreatmentPojo implements Serializable {
 		this.neglectPeople=neglectPeople;
 		this.protectPeople=protectPeople;
 		this.severePeople=severePeople;
+		this.treatmentCategory=treatmentCategory;
+		this.acceptDate=acceptDate;
 		
 		this.fullName=fullName;
 		this.isMember=isMember;
@@ -344,6 +350,7 @@ public class TreatmentPojo implements Serializable {
 		this.caseStatus=caseStatus;
 		this.receiveDate=receiveDate;
 		this.receiveDate_str=receiveDate_str;
+		this.acceptDate_str=acceptDate_str;
 		
 		this.assessDate=assessDate;
 		
@@ -1365,6 +1372,33 @@ public class TreatmentPojo implements Serializable {
 	public void setSeverePeople(String severePeople) {
 		this.severePeople = severePeople;
 	}
+	
+	
+	
+	public String getTreatmentCategory() {
+		return treatmentCategory;
+	}
+	public void setTreatmentCategory(String treatmentCategory) {
+		this.treatmentCategory = treatmentCategory;
+	}
+	public Date getAcceptDate() {
+		return acceptDate;
+	}
+	public void setAcceptDate(Date acceptDate) {
+		this.acceptDate = acceptDate;
+	}
+	public String getAcceptDate_str() {
+		try {
+			return acceptDate == null || "".equals(acceptDate) ? ""
+					: ToolsUtils.getDateStringByFormat(acceptDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setAcceptDate_str(String acceptDate_str) {
+		this.acceptDate_str = acceptDate_str;
+	}
 	@Override
 	public String toString(){
 		return "Treatment [treatmentID="+treatmentID+",treatmentType="+treatmentType+",custID="+custID+
@@ -1409,6 +1443,7 @@ public class TreatmentPojo implements Serializable {
 				",diseaseHeredity="+diseaseHeredity+",communicationLevel="+communicationLevel+",selfLevel="+selfLevel+",lifeLevel="+lifeLevel+
 				",socialLevel="+socialLevel+",recourceLevel="+recourceLevel+",guideLevel="+guideLevel+",safetyLevel="+safetyLevel+",fnLevel="+fnLevel+",playLevel="+playLevel+
 				",workerLevel="+workerLevel+",supportPeople="+supportPeople+",coldnessPeople="+coldnessPeople+",connivePeople="+connivePeople+",neglectPeople="+neglectPeople+
-				",protectPeople="+protectPeople+",severePeople="+severePeople+"]";
+				",protectPeople="+protectPeople+",severePeople="+severePeople+",treatmentCategory="+treatmentCategory+
+				",acceptDate="+acceptDate+",acceptDate_str="+acceptDate_str+"]";
 	}
 }

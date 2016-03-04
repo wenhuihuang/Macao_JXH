@@ -124,11 +124,12 @@ String basePath = request.getScheme() + "://"
 	function bindingServicePlanDataGrid(){
 		
 		var servicePlanDataGridColumn = [
-				                    { display: '日期', name: 'beginDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '時間', name: 'groupName', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '服務內容', name: 'target', width: 100 ,type:"text",editor: { type: 'text'}},
-				                    { display: '收費金額', name: 'handler', width: 100 ,type:"text",editor: { type: 'text'}},
-				                    { display: '繳費金額', name: 'beginDate', width: 150 , type: 'text', editor: { type: 'text'}},
+									{ display: 'planID', name: 'planID', hide:true },
+				                    { display: '日期', name: 'billDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '時間', name: 'time', width: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '服務內容', name: 'content', width: 100 ,type:"text",editor: { type: 'text'}},
+				                    { display: '收費金額', name: 'charge', width: 100 ,type:"text",editor: { type: 'text'}},
+				                    { display: '繳費金額', name: 'payment', width: 150 , type: 'text', editor: { type: 'text'}},
 				                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
 				                  ];
 				
@@ -138,7 +139,7 @@ String basePath = request.getScheme() + "://"
 	          { line: true },
 	          { text: '删除', click: deleteServicePlanData, icon: 'delete' , id:"delete" }];
 		
-		var url = "Treatment/getTreatmentServicePlan.do?custID="+$("#custID").val();
+		var url = "Treatment/getTreatmentPlan.do?treatmentID="+$("#treatmentID").val();
 		
 		servicePlanDataGrid = ligerGrid("servicePlanDataGrid",null,servicePlanDataGridColumn,url,servicePlanDataGridToolBar,false,true);
 		
@@ -154,11 +155,12 @@ String basePath = request.getScheme() + "://"
 	function bindingServiceRecordDataGrid(){
 		
 		var serviceRecordDataGridColumn = [
-				                     { display: '日期', name: 'beginDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '時間', name: 'beginDate', width: 150 , type: 'text', editor: { type: 'text'}},
-				                    { display: '服務內容', name: 'performance',width:300, type:"text", editor: { type: 'text'}},
-				                    { display: '負責人', name: 'note',width:300, type:"text", editor: { type: 'text'}},
-				                    { display: '學生表現', name: 'note',width:300, type:"text", editor: { type: 'text'}},
+									{ display: 'recordID', name: 'recordID', hide:true },
+				                    { display: '日期', name: 'billDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '時間', name: 'time', width: 150 , type: 'text', editor: { type: 'text'}},
+				                    { display: '服務內容', name: 'content',width:300, type:"text", editor: { type: 'text'}},
+				                    { display: '負責人', name: 'worker',width:300, type:"text", editor: { type: 'text'}},
+				                    { display: '學生表現', name: 'performance',width:300, type:"text", editor: { type: 'text'}},
 				                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
 				                  ];
 				
@@ -168,7 +170,7 @@ String basePath = request.getScheme() + "://"
 	          { line: true },
 	          { text: '删除', click: deleteServiceRecordData, icon: 'delete' , id:"delete" }];
 		
-		var url = "Treatment/getTreatmentServiceRecord.do?custID="+$("#custID").val();
+		var url = "Treatment/getTreatmentRecord.do?treatmentID="+$("#treatmentID").val();
 		
 		serviceRecordDataGrid = ligerGrid("serviceRecordDataGrid",null,serviceRecordDataGridColumn,url,serviceRecordDataGridToolBar,false,true);
 		
@@ -188,7 +190,7 @@ String basePath = request.getScheme() + "://"
 				save();
 			break;
 			case "back":
-				location.href="jsp/treatment/function_list.jsp";
+				location.href="jsp/treatment/collocation_list.jsp";
 			break;
 		}
 		
@@ -203,11 +205,14 @@ String basePath = request.getScheme() + "://"
  		$("#bCustomerSchoolDeletes").val(getDeletedRows(schoolDataGrid)); 
 		$("#treatmentHistoryAdds").val(getAddedRows(cureDataGrid));
  		$("#treatmentHistoryUpdates").val(getEditedRows(cureDataGrid));
- 		$("#treatmentHistoryDeletes").val(getDeletedRows(cureDataGrid)); 
+ 		$("#treatmentHistoryDeletes").val(getDeletedRows(cureDataGrid));
  		
-  		$("#groupSettingRecordPerformanceAdds").val(getAddedRows(groupRecordDataGrid));//GroupSettingRecordPerformance
- 		$("#groupSettingRecordPerformanceUpdates").val(getEditedRows(groupRecordDataGrid));
- 		$("#groupSettingRecordPerformanceDeletes").val(getDeletedRows(groupRecordDataGrid));
+		$("#treatmentPlanAdds").val(getAddedRows(servicePlanDataGrid));//TreatmentPlan
+ 		$("#treatmentPlanUpdates").val(getEditedRows(servicePlanDataGrid));
+ 		$("#treatmentPlanDeletes").val(getDeletedRows(servicePlanDataGrid));
+  		$("#treatmentRecordAdds").val(getAddedRows(serviceRecordDataGrid));//TreatmentRecord
+ 		$("#treatmentRecordUpdates").val(getEditedRows(serviceRecordDataGrid));
+ 		$("#treatmentRecordDeletes").val(getDeletedRows(serviceRecordDataGrid));
 		$("#Button1").click();	
 	}
     
@@ -262,7 +267,7 @@ String basePath = request.getScheme() + "://"
 <body>
 	<div class="toptoolbar"></div>
 	<form name="form1" class="liger-form" method="post" action="Treatment/submit.do" id="form1" style="margin: 20px;">
-	<input type="hidden" name="treatmentType" id="treatmentType" value="5">
+	<input type="hidden" name="treatmentType" id="treatmentType" value="6">
 	<input type="hidden" name="custID" id="custID" value="${treatmentPojo.custID }">
 	<input type="hidden" name="treatmentID" id="treatmentID" value="${treatmentPojo.treatmentID }">
 	<input type="hidden" name="trainingID" id="trainingID" value="${treatmentTraining.trainingID }">
@@ -277,18 +282,12 @@ String basePath = request.getScheme() + "://"
 	<input type="hidden" name="treatmentHistoryUpdates" id="treatmentHistoryUpdates">
 	<input type="hidden" name="treatmentHistoryDeletes" id="treatmentHistoryDeletes">
 	
-	<input type="hidden" name="groupDetailAdds" id="groupDetailAdds">
-	<input type="hidden" name="groupDetailUpdates" id="groupDetailUpdates">
-	<input type="hidden" name="groupDetailDeletes" id="groupDetailDeletes">
-	<input type="hidden" name="groupSettingRecordPerformanceAdds" id="groupSettingRecordPerformanceAdds">
-	<input type="hidden" name="groupSettingRecordPerformanceUpdates" id="groupSettingRecordPerformanceUpdates">
-	<input type="hidden" name="groupSettingRecordPerformanceDeletes" id="groupSettingRecordPerformanceDeletes">
-	<input type="hidden" name="treatmentTrainingPlanAdds" id="treatmentTrainingPlanAdds">
-	<input type="hidden" name="treatmentTrainingPlanUpdates" id="treatmentTrainingPlanUpdates">
-	<input type="hidden" name="treatmentTrainingPlanDeletes" id="treatmentTrainingPlanDeletes">
-	<input type="hidden" name="treatmentTrainingWorkRecordAdds" id="treatmentTrainingWorkRecordAdds">
-	<input type="hidden" name="treatmentTrainingWorkRecordUpdates" id="treatmentTrainingWorkRecordUpdates">
-	<input type="hidden" name="treatmentTrainingWorkRecordDeletes" id="treatmentTrainingWorkRecordDeletes">
+	<input type="hidden" name="treatmentPlanAdds" id="treatmentPlanAdds">
+	<input type="hidden" name="treatmentPlanUpdates" id="treatmentPlanUpdates">
+	<input type="hidden" name="treatmentPlanDeletes" id="treatmentPlanDeletes">
+	<input type="hidden" name="treatmentRecordAdds" id="treatmentRecordAdds">
+	<input type="hidden" name="treatmentRecordUpdates" id="treatmentRecordUpdates">
+	<input type="hidden" name="treatmentRecordDeletes" id="treatmentRecordDeletes">
 	
 	<div id="tab">
 	<div title="暫托服務" tabid="service">
@@ -314,18 +313,22 @@ String basePath = request.getScheme() + "://"
             <tr>
             	  <td align="right" class="l-table-edit-td">申請日期:</td>
 				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${custCasePojo.receiveDate_str }" name="receiveDate" type="text" ltype="date" />
+				 	<input width="120px" value="${custCasePojo.applyDate_str }" name="applyDate" type="text" ltype="date" />
 				 </td>
 				 
 				  <td align="right" class="l-table-edit-td">接受日期:</td>
 				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${custCasePojo.receiveDate_str }" name="receiveDate" type="text" ltype="date" />
+				 	<input width="120px" value="${treatmentPojo.acceptDate_str }" name="acceptDate" type="text" ltype="date" />
 				 </td>
 				 
-				   <td align="right" class="l-table-edit-td">狀態:</td>
-				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${custCasePojo.caseStatus }" name="caseStatus" type="text" id="caseStatus" ltype="text" />
-				 </td>
+				 <td align="right" class="l-table-edit-td">服務狀態：</td><!-- 有name -->
+                <td align="left" class="l-table-edit-td">
+                   	<select name="serviceStatus" id="serviceStatus" ltype="select" width="120px" >
+                		<option value="0" <c:if test="${treatmentPojo.serviceStatus != '1' and treatmentPojo.serviceStatus != '2'}">selected="selected"</c:if> >輪候</option>
+                		<option value="1" <c:if test="${treatmentPojo.serviceStatus == '1' }">selected="selected"</c:if> >開始</option>
+                		<option value="2" <c:if test="${treatmentPojo.serviceStatus == '2' }">selected="selected"</c:if> >結束</option>
+                	</select> 
+                </td>
 				 
 				  <td align="right" class="l-table-edit-td">輪候開始日期:</td>
 				 <td align="left" class="l-table-edit-td">
@@ -335,11 +338,11 @@ String basePath = request.getScheme() + "://"
 			<tr>
 				   <td align="right" class="l-table-edit-td">服務類別:</td>
 				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${custCasePojo.caseSource }" name="caseSource" type="text" id="caseSource" ltype="text" />
+				 	<input width="120px" value="${treatmentPojo.treatmentCategory }" name="treatmentCategory" type="text" ltype="text" />
 				 </td>
 				   <td align="right" class="l-table-edit-td">負責人:</td>
 				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${custCasePojo.caseWorker }" name="caseWorker" type="text" id="caseWorker" ltype="text" />
+				 	<input width="120px" value="${treatmentPojo.worker }" name="worker" type="text" ltype="text" />
 				 </td>
             </tr>
 		</tbody>
@@ -550,44 +553,45 @@ String basePath = request.getScheme() + "://"
 			            <tr>
 			            	<td align="right" class="l-table-edit-td">暫托服務編號：</td>
 			                <td align="left" class="l-table-edit-td">
-			                	<input width="120px" value="${customer.fullName }" name="fullName" type="text" class="fullName" ltype="text">
+			                	<input width="120px" value="${treatmentPojo.treatmentNO }" name="treatmentNO" type="text" class="treatmentNO" ltype="text">
 			                </td>
 			            
 			                <td align="right" class="l-table-edit-td">服務開始時間：</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentTrainingWork.beginDate_str }" name="beginDate" type="text" id="beginDate" ltype="date"/></td>
+			                <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentPojo.startDate_str }" name="startDate" type="text" ltype="date"/></td>
 			                
 			                <td align="right" class="l-table-edit-td">服務結束時間：</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentTrainingWork.endDate_str }" name="endDate" type="text" id="endDate" ltype="date" /></td>
+			                <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentReportPojo.closeDate_str }" name="closeDate" type="text" ltype="date" /></td>
 			                
 			                <td align="right" class="l-table-edit-td">負責人：</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentTrainingWork.duty }" name="duty" type="text" id="duty" ltype="text" /></td>
+			                <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentPojo.worker }" name="worker" type="text" ltype="text" /></td>
 			              </tr>
 			              <tr>
 			                 <td align="right" class="l-table-edit-td">會員編號:</td>
 							 <td align="left" class="l-table-edit-td">
-							 	<input width="120px" value="${treatmentTrainingWork.corp }" name="corp" type="text" id="corp" ltype="text" />
+							 	<input width="120px" value="${customer.custNO }" name="custNO" type="text" ltype="text" />
 							 </td>
 							  <td align="right" class="l-table-edit-td">非會員編號:</td>
 							 <td align="left" class="l-table-edit-td">
-							 	<input width="120px" value="${treatmentTrainingWork.place }" name="place" type="text" id="place" ltype="text" />
+							 	<input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" ltype="text" />
 							 </td>
 							  <td align="right" class="l-table-edit-td">姓名:</td>
 							<td align="left" class="l-table-edit-td">
-								<input width="120px" value="${treatmentTrainingWork.workTime }" name="workTime" type="text" id="workTime" ltype="text" />
+								<input width="120px" value="${customer.fullName }" name="fullName" type="text" class="fullName" ltype="text" />
 			                </td>
-			               	<td align="right" class="l-table-edit-td">性別：</td>
-			                <td align="left" class="l-table-edit-td">
-			                	<input width="120px" value="${treatmentTrainingWork.content }" name="content" type="text" id="content" ltype="text" />
+			                 <td align="right" class="l-table-edit-td">性別:</td>
+							<td align="left" class="l-table-edit-td" id="sex">
+			                	<input id="sex1" type="radio" disabled="disabled" name="sex"  value="1" <c:if test="${customer.sex != 2 }">checked="checked"</c:if> /><label for="sex1">男</label> 
+								<input id="sex2" type="radio" disabled="disabled" name="sex" value="2" <c:if test="${customer.sex == 2 }">checked="checked"</c:if> /><label for="sex2">女</label>
 			                </td>
 			            </tr>
 			            <tr>
-			            	  <td align="right" class="l-table-edit-td">出生日期:</td>
+			                  <td align="right" class="l-table-edit-td">出生日期:</td>
 							 <td align="left" class="l-table-edit-td">
-							 	<input width="120px" value="${treatmentTrainingWork.workDetail }" name="workDetail" type="text" id="workDetail" ltype="text" />
+							 	<input width="120px" value="${customer.birthday_ChnStr }" name="birthday" type="text" id="birthday_ChnStr" ltype="date" />
 							 </td>
 							  <td align="right" class="l-table-edit-td">聯繫電話:</td>
 							 <td align="left" class="l-table-edit-td">
-							 	<input width="120px" value="${treatmentTrainingWork.envioment }" name="envioment" type="text" id="envioment" ltype="text" />
+							 	<input width="120px" value="${customer.mobileTelNO }" name="mobileTelNO" type="text" id="mobileTelNO" ltype="text" />
 							 </td>
 							 
 			            </tr>
@@ -595,30 +599,30 @@ String basePath = request.getScheme() + "://"
 				</table>
 				
             	<div class="inline-group">
-            		<label>結束服務原因：</label>
-            		<input type="text" ltype="text" name="handler" value="${treatmentTrainingWork.handler }">
+            		<label style="width:100px;display:inline-block;text-align:right;">結束服務原因：</label>
+            		<textarea rows="2" cols="55" name="reason">${treatmentReportPojo.reason }</textarea>
             	</div>
             	<div class="inline-group">
-            		<label>臨床觀察其表現：</label>
-            		<input type="text" ltype="date" name="handleDate" value="${treatmentTrainingWork.handleDate_str }">
+            		<label style="width:100px;display:inline-block;text-align:right;">臨床觀察其表現：</label>
+            		<textarea rows="2" cols="55" name="performance">${treatmentReportPojo.performance }</textarea>
             	</div>
-            	<div class="inline-block">
-            		<label>建議：</label>
-            		<textarea rows="2" cols="55" name="handleSuggest" id="handleSuggest">${treatmentTrainingWork.handleSuggest }</textarea>
+            	<div class="inline-group">
+            		<label style="width:100px;display:inline-block;text-align:right;">建議：</label>
+            		<textarea rows="2" cols="55" name="suggest">${treatmentReportPojo.suggest }</textarea>
             	</div>
-            	<div class="inline-block">
-            		<label>服務小結：</label>
-            		<textarea rows="2" cols="55" name="handleSuggest" id="handleSuggest">${treatmentTrainingWork.handleSuggest }</textarea>
+            	<div class="inline-group">
+            		<label style="width:100px;display:inline-block;text-align:right;">服務小結：</label>
+            		<textarea rows="2" cols="55" name="summary" id="summary">${treatmentReportPojo.summary }</textarea>
             	</div>
-            	<div class="inine-block">
-            		<label>主管：</label>
-            		<input type="text" ltype="text">
+            	<div class="inline-group">
+            		<label style="width:100px;display:inline-block;text-align:right;">主管：</label>
+            		<input type="text" ltype="text" name="handler" value="${treatmentReportPojo.handler }">
             		<label>日期：</label>
-            		<input type="text" ltype="text">
+            		<input type="text" ltype="date" name="handleDate" value="${treatmentReportPojo.handleDate_str }">
             	</div>
-            	<div>
-            		<label>主管意見及建議：</label>
-            		<textarea rows="2" cols="55" name="handleSuggest" id="handleSuggest">${treatmentTrainingWork.handleSuggest }</textarea>
+            	<div class="inline-group">
+            		<label style="width:100px;display:inline-block;text-align:right;">主管意見及建議：</label>
+            		<textarea rows="2" cols="55" name="handleSuggest" id="handleSuggest">${treatmentReportPojo.handleSuggest }</textarea>
             	</div>
 		  	   	
 		  	</div>

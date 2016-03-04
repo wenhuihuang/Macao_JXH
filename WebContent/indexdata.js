@@ -18,18 +18,17 @@
   	]
     },
     { text: '院舍管理',isexpand:false, children: [ 
-        {url:"jsp/manage/dormitoryRecord.jsp",text:"院舍記錄" },
-  		{url:"jsp/manage/dormitoryRecord_edit.jsp",text:"院舍管理" },
-  		{url:"jsp/custCase/list.jsp",text:"醫護記錄" },
-  		{url:"jsp/custCase/list.jsp",text:"小組設定" },
-  		{url:"jsp/custCase/list.jsp",text:"課程設定" },
-  		{url:"jsp/custCase/list.jsp",text:"校車支援" },
-  		{url:"jsp/custCase/list.jsp",text:"活動設定" },
-  		{url:"jsp/custCase/list.jsp",text:"家庭支援" },
-  		{url:"jsp/custCase/list.jsp",text:"信息平台" },
-  		{url:"jsp/custCase/list.jsp",text:"收費記錄" },
-  		{url:"jsp/custCase/list.jsp",text:"用戶權限" },
-  		{url:"jsp/custCase/list.jsp",text:"統計報表" }
+  		{url:"jsp/manage/dormitory_list.jsp",text:"院舍管理" },
+  		{url:"jsp/manage/list.jsp",text:"醫護記錄" },
+  		{url:"jsp/manage/list.jsp",text:"小組設定" },
+  		{url:"jsp/manage/list.jsp",text:"課程設定" },
+  		{url:"jsp/manage/list.jsp",text:"校車支援" },
+  		{url:"jsp/manage/list.jsp",text:"活動設定" },
+  		{url:"jsp/manage/list.jsp",text:"家庭支援" },
+  		{url:"jsp/manage/list.jsp",text:"信息平台" },
+  		{url:"jsp/manage/list.jsp",text:"收費記錄" },
+  		{url:"jsp/manage/list.jsp",text:"用戶權限" },
+  		{url:"jsp/manage/list.jsp",text:"統計報表" }
   	]
     }
 ];

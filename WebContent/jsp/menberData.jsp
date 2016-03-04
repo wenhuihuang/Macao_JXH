@@ -95,7 +95,7 @@ $(function(){
 	    					m = m.replace(/\]$/g,"");
 	    					m = JSON.parse(m)
 	    			   console.log(m)
-	    			   $("#custID").val(m.custID);
+	    			   $("#custID").val(m.custId);
 	    			   $("#mobileTelNO").val(m.mobileTelNO);
 	    			   $("#father").val(m.mother);
 	    			   $("#mother").val(m.mother);
