@@ -1,0 +1,194 @@
+package com.jxh.vo;
+
+
+import java.io.Serializable;
+import java.util.Date;
+import java.sql.*;
+
+import java.math.*;
+
+
+/** DormitoryRecord
+
+recordID,custID,recordNO,applyDate,planDate,recordType,roomNO,groupType,inDate,actProtocol,worker,trainingBDate,trainingEDate,outDate,task,interactive,ativity,trainingBTime,trainingETime,trainingType
+?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
+
+dormitoryRecord.recordID,dormitoryRecord.custID,dormitoryRecord.recordNO,dormitoryRecord.applyDate,dormitoryRecord.planDate,dormitoryRecord.recordType,dormitoryRecord.roomNO,dormitoryRecord.groupType,dormitoryRecord.inDate,dormitoryRecord.actProtocol,dormitoryRecord.worker,dormitoryRecord.trainingBDate,dormitoryRecord.trainingEDate,dormitoryRecord.outDate,dormitoryRecord.task,dormitoryRecord.interactive,dormitoryRecord.ativity,dormitoryRecord.trainingBTime,dormitoryRecord.trainingETime,dormitoryRecord.trainingType
+
+recordID=?,custID=?,recordNO=?,applyDate=?,planDate=?,recordType=?,roomNO=?,groupType=?,inDate=?,actProtocol=?,worker=?,trainingBDate=?,trainingEDate=?,outDate=?,task=?,interactive=?,ativity=?,trainingBTime=?,trainingETime=?,trainingType=?
+*/
+public class DormitoryRecord implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private String recordID;
+	private String custID;
+	private String recordNO;
+	private Date applyDate;
+	private Date planDate;
+	private int recordType;
+	private String roomNO;
+	private String groupType;
+	private Date inDate;
+	private String actProtocol;
+	private String worker;
+	private Date trainingBDate;
+	private Date trainingEDate;
+	private Date outDate;
+	private String task;
+	private String interactive;
+	private String ativity;
+	private String trainingBTime;
+	private String trainingETime;
+	private String trainingType;
+
+	public DormitoryRecord(){
+		super();
+	}
+	public DormitoryRecord(String recordID, String custID, String recordNO, Date applyDate, Date planDate, int recordType, String roomNO, String groupType, Date inDate, String actProtocol, String worker, Date trainingBDate, Date trainingEDate, Date outDate, String task, String interactive, String ativity, String trainingBTime, String trainingETime, String trainingType ){
+		super();
+		this.recordID=recordID;
+		this.custID=custID;
+		this.recordNO=recordNO;
+		this.applyDate=applyDate;
+		this.planDate=planDate;
+		this.recordType=recordType;
+		this.roomNO=roomNO;
+		this.groupType=groupType;
+		this.inDate=inDate;
+		this.actProtocol=actProtocol;
+		this.worker=worker;
+		this.trainingBDate=trainingBDate;
+		this.trainingEDate=trainingEDate;
+		this.outDate=outDate;
+		this.task=task;
+		this.interactive=interactive;
+		this.ativity=ativity;
+		this.trainingBTime=trainingBTime;
+		this.trainingETime=trainingETime;
+		this.trainingType=trainingType;
+	}
+	public void setRecordID(String recordID){
+		this.recordID=recordID;
+	}
+	public String getRecordID(){
+		return recordID;
+	}
+	public void setCustID(String custID){
+		this.custID=custID;
+	}
+	public String getCustID(){
+		return custID;
+	}
+	public void setRecordNO(String recordNO){
+		this.recordNO=recordNO;
+	}
+	public String getRecordNO(){
+		return recordNO;
+	}
+	public void setApplyDate(Date applyDate){
+		this.applyDate=applyDate;
+	}
+	public Date getApplyDate(){
+		return applyDate;
+	}
+	public void setPlanDate(Date planDate){
+		this.planDate=planDate;
+	}
+	public Date getPlanDate(){
+		return planDate;
+	}
+	public void setRecordType(int recordType){
+		this.recordType=recordType;
+	}
+	public int getRecordType(){
+		return recordType;
+	}
+	public void setRoomNO(String roomNO){
+		this.roomNO=roomNO;
+	}
+	public String getRoomNO(){
+		return roomNO;
+	}
+	public void setGroupType(String groupType){
+		this.groupType=groupType;
+	}
+	public String getGroupType(){
+		return groupType;
+	}
+	public void setInDate(Date inDate){
+		this.inDate=inDate;
+	}
+	public Date getInDate(){
+		return inDate;
+	}
+	public void setActProtocol(String actProtocol){
+		this.actProtocol=actProtocol;
+	}
+	public String getActProtocol(){
+		return actProtocol;
+	}
+	public void setWorker(String worker){
+		this.worker=worker;
+	}
+	public String getWorker(){
+		return worker;
+	}
+	public void setTrainingBDate(Date trainingBDate){
+		this.trainingBDate=trainingBDate;
+	}
+	public Date getTrainingBDate(){
+		return trainingBDate;
+	}
+	public void setTrainingEDate(Date trainingEDate){
+		this.trainingEDate=trainingEDate;
+	}
+	public Date getTrainingEDate(){
+		return trainingEDate;
+	}
+	public void setOutDate(Date outDate){
+		this.outDate=outDate;
+	}
+	public Date getOutDate(){
+		return outDate;
+	}
+	public void setTask(String task){
+		this.task=task;
+	}
+	public String getTask(){
+		return task;
+	}
+	public void setInteractive(String interactive){
+		this.interactive=interactive;
+	}
+	public String getInteractive(){
+		return interactive;
+	}
+	public void setAtivity(String ativity){
+		this.ativity=ativity;
+	}
+	public String getAtivity(){
+		return ativity;
+	}
+	public void setTrainingBTime(String trainingBTime){
+		this.trainingBTime=trainingBTime;
+	}
+	public String getTrainingBTime(){
+		return trainingBTime;
+	}
+	public void setTrainingETime(String trainingETime){
+		this.trainingETime=trainingETime;
+	}
+	public String getTrainingETime(){
+		return trainingETime;
+	}
+	public void setTrainingType(String trainingType){
+		this.trainingType=trainingType;
+	}
+	public String getTrainingType(){
+		return trainingType;
+	}
+	@Override
+	public String toString(){
+		return "DormitoryRecord [recordID="+recordID+",custID="+custID+",recordNO="+recordNO+",applyDate="+applyDate+",planDate="+planDate+",recordType="+recordType+",roomNO="+roomNO+",groupType="+groupType+",inDate="+inDate+",actProtocol="+actProtocol+",worker="+worker+",trainingBDate="+trainingBDate+",trainingEDate="+trainingEDate+",outDate="+outDate+",task="+task+",interactive="+interactive+",ativity="+ativity+",trainingBTime="+trainingBTime+",trainingETime="+trainingETime+",trainingType="+trainingType+"]";
+	}
+}
+

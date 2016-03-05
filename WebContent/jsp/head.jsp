@@ -292,6 +292,7 @@ td {width: auto;}
         }
 	}
 	
+	
 	/*
 	*获取增加的列的json串
 	*
@@ -454,4 +455,40 @@ td {width: auto;}
 		}
 
 	}
+	
+	/**
+	*年月
+	*/
+	function years(yEle){
+		var date = new Date();
+		var y = date.getFullYear();
+		for (var i = 0; i < 10; i++) {
+			var oP = document.createElement("option");
+			var oText = document.createTextNode(y);
+			oP.appendChild(oText);
+			oP.setAttribute("value", y);
+			document.getElementById(yEle).appendChild(oP);
+			y-=1;
+		};
+
+	}
+
+	function months(mEle){
+		var date = new Date();
+		var m = date.getMonth() + 1;
+		var j = 1;
+		for (var i = 1; i < 13; i++) {
+			var month = document.createElement("option");
+			var monthText = document.createTextNode(j);
+			month.appendChild(monthText);
+			month.setAttribute("value", j);
+			if (j == m) {
+			month.setAttribute("selected", "selected");
+			}
+			;
+			document.getElementById(mEle).appendChild(month);
+			j = j + 1;
+		};
+	}
+
 </script>
