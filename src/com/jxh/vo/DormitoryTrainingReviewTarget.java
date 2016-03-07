@@ -15,7 +15,7 @@ targetID=?,reviewID=?,custID=?,target=?,assess=?,note=?
 public class DormitoryTrainingReviewTarget implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int targetID;
-	private int reviewID;
+	private String reviewID;
 	private String custID;
 	private String target;
 	private String assess;
@@ -24,7 +24,7 @@ public class DormitoryTrainingReviewTarget implements Serializable {
 	public DormitoryTrainingReviewTarget(){
 		super();
 	}
-	public DormitoryTrainingReviewTarget(int targetID, int reviewID, String custID, String target, String assess, String note ){
+	public DormitoryTrainingReviewTarget(int targetID, String reviewID, String custID, String target, String assess, String note ){
 		super();
 		this.targetID=targetID;
 		this.reviewID=reviewID;
@@ -39,10 +39,10 @@ public class DormitoryTrainingReviewTarget implements Serializable {
 	public int getTargetID(){
 		return targetID;
 	}
-	public void setReviewID(int reviewID){
+	public void setReviewID(String reviewID){
 		this.reviewID=reviewID;
 	}
-	public int getReviewID(){
+	public String getReviewID(){
 		return reviewID;
 	}
 	public void setCustID(String custID){

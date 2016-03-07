@@ -17,7 +17,7 @@ settleID=?,reviewID=?,inItem=?,inMoney=?,outItem=?,outMoney=?,note=?
 public class DormitoryTrainingReviewSettle implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int settleID;
-	private int reviewID;
+	private String reviewID;
 	private String inItem;
 	private BigDecimal inMoney;
 	private String outItem;
@@ -27,7 +27,7 @@ public class DormitoryTrainingReviewSettle implements Serializable {
 	public DormitoryTrainingReviewSettle(){
 		super();
 	}
-	public DormitoryTrainingReviewSettle(int settleID, int reviewID, String inItem, BigDecimal inMoney, String outItem, BigDecimal outMoney, String note ){
+	public DormitoryTrainingReviewSettle(int settleID, String reviewID, String inItem, BigDecimal inMoney, String outItem, BigDecimal outMoney, String note ){
 		super();
 		this.settleID=settleID;
 		this.reviewID=reviewID;
@@ -43,10 +43,10 @@ public class DormitoryTrainingReviewSettle implements Serializable {
 	public int getSettleID(){
 		return settleID;
 	}
-	public void setReviewID(int reviewID){
+	public void setReviewID(String reviewID){
 		this.reviewID=reviewID;
 	}
-	public int getReviewID(){
+	public String getReviewID(){
 		return reviewID;
 	}
 	public void setInItem(String inItem){

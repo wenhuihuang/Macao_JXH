@@ -30,7 +30,7 @@ String basePath = request.getScheme() + "://"
 		
 		var trainingFlowDataGridColumn = [
 									{ display: 'planID', name: 'planID', hide:true },
-				                    { display: '時間', name: 'billDate', width: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '時間', name: 'billDate', width: 100,type:"text",editor: { type: 'date' }},
 				                    { display: '生活日程', name: 'living', width: 100,type:"text",editor: { type: 'text' }},
 				                    { display: '訓練項目', name: 'item', width: 100 ,type:"text",editor: { type: 'text'}},
 				                    { display: '訓練類別', name: 'type', width: 100 ,type:"text",editor: { type: 'text'}},
@@ -45,7 +45,7 @@ String basePath = request.getScheme() + "://"
 	          { line: true },
 	          { text: '删除', click: deleteTrainingFlowData, icon: 'delete' , id:"delete" }];
 		
-		var url = "Treatment/getTreatmentFamily.do?treatmentID="+$("#treatmentID").val();
+		var url = "Dormitory/getDormitoryTrainingADPlanDetail.do?aPlanID="+$("#aPlanID").val();
 		
 		trainingFlowDataGrid = ligerGrid("trainingFlowDataGrid",null,trainingFlowDataGridColumn,url,trainingFlowDataGridToolBar,false,true);
 		
@@ -308,7 +308,7 @@ String basePath = request.getScheme() + "://"
 				save();
 			break;
 			case "back":
-				location.href="jsp/treatment/language_list.jsp";
+				location.href="jsp/manage/dormitory_list.jsp";
 			break;
 		}
 		
@@ -341,10 +341,10 @@ String basePath = request.getScheme() + "://"
 	}
     
 	$(function(){
-		if($("#treatmentID").val() != "" && $("#treatmentID").val() != 'null' && $("#treatmentID").val() != 'undefined'){
-			setTabTitle(parent.$("#framecenter"),"語言治療編輯")
+		if($("#recordID").val() != "" && $("#recordID").val() != 'null' && $("#recordID").val() != 'undefined'){
+			setTabTitle(parent.$("#framecenter"),"院舍管理編輯")
 		}else{
-			setTabTitle(parent.$("#framecenter"),"語言治療新增")
+			setTabTitle(parent.$("#framecenter"),"院舍管理新增")
 		}
 		
 		$(".toptoolbar").ligerToolBar({ items: [
@@ -388,8 +388,9 @@ String basePath = request.getScheme() + "://"
 <body>
 	<div class="toptoolbar"></div>
 	<form name="form1" class="liger-form" method="post" action="Dormitory/submit.do" id="form1" style="margin: 20px;">
-	<input type="hidden" name="custID" id="custID" value="${treatmentPojo.custID }">
-	<input type="hidden" name="recordID" id="recordID" value="${dormitoryRecordPojo.recordID }">
+	<input type="hidden" name="custID" id="custID" value="${dormitoryRecord.custID }">
+	<input type="hidden" name="recordID" id="recordID" value="${dormitoryRecord.recordID }">
+	<input type="hidden" name="aPlanID" id="aPlanID" value="${dormitoryTrainingADPlan.aPlanID }" >
 	<input type="hidden" name="dormitoryTrainingADPlanDetailAdds" id="dormitoryTrainingADPlanDetailAdds">
 	<input type="hidden" name="dormitoryTrainingADPlanDetailUpdates" id="dormitoryTrainingADPlanDetailUpdates">
 	<input type="hidden" name="dormitoryTrainingADPlanDetailDeletes" id="dormitoryTrainingADPlanDetailDeletes">
@@ -417,7 +418,7 @@ String basePath = request.getScheme() + "://"
 			    <tr>
             	<td align="right" class="l-table-edit-td">住客編號：</td>
                 <td align="left" class="l-table-edit-td">
-                	<input width="120px" value="${dormitoryRecordPojo.recordNO }" name="recordNO" type="text" ltype="text"">
+                	<input width="120px" value="${dormitoryRecord.recordNO }" name="recordNO" type="text" ltype="text"">
                 </td>
             
                 <td align="right" class="l-table-edit-td">姓名：</td>
@@ -432,37 +433,37 @@ String basePath = request.getScheme() + "://"
               <tr>
                  <td align="right" class="l-table-edit-td">申請日期:</td>
 				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${dormitoryRecordPojo.applyDate_str }" name="applyDate" type="text" ltype="date" />
+				 	<input width="120px" value="${dormitoryRecord.applyDate_str }" name="applyDate" type="text" ltype="date" />
 				 </td>
 				  <td align="right" class="l-table-edit-td">預計入住日期:</td>
 				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${dormitoryRecordPojo.planDate_str }" name="planDate" type="text" ltype="date" />
+				 	<input width="120px" value="${dormitoryRecord.planDate_str }" name="planDate" type="text" ltype="date" />
 				 </td>
 			     <td align="right" class="l-table-edit-td">入住狀態：</td>
                 <td align="left" class="l-table-edit-td">
                    	<select name="revordType" ltype="select" width="120px" >
-                		<option value="0" <c:if test="${dormitoryRecordPojo.revordType != '1' and dormitoryRecordPojo.revordType != '2'}">selected="selected"</c:if> >輪候</option>
-                		<option value="1" <c:if test="${dormitoryRecordPojo.revordType == '1' }">selected="selected"</c:if> >開始</option>
-                		<option value="2" <c:if test="${dormitoryRecordPojo.revordType == '2' }">selected="selected"</c:if> >結束</option>
+                		<option value="0" <c:if test="${dormitoryRecord.recordType == '0' }">selected="selected"</c:if> >輪候</option>
+                		<option value="1" <c:if test="${dormitoryRecord.recordType == '1' }">selected="selected"</c:if> >開始</option>
+                		<option value="2" <c:if test="${dormitoryRecord.recordType == '2' }">selected="selected"</c:if> >結束</option>
                 	</select> 
                 </td>
                	<td align="right" class="l-table-edit-td">執行員：</td>
                 <td align="left" class="l-table-edit-td">
-                <input width="120px" value="${dormitoryRecordPojo.worker }" name="worker" type="text" id="worker" ltype="text"/>
+                <input width="120px" value="${dormitoryRecord.worker }" name="worker" type="text" id="worker" ltype="text"/>
                 </td>
             </tr>
             <tr>
             	  <td align="right" class="l-table-edit-td">訓練日期:</td>
 				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${dormitoryRecordPojo.trainingBDate_str }" name="trainingBDate" type="text" ltype="date" />
+				 	<input width="120px" value="${dormitoryRecord.trainingBDate_str }" name="trainingBDate" type="text" ltype="date" />
 				 	至
-				 	<input width="120px" value="${dormitoryRecordPojo.trainingEDate_str }" name="trainingEDate" type="text" ltype="date" />
+				 	<input width="120px" value="${dormitoryRecord.trainingEDate_str }" name="trainingEDate" type="text" ltype="date" />
 				 </td>
 				  <td align="right" class="l-table-edit-td">訓練時間:</td>
 				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${dormitoryRecordPojo.trainingBTime }" name="trainingBTime" type="text" ltype="text" />
+				 	<input width="120px" value="${dormitoryRecord.trainingBTime }" name="trainingBTime" type="text" ltype="text" />
 				 	至
-				 	<input width="120px" value="${dormitoryRecordPojo.trainingETime }" name="trainingETime" type="text" ltype="text" />
+				 	<input width="120px" value="${dormitoryRecord.trainingETime }" name="trainingETime" type="text" ltype="text" />
 				 </td>
             </tr>
 			          
@@ -470,13 +471,13 @@ String basePath = request.getScheme() + "://"
 			             	
 			                <td align="right" class="l-table-edit-td">離開日期：</td>
 			                <td align="left" class="l-table-edit-td">
-			                <input width="120px" value="${dormitoryRecordPojo.outDate_str }" name="outDate" type="text" ltype="date"/>
+			                <input width="120px" value="${dormitoryRecord.outDate_str }" name="outDate" type="text" ltype="date"/>
 			                </td>
 			                
 			                
 			                <td align="right" class="l-table-edit-td">訓練類別：</td>
 			                <td align="left" class="l-table-edit-td">
-			                	<input width="120px" value="${dormitoryRecordPojo.trainingType }" name="trainingType" type="text" ltype="text" /> 
+			                	<input width="120px" value="${dormitoryRecord.trainingType }" name="trainingType" type="text" ltype="text" /> 
 			                </td>
 			                
 			             </tr>
@@ -485,15 +486,15 @@ String basePath = request.getScheme() + "://"
 			                
 			                <td align="right" class="l-table-edit-td">個人事務：</td>
 			                <td align="left" class="l-table-edit-td">
-			                	<textarea rows="2" cols="55" name="task">${dormitoryRecordPojo.task }</textarea>
+			                	<textarea rows="2" cols="55" name="task">${dormitoryRecord.task }</textarea>
 			                </td>
 			                <td align="right" class="l-table-edit-td">社區互動:</td>
 			                <td align="left" class="l-table-edit-td">
-			              	  <textarea rows="2" cols="55" name="interactive">${dormitoryRecordPojo.interactive }</textarea>
+			              	  <textarea rows="2" cols="55" name="interactive">${dormitoryRecord.interactive }</textarea>
 			                </td>
 			                 <td align="right" class="l-table-edit-td">休閒活動:</td>
 			                <td align="left" class="l-table-edit-td">
-			              	  <textarea rows="2" cols="55" name="ativity">${dormitoryRecordPojo.ativity }</textarea>
+			              	  <textarea rows="2" cols="55" name="ativity">${dormitoryRecord.ativity }</textarea>
 			                </td>
 			                
 			                
@@ -510,7 +511,7 @@ String basePath = request.getScheme() + "://"
 					        		 <tr>
 		            	<td align="right" class="l-table-edit-td">住客編號：</td>
 		                <td align="left" class="l-table-edit-td">
-		                	<input width="120px" value="${dormitoryRecordPojo.recordNO }" name="recordNO" type="text" ltype="text"">
+		                	<input width="120px" value="${dormitoryRecord.recordNO }" name="recordNO" type="text" ltype="text"">
 		                </td>
 		            
 		                <td align="right" class="l-table-edit-td">姓名：</td>
@@ -575,7 +576,7 @@ String basePath = request.getScheme() + "://"
            					<tr>
 				            	<td align="right" class="l-table-edit-td">住客編號：</td>
 				                <td align="left" class="l-table-edit-td">
-				                	<input width="120px" value="${dormitoryRecordPojo.recordNO }" name="recordNO" type="text" ltype="text"">
+				                	<input width="120px" value="${dormitoryRecord.recordNO }" name="recordNO" type="text" ltype="text"">
 				                </td>
 				            
 				                <td align="right" class="l-table-edit-td">姓名：</td>
@@ -617,7 +618,7 @@ String basePath = request.getScheme() + "://"
           			</div>
           			<div class="inline-group">
           				<label style="width:120px;text-align:right;">執行職員：</label>
-          				<input width="120px" value="${dormitoryTrainingRecord.worker }" name="worker" type="text" ltype="text"">
+          				<input width="120px" value="${dormitoryTrainingRecord.workder }" name="wordker" type="text" ltype="text"">
           			</div>
           			<div class="inline-group">
           				<label style="width:120px;text-align:right;">訓練目標：</label>
@@ -636,7 +637,7 @@ String basePath = request.getScheme() + "://"
           			</div>
           			<div class="inline-group">
           				<label style="width:120px;text-align:right;">負責職員：</label>
-          				<input width="120px" value="${dormitoryTrainingReview.worker }" name="worker" type="text" ltype="text"">
+          				<input width="120px" value="${dormitoryTrainingReview.workder }" name="workder" type="text" ltype="text"">
           			</div>
           			<div class="inline-group">
           				<label style="width:120px;text-align:right;">開組日期：</label>

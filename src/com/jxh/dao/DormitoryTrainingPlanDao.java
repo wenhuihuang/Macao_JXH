@@ -17,49 +17,48 @@ public class DormitoryTrainingPlanDao extends DaoImpl<DormitoryTrainingPlan> {
 		return null;
 	}
 	
-	public PageUtils<DormitoryTrainingPlan> getDormitoryRecordPojo(PageUtils<DormitoryRecordPojo> page,String condition,Object...params) throws IOException, SQLException{
+	public PageUtils<DormitoryTrainingPlan> getDormitoryTrainingPlan(PageUtils<DormitoryTrainingPlan> page,String condition,Object...params) throws IOException, SQLException{
 		//获取SQL
 		condition = condition ==null?"":condition;
 		String sql = getSqlByPropKey(ToolsUtils.getCurrentMethodName())+condition;
 		//获取总页数
 		Integer count = (Integer) this.findElement(getCountSql(sql), params);
 		page.setRowCount(count);
-		List<DormitoryTrainingPlan> dormitoryRecordPojos = this.findForList(sql, params);
-		page.setList(dormitoryRecordPojos);
+		List<DormitoryTrainingPlan> dormitoryTrainingPlan = this.findForList(sql, params);
+		page.setList(dormitoryTrainingPlan);
 		
 		return page;
 	}
 
-	public DormitoryRecordPojo getDormitoryRecordPojoByCondition(String condition, Object...params) throws IOException, SQLException {
-		clazz = DormitoryRecordPojo.class;
+	public DormitoryTrainingPlan getDormitoryTrainingPlanByCondition(String condition, Object...params) throws IOException, SQLException {
+		clazz = DormitoryTrainingPlan.class;
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		
 		sql += condition==null||"".equals(condition)?"":condition;
-		//System.out.println("sql++"+condition);
 		System.out.println(sql);
-		return  (DormitoryRecordPojo) this.findForObject(sql, params);
+		return  (DormitoryTrainingPlan) this.findForObject(sql, params);
 	}
 
-	public int updateDormitoryRecord(DormitoryRecord dormitoryRecord) throws IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException {
+	public int updateDormitoryTrainingPlan(DormitoryTrainingPlan dormitoryTrainingPlan) throws IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException {
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
-		Object[] params = getUpdateParams(sql, dormitoryRecord);
+		Object[] params = getUpdateParams(sql, dormitoryTrainingPlan);
 		return this.update(sql, params);
 	}
 	
 	public String getPrimaryKey(String corpId) throws SQLException{
-		return this.getPrimaryKey("DORMITORYERCORD", corpId, 20);
+		return this.getPrimaryKey("DORMITORYTRAININGPLAN", corpId, 20);
 	}
 	
-	public int insertDormitoryRecord(DormitoryRecord dormitoryRecord) throws SQLException, IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException{
+	public int insertDormitoryTrainingPlan(DormitoryTrainingPlan dormitoryTrainingPlan) throws SQLException, IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
-		Object[] params = getInsertParams(sql, dormitoryRecord);
+		Object[] params = getInsertParams(sql, dormitoryTrainingPlan);
 		return this.update(sql, params);
 	}
 	
-	public int deleteDormitoryRecordByRecordID(String recordID) throws SQLException, IOException{
+	public int deleteDormitoryTrainingPlanByPlanID(String planID) throws SQLException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		//String sql = "delete from Treatment where treatmentID = ? ";
-		return this.update(sql, recordID);
+		return this.update(sql, planID);
 	}
 	
 }

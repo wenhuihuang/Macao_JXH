@@ -19,14 +19,14 @@ detailID=?,masterRecordID=?,content=?,yM=?
 public class DormitoryTrainingRecordDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int detailID;
-	private int masterRecordID;
+	private String masterRecordID;
 	private String content;
 	private int yM;
 
 	public DormitoryTrainingRecordDetail(){
 		super();
 	}
-	public DormitoryTrainingRecordDetail(int detailID, int masterRecordID, String content, int yM ){
+	public DormitoryTrainingRecordDetail(int detailID, String masterRecordID, String content, int yM ){
 		super();
 		this.detailID=detailID;
 		this.masterRecordID=masterRecordID;
@@ -39,10 +39,10 @@ public class DormitoryTrainingRecordDetail implements Serializable {
 	public int getDetailID(){
 		return detailID;
 	}
-	public void setMasterRecordID(int masterRecordID){
+	public void setMasterRecordID(String masterRecordID){
 		this.masterRecordID=masterRecordID;
 	}
-	public int getMasterRecordID(){
+	public String getMasterRecordID(){
 		return masterRecordID;
 	}
 	public void setContent(String content){

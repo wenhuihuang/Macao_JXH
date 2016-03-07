@@ -3,8 +3,11 @@ package com.jxh.vo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.sql.*;
 
+import com.fg.utils.ToolsUtils;
+
+import java.sql.*;
+import java.text.ParseException;
 import java.math.*;
 
 
@@ -39,11 +42,19 @@ public class DormitoryRecord implements Serializable {
 	private String trainingBTime;
 	private String trainingETime;
 	private String trainingType;
+	
+	private String applyDate_str;
+	private String planDate_str;
+	private String inDate_str;
+	private String trainingBDate_str;
+	private String trainingEDate_str;
+	private String outDate_str;
 
 	public DormitoryRecord(){
 		super();
 	}
-	public DormitoryRecord(String recordID, String custID, String recordNO, Date applyDate, Date planDate, int recordType, String roomNO, String groupType, Date inDate, String actProtocol, String worker, Date trainingBDate, Date trainingEDate, Date outDate, String task, String interactive, String ativity, String trainingBTime, String trainingETime, String trainingType ){
+	public DormitoryRecord(String recordID, String custID, String recordNO, Date applyDate, Date planDate, int recordType, String roomNO, String groupType, Date inDate, String actProtocol, String worker, Date trainingBDate, Date trainingEDate, Date outDate, String task, String interactive, String ativity, String trainingBTime, String trainingETime, String trainingType,
+						String applyDate_str,String planDate_str,String inDate_str,String trainingBDate_str,String trainingEDate_str,String outDate_str){
 		super();
 		this.recordID=recordID;
 		this.custID=custID;
@@ -65,6 +76,14 @@ public class DormitoryRecord implements Serializable {
 		this.trainingBTime=trainingBTime;
 		this.trainingETime=trainingETime;
 		this.trainingType=trainingType;
+		this.applyDate_str=applyDate_str;
+		this.applyDate_str=applyDate_str;
+		this.planDate_str=planDate_str;
+		this.inDate_str=inDate_str;
+		this.trainingBDate_str=trainingBDate_str;
+		this.trainingEDate_str=trainingEDate_str;
+		this.outDate_str=outDate_str;
+		
 	}
 	public void setRecordID(String recordID){
 		this.recordID=recordID;
@@ -186,9 +205,83 @@ public class DormitoryRecord implements Serializable {
 	public String getTrainingType(){
 		return trainingType;
 	}
+	public String getApplyDate_str() {
+		try {
+			return applyDate == null || "".equals(applyDate) ? ""
+					: ToolsUtils.getDateStringByFormat(applyDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setApplyDate_str(String applyDate_str) {
+		this.applyDate_str = applyDate_str;
+	}
+	public String getPlanDate_str() {
+		try {
+			return planDate == null || "".equals(planDate) ? ""
+					: ToolsUtils.getDateStringByFormat(planDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setPlanDate_str(String planDate_str) {
+		this.planDate_str = planDate_str;
+	}
+	public String getInDate_str() {
+		try {
+			return inDate == null || "".equals(inDate) ? ""
+					: ToolsUtils.getDateStringByFormat(inDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setInDate_str(String inDate_str) {
+		this.inDate_str = inDate_str;
+	}
+	public String getTrainingBDate_str() {
+		try {
+			return trainingBDate == null || "".equals(trainingBDate) ? ""
+					: ToolsUtils.getDateStringByFormat(trainingBDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setTrainingBDate_str(String trainingBDate_str) {
+		this.trainingBDate_str = trainingBDate_str;
+	}
+	public String getTrainingEDate_str() {
+		try {
+			return trainingEDate == null || "".equals(trainingEDate) ? ""
+					: ToolsUtils.getDateStringByFormat(trainingEDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setTrainingEDate_str(String trainingEDate_str) {
+		this.trainingEDate_str = trainingEDate_str;
+	}
+	public String getOutDate_str() {
+		try {
+			return outDate == null || "".equals(outDate) ? ""
+					: ToolsUtils.getDateStringByFormat(outDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setOutDate_str(String outDate_str) {
+		this.outDate_str = outDate_str;
+	}
 	@Override
 	public String toString(){
-		return "DormitoryRecord [recordID="+recordID+",custID="+custID+",recordNO="+recordNO+",applyDate="+applyDate+",planDate="+planDate+",recordType="+recordType+",roomNO="+roomNO+",groupType="+groupType+",inDate="+inDate+",actProtocol="+actProtocol+",worker="+worker+",trainingBDate="+trainingBDate+",trainingEDate="+trainingEDate+",outDate="+outDate+",task="+task+",interactive="+interactive+",ativity="+ativity+",trainingBTime="+trainingBTime+",trainingETime="+trainingETime+",trainingType="+trainingType+"]";
+		return "DormitoryRecord [recordID="+recordID+",custID="+custID+",recordNO="+recordNO+",applyDate="+applyDate+",planDate="+planDate+",recordType="+recordType+",roomNO="+roomNO+",groupType="+groupType+",inDate="+inDate+",actProtocol="+actProtocol+",worker="+worker+",trainingBDate="+trainingBDate+",trainingEDate="+trainingEDate+",outDate="+outDate+",task="+task+",interactive="+interactive+",ativity="+ativity+",trainingBTime="+trainingBTime+",trainingETime="+trainingETime+",trainingType="+trainingType+
+				",applyDate_str="+applyDate_str+",planDate_str="+planDate_str+",inDate_str="+inDate_str+",trainingBDate_str="+trainingBDate_str+",trainingEDate_str="+trainingEDate_str+",outDate_str="+outDate_str+"]";
 	}
+	
 }
 

@@ -3,8 +3,11 @@ package com.jxh.vo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.sql.*;
 
+import com.fg.utils.ToolsUtils;
+
+import java.sql.*;
+import java.text.ParseException;
 import java.math.*;
 
 
@@ -19,7 +22,7 @@ reviewID=?,recordID=?,workder=?,beginDate=?,endDate=?,beginWeek=?,beginNoon=?,en
 */
 public class DormitoryTrainingReview implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int reviewID;
+	private String reviewID;
 	private String recordID;
 	private String workder;
 	private Date beginDate;
@@ -51,11 +54,20 @@ public class DormitoryTrainingReview implements Serializable {
 	private Date rHandleDate;
 	private String rHandleSuggest;
 	private String groupNO;
+	
+	private String beginDate_str;
+	private String endDate_str;
+	private String tWorkDate_str;
+	private String tHandleDate_str;
+	private String rWorkDate_str;
+	private String rHandleDate_str;
 
 	public DormitoryTrainingReview(){
 		super();
 	}
-	public DormitoryTrainingReview(int reviewID, String recordID, String workder, Date beginDate, Date endDate, int beginWeek, int beginNoon, int endWeek, int endNoon, String task, String interactive, String activity, String tTools, String tReward, String tAttention, String tWorker, Date tWorkDate, String tSuggest, String tHandler, Date tHandleDate, String tHandleSuggest, String trainingNote, String rTools, String wholeReview, String suggest, String rWorker, Date rWorkDate, String rSuggest, String rHandler, Date rHandleDate, String rHandleSuggest, String groupNO ){
+	public DormitoryTrainingReview(String reviewID, String recordID, String workder, Date beginDate, Date endDate, int beginWeek, int beginNoon, int endWeek, int endNoon, String task, String interactive, String activity, String tTools, String tReward, String tAttention, String tWorker, Date tWorkDate, String tSuggest, String tHandler, Date tHandleDate, String tHandleSuggest, String trainingNote, String rTools, String wholeReview, String suggest, String rWorker, Date rWorkDate, String rSuggest, String rHandler, Date rHandleDate, String rHandleSuggest, String groupNO,
+								String beginDate_str,String endDate_str,String tWorkDate_str,String tHandleDate_str,
+								String rWorkDate_str,String rHandleDate_str){
 		super();
 		this.reviewID=reviewID;
 		this.recordID=recordID;
@@ -89,11 +101,18 @@ public class DormitoryTrainingReview implements Serializable {
 		this.rHandleDate=rHandleDate;
 		this.rHandleSuggest=rHandleSuggest;
 		this.groupNO=groupNO;
+		this.beginDate_str=beginDate_str;
+		this.endDate_str=endDate_str;
+		this.tWorkDate_str=tWorkDate_str;
+		this.tHandleDate_str=tHandleDate_str;
+		this.rWorkDate_str=rWorkDate_str;
+		this.rHandleDate_str=rHandleDate_str;
+		
 	}
-	public void setReviewID(int reviewID){
+	public void setReviewID(String reviewID){
 		this.reviewID=reviewID;
 	}
-	public int getReviewID(){
+	public String getReviewID(){
 		return reviewID;
 	}
 	public void setRecordID(String recordID){
@@ -162,71 +181,11 @@ public class DormitoryTrainingReview implements Serializable {
 	public String getActivity(){
 		return activity;
 	}
-	public void setTTools(String tTools){
-		this.tTools=tTools;
-	}
-	public String getTTools(){
-		return tTools;
-	}
-	public void setTReward(String tReward){
-		this.tReward=tReward;
-	}
-	public String getTReward(){
-		return tReward;
-	}
-	public void setTAttention(String tAttention){
-		this.tAttention=tAttention;
-	}
-	public String getTAttention(){
-		return tAttention;
-	}
-	public void setTWorker(String tWorker){
-		this.tWorker=tWorker;
-	}
-	public String getTWorker(){
-		return tWorker;
-	}
-	public void setTWorkDate(Date tWorkDate){
-		this.tWorkDate=tWorkDate;
-	}
-	public Date getTWorkDate(){
-		return tWorkDate;
-	}
-	public void setTSuggest(String tSuggest){
-		this.tSuggest=tSuggest;
-	}
-	public String getTSuggest(){
-		return tSuggest;
-	}
-	public void setTHandler(String tHandler){
-		this.tHandler=tHandler;
-	}
-	public String getTHandler(){
-		return tHandler;
-	}
-	public void setTHandleDate(Date tHandleDate){
-		this.tHandleDate=tHandleDate;
-	}
-	public Date getTHandleDate(){
-		return tHandleDate;
-	}
-	public void setTHandleSuggest(String tHandleSuggest){
-		this.tHandleSuggest=tHandleSuggest;
-	}
-	public String getTHandleSuggest(){
-		return tHandleSuggest;
-	}
 	public void setTrainingNote(String trainingNote){
 		this.trainingNote=trainingNote;
 	}
 	public String getTrainingNote(){
 		return trainingNote;
-	}
-	public void setRTools(String rTools){
-		this.rTools=rTools;
-	}
-	public String getRTools(){
-		return rTools;
 	}
 	public void setWholeReview(String wholeReview){
 		this.wholeReview=wholeReview;
@@ -240,51 +199,188 @@ public class DormitoryTrainingReview implements Serializable {
 	public String getSuggest(){
 		return suggest;
 	}
-	public void setRWorker(String rWorker){
-		this.rWorker=rWorker;
-	}
-	public String getRWorker(){
-		return rWorker;
-	}
-	public void setRWorkDate(Date rWorkDate){
-		this.rWorkDate=rWorkDate;
-	}
-	public Date getRWorkDate(){
-		return rWorkDate;
-	}
-	public void setRSuggest(String rSuggest){
-		this.rSuggest=rSuggest;
-	}
-	public String getRSuggest(){
-		return rSuggest;
-	}
-	public void setRHandler(String rHandler){
-		this.rHandler=rHandler;
-	}
-	public String getRHandler(){
-		return rHandler;
-	}
-	public void setRHandleDate(Date rHandleDate){
-		this.rHandleDate=rHandleDate;
-	}
-	public Date getRHandleDate(){
-		return rHandleDate;
-	}
-	public void setRHandleSuggest(String rHandleSuggest){
-		this.rHandleSuggest=rHandleSuggest;
-	}
-	public String getRHandleSuggest(){
-		return rHandleSuggest;
-	}
 	public void setGroupNO(String groupNO){
 		this.groupNO=groupNO;
 	}
 	public String getGroupNO(){
 		return groupNO;
 	}
+	
+	
+	public String gettTools() {
+		return tTools;
+	}
+	public void settTools(String tTools) {
+		this.tTools = tTools;
+	}
+	public String gettReward() {
+		return tReward;
+	}
+	public void settReward(String tReward) {
+		this.tReward = tReward;
+	}
+	public String gettAttention() {
+		return tAttention;
+	}
+	public void settAttention(String tAttention) {
+		this.tAttention = tAttention;
+	}
+	public String gettWorker() {
+		return tWorker;
+	}
+	public void settWorker(String tWorker) {
+		this.tWorker = tWorker;
+	}
+	public Date gettWorkDate() {
+		return tWorkDate;
+	}
+	public void settWorkDate(Date tWorkDate) {
+		this.tWorkDate = tWorkDate;
+	}
+	public String gettSuggest() {
+		return tSuggest;
+	}
+	public void settSuggest(String tSuggest) {
+		this.tSuggest = tSuggest;
+	}
+	public String gettHandler() {
+		return tHandler;
+	}
+	public void settHandler(String tHandler) {
+		this.tHandler = tHandler;
+	}
+	public Date gettHandleDate() {
+		return tHandleDate;
+	}
+	public void settHandleDate(Date tHandleDate) {
+		this.tHandleDate = tHandleDate;
+	}
+	public String gettHandleSuggest() {
+		return tHandleSuggest;
+	}
+	public void settHandleSuggest(String tHandleSuggest) {
+		this.tHandleSuggest = tHandleSuggest;
+	}
+	public String getrTools() {
+		return rTools;
+	}
+	public void setrTools(String rTools) {
+		this.rTools = rTools;
+	}
+	public String getrWorker() {
+		return rWorker;
+	}
+	public void setrWorker(String rWorker) {
+		this.rWorker = rWorker;
+	}
+	public Date getrWorkDate() {
+		return rWorkDate;
+	}
+	public void setrWorkDate(Date rWorkDate) {
+		this.rWorkDate = rWorkDate;
+	}
+	public String getrSuggest() {
+		return rSuggest;
+	}
+	public void setrSuggest(String rSuggest) {
+		this.rSuggest = rSuggest;
+	}
+	public String getrHandler() {
+		return rHandler;
+	}
+	public void setrHandler(String rHandler) {
+		this.rHandler = rHandler;
+	}
+	public Date getrHandleDate() {
+		return rHandleDate;
+	}
+	public void setrHandleDate(Date rHandleDate) {
+		this.rHandleDate = rHandleDate;
+	}
+	public String getrHandleSuggest() {
+		return rHandleSuggest;
+	}
+	public void setrHandleSuggest(String rHandleSuggest) {
+		this.rHandleSuggest = rHandleSuggest;
+	}
+	public String getBeginDate_str() {
+		try {
+			return beginDate == null || "".equals(beginDate) ? ""
+					: ToolsUtils.getDateStringByFormat(beginDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setBeginDate_str(String beginDate_str) {
+		this.beginDate_str = beginDate_str;
+	}
+	public String getEndDate_str() {
+		try {
+			return endDate == null || "".equals(endDate) ? ""
+					: ToolsUtils.getDateStringByFormat(endDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setEndDate_str(String endDate_str) {
+		this.endDate_str = endDate_str;
+	}
+	public String gettWorkDate_str() {
+		try {
+			return tWorkDate == null || "".equals(tWorkDate) ? ""
+					: ToolsUtils.getDateStringByFormat(tWorkDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void settWorkDate_str(String tWorkDate_str) {
+		this.tWorkDate_str = tWorkDate_str;
+	}
+	public String gettHandleDate_str() {
+		try {
+			return tHandleDate == null || "".equals(tHandleDate) ? ""
+					: ToolsUtils.getDateStringByFormat(tHandleDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void settHandleDate_str(String tHandleDate_str) {
+		this.tHandleDate_str = tHandleDate_str;
+	}
+	public String getrWorkDate_str() {
+		try {
+			return rWorkDate == null || "".equals(rWorkDate) ? ""
+					: ToolsUtils.getDateStringByFormat(rWorkDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setrWorkDate_str(String rWorkDate_str) {
+		this.rWorkDate_str = rWorkDate_str;
+	}
+	public String getrHandleDate_str() {
+		try {
+			return rHandleDate == null || "".equals(rHandleDate) ? ""
+					: ToolsUtils.getDateStringByFormat(rHandleDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setrHandleDate_str(String rHandleDate_str) {
+		this.rHandleDate_str = rHandleDate_str;
+	}
 	@Override
 	public String toString(){
-		return "DormitoryTrainingReview [reviewID="+reviewID+",recordID="+recordID+",workder="+workder+",beginDate="+beginDate+",endDate="+endDate+",beginWeek="+beginWeek+",beginNoon="+beginNoon+",endWeek="+endWeek+",endNoon="+endNoon+",task="+task+",interactive="+interactive+",activity="+activity+",tTools="+tTools+",tReward="+tReward+",tAttention="+tAttention+",tWorker="+tWorker+",tWorkDate="+tWorkDate+",tSuggest="+tSuggest+",tHandler="+tHandler+",tHandleDate="+tHandleDate+",tHandleSuggest="+tHandleSuggest+",trainingNote="+trainingNote+",rTools="+rTools+",wholeReview="+wholeReview+",suggest="+suggest+",rWorker="+rWorker+",rWorkDate="+rWorkDate+",rSuggest="+rSuggest+",rHandler="+rHandler+",rHandleDate="+rHandleDate+",rHandleSuggest="+rHandleSuggest+",groupNO="+groupNO+"]";
+		return "DormitoryTrainingReview [reviewID="+reviewID+",recordID="+recordID+",workder="+workder+",beginDate="+beginDate+",endDate="+endDate+",beginWeek="+beginWeek+",beginNoon="+beginNoon+",endWeek="+endWeek+",endNoon="+endNoon+",task="+task+",interactive="+interactive+",activity="+activity+",tTools="+tTools+",tReward="+tReward+",tAttention="+tAttention+",tWorker="+tWorker+",tWorkDate="+tWorkDate+",tSuggest="+tSuggest+",tHandler="+tHandler+",tHandleDate="+tHandleDate+",tHandleSuggest="+tHandleSuggest+",trainingNote="+trainingNote+",rTools="+rTools+",wholeReview="+wholeReview+",suggest="+suggest+",rWorker="+rWorker+",rWorkDate="+rWorkDate+",rSuggest="+rSuggest+",rHandler="+rHandler+",rHandleDate="+rHandleDate+",rHandleSuggest="+rHandleSuggest+",groupNO="+groupNO+
+									",beginDate_str="+beginDate_str+",endDate_str="+endDate_str+",tWorkDate_str="+tWorkDate_str+
+									",tHandleDate_str="+tHandleDate_str+",rWorkDate_str="+rWorkDate_str+",rHandleDate_str="+rHandleDate_str+"]";
 	}
+	
 }
 

@@ -22,6 +22,11 @@ import com.fg.utils.ToolsUtils;
 import com.jxh.biz.DormitoryRecordBiz;
 import com.jxh.dao.CustomerDao;
 import com.jxh.dao.DormitoryRecordDao;
+import com.jxh.dao.DormitoryTrainingADPlanDao;
+import com.jxh.dao.DormitoryTrainingADPlanDetailDao;
+import com.jxh.dao.DormitoryTrainingPlanDao;
+import com.jxh.dao.DormitoryTrainingRecordDao;
+import com.jxh.dao.DormitoryTrainingReviewDao;
 import com.jxh.pojo.DormitoryRecordPojo;
 import com.jxh.vo.BCustomer;
 import com.jxh.vo.DormitoryRecord;
@@ -35,6 +40,7 @@ import com.jxh.vo.DormitoryTrainingReviewDetail;
 import com.jxh.vo.DormitoryTrainingReviewFinance;
 import com.jxh.vo.DormitoryTrainingReviewSettle;
 import com.jxh.vo.DormitoryTrainingReviewTarget;
+import com.jxh.vo.TreatmentTrainingWorkRecord;
 
 import net.sf.json.JSONArray;
 
@@ -47,6 +53,11 @@ public class DormitorySerlvet extends FGServlet {
     private DormitoryRecordDao dormitoryRecordDao = new DormitoryRecordDao();
     private CustomerDao customerDao = new CustomerDao();
     private DormitoryRecordBiz dormitoryRecordBiz = new DormitoryRecordBiz();
+    private DormitoryTrainingADPlanDetailDao dormitoryTrainingADPlanDetailDao = new DormitoryTrainingADPlanDetailDao();
+    private DormitoryTrainingPlanDao dormitoryTrainingPlanDao = new DormitoryTrainingPlanDao();
+    private DormitoryTrainingADPlanDao dormitoryTrainingADPlanDao = new DormitoryTrainingADPlanDao();
+    private DormitoryTrainingRecordDao dormitoryTrainingRecordDao = new DormitoryTrainingRecordDao();
+    private DormitoryTrainingReviewDao dormitoryTrainingReviewDao = new DormitoryTrainingReviewDao();
     
     /**
      * @see HttpServlet#HttpServlet()
@@ -92,11 +103,31 @@ public class DormitorySerlvet extends FGServlet {
 	}
 	
 	private void edit(HttpServletRequest request, HttpServletResponse response) {
-		String treatmentType=request.getParameter("treatmentType");
 		try {
+			DormitoryRecord dormitoryRecord = dormitoryRecordDao.getDormitoryRecordByCondition(" and recordID = ? ",
+					this.getParameterByName(request, "recordID"));
+			request.setAttribute("dormitoryRecord", dormitoryRecord);
+			
 			BCustomer customer = customerDao.getCustomerByCondition(" and custID = ? ",
 					this.getParameterByName(request, "custID"));
 			request.setAttribute("customer", customer);
+			
+			DormitoryTrainingPlan dormitoryTrainingPlan = dormitoryTrainingPlanDao.getDormitoryTrainingPlanByCondition(" and recordID = ? ",
+					this.getParameterByName(request, "recordID"));
+			request.setAttribute("dormitoryTrainingPlan", dormitoryTrainingPlan);
+			
+			DormitoryTrainingADPlan dormitoryTrainingADPlan = dormitoryTrainingADPlanDao.getDormitoryTrainingADPlanByCondition(" and recordID = ? ",
+					this.getParameterByName(request, "recordID"));
+			request.setAttribute("dormitoryTrainingADPlan", dormitoryTrainingADPlan);
+			
+			DormitoryTrainingRecord dormitoryTrainingRecord = dormitoryTrainingRecordDao.getDormitoryTrainingRecordByCondition(" and recordID = ? ",
+					this.getParameterByName(request, "recordID"));
+			request.setAttribute("dormitoryTrainingRecord", dormitoryTrainingRecord);
+			
+			DormitoryTrainingReview dormitoryTrainingReview = dormitoryTrainingReviewDao.getDormitoryTrainingReviewByCondition(" and recordID = ? ",
+					this.getParameterByName(request, "recordID"));
+			request.setAttribute("dormitoryTrainingReview", dormitoryTrainingReview);
+			
 			forwardDispatcher("../jsp/manage/dormitory_edit.jsp",request,response);
 
 		} catch (IOException | SQLException | ServletException e) {
@@ -116,6 +147,10 @@ public class DormitorySerlvet extends FGServlet {
 		List<DormitoryTrainingRecordDetail>  dormitoryTrainingRecordDetailUpdates = getGridListByParamerName(DormitoryTrainingRecordDetail.class, request, "dormitoryTrainingRecordDetailUpdates");
 		List<DormitoryTrainingRecordDetail>  dormitoryTrainingRecordDetailDeletes = getGridListByParamerName(DormitoryTrainingRecordDetail.class, request, "dormitoryTrainingRecordDetailDeletes");
 
+		List<DormitoryTrainingReviewDetail>  dormitoryTrainingReviewDetailAdds = getGridListByParamerName(DormitoryTrainingReviewDetail.class, request, "dormitoryTrainingReviewDetailAdds");
+		List<DormitoryTrainingReviewDetail>  dormitoryTrainingReviewDetailUpdates = getGridListByParamerName(DormitoryTrainingReviewDetail.class, request, "dormitoryTrainingReviewDetailUpdates");
+		List<DormitoryTrainingReviewDetail>  dormitoryTrainingReviewDetailDeletes = getGridListByParamerName(DormitoryTrainingReviewDetail.class, request, "dormitoryTrainingReviewDetailDeletes");
+		
 		List<DormitoryTrainingReviewTarget>  dormitoryTrainingReviewTargetAdds = getGridListByParamerName(DormitoryTrainingReviewTarget.class, request, "dormitoryTrainingReviewTargetAdds");
 		List<DormitoryTrainingReviewTarget>  dormitoryTrainingReviewTargetUpdates = getGridListByParamerName(DormitoryTrainingReviewTarget.class, request, "dormitoryTrainingReviewTargetUpdates");
 		List<DormitoryTrainingReviewTarget>  dormitoryTrainingReviewTargetDeletes = getGridListByParamerName(DormitoryTrainingReviewTarget.class, request, "dormitoryTrainingReviewTargetDeletes");
@@ -143,9 +178,9 @@ public class DormitorySerlvet extends FGServlet {
 
 		String message = "";
 		if (dormitoryRecord.getRecordID() != null && !"".equals(dormitoryRecord.getRecordID())) {
-			message = dormitoryRecordBiz.updateDormitoryRecord(dormitoryRecord,dormitoryTrainingPlan,dormitoryTrainingADPlan,dormitoryTrainingRecord,dormitoryTrainingReview,dormitoryTrainingADPlanDetailAdds,dormitoryTrainingADPlanDetailUpdates,dormitoryTrainingADPlanDetailDeletes,dormitoryTrainingRecordDetailAdds,dormitoryTrainingRecordDetailUpdates,dormitoryTrainingRecordDetailDeletes,dormitoryTrainingReviewTargetAdds,dormitoryTrainingReviewTargetUpdates,dormitoryTrainingReviewTargetDeletes,dormitoryTrainingReviewFinanceAdds,dormitoryTrainingReviewFinanceUpdates,dormitoryTrainingReviewFinanceDeletes,dormitoryTrainingReviewSettleAdds,dormitoryTrainingReviewSettleUpdates,dormitoryTrainingReviewSettleDeletes);
+			message = dormitoryRecordBiz.updateDormitoryRecord(dormitoryRecord,dormitoryTrainingPlan,dormitoryTrainingADPlan,dormitoryTrainingRecord,dormitoryTrainingReview,dormitoryTrainingADPlanDetailAdds,dormitoryTrainingADPlanDetailUpdates,dormitoryTrainingADPlanDetailDeletes,dormitoryTrainingRecordDetailAdds,dormitoryTrainingRecordDetailUpdates,dormitoryTrainingRecordDetailDeletes,dormitoryTrainingReviewTargetAdds,dormitoryTrainingReviewTargetUpdates,dormitoryTrainingReviewTargetDeletes,dormitoryTrainingReviewFinanceAdds,dormitoryTrainingReviewFinanceUpdates,dormitoryTrainingReviewFinanceDeletes,dormitoryTrainingReviewSettleAdds,dormitoryTrainingReviewSettleUpdates,dormitoryTrainingReviewSettleDeletes,dormitoryTrainingReviewDetailAdds,dormitoryTrainingReviewDetailUpdates,dormitoryTrainingReviewDetailDeletes);
 		} else {
-			message = dormitoryRecordBiz.insertDormitoryRecord(dormitoryRecord,dormitoryTrainingPlan,dormitoryTrainingADPlan,dormitoryTrainingRecord,dormitoryTrainingReview,dormitoryTrainingADPlanDetailAdds,dormitoryTrainingRecordDetailAdds,dormitoryTrainingReviewTargetAdds,dormitoryTrainingReviewFinanceAdds,dormitoryTrainingReviewSettleAdds);
+			message = dormitoryRecordBiz.insertDormitoryRecord(dormitoryRecord,dormitoryTrainingPlan,dormitoryTrainingADPlan,dormitoryTrainingRecord,dormitoryTrainingReview,dormitoryTrainingADPlanDetailAdds,dormitoryTrainingRecordDetailAdds,dormitoryTrainingReviewTargetAdds,dormitoryTrainingReviewFinanceAdds,dormitoryTrainingReviewSettleAdds,dormitoryTrainingReviewDetailAdds);
 		}
 
 		// 设置为表单jsp
@@ -153,12 +188,20 @@ public class DormitorySerlvet extends FGServlet {
 		request.setAttribute("msg", message);
 
 		if (message.indexOf("成功") > 0) {
-			sendRedirect("../jsp/custCase/list.jsp", response);
+			sendRedirect("../jsp/manage/dormitory_list.jsp", response);
 		} else {
-			request.setAttribute("bCustCase", bCustCase);
-			forwardDispatcher("../jsp/custCase/edit.jsp", request, response);
+			request.setAttribute("dormitoryRecord", dormitoryRecord);
+			forwardDispatcher("../jsp/manage/dormitory_edit.jsp", request, response);
 		}
 
+	}
+	public void  getDormitoryTrainingADPlanDetail(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+		String recordID = this.getParameterByName(request, "aPlanID");
+		PageUtils<DormitoryTrainingADPlanDetail> page = this.getPage(request);
+		String condition = " and planMasterID = ? ";
+		dormitoryTrainingADPlanDetailDao.getDormitoryTrainingADPlanDetailByCondition(page, condition, recordID);
+		
+		LigerUITools.writeGridJson(page, response);
 	}
 	
 

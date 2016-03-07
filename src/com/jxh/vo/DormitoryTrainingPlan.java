@@ -3,8 +3,11 @@ package com.jxh.vo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.sql.*;
 
+import com.fg.utils.ToolsUtils;
+
+import java.sql.*;
+import java.text.ParseException;
 import java.math.*;
 
 
@@ -33,11 +36,15 @@ public class DormitoryTrainingPlan implements Serializable {
 	private String handler;
 	private Date handleDate;
 	private String handleSuggest;
+	
+	private String billDate_str;
+	private String handleDate_str;
 
 	public DormitoryTrainingPlan(){
 		super();
 	}
-	public DormitoryTrainingPlan(int planID, String recordID, String actProtocol, Date billDate, String suggest, String target, String place, String tools, String reward, String standard, String attention, String handler, Date handleDate, String handleSuggest ){
+	public DormitoryTrainingPlan(int planID, String recordID, String actProtocol, Date billDate, String suggest, String target, String place, String tools, String reward, String standard, String attention, String handler, Date handleDate, String handleSuggest ,
+							String billDate_str,String handleDate_str){
 		super();
 		this.planID=planID;
 		this.recordID=recordID;
@@ -53,6 +60,8 @@ public class DormitoryTrainingPlan implements Serializable {
 		this.handler=handler;
 		this.handleDate=handleDate;
 		this.handleSuggest=handleSuggest;
+		this.billDate_str=billDate_str;
+		this.handleDate_str=handleDate_str;
 	}
 	public void setPlanID(int planID){
 		this.planID=planID;
@@ -138,9 +147,34 @@ public class DormitoryTrainingPlan implements Serializable {
 	public String getHandleSuggest(){
 		return handleSuggest;
 	}
+	public String getBillDate_str() {
+		try {
+			return billDate == null || "".equals(billDate) ? ""
+					: ToolsUtils.getDateStringByFormat(billDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setBillDate_str(String billDate_str) {
+		this.billDate_str = billDate_str;
+	}
+	public String getHandleDate_str() {
+		try {
+			return handleDate == null || "".equals(handleDate) ? ""
+					: ToolsUtils.getDateStringByFormat(handleDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setHandleDate_str(String handleDate_str) {
+		this.handleDate_str = handleDate_str;
+	}
 	@Override
 	public String toString(){
-		return "DormitoryTrainingPlan [planID="+planID+",recordID="+recordID+",actProtocol="+actProtocol+",billDate="+billDate+",suggest="+suggest+",target="+target+",place="+place+",tools="+tools+",reward="+reward+",standard="+standard+",attention="+attention+",handler="+handler+",handleDate="+handleDate+",handleSuggest="+handleSuggest+"]";
+		return "DormitoryTrainingPlan [planID="+planID+",recordID="+recordID+",actProtocol="+actProtocol+",billDate="+billDate+",suggest="+suggest+",target="+target+",place="+place+",tools="+tools+",reward="+reward+",standard="+standard+",attention="+attention+",handler="+handler+",handleDate="+handleDate+",handleSuggest="+handleSuggest+
+				",billDate_str="+billDate_str+",handleDate_str="+handleDate_str+"]";
 	}
 }
 

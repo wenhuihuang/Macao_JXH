@@ -15,7 +15,7 @@ public class DormitoryRecordDao extends DaoImpl {
 	
 	@Override
 	protected String getSqlPropertiesPath() {
-		return null;
+		return "/sqls/Macao_JXH/dormitoryrecord.properties";
 	}
 	
 	public PageUtils<DormitoryRecordPojo> getDormitoryRecordPojo(PageUtils<DormitoryRecordPojo> page,String condition,Object...params) throws IOException, SQLException{
@@ -27,19 +27,20 @@ public class DormitoryRecordDao extends DaoImpl {
 		Integer count = (Integer) this.findElement(getCountSql(sql), params);
 		page.setRowCount(count);
 		List<DormitoryRecordPojo> dormitoryRecordPojos = this.findForList(sql, params);
+		System.out.println("dormitoryRecordPojos="+dormitoryRecordPojos);
 		page.setList(dormitoryRecordPojos);
 		
 		return page;
 	}
 
-	public DormitoryRecordPojo getDormitoryRecordPojoByCondition(String condition, Object...params) throws IOException, SQLException {
-		clazz = DormitoryRecordPojo.class;
+	public DormitoryRecord getDormitoryRecordByCondition(String condition, Object...params) throws IOException, SQLException {
+		clazz = DormitoryRecord.class;
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		
 		sql += condition==null||"".equals(condition)?"":condition;
 		//System.out.println("sql++"+condition);
 		System.out.println(sql);
-		return  (DormitoryRecordPojo) this.findForObject(sql, params);
+		return  (DormitoryRecord) this.findForObject(sql, params);
 	}
 
 	public int updateDormitoryRecord(DormitoryRecord dormitoryRecord) throws IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException {

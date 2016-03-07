@@ -18,7 +18,7 @@ planID=?,planMasterID=?,billDate=?,living=?,item=?,type=?,content=?,time=?,note=
 public class DormitoryTrainingADPlanDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int planID;
-	private int planMasterID;
+	private String planMasterID;
 	private Date billDate;
 	private String living;
 	private String item;
@@ -30,7 +30,7 @@ public class DormitoryTrainingADPlanDetail implements Serializable {
 	public DormitoryTrainingADPlanDetail(){
 		super();
 	}
-	public DormitoryTrainingADPlanDetail(int planID, int planMasterID, Date billDate, String living, String item, String type, String content, int time, String note ){
+	public DormitoryTrainingADPlanDetail(int planID, String planMasterID, Date billDate, String living, String item, String type, String content, int time, String note ){
 		super();
 		this.planID=planID;
 		this.planMasterID=planMasterID;
@@ -48,10 +48,10 @@ public class DormitoryTrainingADPlanDetail implements Serializable {
 	public int getPlanID(){
 		return planID;
 	}
-	public void setPlanMasterID(int planMasterID){
+	public void setPlanMasterID(String planMasterID){
 		this.planMasterID=planMasterID;
 	}
-	public int getPlanMasterID(){
+	public String getPlanMasterID(){
 		return planMasterID;
 	}
 	public void setBillDate(Date billDate){

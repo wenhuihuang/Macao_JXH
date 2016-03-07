@@ -17,7 +17,7 @@ financeID=?,reviewID=?,inItem=?,inMoney=?,outItem=?,outMoney=?,note=?
 public class DormitoryTrainingReviewFinance implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int financeID;
-	private int reviewID;
+	private String reviewID;
 	private String inItem;
 	private BigDecimal inMoney;
 	private String outItem;
@@ -27,7 +27,7 @@ public class DormitoryTrainingReviewFinance implements Serializable {
 	public DormitoryTrainingReviewFinance(){
 		super();
 	}
-	public DormitoryTrainingReviewFinance(int financeID, int reviewID, String inItem, BigDecimal inMoney, String outItem, BigDecimal outMoney, String note ){
+	public DormitoryTrainingReviewFinance(int financeID, String reviewID, String inItem, BigDecimal inMoney, String outItem, BigDecimal outMoney, String note ){
 		super();
 		this.financeID=financeID;
 		this.reviewID=reviewID;
@@ -43,10 +43,10 @@ public class DormitoryTrainingReviewFinance implements Serializable {
 	public int getFinanceID(){
 		return financeID;
 	}
-	public void setReviewID(int reviewID){
+	public void setReviewID(String reviewID){
 		this.reviewID=reviewID;
 	}
-	public int getReviewID(){
+	public String getReviewID(){
 		return reviewID;
 	}
 	public void setInItem(String inItem){
