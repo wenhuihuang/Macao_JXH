@@ -12,7 +12,7 @@ public class BCustomer implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String custId;
+	private String custID;
 	private String custCode;
 	private String fullName;
 	private String fullNameEng;
@@ -77,7 +77,7 @@ public class BCustomer implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BCustomer(String custId, String custCode, String fullName, String fullNameEng, String sex, Date birthday_Chn,
+	public BCustomer(String custID, String custCode, String fullName, String fullNameEng, String sex, Date birthday_Chn,
 			String custType, int cardStatus, Date regDate, Date validDate, String initiationSource, String cardType,
 			String cardNo, String nativePlace, int isMarry, String edulevel, String linkAdr, String isSendLetter,
 			String mobileTelNO, String telNo, String email, String isJob, String jobPlace, String custType2,
@@ -89,7 +89,7 @@ public class BCustomer implements Serializable {
 			String jobType, String birthday_ChnStr, String validDateStr, String regDateStr, String changeDateStr,
 			String makeCardDateStr, String reciveCardDateStr, String disabilityEndDateStr,String custNO,String custNewNO) {
 		super();
-		this.custId = custId;
+		this.custID = custID;
 		this.custCode = custCode;
 		this.fullName = fullName;
 		this.fullNameEng = fullNameEng;
@@ -148,12 +148,12 @@ public class BCustomer implements Serializable {
 		this.custNewNO=custNewNO;
 	}
 
-	public String getCustId() {
-		return custId;
+	public String getCustID() {
+		return custID;
 	}
 
-	public void setCustId(String custId) {
-		this.custId = custId;
+	public void setCustID(String custID) {
+		this.custID = custID;
 	}
 
 	public String getCustCode() {
@@ -662,7 +662,7 @@ public class BCustomer implements Serializable {
 
 	@Override
 	public String toString() {
-		return "BCustomer [custId=" + custId + ", custCode=" + custCode + ", fullName=" + fullName + ", fullNameEng="
+		return "BCustomer [custID=" + custID + ", custCode=" + custCode + ", fullName=" + fullName + ", fullNameEng="
 				+ fullNameEng + ", sex=" + sex + ", birthday_Chn=" + birthday_Chn + ", custType=" + custType
 				+ ", cardStatus=" + cardStatus + ", regDate=" + regDate + ", validDate=" + validDate
 				+ ", initiationSource=" + initiationSource + ", cardType=" + cardType + ", cardNo=" + cardNo

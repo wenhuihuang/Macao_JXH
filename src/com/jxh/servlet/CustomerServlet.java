@@ -232,7 +232,7 @@ public class CustomerServlet extends FGServlet {
 		// TODO Auto-generated method stub
 
 		try {
-			BCustomer cust = customerDao.getCustomerByCondition(" and custId = ? ",
+			BCustomer cust = customerDao.getCustomerByCondition(" and custID = ? ",
 					this.getParameterByName(request, "CUSTID"));
 			request.setAttribute("cust", cust);
 
@@ -309,7 +309,7 @@ public class CustomerServlet extends FGServlet {
 		BCustomer cust = this.getObjectByParameter(request, BCustomer.class);
 
 		String message = "";
-		if (cust.getCustId() != null && !"".equals(cust.getCustId())) {
+		if (cust.getCustID() != null && !"".equals(cust.getCustID())) {
 			message = customerBiz.updateCustomer(cust, retardedAdds,retardedUpdates,retardedDeletes,familyAdds,familyUpdates,familyDeletes,CSSAAdds,CSSAUpdates,CSSADeletes,SpecialAllowanceAdds,SpecialAllowanceUpdates,SpecialAllowanceDeletes);
 		} else {
 			message = customerBiz.insertCustomer(cust, retardedAdds,familyAdds,CSSAAdds,SpecialAllowanceAdds);

@@ -323,7 +323,7 @@ String basePath = request.getScheme() + "://"
 	
 	
 	 <form name="form1" method="post" action="Customer/submit.do" id="form1" style="margin: 20px;">
-		<input type="hidden" id="custId" name="custId" value="${cust.custId }">
+		<input type="hidden" id="custID" name="custID" value="${cust.custID }">
 		<input type="hidden" id="custType2" name="custType2" value="${cust.custType2 }">
 		<input type="hidden" id="retardedAdds" name="retardedAdds">
 		<input type="hidden" id="retardedUpdates" name="retardedUpdates">
@@ -457,7 +457,7 @@ String basePath = request.getScheme() + "://"
             
             <tr>
                 <td align="right" class="l-table-edit-td">手提電話:</td>
-                <td align="left" class="l-table-edit-td"><input width="120px" value="${cust.mobileTelNo }" name="mobileTelNo" type="text" id="mobileTelNo" ltype="text" /></td>
+                <td align="left" class="l-table-edit-td"><input width="120px" value="${cust.mobileTelNO }" name="mobileTelNO" type="text" id="mobileTelNO" ltype="text" /></td>
                 
                 <td align="right" class="l-table-edit-td">家庭電話:</td>
                 <td align="left" class="l-table-edit-td"><input width="120px" value="${cust.telNo }" name="telNo" type="text" id="telNo" ltype="text" /></td>

@@ -75,7 +75,7 @@ String basePath = request.getScheme() + "://"
 	<div id="toptoolbar"></div>
 
 	<form name="formFamily" method="post" action="" id="formFamily" style="margin: 20px;" >
-		<input type="hidden" value="${cust.custId }" name="custId" id="custId">
+		<input type="hidden" value="${cust.custID }" name="custID" id="custID">
 		<input type="hidden" value="${cust.regDateStr }" name="regDate" id="regDate">
 		<input type="hidden" value="${cust.validDateStr }" name="validDate" id="validDate">
 		<input type="hidden" value="${cust.custType2 }" name="custType2" id="custType2">

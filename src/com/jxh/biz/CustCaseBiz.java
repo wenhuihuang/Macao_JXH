@@ -117,7 +117,6 @@ public class CustCaseBiz {
 	 * @throws SQLException
 	 */
 	private int deleteBCustCaseRecord(BCustCase custCase, List<BCustCaseRecord> bCustCaseRecordDeletes) throws IOException, SQLException {
-		// TODO Auto-generated method stub
 		if (bCustCaseRecordDeletes == null || bCustCaseRecordDeletes.size() <= 0) {
 			return 1;
 		}

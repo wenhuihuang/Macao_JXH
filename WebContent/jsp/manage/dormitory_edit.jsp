@@ -80,21 +80,21 @@ String basePath = request.getScheme() + "://"
 		var t = (function(){
 			var arr = [
 						{ display: 'detailID', name: 'detailID', hide:true },
-	                    { display: '年', name: 'y',width:85
-                        	,editor: { type: 'select', data: yData, valueField: 'y' },
+	                    { display: '年', name: 'y',
+                        	editor: { type: 'select', data: yData, valueField: 'y' },
 	                        render: function (item)
 	                        {
 	                        	return getGridSelectedData(yData[y-parseInt(item.y)]);
 	                        }},
-                        { display: '月', name: 'm',width:78
-                        	,editor: { type: 'select', data: mData, valueField: 'm' },
+                        { display: '月', name: 'm',
+                        	editor: { type: 'select', data: mData, valueField: 'm' },
 	                        render: function (item)
 	                        {
 	                        	return getGridSelectedData(mData[parseInt(item.m)-1]);
 	                        }},
 	                  ];
 			for(var i = 1; i<16;i++){
-				var o  = { display: i, name: "'"+i+"'", width: 100 ,type:"text",editor: { type: 'text'}};
+				var o  = { display: i, name: "'"+i+"'", type:"text",editor: { type: 'text'}};
 				arr.push(o)			
 			}
 			return arr
@@ -108,7 +108,7 @@ String basePath = request.getScheme() + "://"
 	          { line: true },
 	          { text: '删除', click: deleteTrainingRecordData1, icon: 'delete' , id:"delete" }];
 		
-		var url = "Treatment/getBCustomerSchool.do?custID="+$("#custID").val();
+		var url = "Dormitory/getDormitoryTrainingRecordDetail.do?masterRecordID="+$("#tRecordID").val();
 		
 		trainingRecordDataGrid1 = ligerGrid("trainingRecordDataGrid1",null,trainingRecordDataGrid1Column,url,trainingRecordDataGrid1ToolBar,false,true);
 		
@@ -143,21 +143,21 @@ String basePath = request.getScheme() + "://"
 		var t = (function(){
 			var arr = [
 						{ display: 'detailID', name: 'detailID', hide:true },
-	                    { display: '年', name: 'y',width:85
-                        	,editor: { type: 'select', data: yData, valueField: 'y' },
+	                    { display: '年', name: 'y',
+                        	editor: { type: 'select', data: yData, valueField: 'y' },
 	                        render: function (item)
 	                        {
 	                        	return getGridSelectedData(yData[y-parseInt(item.y)]);
 	                        }},
-                        { display: '月', name: 'm',width:78
-                        	,editor: { type: 'select', data: mData, valueField: 'm' },
+                        { display: '月', name: 'm',
+                        	editor: { type: 'select', data: mData, valueField: 'm' },
 	                        render: function (item)
 	                        {
 	                        	return getGridSelectedData(mData[parseInt(item.m)-1]);
 	                        }},
 	                  ];
 			for(var i = 16; i<32;i++){
-				var o  = { display: i, name: "'"+i+"'", width: 100 ,type:"text",editor: { type: 'text'}};
+				var o  = { display: i, name: "'"+i+"'", type:"text",editor: { type: 'text'}};
 				arr.push(o)			
 			}
 			return arr
@@ -171,7 +171,7 @@ String basePath = request.getScheme() + "://"
 	          { line: true },
 	          { text: '删除', click: deleteTrainingRecordData2, icon: 'delete' , id:"delete" }];
 		
-		var url = "Treatment/getBCustomerSchool.do?custID="+$("#custID").val();
+		var url = "Dormitory/getDormitoryTrainingRecordDetail.do?masterRecordID="+$("#tRecordID").val();
 		
 		trainingRecordDataGrid2 = ligerGrid("trainingRecordDataGrid2",null,trainingRecordDataGrid2Column,url,trainingRecordDataGrid2ToolBar,false,true);
 		
@@ -200,7 +200,7 @@ String basePath = request.getScheme() + "://"
           { line: true },
           { text: '删除', click: deleteGoalData, icon: 'delete' , id:"delete" }];
 	
-	var url = "Treatment/getTreatmentFamily.do?treatmentID="+$("#treatmentID").val();
+	var url = "Dormitory/getDormitoryTrainingReviewTarget.do?reviewID="+$("#reviewID").val();
 	
 	goalDataGrid = ligerGrid("goalDataGrid",null,goalDataGridColumn,url,goalDataGridToolBar,false,true);
 	
@@ -230,7 +230,7 @@ String basePath = request.getScheme() + "://"
           { line: true },
           { text: '删除', click: deleteBudgetDataGrid, icon: 'delete' , id:"delete" }];
 	
-	var url = "Treatment/getTreatmentFamily.do?treatmentID="+$("#treatmentID").val();
+	var url = "Dormitory/getDormitoryTrainingReviewFinance.do?reviewID="+$("#reviewID").val();
 	
 	budgetDataGrid = ligerGrid("budgetDataGrid",null,budgetDataGridColumn,url,budgetDataGridToolBar,false,true);
 	
@@ -259,7 +259,7 @@ String basePath = request.getScheme() + "://"
           { line: true },
           { text: '删除', click: deleteReviewDataGrid, icon: 'delete' , id:"delete" }];
 	
-	var url = "Treatment/getTreatmentFamily.do?treatmentID="+$("#treatmentID").val();
+	var url = "Dormitory/getDormitoryTrainingReviewDetail.do?reviewID="+$("#reviewID").val();
 	
 	reviewDataGrid = ligerGrid("reviewDataGrid",null,reviewDataGridColumn,url,reviewDataGridToolBar,false,true);
 	
@@ -289,7 +289,7 @@ String basePath = request.getScheme() + "://"
           { line: true },
           { text: '删除', click: deleteAccountDataGrid, icon: 'delete' , id:"delete" }];
 	
-	var url = "Treatment/getTreatmentFamily.do?treatmentID="+$("#treatmentID").val();
+	var url = "Dormitory/getDormitoryTrainingReviewSettle.do?reviewID="+$("#reviewID").val();
 	
 	accountDataGrid = ligerGrid("accountDataGrid",null,accountDataGridColumn,url,accountDataGridToolBar,false,true);
 	
@@ -391,6 +391,8 @@ String basePath = request.getScheme() + "://"
 	<input type="hidden" name="custID" id="custID" value="${dormitoryRecord.custID }">
 	<input type="hidden" name="recordID" id="recordID" value="${dormitoryRecord.recordID }">
 	<input type="hidden" name="aPlanID" id="aPlanID" value="${dormitoryTrainingADPlan.aPlanID }" >
+	<input type="hidden" name="tRecordID" id="tRecordID" value="${dormitoryTrainingRecord.tRecordID }" >
+	<input type="hidden" name="reviewID" id="reviewID" value="${dormitoryTrainingReview.reviewID }" >
 	<input type="hidden" name="dormitoryTrainingADPlanDetailAdds" id="dormitoryTrainingADPlanDetailAdds">
 	<input type="hidden" name="dormitoryTrainingADPlanDetailUpdates" id="dormitoryTrainingADPlanDetailUpdates">
 	<input type="hidden" name="dormitoryTrainingADPlanDetailDeletes" id="dormitoryTrainingADPlanDetailDeletes">
@@ -729,7 +731,7 @@ String basePath = request.getScheme() + "://"
       				<label style="width:140px;text-align:right;">社工：</label>
       				<input width="120px" value="${dormitoryTrainingReview.tWorker }" name="tWorker" type="text" ltype="text">
       				<label>日期：</label>
-      				<input width="120px" value="${dormitoryTrainingReview.tWorkerDate_str }" name="tWorkerDate" type="text" ltype="date"">
+      				<input width="120px" value="${dormitoryTrainingReview.tWorkDate_str }" name="tWorkDate" type="text" ltype="date"">
       			</div>
            		<div class="inline-group">
            			<label style="width:140px;text-align:right;">社工意見：</label>

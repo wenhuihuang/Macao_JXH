@@ -36,6 +36,10 @@ public class DormitoryRecordPojo implements Serializable {
 	private String fullName;
 	private String isMember;
 	
+	private String aPlanID;
+	private String tRecordID;
+	private String reviewID;
+	
 	private String applyDate_str;
 	private String planDate_str;
 	private String inDate_str;
@@ -49,7 +53,7 @@ public class DormitoryRecordPojo implements Serializable {
 	public DormitoryRecordPojo(String recordID, String custID, String recordNO, Date applyDate, Date planDate, int recordType, String roomNO, String groupType, Date inDate, String actProtocol, String worker, Date trainingBDate, Date trainingEDate, Date outDate, String task, String interactive, String ativity,
 								String applyDate_str,String planDate_str,String inDate_str,String trainingBDate_str,
 								String trainingEDate_str,String outDate_str,String trainingBTime,String trainingETime,String trainingType,
-								String fullName,String isMember){
+								String fullName,String isMember,String aPlanID,String tRecordID,String reviewID){
 		super();
 		this.recordID=recordID;
 		this.custID=custID;
@@ -73,6 +77,11 @@ public class DormitoryRecordPojo implements Serializable {
 		this.trainingType=trainingType;
 		this.fullName=fullName;
 		this.isMember=isMember;
+		
+		this.aPlanID=aPlanID;
+		this.tRecordID=tRecordID;
+		this.reviewID=reviewID;
+		
 		
 		this.applyDate_str=applyDate_str;
 		this.planDate_str=planDate_str;
@@ -291,12 +300,30 @@ public class DormitoryRecordPojo implements Serializable {
 	public void setIsMember(String isMember) {
 		this.isMember = isMember;
 	}
+	public String getaPlanID() {
+		return aPlanID;
+	}
+	public void setaPlanID(String aPlanID) {
+		this.aPlanID = aPlanID;
+	}
+	public String gettRecordID() {
+		return tRecordID;
+	}
+	public void settRecordID(String tRecordID) {
+		this.tRecordID = tRecordID;
+	}
+	public String getReviewID() {
+		return reviewID;
+	}
+	public void setReviewID(String reviewID) {
+		this.reviewID = reviewID;
+	}
 	@Override
 	public String toString(){
 		return "DormitoryRecord [recordID="+recordID+",custID="+custID+",recordNO="+recordNO+",applyDate="+applyDate+",planDate="+planDate+",recordType="+recordType+",roomNO="+roomNO+",groupType="+groupType+",inDate="+inDate+",actProtocol="+actProtocol+",worker="+worker+",trainingBDate="+trainingBDate+",trainingEDate="+trainingEDate+",outDate="+outDate+",task="+task+
 				",interactive="+interactive+",ativity="+ativity+",applyDate_str="+applyDate_str+",planDate_str="+planDate_str+",inDate_str="+inDate_str+",trainingBDate_str="+trainingBDate_str+",trainingEDate_str="+trainingEDate_str+",outDate_str="+outDate_str+
 				",trainingBTime="+trainingBTime+",trainingETime="+trainingETime+",trainingType="+trainingType+
-				",fullName="+fullName+",isMember="+isMember+"]";
+				",fullName="+fullName+",isMember="+isMember+",aPlanID="+aPlanID+",tRecordID="+tRecordID+",reviewID="+reviewID+"]";
 	}
 }
 

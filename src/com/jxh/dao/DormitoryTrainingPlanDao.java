@@ -55,10 +55,10 @@ public class DormitoryTrainingPlanDao extends DaoImpl<DormitoryTrainingPlan> {
 		return this.update(sql, params);
 	}
 	
-	public int deleteDormitoryTrainingPlanByPlanID(String planID) throws SQLException, IOException{
+	public int deleteDormitoryTrainingPlanByRecordID(String recordID) throws SQLException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		//String sql = "delete from Treatment where treatmentID = ? ";
-		return this.update(sql, planID);
+		return this.update(sql, recordID);
 	}
 	
 }

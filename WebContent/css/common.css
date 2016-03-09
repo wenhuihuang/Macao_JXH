@@ -126,3 +126,6 @@ table.td-padding10 tbody td {
 	display:inline-block;
 	vertical-align:middle;
 }
+.padding15 label{
+	padding:0 15px;
+}

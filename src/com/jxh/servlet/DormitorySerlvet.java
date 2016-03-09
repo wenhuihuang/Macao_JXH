@@ -26,7 +26,12 @@ import com.jxh.dao.DormitoryTrainingADPlanDao;
 import com.jxh.dao.DormitoryTrainingADPlanDetailDao;
 import com.jxh.dao.DormitoryTrainingPlanDao;
 import com.jxh.dao.DormitoryTrainingRecordDao;
+import com.jxh.dao.DormitoryTrainingRecordDetailDao;
 import com.jxh.dao.DormitoryTrainingReviewDao;
+import com.jxh.dao.DormitoryTrainingReviewDetailDao;
+import com.jxh.dao.DormitoryTrainingReviewFinanceDao;
+import com.jxh.dao.DormitoryTrainingReviewSettleDao;
+import com.jxh.dao.DormitoryTrainingReviewTargetDao;
 import com.jxh.pojo.DormitoryRecordPojo;
 import com.jxh.vo.BCustomer;
 import com.jxh.vo.DormitoryRecord;
@@ -40,6 +45,7 @@ import com.jxh.vo.DormitoryTrainingReviewDetail;
 import com.jxh.vo.DormitoryTrainingReviewFinance;
 import com.jxh.vo.DormitoryTrainingReviewSettle;
 import com.jxh.vo.DormitoryTrainingReviewTarget;
+import com.jxh.vo.TreatmentPlan;
 import com.jxh.vo.TreatmentTrainingWorkRecord;
 
 import net.sf.json.JSONArray;
@@ -58,6 +64,11 @@ public class DormitorySerlvet extends FGServlet {
     private DormitoryTrainingADPlanDao dormitoryTrainingADPlanDao = new DormitoryTrainingADPlanDao();
     private DormitoryTrainingRecordDao dormitoryTrainingRecordDao = new DormitoryTrainingRecordDao();
     private DormitoryTrainingReviewDao dormitoryTrainingReviewDao = new DormitoryTrainingReviewDao();
+    private DormitoryTrainingReviewTargetDao dormitoryTrainingReviewTargetDao = new DormitoryTrainingReviewTargetDao();
+    private DormitoryTrainingReviewFinanceDao dormitoryTrainingReviewFinanceDao = new DormitoryTrainingReviewFinanceDao();
+    private DormitoryTrainingReviewDetailDao dormitoryTrainingReviewDetailDao = new DormitoryTrainingReviewDetailDao();
+    private DormitoryTrainingReviewSettleDao dormitoryTrainingReviewSettleDao = new DormitoryTrainingReviewSettleDao();
+    private DormitoryTrainingRecordDetailDao dormitoryTrainingRecordDetailDao = new DormitoryTrainingRecordDetailDao();
     
     /**
      * @see HttpServlet#HttpServlet()
@@ -196,10 +207,68 @@ public class DormitorySerlvet extends FGServlet {
 
 	}
 	public void  getDormitoryTrainingADPlanDetail(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
-		String recordID = this.getParameterByName(request, "aPlanID");
+		String aPlanID = this.getParameterByName(request, "aPlanID");
 		PageUtils<DormitoryTrainingADPlanDetail> page = this.getPage(request);
 		String condition = " and planMasterID = ? ";
-		dormitoryTrainingADPlanDetailDao.getDormitoryTrainingADPlanDetailByCondition(page, condition, recordID);
+		dormitoryTrainingADPlanDetailDao.getDormitoryTrainingADPlanDetailByCondition(page, condition, aPlanID);
+		
+		LigerUITools.writeGridJson(page, response);
+	}
+	
+	private void deleteDormitoryRecord(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		boolean flag = false;
+		String recordID = request.getParameter("recordID");
+		String aPlanID = request.getParameter("aPlanID");
+		String tRecordID = request.getParameter("tRecordID");
+		String reviewID = request.getParameter("reviewID");
+		System.out.println("進入");
+		if(recordID != null && !"".equals(recordID)){
+			flag = dormitoryRecordBiz.deleteDormitoryRecordByRecordID(recordID,aPlanID,tRecordID,reviewID);
+		}
+		response.getWriter().print(flag);
+	}
+	
+	private void getDormitoryTrainingReviewTarget(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+		String reviewID = this.getParameterByName(request, "reviewID");
+		PageUtils<DormitoryTrainingReviewTarget> page = this.getPage(request);
+		String condition = " and reviewID = ? ";
+		dormitoryTrainingReviewTargetDao.getDormitoryTrainingReviewTargetByCondition(page, condition, reviewID);
+		
+		LigerUITools.writeGridJson(page, response);
+	}
+	
+	private void getDormitoryTrainingReviewFinance(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+		String reviewID = this.getParameterByName(request, "reviewID");
+		PageUtils<DormitoryTrainingReviewFinance> page = this.getPage(request);
+		String condition = " and reviewID = ? ";
+		dormitoryTrainingReviewFinanceDao.getDormitoryTrainingReviewFinanceByCondition(page, condition, reviewID);
+		
+		LigerUITools.writeGridJson(page, response);
+	}
+	
+	private void getDormitoryTrainingReviewDetail(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+		String reviewID = this.getParameterByName(request, "reviewID");
+		PageUtils<DormitoryTrainingReviewDetail> page = this.getPage(request);
+		String condition = " and reviewID = ? ";
+		dormitoryTrainingReviewDetailDao.getDormitoryTrainingReviewDetailByCondition(page, condition, reviewID);
+		
+		LigerUITools.writeGridJson(page, response);
+	}
+	
+	private void getDormitoryTrainingReviewSettle(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+		String reviewID = this.getParameterByName(request, "reviewID");
+		PageUtils<DormitoryTrainingReviewSettle> page = this.getPage(request);
+		String condition = " and reviewID = ? ";
+		dormitoryTrainingReviewSettleDao.getDormitoryTrainingReviewSettleByCondition(page, condition, reviewID);
+		
+		LigerUITools.writeGridJson(page, response);
+	}
+	
+	private void getDormitoryTrainingRecordDetail(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+		String reviewID = this.getParameterByName(request, "reviewID");
+		PageUtils<DormitoryTrainingRecordDetail> page = this.getPage(request);
+		String condition = " and reviewID = ? ";
+		dormitoryTrainingRecordDetailDao.getDormitoryTrainingRecordDetailByCondition(page, condition, reviewID);
 		
 		LigerUITools.writeGridJson(page, response);
 	}

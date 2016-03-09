@@ -31,9 +31,9 @@ String basePath = request.getScheme() + "://"
         }
         
         function modifyRow(){
-        	var custId = getRowCell(maingrid,"custId");
-        	if(custId!=""){
-	        	location.href = "Customer/edit.do?CUSTID="+custId;        		
+        	var custID = getRowCell(maingrid,"custID");
+        	if(custID!=""){
+	        	location.href = "Customer/edit.do?CUSTID="+custID;        		
         	}
         }
         

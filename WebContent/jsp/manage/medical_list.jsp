@@ -28,31 +28,23 @@ String basePath = request.getScheme() + "://"
         }
         
         function addRow(){
-        	location.href = "Dormitory/add.do";
+        	location.href = "Medical/add.do?";
         }
         
         function modifyRow(){
         	var recordID = getRowCell(maingrid,"recordID");
         	var custID = getRowCell(maingrid,"custID");
         	if(recordID!="" && recordID!=null){
-	        	location.href = "Dormitory/edit.do?recordID="+recordID+"&custID="+custID;        		
+	        	location.href = "Medical/edit.do?recordID="+recordID+"&custID="+custID;        		
         	}
         }
         function deleteRow(){
         	var recordID = getRowCell(maingrid,"recordID");
-        	//var custID = getRowCell(maingrid,"custID");
-        	var aPlanID = getRowCell(maingrid,"aPlanID");
-        	var tRecordID = getRowCell(maingrid,"tRecordID");
-        	var reviewID = getRowCell(maingrid,"reviewID");
-        	alert("recordID="+recordID)
-        	alert("aPlanID="+aPlanID)
-        	alert("tRecordID="+tRecordID)
-        	alert("reviewID="+reviewID)
       		if(confirm("是否刪除？")){
      			$.ajax({
          			type:"post",
-         			url:"Dormitory/deleteDormitoryRecord.do",
-         			data:"recordID="+recordID+"&aPlanID="+aPlanID+"&tRecordID="+tRecordID+"&reviewID="+reviewID,
+         			url:"Medical/deleteMedicalRecord.do",
+         			data:"recordID="+recordID,
          			success:function(msg){
          				if(msg == "true" || msg == true){
          					maingrid.deleteSelectedRow();
@@ -71,13 +63,12 @@ String basePath = request.getScheme() + "://"
         
         $(function ()
         {
-        	setTabTitle(parent.$("#framecenter"),"院舍記錄列表") 
+        	setTabTitle(parent.$("#framecenter"),"醫護列表") 
         	
             var isMemberData = [{isMember:0,text:'非會員'},{isMember:1,text:'會員'}];
-            var recordTypeData = [{recordType:0,text:'輪候'},{recordType:1,text:'入住'},{recordType:2,text:'離開'}];
+            var serviceStatusData = [{serviceStatus:0,text:'沒有服務'},{serviceStatus:1,text:'服務中'},{serviceStatus:2,text:'服務完成'}];
         	
             var columns = [
-       	                { display: '住客編號', name: 'recordNO', align: 'left', width: 100, minWidth: 60 },
     	                { display: '姓名', name: 'fullName', minWidth: 100 },
     	                { display: '會員/非會員', name: 'isMember',width:70 
     	                	,editor: { data: isMemberData, valueField: 'isMember' },
@@ -85,16 +76,6 @@ String basePath = request.getScheme() + "://"
 	                        {
 	                        	return getGridSelectedData(isMemberData[parseInt(item.isMember)]);
 	                        } },
-    	                { display: '申請日期', name: 'applyDate', width: 100, minWidth: 60 },
-    	                { display: '入住狀態', name: 'RecordType', minWidth: 100
-    	                	,editor: { data: recordTypeData, valueField: 'recordType' },
-	                        render: function (item)
-	                        {
-	                        	return getGridSelectedData(recordTypeData[parseInt(item.recordType)]);
-	                        }  },
-    	                { display: '入住日期', name: 'inDate', minWidth: 140 },
-    	                { display: '執行職員', name: 'worker', minWidth: 140 },
-    	                { display: '離開日期', name: 'outDate', minWidth: 140 },
     	                { display: '備註', name: 'note', minWidth: 140 }
                     ] ;
             
@@ -105,7 +86,7 @@ String basePath = request.getScheme() + "://"
                                { line: true },
                                { text: '删除', click: itemclick, icon: 'delete' , id:"delete" }
                              ];
-            maingrid = ligerGrid("maingrid",'99%',columns,"Dormitory/list.do",gridToolBar,false,true);
+            maingrid = ligerGrid("maingrid",'99%',columns,"Medical/list.do?",gridToolBar,false,true);
             $("#pageloading").hide();
         });
 

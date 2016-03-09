@@ -59,7 +59,7 @@ public class CustomerDao extends DaoImpl<BCustomer>{
 				
 				Date validDate = cust.getValidDate();
 				
-				custs.add(new Customer(cust.getCustId(), cust.getCustCode(), cust.getFullName(),
+				custs.add(new Customer(cust.getCustID(), cust.getCustCode(), cust.getFullName(),
 						cust.getFullNameEng(), cust.getSex(), cust.getCustType(), cust.getCardStatus(), 
 						regDate, validDate, cust.getCardType(), cust.getCardNo(),cust.getTelNo()
 						,cust.getMobileTelNO(),cust.getRelationship(),cust.getCustNO(),cust.getCustNewNO()));
@@ -169,7 +169,7 @@ public class CustomerDao extends DaoImpl<BCustomer>{
 		String sql = this.getSqlByPropKey("deleteCustomerById");
 		Object[][] params = new Object[custs.size()][1];
 		for (int i = 0; i < custs.size(); i++) {
-			params[i][0] = custs.get(i).getCustId();
+			params[i][0] = custs.get(i).getCustID();
 		}
 		return this.updateBatch(sql, params);
 	}

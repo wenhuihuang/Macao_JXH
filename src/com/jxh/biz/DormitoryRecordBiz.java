@@ -327,5 +327,68 @@ public class DormitoryRecordBiz {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public boolean deleteDormitoryRecordByRecordID(String recordID,String aPlanID,String tRecordID,String reviewID) throws Exception {
+		boolean flag=false;
+		int row = dormitoryRecordDao.deleteDormitoryRecordByRecordID(recordID);
+			if (row > 0) {
+				
+				if (deleteDormitoryTrainingPlan(recordID) < 0) {
+					throw new Exception("個案轉介評估刪除失敗！");
+				}
+				
+				if (deleteDormitoryTrainingADPlan(aPlanID) < 0) {
+					throw new Exception("個案轉介評估刪除失敗！");
+				}
+				
+				if (deleteDormitoryTrainingRecord(tRecordID) < 0) {
+					throw new Exception("個案轉介評估刪除失敗！");
+				}
+
+				if(deleteDormitoryTrainingReview(reviewID) < 0){
+					throw new Exception("結案摘要刪除失敗！");
+				}
+				
+				
+			
+				
+				flag=true;
+				
+			}
+		return flag;
+	}
+
+
+	private int deleteDormitoryTrainingReview(String reviewID) throws SQLException, IOException {
+		if(reviewID != null && !"".equals(reviewID)){
+			dormitoryTrainingReviewTargetDao.deleteDormitoryTrainingReviewTargetByReviewID(reviewID);
+			dormitoryTrainingReviewFinanceDao.deleteDormitoryTrainingReviewFinanceByReviewID(reviewID);
+			dormitoryTrainingReviewDetailDao.deleteDormitoryTrainingReviewDetailByReviewID(reviewID);
+			dormitoryTrainingReviewSettleDao.deleteDormitoryTrainingReviewSettleByReviewID(reviewID);
+		}
+		return dormitoryTrainingReviewDao.deleteDormitoryTrainingReviewByRecordID(reviewID);
+	}
+
+
+	private int deleteDormitoryTrainingRecord(String tRecordID) throws SQLException, IOException {
+		if(tRecordID != null && !"".equals(tRecordID)){
+			dormitoryTrainingRecordDetailDao.deleteDormitoryTrainingRecordDetailByMasterRecordID(tRecordID);
+		}
+		return dormitoryTrainingRecordDao.deleteDormitoryTrainingRecordByTRecordID(tRecordID);
+	}
+
+
+	private int deleteDormitoryTrainingADPlan(String aPlanID) throws SQLException, IOException {
+		if(aPlanID != null && !"".equals(aPlanID)){
+			dormitoryTrainingADPlanDetailDao.deleteDormitoryTrainingADPlanDetailByAPlanID(aPlanID);
+		}
+		
+		return dormitoryTrainingADPlanDao.deleteDormitoryTrainingADPlanByAPlanID(aPlanID);
+	}
+
+
+	private int deleteDormitoryTrainingPlan(String recordID) throws SQLException, IOException {
+		return dormitoryTrainingPlanDao.deleteDormitoryTrainingPlanByRecordID(recordID);
+	}
+	
 	
 }
