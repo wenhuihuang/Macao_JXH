@@ -74,6 +74,11 @@ public class GroupSettingRecordPerformanceDao extends DaoImpl<GroupSettingRecord
 		//String sql = "delete from TreatmentPlan where treatmentID = ? ";
 		return this.update(sql, custID);
 	}
+	public int deleteGroupSettingRecordPerformanceByRecordID(String recordID) throws SQLException, IOException{
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		//String sql = "delete from TreatmentPlan where treatmentID = ? ";
+		return this.update(sql, recordID);
+	}
 	
 	public GroupSettingRecordPerformance getGroupSettingRecordPerformanceByCondition(String condition, Object...params) throws IOException, SQLException {
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
@@ -82,6 +87,15 @@ public class GroupSettingRecordPerformanceDao extends DaoImpl<GroupSettingRecord
 		//System.out.println("sql++"+condition);
 		System.out.println(sql);
 		return  (GroupSettingRecordPerformance) this.findForObject(sql, params);
+	}
+	
+	public int[] insertGroupSettingRecordPerformanceBatch(List<GroupSettingRecordPerformance> groupSettingRecordPerformance) throws SQLException, IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException{
+		String sql = this.getSqlByPropKey("insertGroupSettingRecordPerformance");
+		Object[][] params = new Object[groupSettingRecordPerformance.size()][];
+		for(int i = 0;i<groupSettingRecordPerformance.size();i++){
+			params[i] = getInsertParams(sql, groupSettingRecordPerformance.get(i));
+		}
+		return this.updateBatch(sql, params);
 	}
 	
 }

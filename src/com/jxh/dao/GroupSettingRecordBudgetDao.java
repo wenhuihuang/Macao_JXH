@@ -8,6 +8,7 @@ import java.util.List;
 import com.fg.daoImpl.DaoImpl;
 import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
+import com.jxh.vo.GroupSettingPlan;
 import com.jxh.vo.GroupSettingRecordBudget;
 
 public class GroupSettingRecordBudgetDao extends DaoImpl<GroupSettingRecordBudget>{
@@ -76,12 +77,27 @@ public class GroupSettingRecordBudgetDao extends DaoImpl<GroupSettingRecordBudge
 		return this.update(sql, budgetID);
 	}
 	
+	public int deleteGroupSettingRecordBudgetByRecordID(String recordID) throws SQLException, IOException{
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		//String sql = "delete from TreatmentPlan where treatmentID = ? ";
+		return this.update(sql, recordID);
+	}
+	
 	public GroupSettingRecordBudget getGroupSettingRecordBudgetByCondition(String condition, Object...params) throws IOException, SQLException {
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		
 		sql += condition==null||"".equals(condition)?"":condition;
 		System.out.println(sql);
 		return  (GroupSettingRecordBudget) this.findForObject(sql, params);
+	}
+	
+	public int[] insertGroupSettingRecordBudgetBatch(List<GroupSettingRecordBudget> groupSettingRecordBudget) throws SQLException, IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException{
+		String sql = this.getSqlByPropKey("insertGroupSettingRecordBudget");
+		Object[][] params = new Object[groupSettingRecordBudget.size()][];
+		for(int i = 0;i<groupSettingRecordBudget.size();i++){
+			params[i] = getInsertParams(sql, groupSettingRecordBudget.get(i));
+		}
+		return this.updateBatch(sql, params);
 	}
 	
 }

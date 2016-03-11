@@ -76,12 +76,27 @@ public class GroupSettingRecordPlanDao extends DaoImpl<GroupSettingRecordPlan>{
 		return this.update(sql, planID);
 	}
 	
+	public int deleteGroupSettingRecordPlanByRecordID(String recordID) throws SQLException, IOException{
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		//String sql = "delete from TreatmentPlan where treatmentID = ? ";
+		return this.update(sql, recordID);
+	}
+	
 	public GroupSettingRecordPlan getGroupSettingRecordPlanByCondition(String condition, Object...params) throws IOException, SQLException {
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		
 		sql += condition==null||"".equals(condition)?"":condition;
 		System.out.println(sql);
 		return  (GroupSettingRecordPlan) this.findForObject(sql, params);
+	}
+	
+	public int[] insertGroupSettingRecordPlanBatch(List<GroupSettingRecordPlan> groupSettingRecordPlan) throws SQLException, IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException{
+		String sql = this.getSqlByPropKey("insertGroupSettingRecordPlan");
+		Object[][] params = new Object[groupSettingRecordPlan.size()][];
+		for(int i = 0;i<groupSettingRecordPlan.size();i++){
+			params[i] = getInsertParams(sql, groupSettingRecordPlan.get(i));
+		}
+		return this.updateBatch(sql, params);
 	}
 	
 }

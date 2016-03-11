@@ -43,18 +43,17 @@ public class GroupSettingDao extends DaoImpl<GroupSetting>{
 	
 	
 	
-	public int[] insertGroupSetting(List<GroupSetting> groupSetting) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException{
+	public int insertGroupSetting(GroupSetting groupSetting) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
-		return insertBatchByList(sql, groupSetting);
+		Object[] params = getInsertParams(sql, groupSetting);
+		return this.update(sql, params);
 	}
 	
 	
-	public int updateGroupSetting(List<GroupSetting> groupSetting) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException{
+	public int updateGroupSetting(GroupSetting groupSetting) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
-		
-		int[] rows = updateBatchByList(sql, groupSetting);
-		
-		return getflagByIntArray(rows);
+		Object[] params = getInsertParams(sql, groupSetting);
+		return this.update(sql, params);
 	}
 	
 	
@@ -69,10 +68,11 @@ public class GroupSettingDao extends DaoImpl<GroupSetting>{
 		return getflagByIntArray(rows);
 	}
 	
-	public int deleteGroupSettingByPerformanceID(String PerformanceID) throws SQLException, IOException{
+	
+	public int deleteGroupSettingByRecordID(String recordID) throws SQLException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		//String sql = "delete from TreatmentPlan where treatmentID = ? ";
-		return this.update(sql, PerformanceID);
+		return this.update(sql, recordID);
 	}
 	
 	public GroupSetting getGroupSettingByCondition(String condition, Object...params) throws IOException, SQLException {
@@ -82,6 +82,10 @@ public class GroupSettingDao extends DaoImpl<GroupSetting>{
 		//System.out.println("sql++"+condition);
 		System.out.println(sql);
 		return  (GroupSetting) this.findForObject(sql, params);
+	}
+	
+	public String getPrimaryKey(String corpId) throws SQLException{
+		return this.getPrimaryKey("GROUPSETTING", corpId, 20);
 	}
 	
 }

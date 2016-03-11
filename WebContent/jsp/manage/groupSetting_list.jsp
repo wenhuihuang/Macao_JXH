@@ -28,14 +28,14 @@ String basePath = request.getScheme() + "://"
         }
         
         function addRow(){
-        	location.href = "GroupRecord/add.do?";
+        	location.href = "GroupSetting/add.do?";
         }
         
         function modifyRow(){
         	var GSID = getRowCell(maingrid,"GSID");
         	var custID = getRowCell(maingrid,"custID");
         	if(GSID!="" && GSID!=null){
-	        	location.href = "GroupRecord/edit.do?GSID="+GSID+"&custID="+custID;        		
+	        	location.href = "GroupSetting/edit.do?GSID="+GSID+"&custID="+custID;        		
         	}
         }
         function deleteRow(){
@@ -43,7 +43,7 @@ String basePath = request.getScheme() + "://"
       		if(confirm("是否刪除？")){
      			$.ajax({
          			type:"post",
-         			url:"GroupRecord/delete.do",
+         			url:"GroupSetting/delete.do",
          			data:"GSID="+GSID,
          			success:function(msg){
          				if(msg == "true" || msg == true){
@@ -87,7 +87,7 @@ String basePath = request.getScheme() + "://"
                                { line: true },
                                { text: '删除', click: itemclick, icon: 'delete' , id:"delete" }
                              ];
-            maingrid = ligerGrid("maingrid",'99%',columns,"GroupRecord/list.do?",gridToolBar,false,true);
+            maingrid = ligerGrid("maingrid",'99%',columns,"GroupSetting/list.do?",gridToolBar,false,true);
             $("#pageloading").hide();
         });
 

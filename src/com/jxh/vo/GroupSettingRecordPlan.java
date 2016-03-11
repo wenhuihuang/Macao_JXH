@@ -8,12 +8,12 @@ import java.math.*;
 
 /** GroupSettingRecordPlan
 
-planID,recordID,actNO,actName,billDate,process,note
-?,?,?,?,?,?,?
+planID,recordID,actNO,actName,billDate,process,note,time
+?,?,?,?,?,?,?,?
 
-groupSettingRecordPlan.planID,groupSettingRecordPlan.recordID,groupSettingRecordPlan.actNO,groupSettingRecordPlan.actName,groupSettingRecordPlan.billDate,groupSettingRecordPlan.process,groupSettingRecordPlan.note
+groupSettingRecordPlan.planID,groupSettingRecordPlan.recordID,groupSettingRecordPlan.actNO,groupSettingRecordPlan.actName,groupSettingRecordPlan.billDate,groupSettingRecordPlan.process,groupSettingRecordPlan.note,groupSettingRecordPlan.time
 
-planID=?,recordID=?,actNO=?,actName=?,billDate=?,process=?,note=?
+planID=?,recordID=?,actNO=?,actName=?,billDate=?,process=?,note=?,time=?
 */
 public class GroupSettingRecordPlan implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -24,11 +24,12 @@ public class GroupSettingRecordPlan implements Serializable {
 	private Date billDate;
 	private String process;
 	private String note;
+	private String time;
 
 	public GroupSettingRecordPlan(){
 		super();
 	}
-	public GroupSettingRecordPlan(int planID, String recordID, String actNO, String actName, Date billDate, String process, String note ){
+	public GroupSettingRecordPlan(int planID, String recordID, String actNO, String actName, Date billDate, String process, String note,String time ){
 		super();
 		this.planID=planID;
 		this.recordID=recordID;
@@ -37,6 +38,7 @@ public class GroupSettingRecordPlan implements Serializable {
 		this.billDate=billDate;
 		this.process=process;
 		this.note=note;
+		this.time=time;
 	}
 	public void setPlanID(int planID){
 		this.planID=planID;
@@ -80,9 +82,15 @@ public class GroupSettingRecordPlan implements Serializable {
 	public String getNote(){
 		return note;
 	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
 	@Override
 	public String toString(){
-		return "GroupSettingRecordPlan [planID="+planID+",recordID="+recordID+",actNO="+actNO+",actName="+actName+",billDate="+billDate+",process="+process+",note="+note+"]";
+		return "GroupSettingRecordPlan [planID="+planID+",recordID="+recordID+",actNO="+actNO+",actName="+actName+",billDate="+billDate+",process="+process+",note="+note+",time="+time+"]";
 	}
 }
 

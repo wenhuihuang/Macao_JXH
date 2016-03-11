@@ -8,12 +8,12 @@ import java.math.*;
 
 /** GroupSettingPlan
 
-planID,gSID,actNO,actName,billDate,process,note
-?,?,?,?,?,?,?
+planID,gSID,actNO,actName,billDate,process,note,time
+?,?,?,?,?,?,?,?
 
-groupSettingPlan.planID,groupSettingPlan.gSID,groupSettingPlan.actNO,groupSettingPlan.actName,groupSettingPlan.billDate,groupSettingPlan.process,groupSettingPlan.note
+groupSettingPlan.planID,groupSettingPlan.gSID,groupSettingPlan.actNO,groupSettingPlan.actName,groupSettingPlan.billDate,groupSettingPlan.process,groupSettingPlan.note,groupSettingPlan.time
 
-planID=?,gSID=?,actNO=?,actName=?,billDate=?,process=?,note=?
+planID=?,gSID=?,actNO=?,actName=?,billDate=?,process=?,note=?,time=?
 */
 public class GroupSettingPlan implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -24,11 +24,12 @@ public class GroupSettingPlan implements Serializable {
 	private Date billDate;
 	private String process;
 	private String note;
+	private String time;
 
 	public GroupSettingPlan(){
 		super();
 	}
-	public GroupSettingPlan(int planID, String gSID, String actNO, String actName, Date billDate, String process, String note ){
+	public GroupSettingPlan(int planID, String gSID, String actNO, String actName, Date billDate, String process, String note,String time ){
 		super();
 		this.planID=planID;
 		this.gSID=gSID;
@@ -37,6 +38,7 @@ public class GroupSettingPlan implements Serializable {
 		this.billDate=billDate;
 		this.process=process;
 		this.note=note;
+		this.time=time;
 	}
 	public void setPlanID(int planID){
 		this.planID=planID;
@@ -80,9 +82,15 @@ public class GroupSettingPlan implements Serializable {
 	public String getNote(){
 		return note;
 	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
 	@Override
 	public String toString(){
-		return "GroupSettingPlan [planID="+planID+",gSID="+gSID+",actNO="+actNO+",actName="+actName+",billDate="+billDate+",process="+process+",note="+note+"]";
+		return "GroupSettingPlan [planID="+planID+",gSID="+gSID+",actNO="+actNO+",actName="+actName+",billDate="+billDate+",process="+process+",note="+note+",time="+time+"]";
 	}
 }
 

@@ -22,7 +22,6 @@ import com.fg.utils.ToolsUtils;
 import com.jxh.biz.GroupSettingRecordBiz;
 import com.jxh.dao.CustomerDao;
 import com.jxh.dao.GroupSettingBudgetDao;
-import com.jxh.dao.GroupSettingDao;
 import com.jxh.dao.GroupSettingPlanDao;
 import com.jxh.dao.GroupSettingRecordBudgetDao;
 import com.jxh.dao.GroupSettingRecordDao;
@@ -44,8 +43,8 @@ import net.sf.json.JSONArray;
 /**
  * Servlet implementation class TreatmentSerlvet
  */
-@WebServlet("/GroupSetting/*")
-public class GroupSettingSerlvet extends FGServlet {
+@WebServlet("/GroupRecord/*")
+public class GroupRecordSerlvet extends FGServlet {
 	private static final long serialVersionUID = 1L;
 	private CustomerDao customerDao = new CustomerDao();
 	private GroupSettingRecordDao groupSettingRecordDao = new GroupSettingRecordDao();
@@ -56,12 +55,10 @@ public class GroupSettingSerlvet extends FGServlet {
 	private GroupSettingRecordPlanDao groupSettingRecordPlanDao = new GroupSettingRecordPlanDao();
 	private GroupSettingRecordPerformanceDao groupSettingRecordPerformanceDao = new GroupSettingRecordPerformanceDao();
 	
-	private GroupSettingDao groupSettingDao = new GroupSettingDao();
-	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GroupSettingSerlvet() {
+    public GroupRecordSerlvet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -84,7 +81,7 @@ public class GroupSettingSerlvet extends FGServlet {
 	
 	private void list(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException{
 		PageUtils<GroupSettingRecordPojo> page = this.getPage(request);
-		groupSettingDao.getGroupSettingRecordPojo(page,null);
+		groupSettingRecordDao.getGroupSettingRecordPojo(page,null);
 		LigerUITools.writeGridJson(page, response);
 	}
 	

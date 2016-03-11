@@ -9,17 +9,6 @@ import java.math.*;
 
 
 /** GroupSettingRecord
-	RECORDID	INT(10)
-	GSID	INT(10)
-	BEGINDATE	DATETIME(23,3)
-	ENDDATE	DATETIME(23,3)
-	LEADER	VARCHAR(128)
-	QTY	INT(10)
-	PLACE	VARCHAR(128)
-	DEVICE	VARCHAR(32)
-	CUSTS	VARCHAR(32)
-	CONFIGURATION	VARCHAR(128)
-	SUMMARY	TEXT(2147483647)
 
 recordID,gSID,beginDate,endDate,leader,qty,place,device,custs,configuration,summary
 ?,?,?,?,?,?,?,?,?,?,?

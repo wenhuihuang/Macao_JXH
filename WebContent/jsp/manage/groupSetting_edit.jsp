@@ -40,7 +40,7 @@ String basePath = request.getScheme() + "://"
 	          { line: true },
 	          { text: '删除', click: deleteGroupSettingRecordBudgetData, icon: 'delete' , id:"delete" }];
 		
-		var url = "GroupRecord/getGroupSettingRecordBudget.do?recordID="+$("#recordID").val();
+		var url = "GroupSetting/getGroupSettingRecordBudget.do?recordID="+$("#recordID").val();
 		
 		groupSettingRecordBudgetDataGrid = ligerGrid("groupSettingRecordBudgetDataGrid",null,groupSettingRecordBudgetDataGridColumn,url,groupSettingRecordBudgetDataGridToolBar,false,true);
 		
@@ -71,7 +71,7 @@ String basePath = request.getScheme() + "://"
           { line: true },
           { text: '删除', click: deleteGroupSettingRecordPlanData, icon: 'delete' , id:"delete" }];
 	
-	var url = "GroupRecord/getGroupSettingRecordPlan.do?recordID="+$("#recordID").val();
+	var url = "GroupSetting/getGroupSettingRecordPlan.do?recordID="+$("#recordID").val();
 	
 	groupSettingRecordPlanDataGrid = ligerGrid("groupSettingRecordPlanDataGrid",null,groupSettingRecordPlanDataGridColumn,url,groupSettingRecordPlanDataGridToolBar,false,true);
 	
@@ -104,7 +104,7 @@ String basePath = request.getScheme() + "://"
           { line: true },
           { text: '删除', click: deleteGroupSettingRecordPerformanceData, icon: 'delete' , id:"delete" }];
 	
-	var url = "GroupRecord/getGroupSettingRecordPerformance.do?recordID="+$("#recordID").val();
+	var url = "GroupSetting/getGroupSettingRecordPerformance.do?recordID="+$("#recordID").val();
 	
 	groupSettingRecordPerformanceDataGrid = ligerGrid("groupSettingRecordPerformanceDataGrid",null,groupSettingRecordPerformanceDataGridColumn,url,groupSettingRecordPerformanceDataGridToolBar,false,true);
 	
@@ -134,7 +134,7 @@ String basePath = request.getScheme() + "://"
           { line: true },
           { text: '删除', click: deleteGroupSettingBudgetData, icon: 'delete' , id:"delete" }];
 	
-	var url = "GroupRecord/getGroupSettingBudget.do?recordID="+$("#recordID").val();
+	var url = "GroupSetting/getGroupSettingBudget.do?recordID="+$("#recordID").val();
 	
 	groupSettingBudgetDataGrid = ligerGrid("groupSettingBudgetDataGrid",null,groupSettingBudgetDataGridColumn,url,groupSettingBudgetDataGridToolBar,false,true);
 	
@@ -165,7 +165,7 @@ String basePath = request.getScheme() + "://"
           { line: true },
           { text: '删除', click: deleteGroupSettingPlanData, icon: 'delete' , id:"delete" }];
 	
-	var url = "GroupRecord/getGroupSettingPlan.do?recordID="+$("#recordID").val();
+	var url = "GroupSetting/getGroupSettingPlan.do?recordID="+$("#recordID").val();
 	
 	groupSettingPlanDataGrid = ligerGrid("groupSettingPlanDataGrid",null,groupSettingPlanDataGridColumn,url,groupSettingPlanDataGridToolBar,false,true);
 	
