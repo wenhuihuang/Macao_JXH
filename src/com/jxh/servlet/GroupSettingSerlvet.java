@@ -84,7 +84,7 @@ public class GroupSettingSerlvet extends FGServlet {
 	
 	private void list(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException{
 		PageUtils<GroupSettingRecordPojo> page = this.getPage(request);
-		groupSettingDao.getGroupSettingRecordPojo(page,null);
+		groupSettingDao.getGroupSettingPojo(page,null);
 		LigerUITools.writeGridJson(page, response);
 	}
 	
