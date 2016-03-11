@@ -88,7 +88,7 @@ public class MedicalRecordBiz {
 		if (medicalRecordFamilyDeletes == null || medicalRecordFamilyDeletes.size() <= 0) {
 			return 1;
 		}
-		return medicalRecordFamilyDao.deleteMedicalRecordFamily(medicalRecordFamilyDeletes);
+		return medicalRecordFamilyDao.deleteMedicalRecordFamilyByFamilyID(medicalRecordFamilyDeletes);
 	}
 
 	private int updateMedicalRecordFamily(MedicalRecord medicalRecord,

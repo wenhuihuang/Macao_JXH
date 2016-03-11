@@ -9,7 +9,7 @@ public class Customer implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String custId;
+	private String custID;
 	private String custCode;
 	private String fullName;
 	private String fullNameEng;
@@ -31,11 +31,11 @@ public class Customer implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Customer(String custId, String custCode, String fullName, String fullNameEng, String sex, String custType,
+	public Customer(String custID, String custCode, String fullName, String fullNameEng, String sex, String custType,
 			int cardStatus, Date regDate, Date validDate, String cardType, String cardNo, String telNo,
 			String mobileTelNo, String relationship,String custNO,String custNewNO) {
 		super();
-		this.custId = custId;
+		this.custID = custID;
 		this.custCode = custCode;
 		this.fullName = fullName;
 		this.fullNameEng = fullNameEng;
@@ -53,12 +53,12 @@ public class Customer implements Serializable {
 		this.custNewNO=custNewNO;
 	}
 
-	public String getCustId() {
-		return custId;
+	public String getCustID() {
+		return custID;
 	}
 
-	public void setCustId(String custId) {
-		this.custId = custId;
+	public void setCustID(String custID) {
+		this.custID = custID;
 	}
 
 	public String getCustCode() {
@@ -189,7 +189,7 @@ public class Customer implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Customer [custId=" + custId + ", custCode=" + custCode + ", fullName=" + fullName + ", fullNameEng="
+		return "Customer [custID=" + custID + ", custCode=" + custCode + ", fullName=" + fullName + ", fullNameEng="
 				+ fullNameEng + ", sex=" + sex + ", custType=" + custType + ", cardStatus=" + cardStatus + ", regDate="
 				+ regDate + ", validDate=" + validDate + ", cardType=" + cardType + ", cardNo=" + cardNo + ", telNo="
 				+ telNo + ", mobileTelNo=" + mobileTelNo + ", relationship=" + relationship + ",custNO=" + custNO + ",custNewNO="+ custNewNO + "]";

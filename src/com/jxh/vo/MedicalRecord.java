@@ -18,7 +18,7 @@ public class MedicalRecord implements Serializable {
 	private String custID;
 	private String history;
 	private String genetic;
-	private int hobby;
+	private String hobby;
 	private String hobbyNote;
 	private String medicineNote;
 	private String foodNote;
@@ -27,7 +27,7 @@ public class MedicalRecord implements Serializable {
 	public MedicalRecord(){
 		super();
 	}
-	public MedicalRecord(String recordID, String custID, String history, String genetic, int hobby, String hobbyNote, String medicineNote, String foodNote, String geneticOther ){
+	public MedicalRecord(String recordID, String custID, String history, String genetic, String hobby, String hobbyNote, String medicineNote, String foodNote, String geneticOther ){
 		super();
 		this.recordID=recordID;
 		this.custID=custID;
@@ -63,10 +63,10 @@ public class MedicalRecord implements Serializable {
 	public String getGenetic(){
 		return genetic;
 	}
-	public void setHobby(int hobby){
+	public void setHobby(String hobby){
 		this.hobby=hobby;
 	}
-	public int getHobby(){
+	public String getHobby(){
 		return hobby;
 	}
 	public void setHobbyNote(String hobbyNote){

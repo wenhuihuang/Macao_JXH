@@ -4,11 +4,6 @@ package com.jxh.vo;
 import java.io.Serializable;
 
 /** MedicalRecordFamily
-	FAMILYID	INT(10)
-	RECORDID	VARCHAR(20)
-	RELATIONSHIP	VARCHAR(32)
-	HISTORYNOTE	VARCHAR(128)
-	NOTE	VARCHAR(128)
 
 familyID,recordID,relationShip,historyNote,note
 ?,?,?,?,?

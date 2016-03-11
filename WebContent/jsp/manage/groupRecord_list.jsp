@@ -28,23 +28,23 @@ String basePath = request.getScheme() + "://"
         }
         
         function addRow(){
-        	location.href = "Medical/add.do?";
+        	location.href = "GroupSetting/add.do?";
         }
         
         function modifyRow(){
-        	var recordID = getRowCell(maingrid,"recordID");
+        	var GSID = getRowCell(maingrid,"GSID");
         	var custID = getRowCell(maingrid,"custID");
-        	if(recordID!="" && recordID!=null){
-	        	location.href = "Medical/edit.do?recordID="+recordID+"&custID="+custID;        		
+        	if(GSID!="" && GSID!=null){
+	        	location.href = "GroupSetting/edit.do?GSID="+GSID+"&custID="+custID;        		
         	}
         }
         function deleteRow(){
-        	var recordID = getRowCell(maingrid,"recordID");
+        	var GSID = getRowCell(maingrid,"GSID");
       		if(confirm("是否刪除？")){
      			$.ajax({
          			type:"post",
-         			url:"Medical/deleteMedicalRecord.do",
-         			data:"recordID="+recordID,
+         			url:"GroupSetting/delete.do",
+         			data:"GSID="+GSID,
          			success:function(msg){
          				if(msg == "true" || msg == true){
          					maingrid.deleteSelectedRow();
@@ -63,21 +63,21 @@ String basePath = request.getScheme() + "://"
         
         $(function ()
         {
-        	setTabTitle(parent.$("#framecenter"),"醫護列表") 
+        	setTabTitle(parent.$("#framecenter"),"小組記錄列表") 
         	
             var isMemberData = [{isMember:0,text:'非會員'},{isMember:1,text:'會員'}];
             var serviceStatusData = [{serviceStatus:0,text:'沒有服務'},{serviceStatus:1,text:'服務中'},{serviceStatus:2,text:'服務完成'}];
         	
             var columns = [
-    	                { display: '姓名', name: 'fullName', minWidth: 100 },
-    	                { display: '會員/非會員', name: 'isMember',width:70 
-    	                	,editor: { data: isMemberData, valueField: 'isMember' },
-	                        render: function (item)
-	                        {
-	                        	return getGridSelectedData(isMemberData[parseInt(item.isMember)]);
-	                        } },
-    	                { display: '會員編號', name: 'custNO', minWidth: 140 },
-    	                { display: '非會員編號', name: 'custNewNO', minWidth: 140 }
+    	                { display: '小組編號', name: 'GSID', minWidth: 100 },
+    	                { display: '小組名稱', name: 'groupName', minWidth: 140 },
+    	                { display: '小組目標', name: 'target', minWidth: 140 },
+    	                { display: '負責人', name: 'handler', minWidth: 140 },
+    	                { display: '開始日期', name: 'beginDate', minWidth: 140 },
+    	                { display: '結束日期', name: 'endDate', minWidth: 140 },
+    	                { display: '參與人數', name: 'qty', minWidth: 140 },
+    	                { display: '收費', name: 'toll', minWidth: 140 },
+    	                { display: '備註', name: 'note', minWidth: 140 }
                     ] ;
             
             var gridToolBar = [
@@ -87,7 +87,7 @@ String basePath = request.getScheme() + "://"
                                { line: true },
                                { text: '删除', click: itemclick, icon: 'delete' , id:"delete" }
                              ];
-            maingrid = ligerGrid("maingrid",'99%',columns,"Medical/list.do?",gridToolBar,false,true);
+            maingrid = ligerGrid("maingrid",'99%',columns,"GroupSeting/list.do?",gridToolBar,false,true);
             $("#pageloading").hide();
         });
 

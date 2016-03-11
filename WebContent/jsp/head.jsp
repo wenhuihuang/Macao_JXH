@@ -463,5 +463,22 @@ td {width: auto;}
 
 	}
 	
+	
+	/**
+	*拆分後臺傳過來的checkbox
+	*傳裏name
+	**/
+	function splitCheckbox(param){
+		var history = $("#"+param).val();//后台传过的checkbox集
+		var historyArr= new Array(); //定义一数组 
+		historyArr=history.split(","); //字符分割 
+		$("."+param).each(function(){
+			for(var i = 0;i < historyArr.length;i++){
+				if($(this).attr("value") == historyArr[i]){
+					$(this).attr("checked","checked");
+				}
+			}
+		})
+	}
 
 </script>

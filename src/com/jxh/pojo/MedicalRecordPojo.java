@@ -8,17 +8,22 @@ public class MedicalRecordPojo implements Serializable {
 	private String custID;
 	private String history;
 	private String genetic;
-	private int hobby;
+	private String hobby;
 	private String hobbyNote;
 	private String medicineNote;
 	private String foodNote;
 	private String geneticOther;
+	
+	private String fullName;
+	private String isMember;
+	private String custNO;
+	private String custNewNO;
 
 	public MedicalRecordPojo(){
 		super();
 	}
-	public MedicalRecordPojo(String recordID, String custID, String history, String genetic, int hobby, String hobbyNote, String medicineNote, String foodNote,
-							String geneticOther){
+	public MedicalRecordPojo(String recordID, String custID, String history, String genetic, String hobby, String hobbyNote, String medicineNote, String foodNote,
+							String geneticOther,String fullName,String isMember,String custNO,String custNewNO){
 		super();
 		this.recordID=recordID;
 		this.custID=custID;
@@ -29,6 +34,10 @@ public class MedicalRecordPojo implements Serializable {
 		this.medicineNote=medicineNote;
 		this.foodNote=foodNote;
 		this.geneticOther=geneticOther;
+		this.fullName=fullName;
+		this.isMember=isMember;
+		this.custNO=custNO;
+		this.custNewNO=custNewNO;
 	}
 	public void setRecordID(String recordID){
 		this.recordID=recordID;
@@ -54,10 +63,10 @@ public class MedicalRecordPojo implements Serializable {
 	public String getGenetic(){
 		return genetic;
 	}
-	public void setHobby(int hobby){
+	public void setHobby(String hobby){
 		this.hobby=hobby;
 	}
-	public int getHobby(){
+	public String getHobby(){
 		return hobby;
 	}
 	public void setHobbyNote(String hobbyNote){
@@ -84,10 +93,34 @@ public class MedicalRecordPojo implements Serializable {
 	public void setGeneticOther(String geneticOther) {
 		this.geneticOther = geneticOther;
 	}
+	public String getFullName() {
+		return fullName;
+	}
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+	public String getIsMember() {
+		return isMember;
+	}
+	public void setIsMember(String isMember) {
+		this.isMember = isMember;
+	}
+	public String getCustNO() {
+		return custNO;
+	}
+	public void setCustNO(String custNO) {
+		this.custNO = custNO;
+	}
+	public String getCustNewNO() {
+		return custNewNO;
+	}
+	public void setCustNewNO(String custNewNO) {
+		this.custNewNO = custNewNO;
+	}
 	@Override
 	public String toString(){
 		return "MedicalRecord [recordID="+recordID+",custID="+custID+",history="+history+",genetic="+genetic+",hobby="+hobby+",hobbyNote="+hobbyNote+",medicineNote="+medicineNote+",foodNote="+foodNote+
-							",geneticOther="+geneticOther+"]";
+							",geneticOther="+geneticOther+",fullName="+fullName+",isMember="+isMember+",custNO="+custNO+",custNewNO="+custNewNO+"]";
 	}
 }
 

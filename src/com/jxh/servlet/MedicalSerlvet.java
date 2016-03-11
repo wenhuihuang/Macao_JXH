@@ -22,9 +22,12 @@ import com.fg.utils.ToolsUtils;
 import com.jxh.biz.MedicalRecordBiz;
 import com.jxh.dao.CustomerDao;
 import com.jxh.dao.MedicalRecordDao;
+import com.jxh.dao.MedicalRecordFamilyDao;
+import com.jxh.dao.MedicalRecordViewDao;
 import com.jxh.pojo.Customer;
 import com.jxh.pojo.MedicalRecordPojo;
 import com.jxh.vo.BCustomer;
+import com.jxh.vo.DormitoryTrainingReviewSettle;
 import com.jxh.vo.MedicalRecord;
 import com.jxh.vo.MedicalRecordFamily;
 import com.jxh.vo.MedicalRecordView;
@@ -40,6 +43,8 @@ public class MedicalSerlvet extends FGServlet {
     private MedicalRecordDao medicalRecordDao = new MedicalRecordDao();
     private CustomerDao customerDao = new CustomerDao();
     private MedicalRecordBiz medicalRecordBiz = new MedicalRecordBiz();
+    private MedicalRecordFamilyDao medicalRecordFamilyDao = new MedicalRecordFamilyDao();
+    private MedicalRecordViewDao medicalRecordViewDao = new MedicalRecordViewDao();
     
     /**
      * @see HttpServlet#HttpServlet()
@@ -153,4 +158,21 @@ public class MedicalSerlvet extends FGServlet {
 		response.getWriter().print(flag);
 	}
 
+	private void getMedicalRecordFamily(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+		String recordID = this.getParameterByName(request, "recordID");
+		PageUtils<MedicalRecordFamily> page = this.getPage(request);
+		String condition = " and recordID = ? ";
+		medicalRecordFamilyDao.getMedicalRecordFamilyByCondition(page, condition, recordID);
+		
+		LigerUITools.writeGridJson(page, response);
+	}
+	
+	private void getMedicalRecordView(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+		String recordID = this.getParameterByName(request, "recordID");
+		PageUtils<MedicalRecordView> page = this.getPage(request);
+		String condition = " and recordID = ? ";
+		medicalRecordViewDao.getMedicalRecordViewByCondition(page, condition, recordID);
+		
+		LigerUITools.writeGridJson(page, response);
+	}
 }

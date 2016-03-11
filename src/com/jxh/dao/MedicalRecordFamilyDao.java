@@ -10,13 +10,28 @@ import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
 import com.jxh.vo.BCustomer;
 import com.jxh.vo.BCustomerSchool;
+import com.jxh.vo.CSSA;
 import com.jxh.vo.MedicalRecordFamily;
 
-public class MedicalRecordFamilyDao extends DaoImpl {
+public class MedicalRecordFamilyDao extends DaoImpl<MedicalRecordFamily> {
 	
 	@Override
 	protected String getSqlPropertiesPath() {
 		return "/sqls/Macao_JXH/medicalrecordfamily.properties";
+	}
+	
+	public PageUtils<MedicalRecordFamily> getMedicalRecordFamilyByCondition(PageUtils<MedicalRecordFamily> page, String condition,Object ...params) throws SQLException, IOException{
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		condition = condition==null?"":condition;
+		sql += condition;
+		Integer count = this.findElement(getCountSql(sql), params);
+		page.setRowCount(count);
+		
+		
+		List<MedicalRecordFamily> medicalRecordFamily = this.findForList(sql, params);
+		page.setList(medicalRecordFamily);
+		
+		return page;
 	}
 	
 	public int[] insertMedicalRecordFamilyBatch(List<MedicalRecordFamily> medicalRecordFamily) throws SQLException, IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException{
@@ -37,11 +52,11 @@ public class MedicalRecordFamilyDao extends DaoImpl {
 		return this.updateBatch(sql, params);
 	}
 	
-	public int deleteMedicalRecordFamily(List<MedicalRecordFamily> medicalRecordFamily) throws IOException, SQLException{
-		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+	public int deleteMedicalRecordFamilyByFamilyID(List<MedicalRecordFamily> medicalRecordFamily) throws IOException, SQLException{
+		String sql = this.getSqlByPropKey("deleteMedicalRecordFamilyByFamilyID");
 		Object[][] params = new Object[medicalRecordFamily.size()][1];
 		for (int i = 0;i<medicalRecordFamily.size();i++) {
-			params[i][0] = medicalRecordFamily.get(i).getRecordID();
+			params[i][0] = medicalRecordFamily.get(i).getFamilyID();
 		}
 		int[] rows = this.updateBatch(sql, params);
 		return getflagByIntArray(rows);

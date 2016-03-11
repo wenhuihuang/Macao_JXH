@@ -17,6 +17,19 @@ public class MedicalRecordViewDao extends DaoImpl<MedicalRecordView> {
 		return "/sqls/Macao_JXH/medicalrecordview.properties";
 	}
 
+	public PageUtils<MedicalRecordView> getMedicalRecordViewByCondition(PageUtils<MedicalRecordView> page, String condition,Object ...params) throws SQLException, IOException{
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		condition = condition==null?"":condition;
+		sql += condition;
+		Integer count = this.findElement(getCountSql(sql), params);
+		page.setRowCount(count);
+		
+		
+		List<MedicalRecordView> medicalRecordView = this.findForList(sql, params);
+		page.setList(medicalRecordView);
+		
+		return page;
+	}
 	
 	public int[] insertMedicalRecordViewBatch(List<MedicalRecordView> medicalRecordView) throws SQLException, IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException{
 		String sql = this.getSqlByPropKey("insertMedicalRecordView");
@@ -38,10 +51,10 @@ public class MedicalRecordViewDao extends DaoImpl<MedicalRecordView> {
 	}
 	
 	public int deleteMedicalRecordView(List<MedicalRecordView> medicalRecordView) throws IOException, SQLException{
-		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		String sql = this.getSqlByPropKey("deleteMedicalRecordView");
 		Object[][] params = new Object[medicalRecordView.size()][1];
 		for (int i = 0;i<medicalRecordView.size();i++) {
-			params[i][0] = medicalRecordView.get(i).getRecordID();
+			params[i][0] = medicalRecordView.get(i).getViewID();
 		}
 		int[] rows = this.updateBatch(sql, params);
 		return getflagByIntArray(rows);

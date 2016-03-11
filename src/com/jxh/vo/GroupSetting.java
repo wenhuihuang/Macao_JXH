@@ -7,19 +7,6 @@ import java.math.*;
 
 
 /** GroupSetting
-	GSID	VARCHAR(20)
-	HANDLER	INT(10)
-	GROUPNAME	VARCHAR(32)
-	TARGET	VARCHAR(32)
-	BEGINDATE	DATETIME(23,3)
-	ENDDATE	DATETIME(23,3)
-	LEADER	VARCHAR(32)
-	TOLL	DECIMAL(18,2)
-	PLACE	VARCHAR(128)
-	DEVICE	VARCHAR(128)
-	CONFIGURATION	VARCHAR(128)
-	GSNO	VARCHAR(32)
-	NOTE	VARCHAR(128)
 
 gSID,handler,groupName,target,beginDate,endDate,leader,toll,place,device,configuration,gSNO,note
 ?,?,?,?,?,?,?,?,?,?,?,?,?

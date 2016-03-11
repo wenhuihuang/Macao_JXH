@@ -196,7 +196,7 @@ public class CustomerBiz {
 	 */
 	public String insertCustomer(BCustomer cust, List<Retarded> retardedAdds, List<BCustomer> familyAdds, List<CSSA> cSSAAdds, List<SpecialAllowance> specialAllowanceAdds) throws Exception {
 		String custId = customerDao.getPrimaryKey(Constants.CORPID);
-		cust.setCustId(custId);
+		cust.setCustID(custId);
 		int row = customerDao.insertCustomer(cust);
 		if (row > 0) {
 			if (addRetarded(cust, retardedAdds) < 0) {
@@ -251,7 +251,7 @@ public class CustomerBiz {
 		}
 
 		for (SpecialAllowance add : specialAllowanceAdds) {
-			add.setSpecialAllowanceCustID(cust.getCustId());
+			add.setSpecialAllowanceCustID(cust.getCustID());
 		}
 
 		return specialAllowanceDao.insertSpecialAllowance(specialAllowanceAdds);
@@ -280,7 +280,7 @@ public class CustomerBiz {
 		}
 
 		for (CSSA add : cSSAAdds) {
-			add.setCSSACustID(cust.getCustId());
+			add.setCSSACustID(cust.getCustID());
 		}
 
 		int[] rows = cssaDao.insertCSSA(cSSAAdds);
@@ -318,11 +318,11 @@ public class CustomerBiz {
 		}
 
 		for (BCustomer add : familyAdds) {
-			String custId = customerDao.getPrimaryKey(Constants.CORPID);
+			String custID = customerDao.getPrimaryKey(Constants.CORPID);
 			add.setCustCode(cust.getCustCode());
-			add.setCustId(custId);
+			add.setCustID(custID);
 			add.setCustType2("2");
-			add.setGuardianCustID(cust.getCustId());
+			add.setGuardianCustID(cust.getCustID());
 		}
 
 		int[] rows = customerDao.insertCustomerBatch(familyAdds);
@@ -358,7 +358,7 @@ public class CustomerBiz {
 			
 			update.setCustCode(cust.getCustCode());
 			update.setCustType2("2");
-			update.setGuardianCustID(cust.getCustId());
+			update.setGuardianCustID(cust.getCustID());
 		}
 		
 		int [] rows =customerDao.updateCustomerBatch(familyUpdates);
@@ -424,7 +424,7 @@ public class CustomerBiz {
 		for (Retarded add : adds) {
 			String retardedId = retardedDao.getPrimaryKey("RETARDED", Constants.CORPID, 20);
 			add.setRetardedID(retardedId);
-			add.setCustId(cust.getCustId());
+			add.setCustId(cust.getCustID());
 		}
 
 		int[] rows = retardedDao.insertRetarded(adds);

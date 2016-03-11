@@ -109,7 +109,7 @@ function deleteMedicalRecordViewData(){
 				save();
 			break;
 			case "back":
-				location.href="jsp/manage/medical_list.jsp";
+				location.href="jsp/manage/groupRecord_list.jsp";
 			break;
 		}
 		
@@ -167,8 +167,7 @@ function deleteMedicalRecordViewData(){
 <body>
 	<div class="toptoolbar"></div>
 	<form name="form1" class="liger-form" method="post" action="Medical/submit.do" id="form1" style="margin: 20px;">
-	<input type="hidden" name="custID" id="custID" value="${customer.custID }">
-	<input type="hidden" name="recordID" id="recordID" value="${medicalRecord.recordID }">
+	<input type="hidden" name="recordID" id="recordID" value="${groupSettingRecord.recordID }">
 	<input type="hidden" name="medicalRecordFamilyAdds" id="medicalRecordFamilyAdds">
 	<input type="hidden" name="medicalRecordFamilyUpdates" id="medicalRecordFamilyUpdates">
 	<input type="hidden" name="medicalRecordFamilyDeletes" id="medicalRecordFamilyDeletes">
@@ -181,100 +180,95 @@ function deleteMedicalRecordViewData(){
 	
 	
 	<div id="tab">
-		  	<div title="學員個人健康資料" tabid="personageData">
-				<table>
-					<tbody>
-			            <tr>
-			                <td align="right" class="l-table-edit-td">姓名：</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.fullName }" name="fullName" type="text" class="fullName"/></td>
-			                
-			                <td align="right" class="l-table-edit-td">會員編號：</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNO }" name="custNO" type="text" id="custNO" /></td>
-			                
-			                <td align="right" class="l-table-edit-td">非會員編號：</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" id="custNewNO" /></td>
-			              </tr>
-					</tbody>
-				</table>
-				<div id="medicalRecordFamilyDataGrid"></div>
-				<div class="inline-group">
-					<label>個人病史</label>
-					<div class="checkbox-group padding15">
-						<p>
-						<label><input type="checkbox" class="history" value="0">糖尿病 </label>
-   						<label><input type="checkbox" class="history" value="1">高血壓</label>
-   						<label><input type="checkbox" class="history" value="2">心臟病</label>
-   						<label><input type="checkbox" class="history" value="3">腎病</label>
-   						</p>
-   						<p>
-   						<label><input type="checkbox" class="history" value="4">肝炎 </label>
-   						<label><input type="checkbox" class="history" value="5">肝炎帶菌</label>
-   						<label><input type="checkbox" class="history" value="6">結核病</label>
-   						<label><input type="checkbox" class="history" value="7">冠狀動脈病</label>
-   						</p>
-   						<p>
-   						<label><input type="checkbox" class="history" value="8">精神病 </label>
-   						<label><input type="checkbox" class="history" value="9">癌症內</label>
-   						<label><input type="checkbox" class="history" value="10">分泌性疾病</label>
-   						<label><input type="checkbox" class="history" value="11">沁尿道感染</label>
-   						</p>
-   						<p>
-   						<label><input type="checkbox" class="history" value="12">過敏性疾病</label>
-   						<label><input type="checkbox" class="history" value="13">癲癇症</label>
-   						<label><input type="checkbox" class="history" value="14">後天免疫能力缺乏症</label>
-   						<label><input type="checkbox" class="history" value="15">哮喘 </label>
-   						</p>
-   						<p>
-   						<label><input type="checkbox" class="history" value="16">身體上缺陷</label>
-   						<label><input type="checkbox" class="history" value="17">類風濕性關節炎</label>
-   						<label><input type="checkbox" class="history" value="18">系統性紅斑狼瘡</label>
-   						<label><input type="checkbox" class="history" value="19">痛風</label>
-   						</p>
-   						<p>
-   						<label><input type="checkbox" class="history" value="20">自閉症 </label>
-						</p>
-					</div>
-				</div>
-				<div class="inline-group">
-					<label>遺傳病 ：</label>
-					<textarea rows="2" cols="55" name="genetic" >${medicalRecord.genetic }</textarea>
-				</div>
-				<div class="inline-group">
-					<label>其他 ：</label>
-					<textarea rows="2" cols="55" name="geneticOther">${medicalRecord.geneticOther }</textarea>
-				</div>
-				
-				<div class="inline-group">
-					<label>嗜好：</label>
-					<div class="checkbox-group">
-						<label><input type="checkbox" class="hobby" value="0" >嗜酒</label>
-   						<label><input type="checkbox" class="hobby" value="1" >吸煙</label>
-   						<label><input type="checkbox" class="hobby" value="2" >毒品</label>
-   						<label><input type="checkbox" class="hobby" value="3" >藥物 </label>
-					</div>
-				</div>
-				<div class="inline-group">
-					<label>其他：</label>
-					<textarea rows="2" cols="55" name="hobbyNote" >${medicalRecord.hobbyNote }</textarea>
-				</div>
-		  	<div class="inline-group">
-		  		<label>過敏病史：</label>
-		  		<div>
-		  			<div class="inline-group">
-		  				<label>藥物過敏史注明：</label>
-		  				<textarea rows="2" cols="55" name="medicineNote" >${medicalRecord.medicineNote }</textarea>
-		  			</div>
-		  			<div class="inline-group">
-		  				<label>食物過敏史注明：</label>
-		  				<textarea rows="2" cols="55" name="foodNote" >${medicalRecord.foodNote }</textarea>
-		  			</div>
+		  	<div title="小組記錄" tabid="personageData">
+		  		<div class="inline-group">
+		  			<label>參與小組：</label>
+		  			<input width="120px" value="${groupSetting.custNewNO }" name="custNewNO" type="text" />
+		  			<label>小組目標：</label>
+		  			<input width="120px" value="${groupSetting.custNewNO }" name="custNewNO" type="text" />
+		  		</div>
+		  		<div class="inline-group">
+		  			<label>開始日期：</label>
+		  			<input width="120px" value="${groupSetting.custNewNO }" name="custNewNO" type="text" />
+		  			<label>結束日期：</label>
+		  			<input width="120px" value="${groupSetting.custNewNO }" name="custNewNO" type="text" />
+		  		</div>
+		  		<div class="inline-group">
+		  			<label>帶領者：</label>
+		  			<input width="120px" value="${groupSetting.custNewNO }" name="custNewNO" type="text" />
+		  			<label>參與人數：</label>
+		  			<input width="120px" value="${groupSetting.custNewNO }" name="custNewNO" type="text" />
+		  		</div>
+		  		<div class="inline-group">
+		  			<label>地點：</label>
+		  			<textarea rows="2" cols="55" name="foodNote" >${groupSetting.foodNote }</textarea>
+		  		</div>
+		  		<div class="inline-group">
+		  			<label>材料或設備：</label>
+		  			<textarea rows="2" cols="55" name="foodNote" >${groupSetting.foodNote }</textarea>
+		  		</div>
+		  		<div class="inline-group">
+		  			<label>預計參與學員：</label>
+		  			<textarea rows="2" cols="55" name="foodNote" >${groupSetting.foodNote }</textarea>
+		  		</div>
+		  		<div id="GroupSettingRecordBudgetDataGrid"></div>
+		  		<div class="inline-group">
+		  			<label>場地配置：</label>
+		  			<textarea rows="2" cols="55" name="" ></textarea>
+		  		</div>
+		  		<div id="GroupSettingRecordPlanDataGrid"></div>
+		  		<div id="GroupSettingRecordPerformanceDataGrid"></div>
+		  		<div class="inline-group">
+		  			<label>小組總結：</label>
+		  			<textarea rows="2" cols="55" name="" ></textarea>
 		  		</div>
 		  	</div>
-		  	</div>
-		  	<div tabid="recordData" title="約束觀察記錄">
-		  		<p style="padding:10px 0;">注：1.每隔兩小時觀察學員生命體征及臨床情況，每次鬆綁15分鐘左右。
-					2.正常用「ˇ」異常時用「×」</p>
+		  	<div tabid="recordData" title="小組設置">
+		  		<div class="inline-group">
+		  			<label>小組編號：</label>
+		  			<input width="120px" value="${groupSetting.custNewNO }" name="custNewNO" type="text" />
+		  			<label>負責人：</label>
+		  			<input width="120px" value="${groupSetting.custNewNO }" name="custNewNO" type="text" />
+		  		</div>
+		  		<div class="inline-group">
+		  			<label>小組名稱：</label>
+		  			<input width="120px" value="${groupSetting.custNewNO }" name="custNewNO" type="text" />
+		  			<label>小組目標：</label>
+		  			<input width="120px" value="${groupSetting.custNewNO }" name="custNewNO" type="text" />
+		  		</div>
+		  		<div class="inline-group">
+		  			<label>開始日期：</label>
+		  			<input width="120px" value="${groupSetting.custNewNO }" name="custNewNO" type="text" />
+		  			<label>結束日期：</label>
+		  			<input width="120px" value="${groupSetting.custNewNO }" name="custNewNO" type="text" />
+		  		</div>
+		  		<div class="inline-group">
+		  			<label>帶領者：</label>
+		  			<input width="120px" value="${groupSetting.custNewNO }" name="custNewNO" type="text" />
+		  			<label>參與人數：</label>
+		  			<input width="120px" value="${groupSetting.custNewNO }" name="custNewNO" type="text" />
+		  		</div>
+		  		<div class="inline-group">
+		  			<label>收費：</label>
+		  			<textarea rows="2" cols="55" name="foodNote" >${groupSetting.foodNote }</textarea>
+		  		</div>
+		  		<div class="inline-group">
+		  			<label>地點：</label>
+		  			<textarea rows="2" cols="55" name="foodNote" >${groupSetting.foodNote }</textarea>
+		  		</div>
+		  		<div class="inline-group">
+		  			<label>材料或設備：</label>
+		  			<textarea rows="2" cols="55" name="foodNote" >${groupSetting.foodNote }</textarea>
+		  		</div>
+		  		<div class="inline-group">
+		  			<label>參與學員：</label>
+		  			<textarea rows="2" cols="55" name="foodNote" >${groupSetting.foodNote }</textarea>
+		  		</div>
 		  		<div id="medicalRecordViewDataGrid"></div>
+		  		<div class="inline-group">
+		  			<label>場地配置：</label>
+		  			<textarea rows="2" cols="55" name="foodNote" >${groupSetting.foodNote }</textarea>
+		  		</div>
 		  	</div>
 		  	
 	  </div>

@@ -23,6 +23,7 @@ public class MedicalRecordDao extends DaoImpl {
 		//获取SQL
 		condition = condition ==null?"":condition;
 		String sql = getSqlByPropKey(ToolsUtils.getCurrentMethodName())+condition;
+		System.out.println("sql+=="+sql);
 		//获取总页数
 		Integer count = (Integer) this.findElement(getCountSql(sql), params);
 		page.setRowCount(count);

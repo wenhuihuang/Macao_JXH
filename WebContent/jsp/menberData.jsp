@@ -68,7 +68,7 @@ $(function(){
 	function getFullNameGridOptions(checkbox) {
 	    var options = {
 	        columns: [
-				{ display: '會員ID', name: 'custId', minWidth: 120, width: 100 },
+				{ display: '會員ID', name: 'custID', minWidth: 120, width: 100 },
 	        { display: '案主姓名', name: 'fullName', minWidth: 120, width: 100 }
 	        ], switchPageSizeApplyComboBox: false,
 	        //pageSize: 10
@@ -82,7 +82,7 @@ $(function(){
 
 	function fullNameSelected(data){
 		   console.log(data.data[0])
-		   var custID = data.data[0].custId;
+		   var custID = data.data[0].custID;
 		   $.ajax({
 			   type:"post",
 			   url:"Customer/custData.do",
@@ -95,7 +95,7 @@ $(function(){
 	    					m = m.replace(/\]$/g,"");
 	    					m = JSON.parse(m)
 	    			   console.log(m)
-	    			   $("#custID").val(m.custId);
+	    			   $("#custID").val(m.custID);
 	    			   $("#mobileTelNO").val(m.mobileTelNO);
 	    			   $("#father").val(m.mother);
 	    			   $("#mother").val(m.mother);

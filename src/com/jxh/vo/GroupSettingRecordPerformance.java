@@ -18,7 +18,7 @@ performanceID=?,recordID=?,custID=?,billDate=?,actNO=?,actName=?,performance=?,r
 public class GroupSettingRecordPerformance implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int performanceID;
-	private int recordID;
+	private String recordID;
 	private String custID;
 	private Date billDate;
 	private String actNO;
@@ -31,7 +31,7 @@ public class GroupSettingRecordPerformance implements Serializable {
 	public GroupSettingRecordPerformance(){
 		super();
 	}
-	public GroupSettingRecordPerformance(int performanceID, int recordID, String custID, Date billDate, String actNO, String actName, String performance, String reason, String note, String time ){
+	public GroupSettingRecordPerformance(int performanceID, String recordID, String custID, Date billDate, String actNO, String actName, String performance, String reason, String note, String time ){
 		super();
 		this.performanceID=performanceID;
 		this.recordID=recordID;
@@ -50,10 +50,10 @@ public class GroupSettingRecordPerformance implements Serializable {
 	public int getPerformanceID(){
 		return performanceID;
 	}
-	public void setRecordID(int recordID){
+	public void setRecordID(String recordID){
 		this.recordID=recordID;
 	}
-	public int getRecordID(){
+	public String getRecordID(){
 		return recordID;
 	}
 	public void setCustID(String custID){

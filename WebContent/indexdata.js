@@ -20,7 +20,7 @@
     { text: '院舍管理',isexpand:false, children: [ 
   		{url:"jsp/manage/dormitory_list.jsp",text:"院舍管理" },
   		{url:"jsp/manage/medical_list.jsp",text:"醫護記錄" },
-  		{url:"jsp/manage/list.jsp",text:"小組設定" },
+  		{url:"jsp/manage/groupSetting_list.jsp",text:"小組設定" },
   		{url:"jsp/manage/list.jsp",text:"課程設定" },
   		{url:"jsp/manage/list.jsp",text:"校車支援" },
   		{url:"jsp/manage/list.jsp",text:"活動設定" },
