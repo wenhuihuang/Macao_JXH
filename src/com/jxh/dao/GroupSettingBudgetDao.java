@@ -77,10 +77,10 @@ public class GroupSettingBudgetDao extends DaoImpl<GroupSettingBudget>{
 		return this.update(sql, budgetID);
 	}
 	
-	public int deleteGroupSettingBudgetByRecordID(String recordID) throws SQLException, IOException{
+	public int deleteGroupSettingBudgetByGSID(String gSID) throws SQLException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		//String sql = "delete from TreatmentPlan where treatmentID = ? ";
-		return this.update(sql, recordID);
+		return this.update(sql, gSID);
 	}
 	
 	public GroupSettingBudget getGroupSettingBudgetByCondition(String condition, Object...params) throws IOException, SQLException {

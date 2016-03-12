@@ -28,23 +28,22 @@ String basePath = request.getScheme() + "://"
         }
         
         function addRow(){
-        	location.href = "GroupRecord/add.do?";
+        	location.href = "CourseSetting/add.do?";
         }
         
         function modifyRow(){
-        	var recordID = getRowCell(maingrid,"recordID");
-        	var gSID = getRowCell(maingrid,"gSID");
-        	if(recordID!="" && recordID!=null){
-	        	location.href = "GroupRecord/edit.do?recordID="+recordID+"&gSID="+gSID;        		
+        	var courseID = getRowCell(maingrid,"courseID");
+        	if(courseID!="" && courseID!=null){
+	        	location.href = "CourseSetting/edit.do?courseID="+courseID;        		
         	}
         }
         function deleteRow(){
-        	var recordID = getRowCell(maingrid,"recordID");
+        	var courseID = getRowCell(maingrid,"courseID");
       		if(confirm("是否刪除？")){
      			$.ajax({
          			type:"post",
-         			url:"GroupRecord/deleteGroupSettingRecord.do",
-         			data:"recordID="+recordID,
+         			url:"CourseSetting/deleteCourse.do",
+         			data:"courseID="+courseID,
          			success:function(msg){
          				if(msg == "true" || msg == true){
          					maingrid.deleteSelectedRow();
@@ -63,21 +62,23 @@ String basePath = request.getScheme() + "://"
         
         $(function ()
         {
-        	setTabTitle(parent.$("#framecenter"),"小組記錄列表") 
+        	setTabTitle(parent.$("#framecenter"),"課程設置列表") 
         	
-            var isMemberData = [{isMember:0,text:'非會員'},{isMember:1,text:'會員'}];
-            var serviceStatusData = [{serviceStatus:0,text:'沒有服務'},{serviceStatus:1,text:'服務中'},{serviceStatus:2,text:'服務完成'}];
         	
             var columns = [
-    	                { display: '小組編號', name: 'gSNO', minWidth: 100 },
-    	                { display: '小組名稱', name: 'groupName', minWidth: 140 },
-    	                { display: '小組目標', name: 'target', minWidth: 140 },
-    	                { display: '帶領人', name: 'leader', minWidth: 140 },
+    	                { display: '課程編號', name: 'courseNO', minWidth: 100 },
+    	                { display: '課程名稱', name: 'courseName', minWidth: 140 },
     	                { display: '開始日期', name: 'beginDate', minWidth: 140 },
     	                { display: '結束日期', name: 'endDate', minWidth: 140 },
-    	                { display: '參與人數', name: 'qty', minWidth: 140 },
-    	                { display: '收費', name: 'toll', minWidth: 140 },
-    	                { display: '備註', name: 'note', minWidth: 140 }
+    	                { display: '上課時間', name: 'courseDate', minWidth: 140 },
+    	                { display: '上課地點', name: 'place', minWidth: 140 },
+    	                { display: '上課導師', name: 'leader', minWidth: 140 },
+    	                { display: '上課助教', name: 'assistant', minWidth: 140 },
+    	                { display: '學費(MOP)', name: 'pay', minWidth: 140 },
+    	                { display: '名額', name: 'qty', minWidth: 140 },
+    	                { display: '課時', name: 'classHour', minWidth: 140 },
+    	                { display: '課程簡介', name: 'classNote', minWidth: 140 },
+    	                { display: '備註', name: 'note', minWidth: 140 },
                     ] ;
             
             var gridToolBar = [
@@ -87,7 +88,7 @@ String basePath = request.getScheme() + "://"
                                { line: true },
                                { text: '删除', click: itemclick, icon: 'delete' , id:"delete" }
                              ];
-            maingrid = ligerGrid("maingrid",'99%',columns,"GroupRecord/list.do?",gridToolBar,false,true);
+            maingrid = ligerGrid("maingrid",'99%',columns,"CourseSetting/list.do?",gridToolBar,false,true);
             $("#pageloading").hide();
         });
 

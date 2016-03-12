@@ -32,19 +32,18 @@ String basePath = request.getScheme() + "://"
         }
         
         function modifyRow(){
-        	var GSID = getRowCell(maingrid,"GSID");
-        	var custID = getRowCell(maingrid,"custID");
-        	if(GSID!="" && GSID!=null){
-	        	location.href = "GroupSetting/edit.do?GSID="+GSID+"&custID="+custID;        		
+        	var gSID = getRowCell(maingrid,"gSID");
+        	if(gSID!="" && gSID!=null){
+	        	location.href = "GroupSetting/edit.do?gSID="+gSID;        		
         	}
         }
         function deleteRow(){
-        	var GSID = getRowCell(maingrid,"GSID");
+        	var gSID = getRowCell(maingrid,"gSID");
       		if(confirm("是否刪除？")){
      			$.ajax({
          			type:"post",
-         			url:"GroupSetting/delete.do",
-         			data:"GSID="+GSID,
+         			url:"GroupSetting/deleteGroupSetting.do",
+         			data:"gSID="+gSID,
          			success:function(msg){
          				if(msg == "true" || msg == true){
          					maingrid.deleteSelectedRow();
@@ -63,7 +62,7 @@ String basePath = request.getScheme() + "://"
         
         $(function ()
         {
-        	setTabTitle(parent.$("#framecenter"),"小組記錄列表") 
+        	setTabTitle(parent.$("#framecenter"),"小組設置列表") 
         	
             var isMemberData = [{isMember:0,text:'非會員'},{isMember:1,text:'會員'}];
             var serviceStatusData = [{serviceStatus:0,text:'沒有服務'},{serviceStatus:1,text:'服務中'},{serviceStatus:2,text:'服務完成'}];

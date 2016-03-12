@@ -8,14 +8,15 @@ import java.util.List;
 import com.fg.daoImpl.DaoImpl;
 import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
+import com.jxh.pojo.GroupSettingPojo;
+import com.jxh.pojo.GroupSettingRecordPojo;
 import com.jxh.vo.GroupSetting;
 
-public class GroupSettingDao extends DaoImpl<GroupSetting>{
+public class GroupSettingDao extends DaoImpl{
 
 	@Override
 	protected String getSqlPropertiesPath() {
-		// TODO Auto-generated method stub
-		return null;
+		return "/sqls/Macao_JXH/groupsetting.properties";
 	}
 
 	/**
@@ -26,16 +27,17 @@ public class GroupSettingDao extends DaoImpl<GroupSetting>{
 	 * @throws SQLException
 	 * @throws IOException
 	 */
-	public PageUtils<GroupSetting> getGroupSettingByCondition(PageUtils<GroupSetting> page, String condition,Object ...params) throws SQLException, IOException{
-		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
-		condition = condition==null?"":condition;
-		sql += condition;
-		Integer count = this.findElement(getCountSql(sql), params);
+	public PageUtils<GroupSettingPojo> getGroupSettingPojo(PageUtils<GroupSettingPojo> page, String condition,Object ...params) throws SQLException, IOException{
+		clazz = GroupSettingPojo.class;
+		//获取SQL
+		condition = condition ==null?"":condition;
+		String sql = getSqlByPropKey(ToolsUtils.getCurrentMethodName())+condition;
+		System.out.println("sql+=="+sql);
+		//获取总页数
+		Integer count = (Integer) this.findElement(getCountSql(sql), params);
 		page.setRowCount(count);
-		
-		
-		List<GroupSetting> groupSetting = this.findForList(sql, params);
-		page.setList(groupSetting);
+		List<GroupSettingPojo> groupSettingPojos = this.findForList(sql, params);
+		page.setList(groupSettingPojos);
 		
 		return page;
 	}
@@ -69,17 +71,17 @@ public class GroupSettingDao extends DaoImpl<GroupSetting>{
 	}
 	
 	
-	public int deleteGroupSettingByRecordID(String recordID) throws SQLException, IOException{
+	public int deleteGroupSettingByGSID(String gSID) throws SQLException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		//String sql = "delete from TreatmentPlan where treatmentID = ? ";
-		return this.update(sql, recordID);
+		return this.update(sql, gSID);
 	}
 	
 	public GroupSetting getGroupSettingByCondition(String condition, Object...params) throws IOException, SQLException {
+		clazz = GroupSetting.class;
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		
 		sql += condition==null||"".equals(condition)?"":condition;
-		//System.out.println("sql++"+condition);
 		System.out.println(sql);
 		return  (GroupSetting) this.findForObject(sql, params);
 	}

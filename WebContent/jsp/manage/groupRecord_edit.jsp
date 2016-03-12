@@ -18,9 +18,7 @@ String basePath = request.getScheme() + "://"
 <script type="text/javascript">
         var groupSettingRecordBudgetDataGrid,
         groupSettingRecordPlanDataGrid,
-        groupSettingRecordPerformanceDataGrid,
-        groupSettingBudgetDataGrid,
-        groupSettingPlanDataGrid;
+        groupSettingRecordPerformanceDataGrid;
         
         //記錄預計
 		function bindingGroupSettingRecordBudgetDataGrid(){
@@ -57,12 +55,12 @@ String basePath = request.getScheme() + "://"
 	
 	var groupSettingRecordPlanDataGridColumn = [
 								{ display: 'planID', name: 'planID', hide:true },
-			                    { display: '活動編號', name: 'actNO', width: 100,type:"text",editor: { type: 'text' }},
-			                    { display: '活動名稱', name: 'actName', width: 100 ,type:"text",editor: { type: 'text'}},
-			                    { display: '日期', name: 'billDate',width:300, type:"text", editor: { type: 'text'}},
-			                    { display: '時間', name: 'time',width:300, type:"text", editor: { type: 'text'}},
-			                    { display: '活動流程', name: 'process',width:300, type:"text", editor: { type: 'text'}},
-			                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
+			                    { display: '活動編號', name: 'actNO',type:"text",editor: { type: 'text' }},
+			                    { display: '活動名稱', name: 'actName',type:"text",editor: { type: 'text'}},
+			                    { display: '日期', name: 'billDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+			                    { display: '時間', name: 'time', type:"text", editor: { type: 'text'}},
+			                    { display: '活動流程', name: 'process', type:"text", editor: { type: 'text'}},
+			                    { display: '備註', name: 'note', type:"text", editor: { type: 'text'}}
 			                  ];
 			
 			
@@ -88,14 +86,14 @@ String basePath = request.getScheme() + "://"
 	
 	var groupSettingRecordPerformanceDataGridColumn = [
 								{ display: 'formanceID', name: 'formanceID', hide:true },
-			                    { display: '學員名稱', name: 'fullName', width: 100,type:"text",editor: { type: 'text' }},
-			                    { display: '日期', name: 'billDate', width: 100 ,type:"text",editor: { type: 'text'}},
-			                    { display: '時間', name: 'time',width:300, type:"text", editor: { type: 'text'}},
-			                    { display: '活動編號', name: 'actNO',width:300, type:"text", editor: { type: 'text'}},
-			                    { display: '活動名稱', name: 'actName',width:300, type:"text", editor: { type: 'text'}},
-			                    { display: '學員表現', name: 'performance',width:300, type:"text", editor: { type: 'text'}},
-			                    { display: '缺席原因', name: 'reason',width:300, type:"text", editor: { type: 'text'}},
-			                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
+			                    { display: '學員名稱', name: 'fullName',type:"text",editor: { type: 'text' }},
+			                    { display: '日期', name: 'billDate', type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+			                    { display: '時間', name: 'time', type:"text", editor: { type: 'text'}},
+			                    { display: '活動編號', name: 'actNO',type:"text", editor: { type: 'text'}},
+			                    { display: '活動名稱', name: 'actName',type:"text", editor: { type: 'text'}},
+			                    { display: '學員表現', name: 'performance', type:"text", editor: { type: 'text'}},
+			                    { display: '缺席原因', name: 'reason', type:"text", editor: { type: 'text'}},
+			                    { display: '備註', name: 'note', type:"text", editor: { type: 'text'}}
 			                  ];
 			
 			
@@ -116,66 +114,6 @@ String basePath = request.getScheme() + "://"
 		groupSettingRecordPerformanceDataGrid.deleteSelectedRow();
 	}
 	
-    //設置預計
-	function bindingGroupSettingBudgetDataGrid(){
-	
-	var groupSettingBudgetDataGridColumn = [
-								{ display: 'budgetID', name: 'budgetID', hide:true },
-			                    { display: '活動編號', name: 'actNO', width: 100,type:"text",editor: { type: 'text' }},
-			                    { display: '項目', name: 'actName', width: 100 ,type:"text",editor: { type: 'text'}},
-			                    { display: '費用/人', name: 'pay',width:300, type:"text", editor: { type: 'text'}},
-			                    { display: '人數', name: 'qty',width:300, type:"text", editor: { type: 'text'}},
-			                    { display: '支出', name: 'expenditure',width:300, type:"text", editor: { type: 'text'}}
-			                  ];
-			
-			
-	var groupSettingBudgetDataGridToolBar = [
-          { text: '新增', click: addGroupSettingBudgetData, icon: 'add' , id:"add" },
-          { line: true },
-          { text: '删除', click: deleteGroupSettingBudgetData, icon: 'delete' , id:"delete" }];
-	
-	var url = "GroupRecord/getGroupSettingBudget.do?recordID="+$("#recordID").val();
-	
-	groupSettingBudgetDataGrid = ligerGrid("groupSettingBudgetDataGrid",null,groupSettingBudgetDataGridColumn,url,groupSettingBudgetDataGridToolBar,false,true);
-	
-	}
-	function addGroupSettingBudgetData(){
-		groupSettingBudgetDataGrid.addRow();
-	}
-	function deleteGroupSettingBudgetData(){
-		groupSettingBudgetDataGrid.deleteSelectedRow();
-	}
-	
-	//設置計畫
-	function bindingGroupSettingPlanDataGrid(){
-	
-	var groupSettingPlanDataGridColumn = [
-								{ display: 'planID', name: 'planID', hide:true },
-			                    { display: '活動編號', name: 'actNO', width: 100,type:"text",editor: { type: 'text' }},
-			                    { display: '活動名稱', name: 'actName', width: 100 ,type:"text",editor: { type: 'text'}},
-			                    { display: '日期', name: 'billDate',width:300, type:"text", editor: { type: 'text'}},
-			                    { display: '時間', name: 'time',width:300, type:"text", editor: { type: 'text'}},
-			                    { display: '活動流程', name: 'process',width:300, type:"text", editor: { type: 'text'}},
-			                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
-			                  ];
-			
-			
-	var groupSettingPlanDataGridToolBar = [
-          { text: '新增', click: addGroupSettingPlanData, icon: 'add' , id:"add" },
-          { line: true },
-          { text: '删除', click: deleteGroupSettingPlanData, icon: 'delete' , id:"delete" }];
-	
-	var url = "GroupRecord/getGroupSettingPlan.do?recordID="+$("#recordID").val();
-	
-	groupSettingPlanDataGrid = ligerGrid("groupSettingPlanDataGrid",null,groupSettingPlanDataGridColumn,url,groupSettingPlanDataGridToolBar,false,true);
-	
-	}
-	function addGroupSettingPlanData(){
-		groupSettingPlanDataGrid.addRow();
-	}
-	function deleteGroupSettingPlanData(){
-		groupSettingPlanDataGrid.deleteSelectedRow();
-	}
 	
 	function itemclick(item){
 		switch (item.id){
@@ -199,12 +137,6 @@ String basePath = request.getScheme() + "://"
  		$("#groupSettingRecordPerformanceAdds").val(getAddedRows(groupSettingRecordPerformanceDataGrid));
  		$("#groupSettingRecordPerformanceUpdates").val(getEditedRows(groupSettingRecordPerformanceDataGrid));
  		$("#groupSettingRecordPerformanceDeletes").val(getDeletedRows(groupSettingRecordPerformanceDataGrid));
- 		$("#groupSettingBudgetAdds").val(getAddedRows(groupSettingBudgetDataGrid));
- 		$("#groupSettingBudgetUpdates").val(getEditedRows(groupSettingBudgetDataGrid));
- 		$("#groupSettingBudgetDeletes").val(getDeletedRows(groupSettingBudgetDataGrid));
- 		$("#groupSettingPlanAdds").val(getAddedRows(groupSettingPlanDataGrid));
- 		$("#groupSettingPlanUpdates").val(getEditedRows(groupSettingPlanDataGrid));
- 		$("#groupSettingPlanDeletes").val(getDeletedRows(groupSettingPlanDataGrid));
 		$("#Button1").click();	
 	}
     
@@ -227,8 +159,6 @@ String basePath = request.getScheme() + "://"
 		bindingGroupSettingRecordBudgetDataGrid();
 		bindingGroupSettingRecordPlanDataGrid();
 		bindingGroupSettingRecordPerformanceDataGrid();
-		bindingGroupSettingBudgetDataGrid();
-		bindingGroupSettingPlanDataGrid();
 	 $("#tab").ligerTab({onAfterSelectTabItem:function(targettabid){
 			switch(targettabid){
 				case "groupRecordGrid":
@@ -236,13 +166,58 @@ String basePath = request.getScheme() + "://"
 						showGridInTab(groupSettingRecordPlanDataGrid);
 						showGridInTab(groupSettingRecordPerformanceDataGrid);
 					break;
-				case "groupSettingGrid":
-						showGridInTab(groupSettingBudgetDataGrid);
-						showGridInTab(groupSettingPlanDataGrid);
-					break;
 				default:break;
 			}
 		}}); 
+	 
+	 
+	//小組
+	 var full = $("#groupName").ligerPopupEdit({
+	    grid: getFullNameGridOptions(true),
+	    valueField: 'groupName',
+	    textField: 'groupName',
+	    width: 200,
+	    onSelected:fullNameSelected
+	});
+
+	function getFullNameGridOptions(checkbox) {
+	    var options = {
+	        columns: [
+				{ display: '小組NO', name: 'gSNO', minWidth: 120, width: 100 },
+	        	{ display: '小組', name: 'groupName', minWidth: 120, width: 100 }
+	        ], switchPageSizeApplyComboBox: false,
+	        //pageSize: 10
+	       /*  checkbox: checkbox, */
+	       url:"GroupSetting/list.do"
+	      // usePager:false
+	       
+	    };
+	    return options;
+	}
+
+	function fullNameSelected(data){
+		   console.log(data.data[0])
+		   var gSID = data.data[0].gSID;
+		   $.ajax({
+			   type:"post",
+			   url:"GroupSetting/getGroupSettingByGSID.do",
+			   data:"gSID="+gSID,
+			   success:function(msg){
+				  // var m = JSON.parse(msg);
+				  if(msg != ""){
+					  console.log(msg)
+	    			   var m = msg.replace(/^\[/g,"");
+	    					m = m.replace(/\]$/g,"");
+	    					m = JSON.parse(m)
+	    			   console.log(m)
+	    			   $("#target").val(m.target);
+	    			   $("#gSID").val(m.gSID);
+				  }
+				   
+			   }
+			   
+		   }) 
+	}
 		
     })
         
@@ -250,8 +225,9 @@ String basePath = request.getScheme() + "://"
 </head>
 <body>
 	<div class="toptoolbar"></div>
-	<form name="form1" class="liger-form" method="post" action="GroupSetting/submit.do" id="form1" style="margin: 20px;">
+	<form name="form1" class="liger-form" method="post" action="GroupRecord/submit.do" id="form1" style="margin: 20px;">
 	<input type="hidden" name="recordID" id="recordID" value="${groupSettingRecord.recordID }">
+	<input type="hidden" name="gSID" id="gSID" value="${groupSettingRecord.gSID }" >
 	<input type="hidden" name="groupSettingRecordBudgetAdds" id="groupSettingRecordBudgetAdds">
 	<input type="hidden" name="groupSettingRecordBudgetUpdates" id="groupSettingRecordBudgetUpdates">
 	<input type="hidden" name="groupSettingRecordBudgetDeletes" id="groupSettingRecordBudgetDeletes">
@@ -261,12 +237,6 @@ String basePath = request.getScheme() + "://"
 	<input type="hidden" name="groupSettingRecordPerformanceAdds" id="groupSettingRecordPerformanceAdds" >
 	<input type="hidden" name="groupSettingRecordPerformanceUpdates" id="groupSettingRecordPerformanceUpdates" >
 	<input type="hidden" name="groupSettingRecordPerformanceDeletes" id="groupSettingRecordPerformanceDeletes" >
-	<input type="hidden" name="groupSettingBudgetAdds" id="groupSettingBudgetAdds">
-	<input type="hidden" name="groupSettingBudgetUpdates" id="groupSettingBudgetUpdates">
-	<input type="hidden" name="groupSettingBudgetDeletes" id="groupSettingBudgetDeletes">
-	<input type="hidden" name="groupSettingPlanAdds" id="groupSettingPlanAdds">
-	<input type="hidden" name="groupSettingPlanUpdates" id="groupSettingPlanUpdates">
-	<input type="hidden" name="groupSettingPlanDeletes" id="groupSettingPlanDeletes">
 	
 	
 	
@@ -274,15 +244,15 @@ String basePath = request.getScheme() + "://"
 		  	<div title="小組記錄" tabid="groupRecordGrid">
 		  		<div class="inline-group">
 		  			<label>參與小組：</label>
-		  			<input width="120px" value="${groupSetting.groupName }" name="groupName" type="text" ltype="text" />
+		  			<input width="120px" value="${groupSetting.groupName }" name="groupName" id="groupName" type="text" />
 		  			<label>小組目標：</label>
-		  			<input width="120px" value="${groupSetting.target }" name="target" type="text" ltype="text" />
+		  			<input width="120px" value="${groupSetting.target }" name="target" id="target" type="text" ltype="text" />
 		  		</div>
 		  		<div class="inline-group">
 		  			<label>開始日期：</label>
-		  			<input width="120px" value="${groupSettingRecord.beginDate }" name="beginDate" type="text" ltype="text" />
+		  			<input width="120px" value="${groupSettingRecord.beginDate_str }" name="beginDate" type="text" ltype="date" />
 		  			<label>結束日期：</label>
-		  			<input width="120px" value="${groupSettingRecord.endDate }" name="endDate" type="text" ltype="text" />
+		  			<input width="120px" value="${groupSettingRecord.endDate_str }" name="endDate" type="text" ltype="date" />
 		  		</div>
 		  		<div class="inline-group">
 		  			<label>帶領者：</label>
@@ -331,7 +301,7 @@ String basePath = request.getScheme() + "://"
 		  			<textarea rows="2" cols="55" name="" ></textarea>
 		  		</div>
 		  	</div>
-		  	<div tabid="groupSettingGrid" title="小組設置">
+		 <%--  	<div tabid="groupSettingGrid" title="小組設置">
 		  		<div class="inline-group">
 		  			<label>小組編號：</label>
 		  			<input width="120px" value="${groupSetting.custNewNO }" name="custNewNO" type="text" ltype="text" />
@@ -390,7 +360,7 @@ String basePath = request.getScheme() + "://"
 					</div>
 				</div>
 		  		
-		  	</div>
+		  	</div> --%>
 		  	
 	  </div>
        

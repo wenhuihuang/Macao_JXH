@@ -20,11 +20,16 @@ public class GroupSettingRecordPojo implements Serializable {
 	private String custs;
 	private String configuration;
 	private String summary;
+	
+	private String gSNO;
+	private String groupName;
+	private String target;
 
 	public GroupSettingRecordPojo(){
 		super();
 	}
-	public GroupSettingRecordPojo(String recordID, String gSID, Date beginDate, Date endDate, String leader, int qty, String place, String device, String custs, String configuration, String summary ){
+	public GroupSettingRecordPojo(String recordID, String gSID, Date beginDate, Date endDate, String leader, int qty, String place, String device, String custs, String configuration, String summary,
+								String gSNO,String groupName,String target){
 		super();
 		this.recordID=recordID;
 		this.gSID=gSID;
@@ -37,6 +42,9 @@ public class GroupSettingRecordPojo implements Serializable {
 		this.custs=custs;
 		this.configuration=configuration;
 		this.summary=summary;
+		this.groupName=groupName;
+		this.target=target;
+		this.gSNO=gSNO;
 	}
 	public void setRecordID(String recordID){
 		this.recordID=recordID;
@@ -104,9 +112,28 @@ public class GroupSettingRecordPojo implements Serializable {
 	public String getSummary(){
 		return summary;
 	}
+	public String getGroupName() {
+		return groupName;
+	}
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+	public String getTarget() {
+		return target;
+	}
+	public void setTarget(String target) {
+		this.target = target;
+	}
+	public String getgSNO() {
+		return gSNO;
+	}
+	public void setgSNO(String gSNO) {
+		this.gSNO = gSNO;
+	}
 	@Override
 	public String toString(){
-		return "GroupSettingRecord [recordID="+recordID+",gSID="+gSID+",beginDate="+beginDate+",endDate="+endDate+",leader="+leader+",qty="+qty+",place="+place+",device="+device+",custs="+custs+",configuration="+configuration+",summary="+summary+"]";
+		return "GroupSettingRecord [recordID="+recordID+",gSID="+gSID+",beginDate="+beginDate+",endDate="+endDate+",leader="+leader+",qty="+qty+",place="+place+",device="+device+",custs="+custs+",configuration="+configuration+",summary="+summary+
+				",groupName="+groupName+",target="+target+",gSNO="+gSNO+"]";
 	}
 }
 

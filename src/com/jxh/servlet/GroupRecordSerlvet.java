@@ -22,6 +22,7 @@ import com.fg.utils.ToolsUtils;
 import com.jxh.biz.GroupSettingRecordBiz;
 import com.jxh.dao.CustomerDao;
 import com.jxh.dao.GroupSettingBudgetDao;
+import com.jxh.dao.GroupSettingDao;
 import com.jxh.dao.GroupSettingPlanDao;
 import com.jxh.dao.GroupSettingRecordBudgetDao;
 import com.jxh.dao.GroupSettingRecordDao;
@@ -46,11 +47,9 @@ import net.sf.json.JSONArray;
 @WebServlet("/GroupRecord/*")
 public class GroupRecordSerlvet extends FGServlet {
 	private static final long serialVersionUID = 1L;
-	private CustomerDao customerDao = new CustomerDao();
+	private GroupSettingDao groupSettingDao = new GroupSettingDao();
 	private GroupSettingRecordDao groupSettingRecordDao = new GroupSettingRecordDao();
 	private GroupSettingRecordBiz groupSettingRecordBiz = new GroupSettingRecordBiz();
-	private GroupSettingBudgetDao groupSettingBudgetDao = new GroupSettingBudgetDao();
-	private GroupSettingPlanDao groupSettingPlanDao = new GroupSettingPlanDao();
 	private GroupSettingRecordBudgetDao groupSettingRecordBudgetDao = new GroupSettingRecordBudgetDao();
 	private GroupSettingRecordPlanDao groupSettingRecordPlanDao = new GroupSettingRecordPlanDao();
 	private GroupSettingRecordPerformanceDao groupSettingRecordPerformanceDao = new GroupSettingRecordPerformanceDao();
@@ -82,6 +81,7 @@ public class GroupRecordSerlvet extends FGServlet {
 	private void list(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException{
 		PageUtils<GroupSettingRecordPojo> page = this.getPage(request);
 		groupSettingRecordDao.getGroupSettingRecordPojo(page,null);
+		System.out.println(page);
 		LigerUITools.writeGridJson(page, response);
 	}
 	
@@ -101,12 +101,12 @@ public class GroupRecordSerlvet extends FGServlet {
 	
 	private void edit(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			BCustomer customer = customerDao.getCustomerByCondition(" and custId = ? ",
-					this.getParameterByName(request, "custID"));
+			GroupSetting groupSetting = groupSettingDao.getGroupSettingByCondition(" and gSID = ? ",
+					this.getParameterByName(request, "gSID"));
 			GroupSettingRecord groupSettingRecord = groupSettingRecordDao.getGroupSettingRecordByCondition(" and recordID = ? ",
 					this.getParameterByName(request, "recordID"));
 		
-			request.setAttribute("customer", customer);
+			request.setAttribute("groupSetting", groupSetting);
 			request.setAttribute("groupSettingRecord", groupSettingRecord);
 			
 			forwardDispatcher("../jsp/manage/groupRecord_edit.jsp",request,response);
@@ -120,14 +120,6 @@ public class GroupRecordSerlvet extends FGServlet {
 	}
 	
 	private void submit(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		List<GroupSettingBudget> groupSettingBudgetAdds = getGridListByParamerName(GroupSettingBudget.class, request, "groupSettingBudgetAdds");
-		List<GroupSettingBudget> groupSettingBudgetUpdates = getGridListByParamerName(GroupSettingBudget.class, request, "groupSettingBudgetUpdates");
-		List<GroupSettingBudget> groupSettingBudgetDeletes = getGridListByParamerName(GroupSettingBudget.class, request, "groupSettingBudgetDeletes");
-		
-		List<GroupSettingPlan> groupSettingPlanAdds = getGridListByParamerName(GroupSettingPlan.class, request, "groupSettingPlanAdds");
-		List<GroupSettingPlan> groupSettingPlanUpdates = getGridListByParamerName(GroupSettingPlan.class, request, "groupSettingPlanUpdates");
-		List<GroupSettingPlan> groupSettingPlanDeletes = getGridListByParamerName(GroupSettingPlan.class, request, "groupSettingPlanDeletes");
 		
 		List<GroupSettingRecordBudget> groupSettingRecordBudgetAdds = getGridListByParamerName(GroupSettingRecordBudget.class, request, "groupSettingRecordBudgetAdds");
 		List<GroupSettingRecordBudget> groupSettingRecordBudgetUpdates = getGridListByParamerName(GroupSettingRecordBudget.class, request, "groupSettingRecordBudgetUpdates");
@@ -143,14 +135,13 @@ public class GroupRecordSerlvet extends FGServlet {
 		
 
 		GroupSettingRecord groupSettingRecord = this.getObjectByParameter(request, GroupSettingRecord.class);
-		GroupSetting groupSetting = this.getObjectByParameter(request, GroupSetting.class);
 		
 		String message = "";
 		
 			if(groupSettingRecord.getRecordID() != null && !"".equals(groupSettingRecord.getRecordID())){
-				message = groupSettingRecordBiz.updateGroupSettingRecord(groupSettingRecord, groupSetting,groupSettingBudgetAdds,groupSettingBudgetUpdates,groupSettingBudgetDeletes,groupSettingPlanAdds,groupSettingPlanUpdates,groupSettingPlanDeletes,groupSettingRecordBudgetAdds,groupSettingRecordBudgetUpdates,groupSettingRecordBudgetDeletes,groupSettingRecordPlanAdds,groupSettingRecordPlanUpdates,groupSettingRecordPlanDeletes,groupSettingRecordPerformanceAdds,groupSettingRecordPerformanceUpdates,groupSettingRecordPerformanceDeletes);
+				message = groupSettingRecordBiz.updateGroupSettingRecord(groupSettingRecord,groupSettingRecordBudgetAdds,groupSettingRecordBudgetUpdates,groupSettingRecordBudgetDeletes,groupSettingRecordPlanAdds,groupSettingRecordPlanUpdates,groupSettingRecordPlanDeletes,groupSettingRecordPerformanceAdds,groupSettingRecordPerformanceUpdates,groupSettingRecordPerformanceDeletes);
 			}else{
-				message = groupSettingRecordBiz.insertGroupSettingRecord(groupSettingRecord, groupSetting,groupSettingBudgetAdds,groupSettingPlanAdds,groupSettingRecordBudgetAdds,groupSettingRecordPlanAdds,groupSettingRecordPerformanceAdds);
+				message = groupSettingRecordBiz.insertGroupSettingRecord(groupSettingRecord,groupSettingRecordBudgetAdds,groupSettingRecordPlanAdds,groupSettingRecordPerformanceAdds);
 			}
 		
 	
@@ -178,23 +169,7 @@ public class GroupRecordSerlvet extends FGServlet {
 		response.getWriter().print(flag);
 	}
 
-	private void getGroupSettingBudget(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
-		String recordID = this.getParameterByName(request, "gSID");
-		PageUtils<GroupSettingBudget> page = this.getPage(request);
-		String condition = " and gSID = ? ";
-		groupSettingBudgetDao.getGroupSettingBudgetByCondition(page, condition, recordID);
-		
-		LigerUITools.writeGridJson(page, response);
-	}
 	
-	private void getGroupSettingPlan(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
-		String recordID = this.getParameterByName(request, "gSID");
-		PageUtils<GroupSettingPlan> page = this.getPage(request);
-		String condition = " and gSID = ? ";
-		groupSettingPlanDao.getGroupSettingPlanByCondition(page, condition, recordID);
-		
-		LigerUITools.writeGridJson(page, response);
-	}
 	private void getGroupSettingRecordBudget(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
 		String recordID = this.getParameterByName(request, "recordID");
 		PageUtils<GroupSettingRecordBudget> page = this.getPage(request);

@@ -3,22 +3,26 @@ package com.jxh.vo;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fg.utils.ToolsUtils;
+
 import java.math.*;
+import java.text.ParseException;
 
 
 /** GroupSetting
 
-gSID,handler,groupName,target,beginDate,endDate,leader,toll,place,device,configuration,gSNO,note
-?,?,?,?,?,?,?,?,?,?,?,?,?
+gSID,handler,groupName,target,beginDate,endDate,leader,toll,place,device,configuration,gSNO,note,qty,custs
+?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
 
-groupSetting.gSID,groupSetting.handler,groupSetting.groupName,groupSetting.target,groupSetting.beginDate,groupSetting.endDate,groupSetting.leader,groupSetting.toll,groupSetting.place,groupSetting.device,groupSetting.configuration,groupSetting.gSNO,groupSetting.note
+groupSetting.gSID,groupSetting.handler,groupSetting.groupName,groupSetting.target,groupSetting.beginDate,groupSetting.endDate,groupSetting.leader,groupSetting.toll,groupSetting.place,groupSetting.device,groupSetting.configuration,groupSetting.gSNO,groupSetting.note,groupSetting.qty,groupSetting.custs
 
-gSID=?,handler=?,groupName=?,target=?,beginDate=?,endDate=?,leader=?,toll=?,place=?,device=?,configuration=?,gSNO=?,note=?
+gSID=?,handler=?,groupName=?,target=?,beginDate=?,endDate=?,leader=?,toll=?,place=?,device=?,configuration=?,gSNO=?,note=?,qty=?,custs=?
 */
 public class GroupSetting implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String gSID;
-	private int handler;
+	private String handler;
 	private String groupName;
 	private String target;
 	private Date beginDate;
@@ -30,11 +34,17 @@ public class GroupSetting implements Serializable {
 	private String configuration;
 	private String gSNO;
 	private String note;
+	private int qty;
+	private String custs;
+	
+	private String beginDate_str;
+	private String endDate_str;
 
 	public GroupSetting(){
 		super();
 	}
-	public GroupSetting(String gSID, int handler, String groupName, String target, Date beginDate, Date endDate, String leader, BigDecimal toll, String place, String device, String configuration, String gSNO, String note ){
+	public GroupSetting(String gSID, String handler, String groupName, String target, Date beginDate, Date endDate, String leader, BigDecimal toll, String place, String device, String configuration, String gSNO, String note, int qty, String custs ,
+						String beginDate_str,String endDate_str){
 		super();
 		this.gSID=gSID;
 		this.handler=handler;
@@ -49,11 +59,21 @@ public class GroupSetting implements Serializable {
 		this.configuration=configuration;
 		this.gSNO=gSNO;
 		this.note=note;
+		this.qty=qty;
+		this.custs=custs;
+		this.beginDate_str=beginDate_str;
+		this.endDate_str=endDate_str;
 	}
-	public void setHandler(int handler){
+	public void setgSID(String gSID){
+		this.gSID=gSID;
+	}
+	public String getgSID(){
+		return gSID;
+	}
+	public void setHandler(String handler){
 		this.handler=handler;
 	}
-	public int getHandler(){
+	public String getHandler(){
 		return handler;
 	}
 	public void setGroupName(String groupName){
@@ -110,27 +130,58 @@ public class GroupSetting implements Serializable {
 	public String getConfiguration(){
 		return configuration;
 	}
+	public void setgSNO(String gSNO){
+		this.gSNO=gSNO;
+	}
+	public String getgSNO(){
+		return gSNO;
+	}
 	public void setNote(String note){
 		this.note=note;
 	}
 	public String getNote(){
 		return note;
 	}
-	public String getgSID() {
-		return gSID;
+	public void setQty(int qty){
+		this.qty=qty;
 	}
-	public void setgSID(String gSID) {
-		this.gSID = gSID;
+	public int getQty(){
+		return qty;
 	}
-	public String getgSNO() {
-		return gSNO;
+	public void setCusts(String custs){
+		this.custs=custs;
 	}
-	public void setgSNO(String gSNO) {
-		this.gSNO = gSNO;
+	public String getCusts(){
+		return custs;
+	}
+	public String getBeginDate_str() {
+		try {
+			return beginDate == null || "".equals(beginDate) ? ""
+					: ToolsUtils.getDateStringByFormat(beginDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setBeginDate_str(String beginDate_str) {
+		this.beginDate_str = beginDate_str;
+	}
+	public String getEndDate_str() {
+		try {
+			return endDate == null || "".equals(endDate) ? ""
+					: ToolsUtils.getDateStringByFormat(endDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setEndDate_str(String endDate_str) {
+		this.endDate_str = endDate_str;
 	}
 	@Override
 	public String toString(){
-		return "GroupSetting [gSID="+gSID+",handler="+handler+",groupName="+groupName+",target="+target+",beginDate="+beginDate+",endDate="+endDate+",leader="+leader+",toll="+toll+",place="+place+",device="+device+",configuration="+configuration+",gSNO="+gSNO+",note="+note+"]";
+		return "GroupSetting [gSID="+gSID+",handler="+handler+",groupName="+groupName+",target="+target+",beginDate="+beginDate+",endDate="+endDate+",leader="+leader+",toll="+toll+",place="+place+",device="+device+",configuration="+configuration+",gSNO="+gSNO+",note="+note+",qty="+qty+",custs="+custs+
+							",beginDate_str="+beginDate_str+",endDate_str="+endDate_str+"]";
 	}
 }
 

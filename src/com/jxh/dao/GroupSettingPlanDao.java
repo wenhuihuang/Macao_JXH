@@ -76,10 +76,10 @@ public class GroupSettingPlanDao extends DaoImpl<GroupSettingPlan>{
 		return this.update(sql, planID);
 	}
 	
-	public int deleteGroupSettingPlanByRecordID(String recordID) throws SQLException, IOException{
+	public int deleteGroupSettingPlanByGSID(String gSID) throws SQLException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		//String sql = "delete from TreatmentPlan where treatmentID = ? ";
-		return this.update(sql, recordID);
+		return this.update(sql, gSID);
 	}
 	
 	public GroupSettingPlan getGroupSettingPlanByCondition(String condition, Object...params) throws IOException, SQLException {

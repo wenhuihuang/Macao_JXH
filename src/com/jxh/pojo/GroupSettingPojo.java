@@ -6,19 +6,10 @@ import java.util.Date;
 import java.math.*;
 
 
-/** GroupSetting
-
-gSID,handler,groupName,target,beginDate,endDate,leader,toll,place,device,configuration,gSNO,note
-?,?,?,?,?,?,?,?,?,?,?,?,?
-
-groupSetting.gSID,groupSetting.handler,groupSetting.groupName,groupSetting.target,groupSetting.beginDate,groupSetting.endDate,groupSetting.leader,groupSetting.toll,groupSetting.place,groupSetting.device,groupSetting.configuration,groupSetting.gSNO,groupSetting.note
-
-gSID=?,handler=?,groupName=?,target=?,beginDate=?,endDate=?,leader=?,toll=?,place=?,device=?,configuration=?,gSNO=?,note=?
-*/
 public class GroupSettingPojo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String gSID;
-	private int handler;
+	private String handler;
 	private String groupName;
 	private String target;
 	private Date beginDate;
@@ -30,11 +21,13 @@ public class GroupSettingPojo implements Serializable {
 	private String configuration;
 	private String gSNO;
 	private String note;
+	private int qty;
+	private String custs;
 
 	public GroupSettingPojo(){
 		super();
 	}
-	public GroupSettingPojo(String gSID, int handler, String groupName, String target, Date beginDate, Date endDate, String leader, BigDecimal toll, String place, String device, String configuration, String gSNO, String note ){
+	public GroupSettingPojo(String gSID, String handler, String groupName, String target, Date beginDate, Date endDate, String leader, BigDecimal toll, String place, String device, String configuration, String gSNO, String note, int qty, String custs ){
 		super();
 		this.gSID=gSID;
 		this.handler=handler;
@@ -49,11 +42,19 @@ public class GroupSettingPojo implements Serializable {
 		this.configuration=configuration;
 		this.gSNO=gSNO;
 		this.note=note;
+		this.qty=qty;
+		this.custs=custs;
 	}
-	public void setHandler(int handler){
+	public void setgSID(String gSID){
+		this.gSID=gSID;
+	}
+	public String getgSID(){
+		return gSID;
+	}
+	public void setHandler(String handler){
 		this.handler=handler;
 	}
-	public int getHandler(){
+	public String getHandler(){
 		return handler;
 	}
 	public void setGroupName(String groupName){
@@ -110,27 +111,33 @@ public class GroupSettingPojo implements Serializable {
 	public String getConfiguration(){
 		return configuration;
 	}
+	public void setgSNO(String gSNO){
+		this.gSNO=gSNO;
+	}
+	public String getgSNO(){
+		return gSNO;
+	}
 	public void setNote(String note){
 		this.note=note;
 	}
 	public String getNote(){
 		return note;
 	}
-	public String getgSID() {
-		return gSID;
+	public void setQty(int qty){
+		this.qty=qty;
 	}
-	public void setgSID(String gSID) {
-		this.gSID = gSID;
+	public int getQty(){
+		return qty;
 	}
-	public String getgSNO() {
-		return gSNO;
+	public void setCusts(String custs){
+		this.custs=custs;
 	}
-	public void setgSNO(String gSNO) {
-		this.gSNO = gSNO;
+	public String getCusts(){
+		return custs;
 	}
 	@Override
 	public String toString(){
-		return "GroupSetting [gSID="+gSID+",handler="+handler+",groupName="+groupName+",target="+target+",beginDate="+beginDate+",endDate="+endDate+",leader="+leader+",toll="+toll+",place="+place+",device="+device+",configuration="+configuration+",gSNO="+gSNO+",note="+note+"]";
+		return "GroupSetting [gSID="+gSID+",handler="+handler+",groupName="+groupName+",target="+target+",beginDate="+beginDate+",endDate="+endDate+",leader="+leader+",toll="+toll+",place="+place+",device="+device+",configuration="+configuration+",gSNO="+gSNO+",note="+note+",qty="+qty+",custs="+custs+"]";
 	}
 }
 

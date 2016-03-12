@@ -6,36 +6,23 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jxh.dao.GroupSettingBudgetDao;
-import com.jxh.dao.GroupSettingDao;
-import com.jxh.dao.GroupSettingPlanDao;
 import com.jxh.dao.GroupSettingRecordBudgetDao;
 import com.jxh.dao.GroupSettingRecordDao;
 import com.jxh.dao.GroupSettingRecordPerformanceDao;
 import com.jxh.dao.GroupSettingRecordPlanDao;
 import com.jxh.utils.Constants;
-import com.jxh.vo.GroupSetting;
-import com.jxh.vo.GroupSettingBudget;
-import com.jxh.vo.GroupSettingPlan;
 import com.jxh.vo.GroupSettingRecord;
 import com.jxh.vo.GroupSettingRecordBudget;
 import com.jxh.vo.GroupSettingRecordPerformance;
 import com.jxh.vo.GroupSettingRecordPlan;
-import com.jxh.vo.MedicalRecordView;
 
 public class GroupSettingRecordBiz {
 	private GroupSettingRecordDao groupSettingRecordDao = new GroupSettingRecordDao();
-	private GroupSettingBudgetDao groupSettingBudgetDao = new GroupSettingBudgetDao();
-	private GroupSettingPlanDao groupSettingPlanDao = new GroupSettingPlanDao();
 	private GroupSettingRecordBudgetDao groupSettingRecordBudgetDao = new GroupSettingRecordBudgetDao();
 	private GroupSettingRecordPlanDao groupSettingRecordPlanDao = new GroupSettingRecordPlanDao();
 	private GroupSettingRecordPerformanceDao groupSettingRecordPerformanceDao = new GroupSettingRecordPerformanceDao();
-	private GroupSettingDao groupSettingDao = new GroupSettingDao();
 
-	public String updateGroupSettingRecord(GroupSettingRecord groupSettingRecord, GroupSetting groupSetting,
-			List<GroupSettingBudget> groupSettingBudgetAdds, List<GroupSettingBudget> groupSettingBudgetUpdates,
-			List<GroupSettingBudget> groupSettingBudgetDeletes, List<GroupSettingPlan> groupSettingPlanAdds,
-			List<GroupSettingPlan> groupSettingPlanUpdates, List<GroupSettingPlan> groupSettingPlanDeletes,
+	public String updateGroupSettingRecord(GroupSettingRecord groupSettingRecord,
 			List<GroupSettingRecordBudget> groupSettingRecordBudgetAdds,
 			List<GroupSettingRecordBudget> groupSettingRecordBudgetUpdates,
 			List<GroupSettingRecordBudget> groupSettingRecordBudgetDeletes,
@@ -47,31 +34,7 @@ public class GroupSettingRecordBiz {
 			List<GroupSettingRecordPerformance> groupSettingRecordPerformanceDeletes) throws Exception {
 		int row = groupSettingRecordDao.updateGroupSettingRecord(groupSettingRecord);
 		if (row > 0) {
-
-			//
-			if(updateGroupSetting(groupSettingRecord, groupSetting)<0){
-				throw new Exception("新增個案撮要失败！");
-			}
 			
-			if(addGroupSettingBudget(groupSettingRecord, groupSettingBudgetAdds)<0){
-				throw new Exception("新增個案撮要失败！");
-			}
-			if(updateGroupSettingBudget(groupSettingRecord, groupSettingBudgetUpdates)<0){
-				throw new Exception("新增個案撮要失败！");
-			}
-			if(deleteGroupSettingBudget(groupSettingRecord, groupSettingBudgetDeletes)<0){
-				throw new Exception("新增個案撮要失败！");
-			}
-			
-			if(addGroupSettingPlan(groupSettingRecord, groupSettingPlanAdds)<0){
-				throw new Exception("新增個案撮要失败！");
-			}
-			if(updateGroupSettingPlan(groupSettingRecord, groupSettingPlanUpdates)<0){
-				throw new Exception("新增個案撮要失败！");
-			}
-			if(deleteGroupSettingPlan(groupSettingRecord, groupSettingPlanDeletes)<0){
-				throw new Exception("新增個案撮要失败！");
-			}
 			
 			//
 			if (addGroupSettingRecordBudget(groupSettingRecord, groupSettingRecordBudgetAdds) < 0) {
@@ -156,44 +119,9 @@ public class GroupSettingRecordBiz {
 		return groupSettingRecordBudgetDao.updateGroupSettingRecordBudget(groupSettingRecordBudgetUpdates);
 	}
 
-	private int deleteGroupSettingPlan(GroupSettingRecord groupSettingRecord,
-			List<GroupSettingPlan> groupSettingPlanDeletes) throws IOException, SQLException {
-		if (groupSettingPlanDeletes == null || groupSettingPlanDeletes.size() <= 0) {
-			return 1;
-		}
-		return groupSettingPlanDao.deleteGroupSettingPlan(groupSettingPlanDeletes);
-	}
 
-	private int updateGroupSettingPlan(GroupSettingRecord groupSettingRecord,
-			List<GroupSettingPlan> groupSettingPlanUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
-		if (groupSettingPlanUpdates == null || groupSettingPlanUpdates.size() <= 0) {
-			return 1;
-		}
-		return groupSettingPlanDao.updateGroupSettingPlan(groupSettingPlanUpdates);
-	}
 
-	private int deleteGroupSettingBudget(GroupSettingRecord groupSettingRecord,
-			List<GroupSettingBudget> groupSettingBudgetDeletes) throws IOException, SQLException {
-		if (groupSettingBudgetDeletes == null || groupSettingBudgetDeletes.size() <= 0) {
-			return 1;
-		}
-		return groupSettingBudgetDao.deleteGroupSettingBudget(groupSettingBudgetDeletes);
-	}
-
-	private int updateGroupSettingBudget(GroupSettingRecord groupSettingRecord,
-			List<GroupSettingBudget> groupSettingBudgetUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
-		if (groupSettingBudgetUpdates == null || groupSettingBudgetUpdates.size() <= 0) {
-			return 1;
-		}
-		return groupSettingBudgetDao.updateGroupSettingBudget(groupSettingBudgetUpdates);
-	}
-
-	private int updateGroupSetting(GroupSettingRecord groupSettingRecord, GroupSetting groupSetting) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
-		return groupSettingDao.updateGroupSetting(groupSetting);
-	}
-
-	public String insertGroupSettingRecord(GroupSettingRecord groupSettingRecord, GroupSetting groupSetting,
-			List<GroupSettingBudget> groupSettingBudgetAdds, List<GroupSettingPlan> groupSettingPlanAdds,
+	public String insertGroupSettingRecord(GroupSettingRecord groupSettingRecord,
 			List<GroupSettingRecordBudget> groupSettingRecordBudgetAdds,
 			List<GroupSettingRecordPlan> groupSettingRecordPlanAdds,
 			List<GroupSettingRecordPerformance> groupSettingRecordPerformanceAdds) throws Exception {
@@ -202,18 +130,6 @@ public class GroupSettingRecordBiz {
 		groupSettingRecord.setRecordID(recordID);
 		int row = groupSettingRecordDao.insertGroupSettingRecord(groupSettingRecord);
 		if (row > 0) {
-			//
-			if(addGroupSetting(groupSettingRecord, groupSetting)<0){
-				throw new Exception("新增個案撮要失败！");
-			}
-			
-			if(addGroupSettingBudget(groupSettingRecord, groupSettingBudgetAdds)<0){
-				throw new Exception("新增個案撮要失败！");
-			}
-			
-			if(addGroupSettingPlan(groupSettingRecord, groupSettingPlanAdds)<0){
-				throw new Exception("新增個案撮要失败！");
-			}
 			
 			//
 			if (addGroupSettingRecordBudget(groupSettingRecord, groupSettingRecordBudgetAdds) < 0) {
@@ -295,75 +211,11 @@ public class GroupSettingRecordBiz {
 		return 1;
 	}
 
-	private int addGroupSettingPlan(GroupSettingRecord groupSettingRecord,
-			List<GroupSettingPlan> groupSettingPlanAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, IOException, ParseException {
-		if (groupSettingPlanAdds == null || groupSettingPlanAdds.size() <= 0) {
-			return 1;
-		}
-		
-		for (GroupSettingPlan update : groupSettingPlanAdds) {
-			
-			update.setgSID(groupSettingRecord.getgSID());
-		}
-		
-		int [] rows =groupSettingPlanDao.insertGroupSettingPlanBatch(groupSettingPlanAdds);
-		
-		for (int i : rows) {
-			if (i < 1) {
-				return i;
-			}
-		}
-		return 1;
-	}
-
-	private int addGroupSettingBudget(GroupSettingRecord groupSettingRecord,
-			List<GroupSettingBudget> groupSettingBudgetAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, IOException, ParseException {
-		if (groupSettingBudgetAdds == null || groupSettingBudgetAdds.size() <= 0) {
-			return 1;
-		}
-		
-		for (GroupSettingBudget update : groupSettingBudgetAdds) {
-			
-			update.setgSID(groupSettingRecord.getgSID());
-		}
-		
-		int [] rows =groupSettingBudgetDao.insertGroupSettingBudgetBatch(groupSettingBudgetAdds);
-		
-		for (int i : rows) {
-			if (i < 1) {
-				return i;
-			}
-		}
-		return 1;
-	}
-
-	private int addGroupSetting(GroupSettingRecord groupSettingRecord, GroupSetting groupSetting) throws SQLException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException {
-		String gSID = groupSettingDao.getPrimaryKey(Constants.CORPID);
-		if (groupSetting == null || "".equals(groupSetting)) {
-			return 1;
-		}
-
-		groupSetting.setgSID(gSID);
-		int row = groupSettingDao.insertGroupSetting(groupSetting);
-		if(row > 0 ){
-			
-		}
-		return 1;
-	}
 
 	public boolean deleteGroupSettingRecordByRecordID(String recordID) throws Exception {
 		boolean flag=false;
 		int row = groupSettingRecordDao.deleteGroupSettingRecordByRecordID(recordID);
 			if (row > 0) {
-				if (deleteGroupSettingByRecordID(recordID) < 0) {
-					throw new Exception("個案轉介評估刪除失敗！");
-				}
-				if (deleteGroupSettingPlanByRecordID(recordID) < 0) {
-					throw new Exception("個案轉介評估刪除失敗！");
-				}
-				if (deleteGroupSettingBudgetByRecordID(recordID) < 0) {
-					throw new Exception("個案轉介評估刪除失敗！");
-				}
 				if (deleteGroupSettingRecordPlanByRecordID(recordID) < 0) {
 					throw new Exception("個案轉介評估刪除失敗！");
 				}
@@ -375,26 +227,14 @@ public class GroupSettingRecordBiz {
 				}
 				
 				
-				
-				
-				
 				flag=true;
 				
 			}
 		return flag;
 	}
 
-	private int deleteGroupSettingByRecordID(String recordID) throws SQLException, IOException {
-		return groupSettingDao.deleteGroupSettingByRecordID(recordID);
-	}
 
-	private int deleteGroupSettingPlanByRecordID(String recordID) throws SQLException, IOException {
-		return groupSettingPlanDao.deleteGroupSettingPlanByRecordID(recordID);
-	}
 
-	private int deleteGroupSettingBudgetByRecordID(String recordID) throws SQLException, IOException {
-		return groupSettingBudgetDao.deleteGroupSettingBudgetByRecordID(recordID);
-	}
 
 	private int deleteGroupSettingRecordPlanByRecordID(String recordID) throws SQLException, IOException {
 		return groupSettingRecordPlanDao.deleteGroupSettingRecordPlanByRecordID(recordID);
