@@ -53,7 +53,7 @@ public class CourseSettingDao extends DaoImpl{
 	
 	public int updateCourseSetting(CourseSetting courseSetting) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
-		Object[] params = getInsertParams(sql, courseSetting);
+		Object[] params = getUpdateParams(sql, courseSetting);
 		return this.update(sql, params);
 	}
 	

@@ -129,3 +129,41 @@ table.td-padding10 tbody td {
 .padding15 label{
 	padding:0 15px;
 }
+#site-wrap div i,#site-wrap div a,#sitew-wrap div div{
+	display:inline-block;
+	vertical-align: middle;
+}
+#site-wrap div i.arrows {
+	width: 0;
+    height: 0;
+    margin: 5px 0;
+    margin-left:4px;
+    display: block;
+    border-top: 16px solid #707D5E;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 0px solid transparent;
+}
+.i-no{
+	border-radius: 10px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid red;
+    text-align: center;
+    line-height: 20px;
+    font-style:normal;
+    margin-right:10px;
+}
+.site-input{
+	height: 28px;
+    line-height: 28px;
+    border: 1px solid #ccc;
+    margin-right:10px;
+}
+.btn{
+	background: #CACACA;
+    color: #313131;
+    border-radius: 3px;
+    padding: 6px 10px;
+    text-decoration:none;
+}

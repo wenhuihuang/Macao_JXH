@@ -23,7 +23,7 @@
   		{url:"jsp/manage/groupSetting_list.jsp",text:"小組設定" },
   		{url:"jsp/manage/groupRecord_list.jsp",text:"小組記錄" },
   		{url:"jsp/manage/courseSetting_list.jsp",text:"課程設定" },
-  		{url:"jsp/manage/list.jsp",text:"校車支援" },
+  		{url:"jsp/manage/carSetting_list.jsp",text:"校車支援" },
   		{url:"jsp/manage/list.jsp",text:"活動設定" },
   		{url:"jsp/manage/list.jsp",text:"家庭支援" },
   		{url:"jsp/manage/list.jsp",text:"信息平台" },

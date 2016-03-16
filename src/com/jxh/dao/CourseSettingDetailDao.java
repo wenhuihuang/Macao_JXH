@@ -51,7 +51,7 @@ public class CourseSettingDetailDao extends DaoImpl{
 	}
 	
 	public int[] insertCourseSettingDetailBatch(List<CourseSettingDetail> courseSettingDetail) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException{
-		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		String sql = this.getSqlByPropKey("insertCourseSettingDetail");
 		//return this.update(sql, params);
 		return insertBatchByList(sql, courseSettingDetail);
 	}

@@ -237,7 +237,6 @@ public abstract class DaoImpl<T> implements Dao<T> {
 	protected Object[] getInsertParams(String sql, Object obj)
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException {
 		List<Object> params = new ArrayList<Object>();
-
 		// sql = sql.toUpperCase();
 		String fieldsStr = sql.substring(sql.indexOf("(") + 1, sql.indexOf(")"));
 		String[] fields = fieldsStr.split(",");

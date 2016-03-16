@@ -33,6 +33,7 @@ String basePath = request.getScheme() + "://"
         
         function modifyRow(){
         	var courseID = getRowCell(maingrid,"courseID");
+        	alert("courseID="+courseID)
         	if(courseID!="" && courseID!=null){
 	        	location.href = "CourseSetting/edit.do?courseID="+courseID;        		
         	}
@@ -42,7 +43,7 @@ String basePath = request.getScheme() + "://"
       		if(confirm("是否刪除？")){
      			$.ajax({
          			type:"post",
-         			url:"CourseSetting/deleteCourse.do",
+         			url:"CourseSetting/deleteCourseSetting.do",
          			data:"courseID="+courseID,
          			success:function(msg){
          				if(msg == "true" || msg == true){

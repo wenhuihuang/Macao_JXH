@@ -17,7 +17,7 @@ courseID=?,courseNO=?,courseName=?,beginDate=?,endDate=?,courseDate=?,place=?,le
 */
 public class CourseSettingPojo implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int courseID;
+	private String courseID;
 	private String courseNO;
 	private String courseName;
 	private Date beginDate;
@@ -35,7 +35,7 @@ public class CourseSettingPojo implements Serializable {
 	public CourseSettingPojo(){
 		super();
 	}
-	public CourseSettingPojo(int courseID, String courseNO, String courseName, Date beginDate, Date endDate, Date courseDate, String place, String leader, String assistant, BigDecimal pay, int qty, String note, String classHour, String classNote ){
+	public CourseSettingPojo(String courseID, String courseNO, String courseName, Date beginDate, Date endDate, Date courseDate, String place, String leader, String assistant, BigDecimal pay, int qty, String note, String classHour, String classNote ){
 		super();
 		this.courseID=courseID;
 		this.courseNO=courseNO;
@@ -52,10 +52,10 @@ public class CourseSettingPojo implements Serializable {
 		this.classHour=classHour;
 		this.classNote=classNote;
 	}
-	public void setCourseID(int courseID){
+	public void setCourseID(String courseID){
 		this.courseID=courseID;
 	}
-	public int getCourseID(){
+	public String getCourseID(){
 		return courseID;
 	}
 	public void setCourseNO(String courseNO){

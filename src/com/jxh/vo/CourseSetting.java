@@ -3,24 +3,14 @@ package com.jxh.vo;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fg.utils.ToolsUtils;
+
 import java.math.*;
+import java.text.ParseException;
 
 
 /** CourseSetting
-	COURSEID	INT(10)
-	COURSENO	VARCHAR(32)
-	COURSENAME	VARCHAR(32)
-	BEGINDATE	DATETIME(23,3)
-	ENDDATE	DATETIME(23,3)
-	COURSEDATE	DATETIME(23,3)
-	PLACE	VARCHAR(32)
-	LEADER	VARCHAR(32)
-	ASSISTANT	VARCHAR(32)
-	PAY	DECIMAL(18,2)
-	QTY	INT(10)
-	NOTE	VARCHAR(128)
-	CLASSHOUR	VARCHAR(20)
-	CLASSNOTE	VARCHAR(128)
 
 courseID,courseNO,courseName,beginDate,endDate,courseDate,place,leader,assistant,pay,qty,note,classHour,classNote
 ?,?,?,?,?,?,?,?,?,?,?,?,?,?
@@ -45,11 +35,16 @@ public class CourseSetting implements Serializable {
 	private String note;
 	private String classHour;
 	private String classNote;
+	
+	private String beginDate_str;
+	private String endDate_str;
+	private String courseDate_str;
 
 	public CourseSetting(){
 		super();
 	}
-	public CourseSetting(String courseID, String courseNO, String courseName, Date beginDate, Date endDate, Date courseDate, String place, String leader, String assistant, BigDecimal pay, int qty, String note, String classHour, String classNote ){
+	public CourseSetting(String courseID, String courseNO, String courseName, Date beginDate, Date endDate, Date courseDate, String place, String leader, String assistant, BigDecimal pay, int qty, String note, String classHour, String classNote,
+						String beginDate_str,String endDate_str,String courseDate_str){
 		super();
 		this.courseID=courseID;
 		this.courseNO=courseNO;
@@ -65,6 +60,9 @@ public class CourseSetting implements Serializable {
 		this.note=note;
 		this.classHour=classHour;
 		this.classNote=classNote;
+		this.beginDate_str=beginDate_str;
+		this.endDate_str=endDate_str;
+		this.courseDate_str=courseDate_str;
 	}
 	public void setCourseID(String courseID){
 		this.courseID=courseID;
@@ -150,9 +148,46 @@ public class CourseSetting implements Serializable {
 	public String getClassNote(){
 		return classNote;
 	}
+	public String getBeginDate_str() {
+		try {
+			return beginDate == null || "".equals(beginDate) ? ""
+					: ToolsUtils.getDateStringByFormat(beginDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setBeginDate_str(String beginDate_str) {
+		this.beginDate_str = beginDate_str;
+	}
+	public String getEndDate_str() {
+		try {
+			return endDate == null || "".equals(endDate) ? ""
+					: ToolsUtils.getDateStringByFormat(endDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setEndDate_str(String endDate_str) {
+		this.endDate_str = endDate_str;
+	}
+	public String getCourseDate_str() {
+		try {
+			return courseDate == null || "".equals(courseDate) ? ""
+					: ToolsUtils.getDateStringByFormat(courseDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setCourseDate_str(String courseDate_str) {
+		this.courseDate_str = courseDate_str;
+	}
 	@Override
 	public String toString(){
-		return "CourseSetting [courseID="+courseID+",courseNO="+courseNO+",courseName="+courseName+",beginDate="+beginDate+",endDate="+endDate+",courseDate="+courseDate+",place="+place+",leader="+leader+",assistant="+assistant+",pay="+pay+",qty="+qty+",note="+note+",classHour="+classHour+",classNote="+classNote+"]";
+		return "CourseSetting [courseID="+courseID+",courseNO="+courseNO+",courseName="+courseName+",beginDate="+beginDate+",endDate="+endDate+",courseDate="+courseDate+",place="+place+",leader="+leader+",assistant="+assistant+",pay="+pay+",qty="+qty+",note="+note+",classHour="+classHour+",classNote="+classNote+
+							",beginDate_str="+beginDate_str+",endDate_str="+endDate_str+",courseDate_str="+courseDate_str+"]";
 	}
 }
 

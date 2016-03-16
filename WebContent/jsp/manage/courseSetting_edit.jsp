@@ -16,7 +16,7 @@ String basePath = request.getScheme() + "://"
 <jsp:include page="/jsp/head.jsp"></jsp:include>
 <jsp:include page="/jsp/menberData.jsp"></jsp:include>
 <script type="text/javascript">
-	       var courseDetailDataGrid;
+	       var courseSettingDetailDataGrid;
         
 	
 	
@@ -24,13 +24,14 @@ String basePath = request.getScheme() + "://"
     //課程詳情
 	function bindingCourseSettingDetailDataGrid(){
 	
-	var groupSettingBudgetDataGridColumn = [
-								{ display: 'budgetID', name: 'budgetID', hide:true },
-			                    { display: '活動編號', name: 'actNO', width: 100,type:"text",editor: { type: 'text' }},
-			                    { display: '項目', name: 'actName', width: 100 ,type:"text",editor: { type: 'text'}},
-			                    { display: '費用/人', name: 'pay',width:300, type:"text", editor: { type: 'text'}},
-			                    { display: '人數', name: 'qty',width:300, type:"text", editor: { type: 'text'}},
-			                    { display: '支出', name: 'expenditure',width:300, type:"text", editor: { type: 'text'}}
+	var courseSettingDetailDataGridColumn = [
+								{ display: 'detailID', name: 'detailID', hide:true },
+			                    { display: '時間', name: 'time', type:"text",editor: { type: 'text' }},
+			                    { display: '課程內容', name: 'content', type:"text",editor: { type: 'text'}},
+			                    { display: '上課地點', name: 'place',type:"text", editor: { type: 'text'}},
+			                    { display: '上課導師', name: 'leader',type:"text", editor: { type: 'text'}},
+			                    { display: '上課助教', name: 'assistant',type:"text", editor: { type: 'text'}},
+			                    { display: '備註', name: 'note',type:"text", editor: { type: 'text'}}
 			                  ];
 			
 			
@@ -58,19 +59,16 @@ String basePath = request.getScheme() + "://"
 				save();
 			break;
 			case "back":
-				location.href="jsp/manage/groupSetting_list.jsp";
+				location.href="jsp/manage/courseSetting_list.jsp";
 			break;
 		}
 		
 	}
 	
 	function save(){
- 		$("#groupSettingBudgetAdds").val(getAddedRows(groupSettingBudgetDataGrid));
- 		$("#groupSettingBudgetUpdates").val(getEditedRows(groupSettingBudgetDataGrid));
- 		$("#groupSettingBudgetDeletes").val(getDeletedRows(groupSettingBudgetDataGrid));
- 		$("#groupSettingPlanAdds").val(getAddedRows(groupSettingPlanDataGrid));
- 		$("#groupSettingPlanUpdates").val(getEditedRows(groupSettingPlanDataGrid));
- 		$("#groupSettingPlanDeletes").val(getDeletedRows(groupSettingPlanDataGrid));
+ 		$("#courseSettingDetailAdds").val(getAddedRows(courseSettingDetailDataGrid));
+ 		$("#courseSettingDetailUpdates").val(getEditedRows(courseSettingDetailDataGrid));
+ 		$("#courseSettingDetailDeletes").val(getDeletedRows(courseSettingDetailDataGrid));
 		$("#Button1").click();	
 	}
     
@@ -90,13 +88,11 @@ String basePath = request.getScheme() + "://"
 		
 		
 		ligerForm("form1");
-		bindingGroupSettingBudgetDataGrid();
-		bindingGroupSettingPlanDataGrid();
+		bindingCourseSettingDetailDataGrid();
 	 $("#tab").ligerTab({onAfterSelectTabItem:function(targettabid){
 			switch(targettabid){
-				case "groupSettingGrid":
-						showGridInTab(groupSettingBudgetDataGrid);
-						showGridInTab(groupSettingPlanDataGrid);
+				case "courseSettingGrid":
+						showGridInTab(courseSettingDetailDataGrid);
 					break;
 				default:break;
 			}
@@ -108,19 +104,15 @@ String basePath = request.getScheme() + "://"
 </head>
 <body>
 	<div class="toptoolbar"></div>
-	<form name="form1" class="liger-form" method="post" action="GroupSetting/submit.do" id="form1" style="margin: 20px;">
-	<input type="hidden" name="gSID" id="gSID" value="${groupSetting.gSID }">
-	<input type="hidden" name="groupSettingBudgetAdds" id="groupSettingBudgetAdds">
-	<input type="hidden" name="groupSettingBudgetUpdates" id="groupSettingBudgetUpdates">
-	<input type="hidden" name="groupSettingBudgetDeletes" id="groupSettingBudgetDeletes">
-	<input type="hidden" name="groupSettingPlanAdds" id="groupSettingPlanAdds">
-	<input type="hidden" name="groupSettingPlanUpdates" id="groupSettingPlanUpdates">
-	<input type="hidden" name="groupSettingPlanDeletes" id="groupSettingPlanDeletes">
-	
+	<form name="form1" class="liger-form" method="post" action="CourseSetting/submit.do" id="form1" style="margin: 20px;">
+	<input type="hidden" name="courseID" id="courseID" value="${courseSetting.courseID }">
+	<input type="hidden" name="courseSettingDetailAdds" id="courseSettingDetailAdds">
+	<input type="hidden" name="courseSettingDetailUpdates" id="courseSettingDetailUpdates">
+	<input type="hidden" name="courseSettingDetailDeletes" id="courseSettingDetailDeletes">
 	
 	
 	<div id="tab">
-		  	<div tabid="groupSettingGrid" title="課程設置">
+		  	<div tabid="courseSettingGrid" title="課程設置">
 		  		<div class="inline-group">
 		  			<label>課程編號：</label>
 		  			<input width="120px" value="${courseSetting.courseNO }" name="courseNO" type="text" ltype="text" />
@@ -140,7 +132,7 @@ String basePath = request.getScheme() + "://"
 		  		<div class="panel panel-default">
 					<div class="panel-heading"></div>
 					<div class="panel-body">
-						<div id="courseDetailDataGrid"></div>
+						<div id="courseSettingDetailDataGrid"></div>
 					</div>
 				</div>
 		  		

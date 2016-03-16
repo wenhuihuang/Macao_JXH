@@ -126,7 +126,6 @@ public class CustCaseDao extends DaoImpl{
 	public int insertCustCase(BCustCase custCase) throws SQLException, IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		Object[] params = getInsertParams(sql, custCase);
-		System.out.println("params="+custCase);
 		return this.update(sql, params);
 	}
 	
