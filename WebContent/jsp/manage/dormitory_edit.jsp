@@ -17,8 +17,8 @@ String basePath = request.getScheme() + "://"
 <jsp:include page="/jsp/menberData.jsp"></jsp:include>
 <script type="text/javascript">
         var trainingFlowDataGrid,
-       		trainingRecordDataGrid1,
-       		trainingRecordDataGrid2,
+       		trainingRecordTopDataGrid,
+       		trainingRecordBottomDataGrid,
         	goalDataGrid,
         	budgetDataGrid,
         	reviewDataGrid,
@@ -58,7 +58,7 @@ String basePath = request.getScheme() + "://"
 	}
 	
 	//個別訓練記錄上半月
-	function bindingTrainingRecordDataGrid1(){
+	function bindingTrainingRecordTopDataGrid(){
 		var date = new Date();
 		var y = date.getFullYear()+1;
 		var yData = (function(){
@@ -80,48 +80,63 @@ String basePath = request.getScheme() + "://"
 		var t = (function(){
 			var arr = [
 						{ display: 'detailID', name: 'detailID', hide:true },
-	                    { display: '年', name: 'y',
-                        	editor: { type: 'select', data: yData, valueField: 'y' },
+	                    { display: '年', name: 'year',
+                        	editor: { type: 'select', data: yData, valueField: 'year' },
 	                        render: function (item)
 	                        {
 	                        	return getGridSelectedData(yData[y-parseInt(item.y)]);
 	                        }},
-                        { display: '月', name: 'm',
-                        	editor: { type: 'select', data: mData, valueField: 'm' },
+                        { display: '月', name: 'month',width:75,
+                        	editor: { type: 'select', data: mData, valueField: 'month' },
 	                        render: function (item)
 	                        {
 	                        	return getGridSelectedData(mData[parseInt(item.m)-1]);
 	                        }},
+	                    { display: 1, name: "one", type:"text",editor: { type: 'text'}},
+	                    { display: 2, name: "two", type:"text",editor: { type: 'text'}},
+	                    { display: 3, name: "three", type:"text",editor: { type: 'text'}},
+	                    { display: 4, name: "four", type:"text",editor: { type: 'text'}},
+	                    { display: 5, name: "five", type:"text",editor: { type: 'text'}},
+	                    { display: 6, name: "six", type:"text",editor: { type: 'text'}},
+	                    { display: 7, name: "seven", type:"text",editor: { type: 'text'}},
+	                    { display: 8, name: "eight", type:"text",editor: { type: 'text'}},
+	                    { display: 9, name: "nine", type:"text",editor: { type: 'text'}},
+	                    { display: 10, name: "ten", type:"text",editor: { type: 'text'}},
+	                    { display: 11, name: "eleven", type:"text",editor: { type: 'text'}},
+	                    { display: 12, name: "twelve", type:"text",editor: { type: 'text'}},
+	                    { display: 13, name: "thirteen", type:"text",editor: { type: 'text'}},
+	                    { display: 14, name: "fourteen", type:"text",editor: { type: 'text'}},
+	                    { display: 15, name: "fifteen", type:"text",editor: { type: 'text'}},
 	                  ];
-			for(var i = 1; i<16;i++){
-				var o  = { display: i, name: "'"+i+"'", type:"text",editor: { type: 'text'}};
+		/* 	for(var i = 1; i<16;i++){
+				var o  = { display: i, name: "'"+i+"'", type:"text",minWidth:120,editor: { type: 'text'}};
 				arr.push(o)			
-			}
+			} */
 			return arr
 		})() 
 							
-	var trainingRecordDataGrid1Column=t
+	var trainingRecordTopDataGridColumn=t
 				
 				
-		var trainingRecordDataGrid1ToolBar = [
-	          { text: '新增', click: addTrainingRecordData1, icon: 'add' , id:"add" },
+		var trainingRecordTopDataGridToolBar = [
+	          { text: '新增', click: addTrainingRecordTopData, icon: 'add' , id:"add" },
 	          { line: true },
-	          { text: '删除', click: deleteTrainingRecordData1, icon: 'delete' , id:"delete" }];
+	          { text: '删除', click: deleteTrainingRecordTopData, icon: 'delete' , id:"delete" }];
 		
-		var url = "Dormitory/getDormitoryTrainingRecordDetail.do?masterRecordID="+$("#tRecordID").val();
+		var url = "Dormitory/getDormitoryTrainingRecordDetailTop.do?masterRecordID="+$("#tRecordID").val();
 		
-		trainingRecordDataGrid1 = ligerGrid("trainingRecordDataGrid1",null,trainingRecordDataGrid1Column,url,trainingRecordDataGrid1ToolBar,false,true);
+		trainingRecordTopDataGrid = ligerGrid("trainingRecordTopDataGrid",null,trainingRecordTopDataGridColumn,url,trainingRecordTopDataGridToolBar,false,true);
 		
 	}
-	function addTrainingRecordData1(){
-		trainingRecordDataGrid1.addRow();
+	function addTrainingRecordTopData(){
+		trainingRecordTopDataGrid.addRow();
 	}
-	function deleteTrainingRecordData1(){
-		trainingRecordDataGrid1.deleteSelectedRow();
+	function deleteTrainingRecordTopData(){
+		trainingRecordTopDataGrid.deleteSelectedRow();
 	}
 	
 	//個別訓練記錄下半月
-	function bindingTrainingRecordDataGrid2(){
+	function bindingTrainingRecordBottomDataGrid(){
 		var date = new Date();
 		var y = date.getFullYear()+1;
 		var yData = (function(){
@@ -143,44 +158,57 @@ String basePath = request.getScheme() + "://"
 		var t = (function(){
 			var arr = [
 						{ display: 'detailID', name: 'detailID', hide:true },
-	                    { display: '年', name: 'y',
-                        	editor: { type: 'select', data: yData, valueField: 'y' },
+						{ display: 'bottomContent', name: 'bottomContent', hide:true },
+	                    { display: '年', name: 'year',
+                        	editor: { type: 'select', data: yData, valueField: 'year' },
 	                        render: function (item)
 	                        {
 	                        	return getGridSelectedData(yData[y-parseInt(item.y)]);
 	                        }},
-                        { display: '月', name: 'm',
-                        	editor: { type: 'select', data: mData, valueField: 'm' },
+                        { display: '月', name: 'month',
+                        	editor: { type: 'select', data: mData, valueField: 'month' },
 	                        render: function (item)
 	                        {
 	                        	return getGridSelectedData(mData[parseInt(item.m)-1]);
 	                        }},
+	                   { display: 16, name: "sixteen", type:"text",editor: { type: 'text'}},
+	                   { display: 17, name: "seventeen", type:"text",editor: { type: 'text'}},
+	                   { display: 18, name: "eighteen", type:"text",editor: { type: 'text'}},
+	                   { display: 19, name: "nineteen", type:"text",editor: { type: 'text'}},
+	                   { display: 20, name: "twenty", type:"text",editor: { type: 'text'}},
+	                   { display: 21, name: "twentyOne", type:"text",editor: { type: 'text'}},
+	                   { display: 22, name: "twentyTwo", type:"text",editor: { type: 'text'}},
+	                   { display: 23, name: "twentyThree", type:"text",editor: { type: 'text'}},
+	                   { display: 24, name: "twentyFour", type:"text",editor: { type: 'text'}},
+	                   { display: 25, name: "twentyFive", type:"text",editor: { type: 'text'}},
+	                   { display: 26, name: "twentySix", type:"text",editor: { type: 'text'}},
+	                   { display: 27, name: "twentySeven", type:"text",editor: { type: 'text'}},
+	                   { display: 28, name: "twentyAight", type:"text",editor: { type: 'text'}},
+	                   { display: 29, name: "twentyNine", type:"text",editor: { type: 'text'}},
+	                   { display: 30, name: "thirty", type:"text",editor: { type: 'text'}},
+	                   { display: 31, name: "thirtyOne", type:"text",editor: { type: 'text'}}
 	                  ];
-			for(var i = 16; i<32;i++){
-				var o  = { display: i, name: "'"+i+"'", type:"text",editor: { type: 'text'}};
-				arr.push(o)			
-			}
 			return arr
 		})() 
 							
-	var trainingRecordDataGrid2Column=t
+	var trainingRecordBottomDataGridColumn=t
 				
 				
-		var trainingRecordDataGrid2ToolBar = [
-	          { text: '新增', click: addTrainingRecordData2, icon: 'add' , id:"add" },
+		var trainingRecordBottomDataGridToolBar = [
+	          { text: '新增', click: addTrainingRecordBottomData, icon: 'add' , id:"add" },
 	          { line: true },
-	          { text: '删除', click: deleteTrainingRecordData2, icon: 'delete' , id:"delete" }];
+	          { text: '删除', click: deleteTrainingRecordBottomData, icon: 'delete' , id:"delete" }];
 		
-		var url = "Dormitory/getDormitoryTrainingRecordDetail.do?masterRecordID="+$("#tRecordID").val();
+		var url = "Dormitory/getDormitoryTrainingRecordDetailBottom.do?masterRecordID="+$("#tRecordID").val();
 		
-		trainingRecordDataGrid2 = ligerGrid("trainingRecordDataGrid2",null,trainingRecordDataGrid2Column,url,trainingRecordDataGrid2ToolBar,false,true);
+		trainingRecordBottomDataGrid = ligerGrid("trainingRecordBottomDataGrid",null,trainingRecordBottomDataGridColumn,url,trainingRecordBottomDataGridToolBar,false,true);
 		
 	}
-	function addTrainingRecordData2(){
-		trainingRecordDataGrid2.addRow();
+	function addTrainingRecordBottomData(){
+		trainingRecordBottomDataGrid.addRow();
 	}
-	function deleteTrainingRecordData2(){
-		trainingRecordDataGrid2.deleteSelectedRow();
+	function deleteTrainingRecordBottomData(){
+		trainingRecordBottomDataGrid.deleteSelectedRow();
 	}
 	
     //個人訓練目標
@@ -319,12 +347,13 @@ String basePath = request.getScheme() + "://"
 		$("#dormitoryTrainingADPlanDetailAdds").val(getAddedRows(trainingFlowDataGrid));
  		$("#dormitoryTrainingADPlanDetailUpdates").val(getEditedRows(trainingFlowDataGrid));
  		$("#dormitoryTrainingADPlanDetailDeletes").val(getDeletedRows(trainingFlowDataGrid));
- 		$("#dormitoryTrainingRecordDetailAdds").val(getAddedRows(trainingRecordDataGrid1));
- 		$("#dormitoryTrainingRecordDetailUpdates").val(getEditedRows(trainingRecordDataGrid1));
- 		$("#dormitoryTrainingRecordDetailDeletes").val(getDeletedRows(trainingRecordDataGrid1)); 
- 		$("#dormitoryTrainingRecordDetailAdds").val(getAddedRows(trainingRecordDataGrid2));
- 		$("#dormitoryTrainingRecordDetailUpdates").val(getEditedRows(trainingRecordDataGrid2));
- 		$("#dormitoryTrainingRecordDetailDeletes").val(getDeletedRows(trainingRecordDataGrid2)); 
+ 		
+ 		$("#dormitoryTrainingRecordDetailTopAdds").val(getAddedRows(trainingRecordTopDataGrid));
+ 		$("#dormitoryTrainingRecordDetailTopUpdates").val(getEditedRows(trainingRecordTopDataGrid));
+ 		$("#dormitoryTrainingRecordDetailTopDeletes").val(getDeletedRows(trainingRecordTopDataGrid)); 
+ 		$("#dormitoryTrainingRecordDetailBottomAdds").val(getAddedRows(trainingRecordBottomDataGrid));
+ 		$("#dormitoryTrainingRecordDetailBottomUpdates").val(getEditedRows(trainingRecordBottomDataGrid));
+ 		$("#dormitoryTrainingRecordDetailBottomDeletes").val(getDeletedRows(trainingRecordBottomDataGrid)); 
 		$("#dormitoryTrainingReviewTargetAdds").val(getAddedRows(goalDataGrid));
  		$("#dormitoryTrainingReviewTargetUpdates").val(getEditedRows(goalDataGrid));
  		$("#dormitoryTrainingReviewTargetDeletes").val(getDeletedRows(goalDataGrid)); 
@@ -337,7 +366,8 @@ String basePath = request.getScheme() + "://"
  		$("#dormitoryTrainingReviewSettleAdds").val(getAddedRows(accountDataGrid));
  		$("#dormitoryTrainingReviewSettleUpdates").val(getEditedRows(accountDataGrid));
  		$("#dormitoryTrainingReviewSettleDeletes").val(getDeletedRows(accountDataGrid)); 
-		$("#Button1").click();	
+		console.log($("#dormitoryTrainingRecordDetailTopAdds").val())
+ 		//$("#Button1").click();	
 	}
     
 	$(function(){
@@ -358,8 +388,8 @@ String basePath = request.getScheme() + "://"
 		
 		ligerForm("form1");
 		bindingTrainingFlowDataGrid();
-		bindingTrainingRecordDataGrid1();
-		bindingTrainingRecordDataGrid2();
+		bindingTrainingRecordTopDataGrid();
+		bindingTrainingRecordBottomDataGrid();
 		bindingGoalDataGrid();
 		bindingBudgetDataGrid();
 		bindingReviewDataGrid();
@@ -371,7 +401,7 @@ String basePath = request.getScheme() + "://"
 					break;
 				case "trainingPlan":showGridInTab();break;
 				case "trainingFlow":showGridInTab(trainingFlowDataGrid);break;
-				case "trainingRecord":showGridInTab(trainingRecordDataGrid1);;showGridInTab(trainingRecordDataGrid2);break;
+				case "trainingRecord":showGridInTab(trainingRecordTopDataGrid);showGridInTab(trainingRecordBottomDataGrid);break;
 				case "trainingReport":showGridInTab(goalDataGrid);showGridInTab(budgetDataGrid);showGridInTab(reviewDataGrid);showGridInTab(accountDataGrid);break;
 				default:break;
 			}
@@ -396,9 +426,12 @@ String basePath = request.getScheme() + "://"
 	<input type="hidden" name="dormitoryTrainingADPlanDetailAdds" id="dormitoryTrainingADPlanDetailAdds">
 	<input type="hidden" name="dormitoryTrainingADPlanDetailUpdates" id="dormitoryTrainingADPlanDetailUpdates">
 	<input type="hidden" name="dormitoryTrainingADPlanDetailDeletes" id="dormitoryTrainingADPlanDetailDeletes">
-	<input type="hidden" name="dormitoryTrainingRecordDetailAdds" id="dormitoryTrainingRecordDetailAdds">
-	<input type="hidden" name="dormitoryTrainingRecordDetailUpdates" id="dormitoryTrainingRecordDetailUpdates">
-	<input type="hidden" name="dormitoryTrainingRecordDetailDeletes" id="dormitoryTrainingRecordDetailDeletes">
+	<input type="hidden" name="dormitoryTrainingRecordDetailTopAdds" id="dormitoryTrainingRecordDetailTopAdds">
+	<input type="hidden" name="dormitoryTrainingRecordDetailTopUpdates" id="dormitoryTrainingRecordDetailTopUpdates">
+	<input type="hidden" name="dormitoryTrainingRecordDetailTopDeletes" id="dormitoryTrainingRecordDetailTopDeletes">
+	<input type="hidden" name="dormitoryTrainingRecordDetailBottomAdds" id="dormitoryTrainingRecordDetailBottomAdds">
+	<input type="hidden" name="dormitoryTrainingRecordDetailBottomUpdates" id="dormitoryTrainingRecordDetailBottomUpdates">
+	<input type="hidden" name="dormitoryTrainingRecordDetailBottomDeletes" id="dormitoryTrainingRecordDetailBottomDeletes">
 	<input type="hidden" name="dormitoryTrainingReviewTargetAdds" id="dormitoryTrainingReviewTargetAdds">
 	<input type="hidden" name="dormitoryTrainingReviewTargetUpdates" id="dormitoryTrainingReviewTargetUpdates">
 	<input type="hidden" name="dormitoryTrainingReviewTargetDeletes" id="dormitoryTrainingReviewTargetDeletes">
@@ -626,8 +659,8 @@ String basePath = request.getScheme() + "://"
           				<label style="width:120px;text-align:right;">訓練目標：</label>
           				<input width="120px" value="${dormitoryTrainingPlan.target }" name="target" type="text" ltype="text"">
           			</div>
-          			<div id="trainingRecordDataGrid1"></div>
-          			<div id="trainingRecordDataGrid2"></div>
+          			<div id="trainingRecordTopDataGrid"></div>
+          			<div id="trainingRecordBottomDataGrid"></div>
           			
 		  	</div>
 		  	

@@ -19,6 +19,7 @@ import com.fg.ligerui.LigerUITools;
 import com.fg.servlet.FGServlet;
 import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
+import com.jxh.biz.CarRecordBiz;
 import com.jxh.biz.CarSettingBiz;
 import com.jxh.dao.CarAbsentDao;
 import com.jxh.dao.CarRecordDao;
@@ -34,19 +35,20 @@ import net.sf.json.JSONArray;
 /**
  * Servlet implementation class TreatmentSerlvet
  */
-@WebServlet("/CarSetting/*")
-public class CarSettingSerlvet extends FGServlet {
+@WebServlet("/CarRecord/*")
+public class CarRecordSerlvet extends FGServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private CarSettingDao carSettingDao = new CarSettingDao();
 	private CarSettingBiz carSettingBiz = new CarSettingBiz();
 	private CarRecordDao carRecordDao = new CarRecordDao();
 	private CarAbsentDao carAbsentDao = new CarAbsentDao();
+	private CarRecordBiz carRecordBiz = new CarRecordBiz();
 	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CarSettingSerlvet() {
+    public CarRecordSerlvet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -73,48 +75,16 @@ public class CarSettingSerlvet extends FGServlet {
 		LigerUITools.writeGridJson(page, response);
 	}
 	
-	private void add(HttpServletRequest request, HttpServletResponse response) {
-		try {
+	private void addCarRecord(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		boolean flag = false;
+		List<CarRecord> carRecordAdds = getGridListByParamerName(CarRecord.class, request, "carRecordAdds");
+		List<CarRecord> carRecordUpdates = getGridListByParamerName(CarRecord.class, request, "carRecordUpdates");
+		List<CarRecord> carRecordDeletes = getGridListByParamerName(CarRecord.class, request, "carRecordDeletes");
+		
 
-			CarSetting carSetting = new CarSetting();
-
-			request.setAttribute("carSetting", carSetting);
-			forwardDispatcher("../jsp/manage/carSetting_edit.jsp", request, response);
-			
-
-		} catch (ServletException | IOException e) {
-			e.printStackTrace();
-		}
-	}
 	
-	private void edit(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			CarSetting carSetting = carSettingDao.getCarSettingByCondition(" and carID = ? ",
-					this.getParameterByName(request, "carID"));
-			request.setAttribute("carSetting", carSetting);
-			
-			forwardDispatcher("../jsp/manage/carSetting_edit.jsp",request,response);
-			
-
-		} catch (IOException | SQLException | ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-	
-	private void submit(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		
-
-		CarSetting carSetting = this.getObjectByParameter(request, CarSetting.class);
-		
 		String message = "";
-			if(carSetting.getCarID() != null && !"".equals(carSetting.getCarID())){
-				message = carSettingBiz.updateCarSetting(carSetting);
-			}else{
-				message = carSettingBiz.insertCarSetting(carSetting);
-			}
+				message = carRecordBiz.updateCarRecords(carRecordAdds,carRecordUpdates,carRecordDeletes);
 		
 	
 
@@ -123,10 +93,13 @@ public class CarSettingSerlvet extends FGServlet {
 		
 		
 		if (message.indexOf("成功") > 0) {
-			sendRedirect("../jsp/manage/carSetting_list.jsp", response);
+			flag = true;
+			response.getWriter().print(flag);
+			//sendRedirect("../jsp/manage/carSetting_list.jsp", response);
 		} else {
-			request.setAttribute("carSetting", carSetting);
-				forwardDispatcher("../jsp/manage/carSetting_edit.jsp", request,response);
+			response.getWriter().print(flag);
+			//request.setAttribute("carSetting", carSetting);
+				//forwardDispatcher("../jsp/manage/carSetting_edit.jsp", request,response);
 			
 		}
 
@@ -155,18 +128,5 @@ public class CarSettingSerlvet extends FGServlet {
 		
 	}
 	
-	private void getCarAbsentPojo(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
-		String carID = this.getParameterByName(request, "carID");
-		PageUtils<CarAbsentPojo> page = this.getPage(request);
-		if(carID != null && !"".equals(carID)){
-			String condition = " and carAbsent.carID = ? ";
-			carAbsentDao.getCarAbsentPojoByCondition(page, condition, carID);
-		}else{
-			carAbsentDao.getCarAbsentPojoByCondition(page, null);
-		}
-		
-		
-		LigerUITools.writeGridJson(page, response);
-	}
 	
 }

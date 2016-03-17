@@ -298,7 +298,7 @@ public abstract class DaoImpl<T> implements Dao<T> {
 				continue;
 			}
 		}
-
+		System.out.println("pa="+params);
 		return params.toArray();
 	}
 

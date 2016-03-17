@@ -145,58 +145,19 @@ public class CarSettingBiz {
 
 
 
-	public String updateCarSetting(CarSetting carSetting, List<CarRecord> carRecordAdds,
-			List<CarRecord> carRecordUpdates, List<CarRecord> carRecordDeletes, List<CarAbsent> carAbsentAdds,
-			List<CarAbsent> carAbsentUpdates, List<CarAbsent> carAbsentDeletes) throws Exception {
+	public String updateCarSetting(CarSetting carSetting) throws Exception {
+		System.out.println("car="+carSetting);
 		int row = carSettingDao.updateCarSetting(carSetting);
-		if (row > 0) {
-			//
-			if(addCarRecord(carSetting, carRecordAdds)<0){
-				throw new Exception("新增個案撮要失败！");
-			}
-			
-			if(updateCarRecord(carSetting, carRecordUpdates)<0){
-				throw new Exception("新增個案撮要失败！");
-			}
-			
-			if(deleteCarRecord(carSetting, carRecordDeletes)<0){
-				throw new Exception("新增個案撮要失败！");
-			}
-			
-			//
-			if (addCarAbsent(carSetting, carAbsentAdds) < 0) {
-				throw new Exception("個案轉介評估保存失敗！");
-			}
-			
-			if (updateCarAbsent(carSetting, carAbsentUpdates) < 0) {
-				throw new Exception("個案轉介評估保存失敗！");
-			}
-			if (deleteCarAbsent(carSetting, carAbsentDeletes) < 0) {
-				throw new Exception("個案轉介評估保存失敗！");
-			}
-		}
 		return "操作成功！";
 	}
 
 
 
 
-	public String insertCarSetting(CarSetting carSetting, List<CarRecord> carRecordAdds,
-			List<CarAbsent> carAbsentAdds) throws Exception {
+	public String insertCarSetting(CarSetting carSetting) throws Exception {
 		String carID = carSettingDao.getPrimaryKey(Constants.CORPID);
 		carSetting.setCarID(carID);
 		int row = carSettingDao.insertCarSetting(carSetting);
-		if (row > 0) {
-			
-			if(addCarRecord(carSetting, carRecordAdds)<0){
-				throw new Exception("新增個案撮要失败！");
-			}
-			if(addCarAbsent(carSetting, carAbsentAdds)<0){
-				throw new Exception("新增個案撮要失败！");
-			}
-			
-			
-		}
 		return "操作成功！";
 
 	}

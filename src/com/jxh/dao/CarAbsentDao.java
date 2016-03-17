@@ -10,7 +10,6 @@ import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
 import com.jxh.pojo.CarAbsentPojo;
 import com.jxh.vo.CarAbsent;
-import com.jxh.vo.CarSetting;
 
 public class CarAbsentDao extends DaoImpl{
 

@@ -16,150 +16,6 @@ String basePath = request.getScheme() + "://"
 <jsp:include page="/jsp/head.jsp"></jsp:include>
 <jsp:include page="/jsp/menberData.jsp"></jsp:include>
 <script type="text/javascript">
-	       var carRecordDataGrid,
-	      		carAbsentDataGrid;
-        
-	
-	
-	
-    //校車記錄
-	function bindingCarRecordDataGrid(){
-	
-	var carRecordDataGridColumn = [
-								{ display: 'recordID', name: 'recordID', hide:true },
-			                    { display: '校車編號', name: 'carNO', type:"text",editor: { type: 'text' }},
-			                    { display: '校車車牌號', name: 'carNumber', type:"text",editor: { type: 'text'}},
-			                    { display: '報名學員', name: 'fullName',type:"text", editor: { type: 'text'}},
-			                    { display: '開始日期', name: 'beginDate',type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-			                    { display: '結束日期', name: 'endDate',type:"text", format: 'yyyy-MM-dd', editor: { type: 'date'}},
-			                    { display: '搭車時間', name: 'takeDate',type:"time", editor: { type: 'text'}},
-			                    { display: '應繳費用', name: 'toll',type:"text", editor: { type: 'text'}},
-			                    { display: '實繳費用', name: 'actToll',type:"text", editor: { type: 'text'}},
-			                    { display: '備註', name: 'note',type:"text", editor: { type: 'text'}}
-			                  ];
-			
-			
-	var carRecordDataGridToolBar = [
-          { text: '新增', click: addCarRecordData, icon: 'add' , id:"add" },
-          { line: true },
-          { text: '删除', click: deleteCarRecordData, icon: 'delete' , id:"delete" }];
-	
-	var url = "CarSetting/getCarRecord.do?carID="+$("#carID").val();
-	
-	carRecordDataGrid = ligerGrid("carRecordDataGrid",null,carRecordDataGridColumn,url,carRecordDataGridToolBar,false,true);
-	
-	}
-	function addCarRecordData(){
-		carRecordDataGrid.addRow();
-	}
-	function deleteCarRecordData(){
-		carRecordDataGrid.deleteSelectedRow();
-	}
-	
-    //缺席記錄
-	function bindingCarAbsentDataGrid(){
-		function getFullName(checkbox) {
-		    var options = {
-		        columns: [
-				{ display: '會員ID', name: 'custID', minWidth: 120, width: 100 },
-		        { display: '案主姓名', name: 'fullName', minWidth: 120, width: 100 }
-		        ], switchPageSizeApplyComboBox: false,
-		        //pageSize: 10
-		       /*  checkbox: checkbox, */
-		       url:"Customer/list.do"
-		      // usePager:false
-		       
-		    };
-		    return options;
-		}
-      function f_onSelected(e) { 
-    	  console.log(e.data[0])
-            if (!e.data || !e.data.length) return;
-
-            var grid = liger.get("carAbsentDataGrid");
-
-            var selected = e.data[0]; 
-            grid.updateRow(grid.lastEditRow, {
-                fullName: selected.fullName,
-                custID: selected.custID,
-            });
-/* 
-            var out = JSON.stringify(selected);
-            $("#message").html('最后选择:'+out); */
-        }
-	/* 	function getCarNO(checkbox) {
-		    var options = {
-		        columns: [
-				{ display: '會員ID', name: 'custID', minWidth: 120, width: 100 },
-		        { display: '案主姓名', name: 'fullName', minWidth: 120, width: 100 }
-		        ], switchPageSizeApplyComboBox: false,
-		        //pageSize: 10
-		       //  checkbox: checkbox, 
-		       url:"Customer/list.do"
-		      // usePager:false
-		       
-		    };
-		    return options;
-		}
-	     function c_onSelected(e) { 
-	    	  console.log(e.data[0])
-	            if (!e.data || !e.data.length) return;
-
-	            var grid = liger.get("carAbsentDataGrid");
-
-	            var selected = e.data[0]; 
-	            grid.updateRow(grid.lastEditRow, {
-	                carNO: selected.carNO,
-	                carID: selected.carID,
-	            });
-
-	            var out = JSON.stringify(selected);
-	            $("#message").html('最后选择:'+out);
-	        } */
-	var carAbsentDataGridColumn = [
-								{ display: 'absentID', name: 'absentID', hide:true },
-								{ display: 'custID', name: 'custID', hide:true },
-			                    {
-			                        name: 'fullName',align:'center',  display: '學員', textField: 'fullName'
-			                        , editor:
-			                            {
-			                            	type: 'popup', valueField: 'fullName', textField: 'fullName', grid:  getFullName(true), onSelected:f_onSelected
-			                        	}
-			                    },
-			                    { display: '校車編號', name: 'carNO',type:"text", editor: { type: 'text'}},
-			               /*      {
-			                        name: 'carNO',align:'center',  display: '校車編號', textField: 'carNO'
-			                        , editor:
-			                            {
-			                            	type: 'popup', valueField: 'carNO', textField: 'carNO', grid:  getCarNO(true), onSelected:c_onSelected
-			                        	}
-			                    }, */
-			                    { display: '開始日期', name: 'billDate',type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-			                    { display: '時間', name: 'time',type:"text", editor: { type: 'text'}},
-			                    { display: '上車站點', name: 'upSite',type:"text", editor: { type: 'text'}},
-			                    { display: '下車站點', name: 'dowSite',type:"text", editor: { type: 'text'}},
-			                    { display: '缺席原因', name: 'reason',type:"text", editor: { type: 'text'}},
-			                    { display: '備註', name: 'note',type:"text", editor: { type: 'text'}}
-			                  ];
-			
-			
-	var carAbsentDataGridToolBar = [
-          { text: '新增', click: addCarAbsentData, icon: 'add' , id:"add" },
-          { line: true },
-          { text: '删除', click: deleteCarAbsentData, icon: 'delete' , id:"delete" }];
-	
-	var url = "CarSetting/getCarAbsentPojo.do?carID="+$("#carID").val();
-	
-	carAbsentDataGrid = ligerGrid("carAbsentDataGrid",null,carAbsentDataGridColumn,url,carAbsentDataGridToolBar,false,true);
-	
-	}
-	function addCarAbsentData(){
-		carAbsentDataGrid.addRow();
-	}
-	function deleteCarAbsentData(){
-		carAbsentDataGrid.deleteSelectedRow();
-	}
-	
 	
 	function itemclick(item){
 		switch (item.id){
@@ -174,20 +30,14 @@ String basePath = request.getScheme() + "://"
 	}
 	
 	function save(){
- 		$("#carRecordAdds").val(getAddedRows(carRecordDataGrid));
- 		$("#carRecordUpdates").val(getEditedRows(carRecordDataGrid));
- 		$("#carRecordDeletes").val(getDeletedRows(carRecordDataGrid));
- 		$("#carAbsentAdds").val(getAddedRows(carAbsentDataGrid));
- 		$("#carAbsentUpdates").val(getEditedRows(carAbsentDataGrid));
- 		$("#carAbsentDeletes").val(getDeletedRows(carAbsentDataGrid));
 		$("#Button1").click();	
 	}
     
 	$(function(){
-		if($("#gSID").val() != "" && $("#gSID").val() != 'null' && $("#gSID").val() != 'undefined'){
-			setTabTitle(parent.$("#framecenter"),"課程設置編輯")
+		if($("#carID").val() != "" && $("#carID").val() != 'null' && $("#carID").val() != 'undefined'){
+			setTabTitle(parent.$("#framecenter"),"校車設置編輯")
 		}else{
-			setTabTitle(parent.$("#framecenter"),"課程設置新增")
+			setTabTitle(parent.$("#framecenter"),"校車設置新增")
 		}
 		
 		$(".toptoolbar").ligerToolBar({ items: [
@@ -199,19 +49,6 @@ String basePath = request.getScheme() + "://"
 		
 		
 		ligerForm("form1");
-		bindingCarRecordDataGrid();
-		bindingCarAbsentDataGrid();
-	 $("#tab").ligerTab({onAfterSelectTabItem:function(targettabid){
-			switch(targettabid){
-				case "carRecord":
-						showGridInTab(carRecordDataGrid);
-					break;
-				case "carAbsent":
-						showGridInTab(carAbsentDataGrid);
-					break;
-				default:break;
-			}
-		}}); 
 	 var siteArray;
 	 function site(arr){
 		 var site = $("#site").val();
@@ -245,7 +82,6 @@ String basePath = request.getScheme() + "://"
 			 		var i = parseInt(div.replace(/^\w+\-/,""));
 			 		//$("."+div).remove()
 			 		siteArray.splice(i,1);
-			 		console.log(siteArray)
 			 		init(siteArray)
 			 		
 			 	})
@@ -270,7 +106,6 @@ String basePath = request.getScheme() + "://"
 		$(".site-add").click(function(){
 	 		siteArray.push("0");
 	 		init(siteArray)
-	 		console.log(siteArray)
 	 	})
 	 }
 	 site()
@@ -284,12 +119,6 @@ String basePath = request.getScheme() + "://"
 	<div class="toptoolbar"></div>
 	<form name="form1" class="liger-form" method="post" action="CarSetting/submit.do" id="form1" style="margin: 20px;">
 	<input type="hidden" name="carID" id="carID" value="${carSetting.carID }">
-	<input type="hidden" name="carRecordAdds" id="carRecordAdds">
-	<input type="hidden" name="carRecordUpdates" id="carRecordUpdates">
-	<input type="hidden" name="carRecordDeletes" id="carRecordDeletes">
-	<input type="hidden" name="carAbsentAdds" id="carAbsentAdds">
-	<input type="hidden" name="carAbsentUpdates" id="carAbsentUpdates">
-	<input type="hidden" name="carAbsentDeletes" id="carAbsentDeletes">
 	
 	<input type="hidden" name="site" id="site"  value="${carSetting.site }">
 	
@@ -322,23 +151,11 @@ String basePath = request.getScheme() + "://"
 				</div>
 		  		
 		  	</div>
-		  	<div tabid="carRecord" title="校車記錄">
-		  		<div id="carRecordDataGrid"></div>
-		  	</div>
-		  	<div tabid="carAbsent" title="缺席搭車記錄">
-		  		<div id="carAbsentDataGrid"></div>
-		  	</div>
 		  	
 	  </div>
        
 		<input type="submit" value="提交" id="Button1" class="l-button l-button-submit" style="display: none;" />
           </form>
-        
-        
-        
-        
-    
-    
     
 </body>
 </html>

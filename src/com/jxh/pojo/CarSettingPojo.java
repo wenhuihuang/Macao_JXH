@@ -8,15 +8,6 @@ import java.sql.*;
 import java.math.*;
 
 
-/** CarSetting
-
-carID,carNO,carNumber,worker,assistant,beginDate,endDate,site
-?,?,?,?,?,?,?,?
-
-carSetting.carID,carSetting.carNO,carSetting.carNumber,carSetting.worker,carSetting.assistant,carSetting.beginDate,carSetting.endDate,carSetting.site
-
-carID=?,carNO=?,carNumber=?,worker=?,assistant=?,beginDate=?,endDate=?,site=?
-*/
 public class CarSettingPojo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String carID;

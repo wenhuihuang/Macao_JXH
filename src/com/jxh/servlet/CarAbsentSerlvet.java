@@ -19,6 +19,7 @@ import com.fg.ligerui.LigerUITools;
 import com.fg.servlet.FGServlet;
 import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
+import com.jxh.biz.CarAbsentBiz;
 import com.jxh.biz.CarSettingBiz;
 import com.jxh.dao.CarAbsentDao;
 import com.jxh.dao.CarRecordDao;
@@ -34,19 +35,20 @@ import net.sf.json.JSONArray;
 /**
  * Servlet implementation class TreatmentSerlvet
  */
-@WebServlet("/CarSetting/*")
-public class CarSettingSerlvet extends FGServlet {
+@WebServlet("/CarAbsent/*")
+public class CarAbsentSerlvet extends FGServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private CarSettingDao carSettingDao = new CarSettingDao();
 	private CarSettingBiz carSettingBiz = new CarSettingBiz();
 	private CarRecordDao carRecordDao = new CarRecordDao();
 	private CarAbsentDao carAbsentDao = new CarAbsentDao();
+	private CarAbsentBiz carAbsentBiz = new CarAbsentBiz();
 	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CarSettingSerlvet() {
+    public CarAbsentSerlvet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -73,61 +75,28 @@ public class CarSettingSerlvet extends FGServlet {
 		LigerUITools.writeGridJson(page, response);
 	}
 	
-	private void add(HttpServletRequest request, HttpServletResponse response) {
-		try {
-
-			CarSetting carSetting = new CarSetting();
-
-			request.setAttribute("carSetting", carSetting);
-			forwardDispatcher("../jsp/manage/carSetting_edit.jsp", request, response);
-			
-
-		} catch (ServletException | IOException e) {
-			e.printStackTrace();
-		}
-	}
 	
-	private void edit(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			CarSetting carSetting = carSettingDao.getCarSettingByCondition(" and carID = ? ",
-					this.getParameterByName(request, "carID"));
-			request.setAttribute("carSetting", carSetting);
-			
-			forwardDispatcher("../jsp/manage/carSetting_edit.jsp",request,response);
-			
-
-		} catch (IOException | SQLException | ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
 	
-	private void submit(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+	private void addCarAbsent(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		boolean flag=false;
+		List<CarAbsent> carAbsentAdds = getGridListByParamerName(CarAbsent.class, request, "carAbsentAdds");
+		List<CarAbsent> carAbsentUpdates = getGridListByParamerName(CarAbsent.class, request, "carAbsentUpdates");
+		List<CarAbsent> carAbsentDeletes = getGridListByParamerName(CarAbsent.class, request, "carAbsentDeletes");
 		
 
-		CarSetting carSetting = this.getObjectByParameter(request, CarSetting.class);
 		
 		String message = "";
-			if(carSetting.getCarID() != null && !"".equals(carSetting.getCarID())){
-				message = carSettingBiz.updateCarSetting(carSetting);
-			}else{
-				message = carSettingBiz.insertCarSetting(carSetting);
-			}
-		
-	
+				message = carAbsentBiz.updateCarAbsents(carAbsentAdds,carAbsentUpdates,carAbsentDeletes);
 
 		// 设置为表单jsp
 		request.setAttribute("msg", message);
 		
 		
 		if (message.indexOf("成功") > 0) {
-			sendRedirect("../jsp/manage/carSetting_list.jsp", response);
+			flag = true;
+			response.getWriter().print(flag);
 		} else {
-			request.setAttribute("carSetting", carSetting);
-				forwardDispatcher("../jsp/manage/carSetting_edit.jsp", request,response);
-			
+			response.getWriter().print(flag);
 		}
 
 	}

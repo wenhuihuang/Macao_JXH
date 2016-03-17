@@ -10,7 +10,8 @@ import com.jxh.dao.DormitoryTrainingADPlanDao;
 import com.jxh.dao.DormitoryTrainingADPlanDetailDao;
 import com.jxh.dao.DormitoryTrainingPlanDao;
 import com.jxh.dao.DormitoryTrainingRecordDao;
-import com.jxh.dao.DormitoryTrainingRecordDetailDao;
+import com.jxh.dao.DormitoryTrainingRecordDetailBottomDao;
+import com.jxh.dao.DormitoryTrainingRecordDetailTopDao;
 import com.jxh.dao.DormitoryTrainingReviewDao;
 import com.jxh.dao.DormitoryTrainingReviewDetailDao;
 import com.jxh.dao.DormitoryTrainingReviewFinanceDao;
@@ -26,13 +27,13 @@ import com.jxh.vo.DormitoryTrainingADPlan;
 import com.jxh.vo.DormitoryTrainingADPlanDetail;
 import com.jxh.vo.DormitoryTrainingPlan;
 import com.jxh.vo.DormitoryTrainingRecord;
-import com.jxh.vo.DormitoryTrainingRecordDetail;
+import com.jxh.vo.DormitoryTrainingRecordDetailBottom;
+import com.jxh.vo.DormitoryTrainingRecordDetailTop;
 import com.jxh.vo.DormitoryTrainingReview;
 import com.jxh.vo.DormitoryTrainingReviewDetail;
 import com.jxh.vo.DormitoryTrainingReviewFinance;
 import com.jxh.vo.DormitoryTrainingReviewSettle;
 import com.jxh.vo.DormitoryTrainingReviewTarget;
-
 
 public class DormitoryRecordBiz {
 	private DormitoryRecordDao dormitoryRecordDao = new DormitoryRecordDao();
@@ -41,7 +42,8 @@ public class DormitoryRecordBiz {
 	private DormitoryTrainingRecordDao dormitoryTrainingRecordDao = new DormitoryTrainingRecordDao();
 	private DormitoryTrainingReviewDao dormitoryTrainingReviewDao = new DormitoryTrainingReviewDao();
 	private DormitoryTrainingADPlanDetailDao dormitoryTrainingADPlanDetailDao = new DormitoryTrainingADPlanDetailDao();
-	private DormitoryTrainingRecordDetailDao dormitoryTrainingRecordDetailDao = new DormitoryTrainingRecordDetailDao();
+	private DormitoryTrainingRecordDetailTopDao dormitoryTrainingRecordDetailTopDao = new DormitoryTrainingRecordDetailTopDao();
+	private DormitoryTrainingRecordDetailBottomDao dormitoryTrainingRecordDetailBottomDao = new DormitoryTrainingRecordDetailBottomDao();
 	private DormitoryTrainingReviewTargetDao dormitoryTrainingReviewTargetDao = new DormitoryTrainingReviewTargetDao();
 	private DormitoryTrainingReviewFinanceDao dormitoryTrainingReviewFinanceDao = new DormitoryTrainingReviewFinanceDao();
 	private DormitoryTrainingReviewSettleDao dormitoryTrainingReviewSettleDao = new DormitoryTrainingReviewSettleDao();
@@ -51,12 +53,13 @@ public class DormitoryRecordBiz {
 			DormitoryTrainingADPlan dormitoryTrainingADPlan, DormitoryTrainingRecord dormitoryTrainingRecord,
 			DormitoryTrainingReview dormitoryTrainingReview,
 			List<DormitoryTrainingADPlanDetail> dormitoryTrainingADPlanDetailAdds,
-			List<DormitoryTrainingRecordDetail> dormitoryTrainingRecordDetailAdds,
+			List<DormitoryTrainingRecordDetailTop> dormitoryTrainingRecordDetailTopAdds,
+			List<DormitoryTrainingRecordDetailBottom> dormitoryTrainingRecordDetailBottomAdds,
 			List<DormitoryTrainingReviewTarget> dormitoryTrainingReviewTargetAdds,
 			List<DormitoryTrainingReviewFinance> dormitoryTrainingReviewFinanceAdds,
 			List<DormitoryTrainingReviewSettle> dormitoryTrainingReviewSettleAdds,
 			List<DormitoryTrainingReviewDetail> dormitoryTrainingReviewDetailAdds) throws Exception {
-		
+
 		String recordID = dormitoryRecordDao.getPrimaryKey(Constants.CORPID);
 		dormitoryRecord.setRecordID(recordID);
 		int row = dormitoryRecordDao.insertDormitoryRecord(dormitoryRecord);
@@ -64,25 +67,27 @@ public class DormitoryRecordBiz {
 			if (addDormitoryTrainingPlan(dormitoryRecord, dormitoryTrainingPlan) < 0) {
 				throw new Exception("智障登記保存失败！");
 			}
-			
-			if (addDormitoryTrainingADPlan(dormitoryRecord, dormitoryTrainingADPlan,dormitoryTrainingADPlanDetailAdds) < 0) {
+
+			if (addDormitoryTrainingADPlan(dormitoryRecord, dormitoryTrainingADPlan,
+					dormitoryTrainingADPlanDetailAdds) < 0) {
 				throw new Exception("智障登記保存失败！");
 			}
-			
-			if(addDormitoryTrainingRecord(dormitoryRecord,dormitoryTrainingRecord,dormitoryTrainingRecordDetailAdds)<0){
+
+			if (addDormitoryTrainingRecord(dormitoryRecord, dormitoryTrainingRecord,
+					dormitoryTrainingRecordDetailTopAdds, dormitoryTrainingRecordDetailBottomAdds) < 0) {
 				throw new Exception("新增家庭成員資料失败！");
 			}
-			
-			if(addDormitoryTrainingReview(dormitoryRecord,dormitoryTrainingReview,dormitoryTrainingReviewTargetAdds,dormitoryTrainingReviewFinanceAdds,dormitoryTrainingReviewSettleAdds,dormitoryTrainingReviewDetailAdds)<0){
+
+			if (addDormitoryTrainingReview(dormitoryRecord, dormitoryTrainingReview, dormitoryTrainingReviewTargetAdds,
+					dormitoryTrainingReviewFinanceAdds, dormitoryTrainingReviewSettleAdds,
+					dormitoryTrainingReviewDetailAdds) < 0) {
 				throw new Exception("新增綜援記錄失败！");
 			}
-			
-			
+
 		}
 		return "操作成功！";
 	}
 
-	
 	private int addDormitoryTrainingReview(DormitoryRecord dormitoryRecord,
 			DormitoryTrainingReview dormitoryTrainingReview,
 			List<DormitoryTrainingReviewTarget> dormitoryTrainingReviewTargetAdds,
@@ -97,30 +102,32 @@ public class DormitoryRecordBiz {
 		dormitoryTrainingReview.setReviewID(reviewID);
 		dormitoryTrainingReview.setRecordID(dormitoryRecord.getRecordID());
 		int row = dormitoryTrainingReviewDao.insertDormitoryTrainingReview(dormitoryTrainingReview);
-		
-		if(row>0){
-			if(addDormitoryTrainingReviewTarget(dormitoryTrainingReview,dormitoryTrainingReviewTargetAdds)<0){
+
+		if (row > 0) {
+			if (addDormitoryTrainingReviewTarget(dormitoryTrainingReview, dormitoryTrainingReviewTargetAdds) < 0) {
 				throw new Exception("新增特津記錄記錄失败！");
 			}
 
-			if(addDormitoryTrainingReviewFinance(dormitoryTrainingReview,dormitoryTrainingReviewFinanceAdds)<0){
+			if (addDormitoryTrainingReviewFinance(dormitoryTrainingReview, dormitoryTrainingReviewFinanceAdds) < 0) {
 				throw new Exception("新增特津記錄記錄失败！");
 			}
 
-			if(addDormitoryTrainingReviewSettle(dormitoryTrainingReview,dormitoryTrainingReviewSettleAdds)<0){
+			if (addDormitoryTrainingReviewSettle(dormitoryTrainingReview, dormitoryTrainingReviewSettleAdds) < 0) {
 				throw new Exception("新增特津記錄記錄失败！");
 			}
-			
-			if(addDormitoryTrainingReviewDetail(dormitoryTrainingReview,dormitoryTrainingReviewDetailAdds)<0){
+
+			if (addDormitoryTrainingReviewDetail(dormitoryTrainingReview, dormitoryTrainingReviewDetailAdds) < 0) {
 				throw new Exception("新增特津記錄記錄失败！");
 			}
 		}
-		
+
 		return 1;
 	}
 
 	private int addDormitoryTrainingReviewDetail(DormitoryTrainingReview dormitoryTrainingReview,
-			List<DormitoryTrainingReviewDetail> dormitoryTrainingReviewDetailAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
+			List<DormitoryTrainingReviewDetail> dormitoryTrainingReviewDetailAdds)
+					throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException,
+					ParseException, IOException, SQLException {
 		if (dormitoryTrainingReviewDetailAdds == null || dormitoryTrainingReviewDetailAdds.size() <= 0) {
 			return 1;
 		}
@@ -129,7 +136,8 @@ public class DormitoryRecordBiz {
 			add.setReviewID(dormitoryTrainingReview.getReviewID());
 		}
 
-		int[] rows = dormitoryTrainingReviewDetailDao.insertDormitoryTrainingReviewDetail(dormitoryTrainingReviewDetailAdds);
+		int[] rows = dormitoryTrainingReviewDetailDao
+				.insertDormitoryTrainingReviewDetail(dormitoryTrainingReviewDetailAdds);
 		for (int i : rows) {
 			if (i < 1) {
 				return i;
@@ -138,9 +146,11 @@ public class DormitoryRecordBiz {
 
 		return 1;
 	}
-	
+
 	private int addDormitoryTrainingReviewSettle(DormitoryTrainingReview dormitoryTrainingReview,
-			List<DormitoryTrainingReviewSettle> dormitoryTrainingReviewSettleAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
+			List<DormitoryTrainingReviewSettle> dormitoryTrainingReviewSettleAdds)
+					throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException,
+					ParseException, IOException, SQLException {
 		if (dormitoryTrainingReviewSettleAdds == null || dormitoryTrainingReviewSettleAdds.size() <= 0) {
 			return 1;
 		}
@@ -149,7 +159,8 @@ public class DormitoryRecordBiz {
 			add.setReviewID(dormitoryTrainingReview.getReviewID());
 		}
 
-		int[] rows = dormitoryTrainingReviewSettleDao.insertDormitoryTrainingReviewSettle(dormitoryTrainingReviewSettleAdds);
+		int[] rows = dormitoryTrainingReviewSettleDao
+				.insertDormitoryTrainingReviewSettle(dormitoryTrainingReviewSettleAdds);
 		for (int i : rows) {
 			if (i < 1) {
 				return i;
@@ -159,9 +170,10 @@ public class DormitoryRecordBiz {
 		return 1;
 	}
 
-
 	private int addDormitoryTrainingReviewFinance(DormitoryTrainingReview dormitoryTrainingReview,
-			List<DormitoryTrainingReviewFinance> dormitoryTrainingReviewFinanceAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
+			List<DormitoryTrainingReviewFinance> dormitoryTrainingReviewFinanceAdds)
+					throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException,
+					ParseException, IOException, SQLException {
 		if (dormitoryTrainingReviewFinanceAdds == null || dormitoryTrainingReviewFinanceAdds.size() <= 0) {
 			return 1;
 		}
@@ -170,7 +182,8 @@ public class DormitoryRecordBiz {
 			add.setReviewID(dormitoryTrainingReview.getReviewID());
 		}
 
-		int[] rows = dormitoryTrainingReviewFinanceDao.insertDormitoryTrainingReviewFinance(dormitoryTrainingReviewFinanceAdds);
+		int[] rows = dormitoryTrainingReviewFinanceDao
+				.insertDormitoryTrainingReviewFinance(dormitoryTrainingReviewFinanceAdds);
 		for (int i : rows) {
 			if (i < 1) {
 				return i;
@@ -180,9 +193,10 @@ public class DormitoryRecordBiz {
 		return 1;
 	}
 
-
 	private int addDormitoryTrainingReviewTarget(DormitoryTrainingReview dormitoryTrainingReview,
-			List<DormitoryTrainingReviewTarget> dormitoryTrainingReviewTargetAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
+			List<DormitoryTrainingReviewTarget> dormitoryTrainingReviewTargetAdds)
+					throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException,
+					ParseException, IOException, SQLException {
 		if (dormitoryTrainingReviewTargetAdds == null || dormitoryTrainingReviewTargetAdds.size() <= 0) {
 			return 1;
 		}
@@ -191,7 +205,8 @@ public class DormitoryRecordBiz {
 			add.setReviewID(dormitoryTrainingReview.getReviewID());
 		}
 
-		int[] rows = dormitoryTrainingReviewTargetDao.insertDormitoryTrainingReviewTarget(dormitoryTrainingReviewTargetAdds);
+		int[] rows = dormitoryTrainingReviewTargetDao
+				.insertDormitoryTrainingReviewTarget(dormitoryTrainingReviewTargetAdds);
 		for (int i : rows) {
 			if (i < 1) {
 				return i;
@@ -201,18 +216,42 @@ public class DormitoryRecordBiz {
 		return 1;
 	}
 
-
-	private int addDormitoryTrainingRecordDetail(DormitoryTrainingRecord dormitoryTrainingRecord,
-			List<DormitoryTrainingRecordDetail> dormitoryTrainingRecordDetailAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
-		if (dormitoryTrainingRecordDetailAdds == null || dormitoryTrainingRecordDetailAdds.size() <= 0) {
+	private int addDormitoryTrainingRecordDetailTop(DormitoryTrainingRecord dormitoryTrainingRecord,
+			List<DormitoryTrainingRecordDetailTop> dormitoryTrainingRecordDetailTopAdds)
+					throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException,
+					ParseException, IOException, SQLException {
+		if (dormitoryTrainingRecordDetailTopAdds == null || dormitoryTrainingRecordDetailTopAdds.size() <= 0) {
 			return 1;
 		}
 
-		for (DormitoryTrainingRecordDetail add : dormitoryTrainingRecordDetailAdds) {
+		for (DormitoryTrainingRecordDetailTop add : dormitoryTrainingRecordDetailTopAdds) {
 			add.setMasterRecordID(dormitoryTrainingRecord.gettRecordID());
 		}
 
-		int[] rows = dormitoryTrainingRecordDetailDao.insertDormitoryTrainingRecordDetail(dormitoryTrainingRecordDetailAdds);
+		int[] rows = dormitoryTrainingRecordDetailTopDao
+				.insertDormitoryTrainingRecordDetailTop(dormitoryTrainingRecordDetailTopAdds);
+		for (int i : rows) {
+			if (i < 1) {
+				return i;
+			}
+		}
+
+		return 1;
+	}
+	private int addDormitoryTrainingRecordDetailBottom(DormitoryTrainingRecord dormitoryTrainingRecord,
+			List<DormitoryTrainingRecordDetailBottom> dormitoryTrainingRecordDetailBottomAdds)
+					throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException,
+					ParseException, IOException, SQLException {
+		if (dormitoryTrainingRecordDetailBottomAdds == null || dormitoryTrainingRecordDetailBottomAdds.size() <= 0) {
+			return 1;
+		}
+
+		for (DormitoryTrainingRecordDetailBottom add : dormitoryTrainingRecordDetailBottomAdds) {
+			add.setMasterRecordID(dormitoryTrainingRecord.gettRecordID());
+		}
+
+		int[] rows = dormitoryTrainingRecordDetailBottomDao
+				.insertDormitoryTrainingRecordDetailBottom(dormitoryTrainingRecordDetailBottomAdds);
 		for (int i : rows) {
 			if (i < 1) {
 				return i;
@@ -222,9 +261,10 @@ public class DormitoryRecordBiz {
 		return 1;
 	}
 
-
 	private int addDormitoryTrainingADPlanDetail(DormitoryTrainingADPlan dormitoryTrainingADPlan,
-			List<DormitoryTrainingADPlanDetail> dormitoryTrainingADPlanDetailAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
+			List<DormitoryTrainingADPlanDetail> dormitoryTrainingADPlanDetailAdds)
+					throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException,
+					ParseException, IOException, SQLException {
 		if (dormitoryTrainingADPlanDetailAdds == null || dormitoryTrainingADPlanDetailAdds.size() <= 0) {
 			return 1;
 		}
@@ -233,7 +273,8 @@ public class DormitoryRecordBiz {
 			add.setPlanMasterID(dormitoryTrainingADPlan.getaPlanID());
 		}
 
-		int[] rows = dormitoryTrainingADPlanDetailDao.insertDormitoryTrainingADPlanDetail(dormitoryTrainingADPlanDetailAdds);
+		int[] rows = dormitoryTrainingADPlanDetailDao
+				.insertDormitoryTrainingADPlanDetail(dormitoryTrainingADPlanDetailAdds);
 		for (int i : rows) {
 			if (i < 1) {
 				return i;
@@ -244,39 +285,48 @@ public class DormitoryRecordBiz {
 	}
 
 	private int addDormitoryTrainingReview(DormitoryRecord dormitoryRecord,
-			DormitoryTrainingReview dormitoryTrainingReview) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
+			DormitoryTrainingReview dormitoryTrainingReview) throws NoSuchFieldException, SecurityException,
+					IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
 		if (dormitoryTrainingReview == null || "".equals(dormitoryTrainingReview)) {
 			return 1;
 		}
 
 		dormitoryTrainingReview.setRecordID(dormitoryRecord.getRecordID());
-		return  dormitoryTrainingReviewDao.insertDormitoryTrainingReview(dormitoryTrainingReview);
+		return dormitoryTrainingReviewDao.insertDormitoryTrainingReview(dormitoryTrainingReview);
 	}
 
 	private int addDormitoryTrainingRecord(DormitoryRecord dormitoryRecord,
-			DormitoryTrainingRecord dormitoryTrainingRecord,List<DormitoryTrainingRecordDetail> dormitoryTrainingRecordDetailAdds) throws Exception {
-		
+			DormitoryTrainingRecord dormitoryTrainingRecord,
+			List<DormitoryTrainingRecordDetailTop> dormitoryTrainingRecordDetailTopAdds,
+			List<DormitoryTrainingRecordDetailBottom> dormitoryTrainingRecordDetailBottomAdds) throws Exception {
+
 		if (dormitoryTrainingRecord == null || "".equals(dormitoryTrainingRecord)) {
 			return 1;
 		}
-		
+
 		String recordID = dormitoryTrainingRecordDao.getPrimaryKey(Constants.CORPID);
 		dormitoryTrainingRecord.settRecordID(recordID);
 		dormitoryTrainingRecord.setRecordID(dormitoryRecord.getRecordID());
 		int row = dormitoryTrainingRecordDao.insertDormitoryTrainingRecord(dormitoryTrainingRecord);
-		
-		if(row > 0 ){
-			if(addDormitoryTrainingRecordDetail(dormitoryTrainingRecord, dormitoryTrainingRecordDetailAdds)<0){
+
+		if (row > 0) {
+			if (addDormitoryTrainingRecordDetailTop(dormitoryTrainingRecord,
+					dormitoryTrainingRecordDetailTopAdds) < 0) {
 				throw new Exception("新增結案記錄失败！");
+			}
+			if (addDormitoryTrainingRecordDetailBottom(dormitoryTrainingRecord,
+					dormitoryTrainingRecordDetailBottomAdds) < 0) {
+				throw new Exception("新增失败！");
 			}
 		}
 		return 1;
-		
+
 	}
 
 	private int addDormitoryTrainingADPlan(DormitoryRecord dormitoryRecord,
-			DormitoryTrainingADPlan dormitoryTrainingADPlan,List<DormitoryTrainingADPlanDetail> dormitoryTrainingADPlanDetailAdds) throws Exception {
-		
+			DormitoryTrainingADPlan dormitoryTrainingADPlan,
+			List<DormitoryTrainingADPlanDetail> dormitoryTrainingADPlanDetailAdds) throws Exception {
+
 		if (dormitoryTrainingADPlan == null || "".equals(dormitoryTrainingADPlan)) {
 			return 1;
 		}
@@ -285,22 +335,24 @@ public class DormitoryRecordBiz {
 
 		dormitoryTrainingADPlan.setRecordID(dormitoryRecord.getRecordID());
 		int row = dormitoryTrainingADPlanDao.insertDormitoryTrainingADPlan(dormitoryTrainingADPlan);
-		
-		if(row > 0 ){
-			if(addDormitoryTrainingADPlanDetail(dormitoryTrainingADPlan, dormitoryTrainingADPlanDetailAdds)<0){
+
+		if (row > 0) {
+			if (addDormitoryTrainingADPlanDetail(dormitoryTrainingADPlan, dormitoryTrainingADPlanDetailAdds) < 0) {
 				throw new Exception("新增結案記錄失败！");
 			}
 		}
 		return 1;
 	}
 
-	private int addDormitoryTrainingPlan(DormitoryRecord dormitoryRecord, DormitoryTrainingPlan dormitoryTrainingPlan) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, IOException, ParseException {
+	private int addDormitoryTrainingPlan(DormitoryRecord dormitoryRecord, DormitoryTrainingPlan dormitoryTrainingPlan)
+			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException,
+			SQLException, IOException, ParseException {
 		if (dormitoryTrainingPlan == null || "".equals(dormitoryTrainingPlan)) {
 			return 1;
 		}
 
 		dormitoryTrainingPlan.setRecordID(dormitoryTrainingPlan.getRecordID());
-		return  dormitoryTrainingPlanDao.insertDormitoryTrainingPlan(dormitoryTrainingPlan);
+		return dormitoryTrainingPlanDao.insertDormitoryTrainingPlan(dormitoryTrainingPlan);
 	}
 
 	public String updateDormitoryRecord(DormitoryRecord dormitoryRecord, DormitoryTrainingPlan dormitoryTrainingPlan,
@@ -309,9 +361,12 @@ public class DormitoryRecordBiz {
 			List<DormitoryTrainingADPlanDetail> dormitoryTrainingADPlanDetailAdds,
 			List<DormitoryTrainingADPlanDetail> dormitoryTrainingADPlanDetailUpdates,
 			List<DormitoryTrainingADPlanDetail> dormitoryTrainingADPlanDetailDeletes,
-			List<DormitoryTrainingRecordDetail> dormitoryTrainingRecordDetailAdds,
-			List<DormitoryTrainingRecordDetail> dormitoryTrainingRecordDetailUpdates,
-			List<DormitoryTrainingRecordDetail> dormitoryTrainingRecordDetailDeletes,
+			List<DormitoryTrainingRecordDetailTop> dormitoryTrainingRecordDetailTopAdds,
+			List<DormitoryTrainingRecordDetailTop> dormitoryTrainingRecordDetailTopUpdates,
+			List<DormitoryTrainingRecordDetailTop> dormitoryTrainingRecordDetailTopDeletes,
+			List<DormitoryTrainingRecordDetailBottom> dormitoryTrainingRecordDetailBottomAdds,
+			List<DormitoryTrainingRecordDetailBottom> dormitoryTrainingRecordDetailBottomUpdates,
+			List<DormitoryTrainingRecordDetailBottom> dormitoryTrainingRecordDetailBottomDeletes,
 			List<DormitoryTrainingReviewTarget> dormitoryTrainingReviewTargetAdds,
 			List<DormitoryTrainingReviewTarget> dormitoryTrainingReviewTargetUpdates,
 			List<DormitoryTrainingReviewTarget> dormitoryTrainingReviewTargetDeletes,
@@ -327,39 +382,37 @@ public class DormitoryRecordBiz {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public boolean deleteDormitoryRecordByRecordID(String recordID,String aPlanID,String tRecordID,String reviewID) throws Exception {
-		boolean flag=false;
-		int row = dormitoryRecordDao.deleteDormitoryRecordByRecordID(recordID);
-			if (row > 0) {
-				
-				if (deleteDormitoryTrainingPlan(recordID) < 0) {
-					throw new Exception("個案轉介評估刪除失敗！");
-				}
-				
-				if (deleteDormitoryTrainingADPlan(aPlanID) < 0) {
-					throw new Exception("個案轉介評估刪除失敗！");
-				}
-				
-				if (deleteDormitoryTrainingRecord(tRecordID) < 0) {
-					throw new Exception("個案轉介評估刪除失敗！");
-				}
 
-				if(deleteDormitoryTrainingReview(reviewID) < 0){
-					throw new Exception("結案摘要刪除失敗！");
-				}
-				
-				
-			
-				
-				flag=true;
-				
+	public boolean deleteDormitoryRecordByRecordID(String recordID, String aPlanID, String tRecordID, String reviewID)
+			throws Exception {
+		boolean flag = false;
+		int row = dormitoryRecordDao.deleteDormitoryRecordByRecordID(recordID);
+		if (row > 0) {
+
+			if (deleteDormitoryTrainingPlan(recordID) < 0) {
+				throw new Exception("個案轉介評估刪除失敗！");
 			}
+
+			if (deleteDormitoryTrainingADPlan(aPlanID) < 0) {
+				throw new Exception("個案轉介評估刪除失敗！");
+			}
+
+			if (deleteDormitoryTrainingRecord(tRecordID) < 0) {
+				throw new Exception("個案轉介評估刪除失敗！");
+			}
+
+			if (deleteDormitoryTrainingReview(reviewID) < 0) {
+				throw new Exception("結案摘要刪除失敗！");
+			}
+
+			flag = true;
+
+		}
 		return flag;
 	}
 
-
 	private int deleteDormitoryTrainingReview(String reviewID) throws SQLException, IOException {
-		if(reviewID != null && !"".equals(reviewID)){
+		if (reviewID != null && !"".equals(reviewID)) {
 			dormitoryTrainingReviewTargetDao.deleteDormitoryTrainingReviewTargetByReviewID(reviewID);
 			dormitoryTrainingReviewFinanceDao.deleteDormitoryTrainingReviewFinanceByReviewID(reviewID);
 			dormitoryTrainingReviewDetailDao.deleteDormitoryTrainingReviewDetailByReviewID(reviewID);
@@ -368,27 +421,24 @@ public class DormitoryRecordBiz {
 		return dormitoryTrainingReviewDao.deleteDormitoryTrainingReviewByRecordID(reviewID);
 	}
 
-
 	private int deleteDormitoryTrainingRecord(String tRecordID) throws SQLException, IOException {
-		if(tRecordID != null && !"".equals(tRecordID)){
-			dormitoryTrainingRecordDetailDao.deleteDormitoryTrainingRecordDetailByMasterRecordID(tRecordID);
+		if (tRecordID != null && !"".equals(tRecordID)) {
+			dormitoryTrainingRecordDetailTopDao.deleteDormitoryTrainingRecordDetailTopByMasterRecordID(tRecordID);
+			dormitoryTrainingRecordDetailBottomDao.deleteDormitoryTrainingRecordDetailBottomByMasterRecordID(tRecordID);
 		}
 		return dormitoryTrainingRecordDao.deleteDormitoryTrainingRecordByTRecordID(tRecordID);
 	}
 
-
 	private int deleteDormitoryTrainingADPlan(String aPlanID) throws SQLException, IOException {
-		if(aPlanID != null && !"".equals(aPlanID)){
+		if (aPlanID != null && !"".equals(aPlanID)) {
 			dormitoryTrainingADPlanDetailDao.deleteDormitoryTrainingADPlanDetailByAPlanID(aPlanID);
 		}
-		
+
 		return dormitoryTrainingADPlanDao.deleteDormitoryTrainingADPlanByAPlanID(aPlanID);
 	}
-
 
 	private int deleteDormitoryTrainingPlan(String recordID) throws SQLException, IOException {
 		return dormitoryTrainingPlanDao.deleteDormitoryTrainingPlanByRecordID(recordID);
 	}
-	
-	
+
 }

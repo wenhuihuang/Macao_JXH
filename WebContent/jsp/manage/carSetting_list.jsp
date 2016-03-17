@@ -97,7 +97,26 @@ String basePath = request.getScheme() + "://"
     		carRecordDataGrid.deleteSelectedRow();
     	}
     	function saveCarRecordDate(){
-    		
+     		var carRecordAdds= getAddedRows(carRecordDataGrid),
+     		carRecordUpdates=getEditedRows(carRecordDataGrid),
+     		carRecordDeletes=getDeletedRows(carRecordDataGrid);
+  		$.ajax({
+		    		type:"post",
+		 			url:"CarRecord/addCarRecord.do",
+		 			data:"carRecordAdds="+carRecordAdds+"&carRecordUpdates="+carRecordUpdates+"&carRecordDeletes="+carRecordDeletes,
+		 			success:function(msg){
+		 				if(msg == "true" || msg == true){
+		 					//maingrid.deleteSelectedRow();
+		 					alert("保存成功！")
+		 				}else{
+		 					alert("保存失敗！");
+		 				}
+		 				 
+		 			},
+		 			error:function(){
+		 				alert("保存失敗！");
+		 			}
+    		}) 
     	}
     	
         //缺席記錄
@@ -131,15 +150,15 @@ String basePath = request.getScheme() + "://"
                 var out = JSON.stringify(selected);
                 $("#message").html('最后选择:'+out); */
             }
-    	/* 	function getCarNO(checkbox) {
+    	 	function getCarNO(checkbox) {
     		    var options = {
     		        columns: [
-    				{ display: '會員ID', name: 'custID', minWidth: 120, width: 100 },
-    		        { display: '案主姓名', name: 'fullName', minWidth: 120, width: 100 }
+    				{ display: '會員ID', name: 'carID', minWidth: 120, width: 100 },
+    		        { display: '校車編號', name: 'carNO', minWidth: 120, width: 100 }
     		        ], switchPageSizeApplyComboBox: false,
     		        //pageSize: 10
     		       //  checkbox: checkbox, 
-    		       url:"Customer/list.do"
+    		       url:"CarSetting/list.do"
     		      // usePager:false
     		       
     		    };
@@ -157,9 +176,9 @@ String basePath = request.getScheme() + "://"
     	                carID: selected.carID,
     	            });
 
-    	            var out = JSON.stringify(selected);
-    	            $("#message").html('最后选择:'+out);
-    	        } */
+    	          /*   var out = JSON.stringify(selected);
+    	            $("#message").html('最后选择:'+out); */
+    	        } 
     	var carAbsentDataGridColumn = [
     								{ display: 'absentID', name: 'absentID', hide:true },
     								{ display: 'custID', name: 'custID', hide:true },
@@ -170,14 +189,14 @@ String basePath = request.getScheme() + "://"
     			                            	type: 'popup', valueField: 'fullName', textField: 'fullName', grid:  getFullName(true), onSelected:f_onSelected
     			                        	}
     			                    },
-    			                    { display: '校車編號', name: 'carNO',type:"text", editor: { type: 'text'}},
-    			               /*      {
+    			                   // { display: '校車編號', name: 'carNO',type:"text", editor: { type: 'text'}},
+    			                     {
     			                        name: 'carNO',align:'center',  display: '校車編號', textField: 'carNO'
     			                        , editor:
     			                            {
     			                            	type: 'popup', valueField: 'carNO', textField: 'carNO', grid:  getCarNO(true), onSelected:c_onSelected
     			                        	}
-    			                    }, */
+    			                    }, 
     			                    { display: '開始日期', name: 'billDate',type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
     			                    { display: '時間', name: 'time',type:"text", editor: { type: 'text'}},
     			                    { display: '上車站點', name: 'upSite',type:"text", editor: { type: 'text'}},
@@ -206,7 +225,26 @@ String basePath = request.getScheme() + "://"
     		carAbsentDataGrid.deleteSelectedRow();
     	}
     	function saveCarAbsentDate(){
-    		
+    		var carAbsentAdds= getAddedRows(carAbsentDataGrid),
+     		carAbsentUpdates=getEditedRows(carAbsentDataGrid),
+     		carAbsentDeletes=getDeletedRows(carAbsentDataGrid);
+	  		$.ajax({
+		    		type:"post",
+		 			url:"CarAbsent/addCarAbsent.do",
+		 			data:"carAbsentAdds="+carAbsentAdds+"&carAbsentUpdates="+carAbsentUpdates+"&carAbsentDeletes="+carAbsentDeletes,
+		 			success:function(msg){
+		 				if(msg == "true" || msg == true){
+		 					//maingrid.deleteSelectedRow();
+		 					alert("保存成功！")
+		 				}else{
+		 					alert("保存失敗！");
+		 				}
+		 				 
+		 			},
+		 			error:function(){
+		 				alert("保存失敗！");
+		 			}
+	    		}) 
     	}
         
         $(function ()
