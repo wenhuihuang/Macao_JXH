@@ -21,6 +21,7 @@ import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
 import com.jxh.biz.ActivitySettingBiz;
 import com.jxh.dao.ActivityApplyDao;
+import com.jxh.dao.ActivityRecordNewDao;
 import com.jxh.dao.ActivitySettingDao;
 import com.jxh.pojo.ActivitySettingPojo;
 import com.jxh.vo.ActivityApply;
@@ -38,6 +39,7 @@ public class ActivitySerlvet extends FGServlet {
 	private ActivitySettingDao activitySettingDao = new ActivitySettingDao();
 	private ActivityApplyDao activityApplyDao = new ActivityApplyDao();
 	private ActivitySettingBiz activitySettingBiz = new ActivitySettingBiz();
+	private ActivityRecordNewDao activityRecordNewDao = new ActivityRecordNewDao();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -105,6 +107,15 @@ public class ActivitySerlvet extends FGServlet {
 		PageUtils<ActivityApply> page = this.getPage(request);
 		String condition = " and actID = ? ";
 		activityApplyDao.getActivityApplyByCondition(page, condition, actId);
+		
+		LigerUITools.writeGridJson(page, response);
+	}
+	
+	private void getActivityRecordNew(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+		String actId = this.getParameterByName(request, "actID");
+		PageUtils<ActivityRecordNew> page = this.getPage(request);
+		String condition = " and actID = ? ";
+		activityRecordNewDao.getActivityRecordNewByCondition(page, condition, actId);
 		
 		LigerUITools.writeGridJson(page, response);
 	}

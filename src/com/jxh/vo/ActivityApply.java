@@ -1,31 +1,23 @@
 package com.jxh.vo;
 
-
 import java.io.Serializable;
 import java.util.Date;
 import java.math.*;
 
-
-/** ActivityApply
-	APPLYID	VARCHAR(20)
-	TYPE	INT(10)
-	REGISTERDATE	DATETIME(23,3)
-	CUSTID	VARCHAR(20)
-	PCUSTID	VARCHAR(20)
-	PARENTSEXPENSE	NUMERIC(18,2)
-	AMENTIAEXPENSE	NUMERIC(18,2)
-	FAMILY	VARCHAR(32)
-	FEXPENSE	NUMERIC(18,2)
-	FNUMBER	INT(10)
-	NOTE	VARCHAR(128)
-
-applyID,type,registerDate,custID,pCustID,parentsExpense,amentiaExpense,family,fExpense,fNumber,note
-?,?,?,?,?,?,?,?,?,?,?
-
-activityApply.applyID,activityApply.type,activityApply.registerDate,activityApply.custID,activityApply.pCustID,activityApply.parentsExpense,activityApply.amentiaExpense,activityApply.family,activityApply.fExpense,activityApply.fNumber,activityApply.note
-
-applyID=?,type=?,registerDate=?,custID=?,pCustID=?,parentsExpense=?,amentiaExpense=?,family=?,fExpense=?,fNumber=?,note=?
-*/
+/**
+ * ActivityApply
+ * 
+ * applyID,type,registerDate,custID,pCustID,parentsExpense,amentiaExpense,family
+ * ,fExpense,fNumber,note,actID ?,?,?,?,?,?,?,?,?,?,?,?
+ * 
+ * activityApply.applyID,activityApply.type,activityApply.registerDate,
+ * activityApply.custID,activityApply.pCustID,activityApply.parentsExpense,
+ * activityApply.amentiaExpense,activityApply.family,activityApply.fExpense,
+ * activityApply.fNumber,activityApply.note,activityApply.actID
+ * 
+ * applyID=?,type=?,registerDate=?,custID=?,pCustID=?,parentsExpense=?,
+ * amentiaExpense=?,family=?,fExpense=?,fNumber=?,note=?,actID=?
+ */
 public class ActivityApply implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String applyID;
@@ -39,93 +31,138 @@ public class ActivityApply implements Serializable {
 	private BigDecimal fExpense;
 	private int fNumber;
 	private String note;
+	private String actID;
 
-	public ActivityApply(){
+	public ActivityApply() {
 		super();
 	}
-	public ActivityApply(String applyID, int type, Date registerDate, String custID, String pCustID, BigDecimal parentsExpense, BigDecimal amentiaExpense, String family, BigDecimal fExpense, int fNumber, String note ){
+
+	public ActivityApply(String applyID, int type, Date registerDate, String custID, String pCustID,
+			BigDecimal parentsExpense, BigDecimal amentiaExpense, String family, BigDecimal fExpense, int fNumber,
+			String note, String actID) {
 		super();
-		this.applyID=applyID;
-		this.type=type;
-		this.registerDate=registerDate;
-		this.custID=custID;
-		this.pCustID=pCustID;
-		this.parentsExpense=parentsExpense;
-		this.amentiaExpense=amentiaExpense;
-		this.family=family;
-		this.fExpense=fExpense;
-		this.fNumber=fNumber;
-		this.note=note;
+		this.applyID = applyID;
+		this.type = type;
+		this.registerDate = registerDate;
+		this.custID = custID;
+		this.pCustID = pCustID;
+		this.parentsExpense = parentsExpense;
+		this.amentiaExpense = amentiaExpense;
+		this.family = family;
+		this.fExpense = fExpense;
+		this.fNumber = fNumber;
+		this.note = note;
+		this.actID = actID;
 	}
-	public void setApplyID(String applyID){
-		this.applyID=applyID;
+
+	public void setApplyID(String applyID) {
+		this.applyID = applyID;
 	}
-	public String getApplyID(){
+
+	public String getApplyID() {
 		return applyID;
 	}
-	public void setType(int type){
-		this.type=type;
+
+	public void setType(int type) {
+		this.type = type;
 	}
-	public int getType(){
+
+	public int getType() {
 		return type;
 	}
-	public void setRegisterDate(Date registerDate){
-		this.registerDate=registerDate;
+
+	public void setRegisterDate(Date registerDate) {
+		this.registerDate = registerDate;
 	}
-	public Date getRegisterDate(){
+
+	public Date getRegisterDate() {
 		return registerDate;
 	}
-	public void setCustID(String custID){
-		this.custID=custID;
+
+	public void setCustID(String custID) {
+		this.custID = custID;
 	}
-	public String getCustID(){
+
+	public String getCustID() {
 		return custID;
 	}
-	public void setPCustID(String pCustID){
-		this.pCustID=pCustID;
+
+
+	public void setParentsExpense(BigDecimal parentsExpense) {
+		this.parentsExpense = parentsExpense;
 	}
-	public String getPCustID(){
-		return pCustID;
-	}
-	public void setParentsExpense(BigDecimal parentsExpense){
-		this.parentsExpense=parentsExpense;
-	}
-	public BigDecimal getParentsExpense(){
+
+	public BigDecimal getParentsExpense() {
 		return parentsExpense;
 	}
-	public void setAmentiaExpense(BigDecimal amentiaExpense){
-		this.amentiaExpense=amentiaExpense;
+
+	public void setAmentiaExpense(BigDecimal amentiaExpense) {
+		this.amentiaExpense = amentiaExpense;
 	}
-	public BigDecimal getAmentiaExpense(){
+
+	public BigDecimal getAmentiaExpense() {
 		return amentiaExpense;
 	}
-	public void setFamily(String family){
-		this.family=family;
+
+	public void setFamily(String family) {
+		this.family = family;
 	}
-	public String getFamily(){
+
+	public String getFamily() {
 		return family;
 	}
-	public void setFExpense(BigDecimal fExpense){
-		this.fExpense=fExpense;
-	}
-	public BigDecimal getFExpense(){
+
+
+	public BigDecimal getFExpense() {
 		return fExpense;
 	}
-	public void setFNumber(int fNumber){
-		this.fNumber=fNumber;
+
+
+	public void setNote(String note) {
+		this.note = note;
 	}
-	public int getFNumber(){
-		return fNumber;
-	}
-	public void setNote(String note){
-		this.note=note;
-	}
-	public String getNote(){
+
+	public String getNote() {
 		return note;
 	}
+
+	public String getpCustID() {
+		return pCustID;
+	}
+
+	public void setpCustID(String pCustID) {
+		this.pCustID = pCustID;
+	}
+
+	public BigDecimal getfExpense() {
+		return fExpense;
+	}
+
+	public void setfExpense(BigDecimal fExpense) {
+		this.fExpense = fExpense;
+	}
+
+	public int getfNumber() {
+		return fNumber;
+	}
+
+	public void setfNumber(int fNumber) {
+		this.fNumber = fNumber;
+	}
+
+	public String getActID() {
+		return actID;
+	}
+
+	public void setActID(String actID) {
+		this.actID = actID;
+	}
+
 	@Override
-	public String toString(){
-		return "ActivityApply [applyID="+applyID+",type="+type+",registerDate="+registerDate+",custID="+custID+",pCustID="+pCustID+",parentsExpense="+parentsExpense+",amentiaExpense="+amentiaExpense+",family="+family+",fExpense="+fExpense+",fNumber="+fNumber+",note="+note+"]";
+	public String toString() {
+		return "ActivityApply [applyID=" + applyID + ",type=" + type + ",registerDate=" + registerDate + ",custID="
+				+ custID + ",pCustID=" + pCustID + ",parentsExpense=" + parentsExpense + ",amentiaExpense="
+				+ amentiaExpense + ",family=" + family + ",fExpense=" + fExpense + ",fNumber=" + fNumber + ",note="
+				+ note + ",actID=" + actID + "]";
 	}
 }
-

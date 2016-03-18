@@ -16,91 +16,152 @@ String basePath = request.getScheme() + "://"
 <jsp:include page="/jsp/head.jsp"></jsp:include>
 <jsp:include page="/jsp/menberData.jsp"></jsp:include>
 <script type="text/javascript">
-        var medicalRecordFamilyDataGrid,
-        	medicalRecordViewDataGrid;
+        var memberDataGrid,
+        	notMemberDataGrid,
+        	volunteerDataGrid,
+        	activityRecordDataGrid;
         
-        //家族病史
-		function bindingMedicalRecordFamilyDataGrid(){
+        //會員報名
+		function bindingMemberDataGrid(){
 		
-		var medicalRecordFamilyDataGridColumn = [
-									{ display: 'familyID', name: 'familyID', hide:true },
-				                    { display: '關係', name: 'relationShip', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '病史', name: 'historyNote', width: 100 ,type:"text",editor: { type: 'text'}},
-				                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
+		var memberDataGridColumn = [
+									{ display: 'applyID', name: 'applyID', hide:true },
+									{ display: '登記日期', name: 'registerDate', minWidth:100, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '會員編號', name: 'custNO', minWidth:100, type:"text",editor: { type: 'text'}},
+				                    { display: '會員家長姓名', name: 'fullName', minWidth:100,type:"text", editor: { type: 'text'}},
+				                    { display: '會員家長收費', name: 'parentsExpense', minWidth:100, type:"text", editor: { type: 'text'}},
+				                    { display: '智障人士姓名', name: 'fullName', minWidth:100,type:"text", editor: { type: 'text'}},
+				                    { display: '智障人士收費', name: 'amentiaExpense', minWidth:100, type:"text", editor: { type: 'text'}},
+				                    { display: '家屬', name: 'family', minWidth:100,type:"text", editor: { type: 'text'}},
+				                    { display: '家屬收費', name: 'fExpense', minWidth:100, type:"text", editor: { type: 'text'}},
+				                    { display: '家屬人數', name: 'fNumber', minWidth:100, type:"text", editor: { type: 'text'}},
+				                    { display: '總人數', name: 'note', minWidth:100,type:"text", editor: { type: 'text'}},
+				                    { display: '收費總和', name: 'count', minWidth:100, type:"text", editor: { type: 'text'}},
+				                    { display: '聯繫電話', name: 'mobileTelNO',  minWidth:100,type:"text", editor: { type: 'text'}},
+				                    { display: '備註', name: 'note', type:"text",minWidth:100, editor: { type: 'text'}}
 				                  ];
 				
 				
-		var medicalRecordFamilyDataGridToolBar = [
-	          { text: '新增', click: addMedicalRecordFamilyData, icon: 'add' , id:"add" },
+		var memberDataGridToolBar = [
+	          { text: '新增', click: addMemberData, icon: 'add' , id:"add" },
 	          { line: true },
-	          { text: '删除', click: deleteMedicalRecordFamilyData, icon: 'delete' , id:"delete" }];
+	          { text: '删除', click: deleteMemberData, icon: 'delete' , id:"delete" }];
 		
-		var url = "Medical/getMedicalRecordFamily.do?recordID="+$("#recordID").val();
+		var url = "Activity/getActivityApply.do?actID="+$("#actID").val()+"&type=1";
 		
-		medicalRecordFamilyDataGrid = ligerGrid("medicalRecordFamilyDataGrid",null,medicalRecordFamilyDataGridColumn,url,medicalRecordFamilyDataGridToolBar,false,true);
+		memberDataGrid = ligerGrid("memberDataGrid",null,memberDataGridColumn,url,memberDataGridToolBar,false,true);
 		
 	}
-	function addMedicalRecordFamilyData(){
-		medicalRecordFamilyDataGrid.addRow();
+	function addMemberData(){
+		memberDataGrid.addRow();
 	}
-	function deleteMedicalRecordFamilyData(){
-		medicalRecordFamilyDataGrid.deleteSelectedRow();
+	function deleteMemberData(){
+		memberDataGrid.deleteSelectedRow();
 	}
 	
-    //約束觀察記錄
-	function bindingMedicalRecordViewDataGrid(){
+	 //非會員報名
+	function bindingNotMemberDataGrid(){
 	
-	var medicalRecordViewDataGridColumn = [
-								{ display: 'viewID', name: 'viewID', hide:true },
-			                    { display: '日期', name: 'billDate', width: 100,type:"date",format: 'yyyy-MM-dd',editor: { type: 'date' }},
-			                    { display: '觀察時間', name: 'project', id:'time', width: 100 ,type:"text",editor: { type: 'text'}},
-			                    { display: '精神狀況', columns:[
-			                                                	{ display: '清醒', name: 'mentalitySober', type:"text",editor: { type: 'text'}},
-			                                                	{ display: '昏睡', name: 'mentalityLethargy', type:"text",editor: { type: 'text'}},
-			                                                	{ display: '煩燥不安', name: 'mentalityUneasy', type:"text",editor: { type: 'text'}}
-			                                                ]},
-			                    { display: '心肺功能', columns:[
-																{ display: '呼吸暢順', name: 'heartLungBreathe', type:"text",editor: { type: 'text'}},
-																{ display: '氣促', name: 'heartLungAnhelation', type:"text",editor: { type: 'text'}},
-			                                                ]},
-			                    { display: '血液循環', columns:[
-																{ display: '手腳溫暖', name: 'bloodWarmth', type:"text",editor: { type: 'text'}},
-																{ display: '紅潤', name: 'bloodRuddy', type:"text",editor: { type: 'text'}},
-																{ display: '冰凍', name: 'bloodFrozen', type:"text",editor: { type: 'text'}},
-																{ display: '青白', name: 'bloodPallor', type:"text",editor: { type: 'text'}},
-																{ display: '瘀青', name: 'bloodBruise', type:"text",editor: { type: 'text'}},
-																{ display: '消腫', name: 'bloodDe', type:"text",editor: { type: 'text'}}
-			                                                ]},
-			                    { display: '皮膚功能', columns:[
-																{ display: '皮膚完整', name: 'skinFull', type:"text",editor: { type: 'text'}},
-																{ display: '皮膚破損', name: 'skinDamaged', type:"text",editor: { type: 'text'}}
-			                                                ]},
-			                    { display: '神經系統', columns:[
-																{ display: '感覺無不適', name: 'nerveDiscomfort', type:"text",editor: { type: 'text'}},
-																{ display: '麻痺/痛', name: 'nerveParalysis', type:"text",editor: { type: 'text'}}
-			                                                ]},
-			                    { display: '鬆解時間', name: 'releaseDate',width:120, type:"date", editor: { type: 'date'}},
-			                    { display: '觀察者簽名', name: 'handler',width:120, type:"text", editor: { type: 'text'}},
+	var notMemberDataGridColumn = [
+								{ display: 'applyID', name: 'applyID', hide:true },
+								{ display: '登記日期', name: 'registerDate', minWidth:100, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+			                    { display: '家長姓名', name: 'fullName',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '家長收費', name: 'parentsExpense',minWidth:100,type:"text", editor: { type: 'text'}},
+			                    { display: '智障人士姓名', name: 'fullName',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '智障人士收費', name: 'amentiaExpense',wminWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '家屬', name: 'family',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '家屬收費', name: 'fExpense',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '家屬人數', name: 'fNumber',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '總人數', name: 'note',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '收費總和', name: 'count',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '聯繫電話', name: 'mobileTelNO',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '備註', name: 'note',minWidth:100, type:"text", editor: { type: 'text'}}
 			                  ];
 			
 			
-	var medicalRecordViewDataGridToolBar = [
-          { text: '新增', click: addMedicalRecordViewData, icon: 'add' , id:"add" },
+	var notMemberDataGridToolBar = [
+          { text: '新增', click: addNotMemberData, icon: 'add' , id:"add" },
           { line: true },
-          { text: '删除', click: deleteMedicalRecordViewData, icon: 'delete' , id:"delete" }];
+          { text: '删除', click: deleteNotMemberData, icon: 'delete' , id:"delete" }];
 	
-	var url = "Medical/getMedicalRecordView.do?recordID="+$("#recordID").val();
+	var url = "Activity/getActivityApply.do?actID="+$("#actID").val()+"&type=2";
 	
-	medicalRecordViewDataGrid = ligerGrid("medicalRecordViewDataGrid",null,medicalRecordViewDataGridColumn,url,medicalRecordViewDataGridToolBar,false,true);
+	notMemberDataGrid = ligerGrid("notMemberDataGrid",null,notMemberDataGridColumn,url,notMemberDataGridToolBar,false,true);
 	
-}
-function addMedicalRecordViewData(){
-	medicalRecordViewDataGrid.addRow();
-}
-function deleteMedicalRecordViewData(){
-	medicalRecordViewDataGrid.deleteSelectedRow();
-}
+	}
+	function addNotMemberData(){
+		notMemberDataGrid.addRow();
+	}
+	function deleteNotMemberData(){
+		notMemberDataGrid.deleteSelectedRow();
+	}
 	
+	 //義工報名
+	function bindingVolunteerDataGrid(){
+	
+	var volunteerDataGridColumn = [
+								{ display: 'applyID', name: 'applyID', hide:true },
+			                    { display: '會員編號', name: 'custNO', minWidth:100,type:"text",editor: { type: 'text'}},
+			                    { display: '義工姓名', name: 'fullName',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '年齡', name: 'age',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '職位', name: 'work',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '活動工作', name: 'actWork',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '聯繫電話', name: 'mobileTelNO',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '備註', name: 'note',minWidth:100, type:"text", editor: { type: 'text'}}
+			                  ];
+			
+			
+	var volunteerDataGridToolBar = [
+          { text: '新增', click: addVolunteerData, icon: 'add' , id:"add" },
+          { line: true },
+          { text: '删除', click: deleteVolunteerData, icon: 'delete' , id:"delete" }];
+	
+	var url = "Activity/getActivityApply.do?actID="+$("#actID").val()+"&type=3";
+	
+	volunteerDataGrid = ligerGrid("volunteerDataGrid",null,volunteerDataGridColumn,url,volunteerDataGridToolBar,false,true);
+	
+	}
+	function addVolunteerData(){
+		volunteerDataGrid.addRow();
+	}
+	function deleteVolunteerData(){
+		volunteerDataGrid.deleteSelectedRow();
+	}
+
+	//參與活動記錄
+	function bindingActivityRecordDataGrid(){
+	
+	var activityRecordDataGridColumn = [
+								{ display: 'recordID', name: 'applyID', hide:true },
+			                    { display: '會員編號', name: 'custNO',minWidth:100,type:"text",editor: { type: 'text'}},
+			                    { display: '會員家長姓名', name: 'fullName',minWidth:100,type:"text", editor: { type: 'text'}},
+			                    { display: '智障人士姓名', name: 'fullName',minWidth:100,type:"text", editor: { type: 'text'}},
+			                    { display: '家屬', name: 'family',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '總人數', name: 'total',minWidth:100,type:"text", editor: { type: 'text'}},
+			                    { display: '報到日期', name: 'RegisterDate',minWidth:100,type:"text", editor: { type: 'text'}},
+			                    { display: '報到時間', name: 'RegisterTime',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '是否遲到', name: 'isLate',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '備註', name: 'note',minWidth:100, type:"text", editor: { type: 'text'}}
+			                  ];
+			
+			
+	var activityRecordDataGridToolBar = [
+          { text: '新增', click: addActivityRecordData, icon: 'add' , id:"add" },
+          { line: true },
+          { text: '删除', click: deleteActivityRecordData, icon: 'delete' , id:"delete" }];
+	
+	var url = "Activity/getActivityRecordNew.do?actID="+$("#actID").val();
+	
+	activityRecordDataGrid = ligerGrid("activityRecordDataGrid",null,activityRecordDataGridColumn,url,activityRecordDataGridToolBar,false,true);
+	
+	}
+	function addActivityRecordData(){
+		activityRecordDataGrid.addRow();
+	}
+	function deleteActivityRecordData(){
+		activityRecordDataGrid.deleteSelectedRow();
+	}
+
 	
 	
 	function itemclick(item){
@@ -116,15 +177,31 @@ function deleteMedicalRecordViewData(){
 	}
 	
 	function save(){
-		$("#medicalRecordFamilyAdds").val(getAddedRows(medicalRecordFamilyDataGrid));
- 		$("#medicalRecordFamilyUpdates").val(getEditedRows(medicalRecordFamilyDataGrid));
- 		$("#medicalRecordFamilyDeletes").val(getDeletedRows(medicalRecordFamilyDataGrid));
- 		$("#medicalRecordViewAdds").val(getAddedRows(medicalRecordViewDataGrid));
- 		$("#medicalRecordViewUpdates").val(getEditedRows(medicalRecordViewDataGrid));
- 		$("#medicalRecordViewDeletes").val(getDeletedRows(medicalRecordViewDataGrid));
- 		checkboxValue(["history","hobby"])
- 		console.log($("#medicalRecordFamilyAdds").val())
- 		console.log($("#medicalRecordViewAdds").val())
+ 		//activityApplyAdds
+ 		var memberDataAdds = memberDataGrid.getAdded();	
+ 		var notMemberDataAdds = notMemberDataGrid.getAdded();	
+ 		var volunteerDataAdds = volunteerDataGrid.getAdded();	
+		var activityApplyAdds=memberDataAdds.concat(notMemberDataAdds,volunteerDataAdds);
+		$("#activityApplyAdds").val(getJsonByDataRow(activityApplyAdds));
+		//console.log(getJsonByDataRow(activityApplyAdds))
+ 		//activityApplyUpdates
+ 		var memberDataUpdates = memberDataGrid.getUpdated();
+ 		var notMemberDataUpdates = notMemberDataGrid.getUpdated();	
+ 		var volunteerDataUpdates = volunteerDataGrid.getUpdated();	
+		var activityApplyUpdates=memberDataUpdates.concat(notMemberDataUpdates,volunteerDataUpdates);
+		$("#activityApplyUpdates").val(getJsonByDataRow(activityApplyUpdates));
+		//console.log(getJsonByDataRow(activityApplyUpdates))
+		//activityApplyDeletes
+ 		var memberDataDeletes = memberDataGrid.getDeleted();
+ 		var notMemberDataDeletes = notMemberDataGrid.getDeleted();	
+ 		var volunteerDataDeletes = volunteerDataGrid.getDeleted();	
+		var activityApplyDeletes=memberDataDeletes.concat(notMemberDataDeletes,volunteerDataDeletes);
+		$("#activityApplyDeletes").val(getJsonByDataRow(activityApplyDeletes));
+		//console.log(getJsonByDataRow(activityApplyDeletes))
+		$("#activityRecordNewAdds").val(getAddedRows(activityRecordDataGrid));
+ 		$("#activityRecordNewUpdates").val(getEditedRows(activityRecordDataGrid));
+ 		$("#activityRecordNewDeletes").val(getDeletedRows(activityRecordDataGrid));
+		
 		$("#Button1").click();	
 	}
     
@@ -141,34 +218,36 @@ function deleteMedicalRecordViewData(){
             { text: '取消', click: itemclick, icon: 'back' , id:"back" }
           ]
           });
-		//拆分history checkbox
-		splitCheckbox("history");
-		splitCheckbox("hobby");
-		
 		
 		ligerForm("form1");
-		bindingMedicalRecordFamilyDataGrid();
-		bindingMedicalRecordViewDataGrid();
+		bindingMemberDataGrid();
+		bindingNotMemberDataGrid();
+		bindingVolunteerDataGrid();
+		bindingActivityRecordDataGrid();
 		
 	 $("#tab").ligerTab({onAfterSelectTabItem:function(targettabid){
 			switch(targettabid){
-				case "personageData":
-						showGridInTab(medicalRecordFamilyDataGrid);
+				case "memberData":
+						showGridInTab(memberDataGrid);
 					break;
-				case "recordData":showGridInTab(medicalRecordViewDataGrid);break;
+				case "notMemberData":showGridInTab(notMemberDataGrid);break;
+				case "volunteerData":
+					showGridInTab(volunteerDataGrid);
+					break;
+				case "recordData":
+					showGridInTab(activityRecordDataGrid);
+					break;
 				default:break;
 			}
 		}}); 
 		
     })
-        
     </script>
 </head>
 <body>
 	<div class="toptoolbar"></div>
 	<form name="form1" class="liger-form" method="post" action="Medical/submit.do" id="form1" style="margin: 20px;">
-	<input type="hidden" name="custID" id="custID" value="${customer.custID }">
-	<input type="hidden" name="recordID" id="recordID" value="${medicalRecord.recordID }">
+	<input type="hidden" name="actID" id="actID" value="${activitySetting.actID }">
 	<input type="hidden" name="medicalRecordFamilyAdds" id="medicalRecordFamilyAdds">
 	<input type="hidden" name="medicalRecordFamilyUpdates" id="medicalRecordFamilyUpdates">
 	<input type="hidden" name="medicalRecordFamilyDeletes" id="medicalRecordFamilyDeletes">
@@ -176,105 +255,119 @@ function deleteMedicalRecordViewData(){
 	<input type="hidden" name="medicalRecordViewUpdates" id="medicalRecordViewUpdates" >
 	<input type="hidden" name="medicalRecordViewDeletes" id="medicalRecordViewDeletes" >
 	
-	<input type="hidden" name="history" id="history" value="${medicalRecord.history }">
-	<input type="hidden" name="hobby" id="hobby" value="${medicalRecord.hobby }">
 	
+	<div class="inline-group row max-width-group-300 label-width-100">
+		<div class="col-md-3">
+			<label>活動編號：</label>
+			<input type="text" ltype="text" width="120px" name="actNO" value="${activitySetting.actNO }">
+		</div>
+		<div class="col-md-3">
+			<label>活動名稱：</label>
+			<input type="text" ltype="text" width="120px" name="actName" value="${activitySetting.actName }">
+		</div>
+		<div class="col-md-3">
+			<label>參加費用1：</label>
+			<input type="text" ltype="text" width="120px" name="expense1" value="${activitySetting.expense1 }">
+		</div>
+		<div class="col-md-3">
+			<label>參加費用2：</label>
+			<input type="text" ltype="text" width="120px" name="expense2" value="${activitySetting.expense2 }">
+		</div>
+	</div>
+	<div class="inline-group row max-width-group-300 label-width-100">
+		<div class="col-md-3">
+			<label>參加費用3：</label>
+			<input type="text" ltype="text" width="120px" name="expense3" value="${activitySetting.expense3 }">
+		</div>
+		<div class="col-md-3">
+			<label>參加費用4：</label>
+			<input type="text" ltype="text" width="120px" name="expense4" value="${activitySetting.expense4 }">
+		</div>
+		<div class="col-md-3">
+			<label>允許簽到次數：</label>
+			<input type="text" ltype="text" width="120px" name="time" value="${activitySetting.time }">
+		</div>
+		<div class="col-md-3">
+			<label>人數控制方式：</label>
+			<input type="text" ltype="text" width="120px" name="way" value="${activitySetting.way }">
+		</div>
+	</div>
+	<div class="inline-group row max-width-group-300 label-width-100">
+		<div class="col-md-3">
+			<label>線上可報名名額：</label>
+			<input type="text" ltype="text" width="120px" name="actName" value="${activitySetting.actName }">
+		</div>
+		<div class="col-md-3">
+			<label>線下可報名名額：</label>
+			<input type="text" ltype="text" width="120px" name="actName" value="${activitySetting.actName }">
+		</div>
+		<div class="col-md-3">
+			<label>線上已報名名額：</label>
+			<input type="text" ltype="text" width="120px" name="actName" value="${activitySetting.actName }">
+		</div>
+		<div class="col-md-3">
+			<label>線下已報名名額：</label>
+			<input type="text" ltype="text" width="120px" name="actName" value="${activitySetting.actName }">
+		</div>
+	</div>
+	<div class="inline-group row max-width-group-300 label-width-100">
+		<div class="col-md-3">
+			<label>參加可獲取積分：</label>
+			<input type="text" ltype="text" width="120px" name="actName" value="${activitySetting.actName }">
+		</div>
+		<div class="col-md-3">
+			<label>僅會員可報名：</label>
+			
+		</div>
+		<div class="col-md-3">
+			<label>報名開始日期：</label>
+			<input type="text" ltype="text" width="120px" name="actName" value="${activitySetting.actName }">
+		</div>
+		<div class="col-md-3">
+			<label>報名結束日期：</label>
+			<input type="text" ltype="text" width="120px" name="actName" value="${activitySetting.actName }">
+		</div>
+	</div>
+	<div class="inline-group row max-width-group-300 label-width-100">
+		<div class="col-md-3">
+			<label>活動開始日期：</label>
+			<input type="text" ltype="text" width="120px" name="actName" value="${activitySetting.actName }">
+		</div>
+		<div class="col-md-3">
+			<label>活動結束日期：</label>
+			<input type="text" ltype="text" width="120px" name="actName" value="${activitySetting.actName }">
+		</div>
+		<div class="col-md-3">
+			<label>活動地址：</label>
+			<input type="text" ltype="text" width="120px" name="actName" value="${activitySetting.actName }">
+		</div>
+		<div class="col-md-3">
+			<label>活動負責人：</label>
+			<input type="text" ltype="text" width="120px" name="actName" value="${activitySetting.actName }">
+		</div>
+	</div>
+	<div class="inline-group row max-width-group-300 label-width-100">
+		<div class="col-md-3">
+			<label>登記資料人：</label>
+			<input type="text" ltype="text" width="120px" name="actName" value="${activitySetting.actName }">
+		</div>
+	</div>
 	
 	<div id="tab">
-		  	<div title="學員個人健康資料" tabid="personageData">
-				<table>
-					<tbody>
-			            <tr>
-			                <td align="right" class="l-table-edit-td">姓名：</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.fullName }" name="fullName" type="text" class="fullName"/></td>
-			                
-			                <td align="right" class="l-table-edit-td">會員編號：</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNO }" name="custNO" type="text" class="custNO" /></td>
-			                
-			                <td align="right" class="l-table-edit-td">非會員編號：</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" class="custNewNO" /></td>
-			              </tr>
-					</tbody>
-				</table>
-				<div id="medicalRecordFamilyDataGrid"></div>
-				<div class="inline-group">
-					<label>個人病史</label>
-					<div class="checkbox-group padding15">
-						<p>
-						<label><input type="checkbox" class="history" value="0">糖尿病 </label>
-   						<label><input type="checkbox" class="history" value="1">高血壓</label>
-   						<label><input type="checkbox" class="history" value="2">心臟病</label>
-   						<label><input type="checkbox" class="history" value="3">腎病</label>
-   						</p>
-   						<p>
-   						<label><input type="checkbox" class="history" value="4">肝炎 </label>
-   						<label><input type="checkbox" class="history" value="5">肝炎帶菌</label>
-   						<label><input type="checkbox" class="history" value="6">結核病</label>
-   						<label><input type="checkbox" class="history" value="7">冠狀動脈病</label>
-   						</p>
-   						<p>
-   						<label><input type="checkbox" class="history" value="8">精神病 </label>
-   						<label><input type="checkbox" class="history" value="9">癌症內</label>
-   						<label><input type="checkbox" class="history" value="10">分泌性疾病</label>
-   						<label><input type="checkbox" class="history" value="11">沁尿道感染</label>
-   						</p>
-   						<p>
-   						<label><input type="checkbox" class="history" value="12">過敏性疾病</label>
-   						<label><input type="checkbox" class="history" value="13">癲癇症</label>
-   						<label><input type="checkbox" class="history" value="14">後天免疫能力缺乏症</label>
-   						<label><input type="checkbox" class="history" value="15">哮喘 </label>
-   						</p>
-   						<p>
-   						<label><input type="checkbox" class="history" value="16">身體上缺陷</label>
-   						<label><input type="checkbox" class="history" value="17">類風濕性關節炎</label>
-   						<label><input type="checkbox" class="history" value="18">系統性紅斑狼瘡</label>
-   						<label><input type="checkbox" class="history" value="19">痛風</label>
-   						</p>
-   						<p>
-   						<label><input type="checkbox" class="history" value="20">自閉症 </label>
-						</p>
-					</div>
-				</div>
-				<div class="inline-group">
-					<label>遺傳病 ：</label>
-					<textarea rows="2" cols="55" name="genetic" >${medicalRecord.genetic }</textarea>
-				</div>
-				<div class="inline-group">
-					<label>其他 ：</label>
-					<textarea rows="2" cols="55" name="geneticOther">${medicalRecord.geneticOther }</textarea>
-				</div>
-				
-				<div class="inline-group">
-					<label>嗜好：</label>
-					<div class="checkbox-group">
-						<label><input type="checkbox" class="hobby" value="0" >嗜酒</label>
-   						<label><input type="checkbox" class="hobby" value="1" >吸煙</label>
-   						<label><input type="checkbox" class="hobby" value="2" >毒品</label>
-   						<label><input type="checkbox" class="hobby" value="3" >藥物 </label>
-					</div>
-				</div>
-				<div class="inline-group">
-					<label>其他：</label>
-					<textarea rows="2" cols="55" name="hobbyNote" >${medicalRecord.hobbyNote }</textarea>
-				</div>
-		  	<div class="inline-group">
-		  		<label>過敏病史：</label>
-		  		<div>
-		  			<div class="inline-group">
-		  				<label>藥物過敏史注明：</label>
-		  				<textarea rows="2" cols="55" name="medicineNote" >${medicalRecord.medicineNote }</textarea>
-		  			</div>
-		  			<div class="inline-group">
-		  				<label>食物過敏史注明：</label>
-		  				<textarea rows="2" cols="55" name="foodNote" >${medicalRecord.foodNote }</textarea>
-		  			</div>
-		  		</div>
+		  	<div title="會員報名" tabid="memberData">
+		  		<div id="memberDataGrid"></div>
 		  	</div>
+		  	<div title="非會員報名" tabid="notMemberData">
+		  		<div id="notMemberDataGrid"></div>
 		  	</div>
-		  	<div tabid="recordData" title="約束觀察記錄">
-		  		<p style="padding:10px 0;">注：1.每隔兩小時觀察學員生命體征及臨床情況，每次鬆綁15分鐘左右。
-					2.正常用「ˇ」異常時用「×」</p>
-		  		<div id="medicalRecordViewDataGrid"></div>
+		  	<div title="義工報名" tabid="volunteerData">
+		  		<div id="volunteerDataGrid"></div>
+		  	</div>
+		  	<div title="參興活動記錄" tabid="recordData">
+		  		<div id="activityRecordDataGrid"></div>
+		  	</div>
+		  	<div title="相關文件" tabid=correlationData>
+		  		
 		  	</div>
 		  	
 	  </div>

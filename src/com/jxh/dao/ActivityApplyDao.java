@@ -9,6 +9,7 @@ import com.fg.daoImpl.DaoImpl;
 import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
 import com.jxh.vo.ActivityApply;
+import com.jxh.vo.ActivityRecordNew;
 
 public class ActivityApplyDao extends DaoImpl{
 
@@ -25,7 +26,7 @@ public class ActivityApplyDao extends DaoImpl{
 	 * @throws SQLException
 	 * @throws IOException
 	 */
-	public PageUtils<ActivityApply> getActivityApply(PageUtils<ActivityApply> page, String condition,Object ...params) throws SQLException, IOException{
+	public PageUtils<ActivityApply> getActivityApplyByCondition(PageUtils<ActivityApply> page, String condition,Object ...params) throws SQLException, IOException{
 		clazz = ActivityApply.class;
 		//获取SQL
 		condition = condition ==null?"":condition;
@@ -80,6 +81,21 @@ public class ActivityApplyDao extends DaoImpl{
 		
 		sql += condition==null||"".equals(condition)?"":condition;
 		return  (ActivityApply) this.findForObject(sql, params);
+	}
+	
+	public int[] insertActivityApplyBatch(List<ActivityApply> activityApplyAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
+		String sql = this.getSqlByPropKey("insertActivityApply");
+		return insertBatchByList(sql, activityApplyAdds);
+	}
+
+	public int[] updateActivityApplyBatch(List<ActivityApply> activityApplyUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
+		String sql = this.getSqlByPropKey("updateActivityApply");
+		return updateBatchByList(sql, activityApplyUpdates);
+	}
+
+	public int deleteActivityApplyByActID(String actID) throws IOException, SQLException {
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		return this.update(sql, actID);
 	}
 	
 	
