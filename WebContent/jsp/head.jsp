@@ -84,18 +84,22 @@ td {width: auto;}
 		for(var i = 0; i<inputObj.length;i++){
 			var inputWidth=parseInt($(inputObj[i]).attr("width"));
 			$(inputObj[i]).parents(".l-text").css("width",inputWidth+10+"px");
+			$(inputObj[i]).parents(".l-text-wrapper").css("width",inputWidth+10+"px");
 			$(inputObj[i]).css("width",inputWidth+"px");
 		}
 		
 		
 		var selectObj =  $("#"+formId).find("select");
 		for(var j = 0; j<selectObj.length;j++){
-			var inputWidth=parseInt($(selectObj[j]).attr("width"));
-			var selectId = $(selectObj[j]).attr("id");
+			 var inputWidth=parseInt($(selectObj[j]).attr("width"));
+		
+			$(selectObj[j]).siblings(".l-text-wrapper").find("input").css({"width":inputWidth+"px"});
+			$(selectObj[j]).siblings(".l-text-wrapper").find(".l-text").css({"width":inputWidth+10+"px"});
 			
+			var selectId = $(selectObj[j]).attr("id");
 			$("#"+selectId+"_txt").parents(".l-text").css("width",inputWidth+10+"px");
 			$("#"+selectId+"_txt").css("width",inputWidth+"px");
-			$("#"+selectId+"_txt").attr("name",selectId+"_txt");
+			$("#"+selectId+"_txt").attr("name",selectId+"_txt"); 
 		}
 		
 		

@@ -30,7 +30,7 @@ String basePath = request.getScheme() + "://"
 		
 		var trainingFlowDataGridColumn = [
 									{ display: 'planID', name: 'planID', hide:true },
-				                    { display: '時間', name: 'billDate', width: 100,type:"text",editor: { type: 'date' }},
+				                    { display: '時間', name: 'billDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
 				                    { display: '生活日程', name: 'living', width: 100,type:"text",editor: { type: 'text' }},
 				                    { display: '訓練項目', name: 'item', width: 100 ,type:"text",editor: { type: 'text'}},
 				                    { display: '訓練類別', name: 'type', width: 100 ,type:"text",editor: { type: 'text'}},
@@ -60,11 +60,11 @@ String basePath = request.getScheme() + "://"
 	//個別訓練記錄上半月
 	function bindingTrainingRecordTopDataGrid(){
 		var date = new Date();
-		var y = date.getFullYear()+1;
+		var year = date.getFullYear()+1;
 		var yData = (function(){
 			var arr = [];
-			for(var i = 0 ; i<30 ;i++){
-					var o = {y:y-i,text:y-i};
+			for(var i = 0 ; i<50 ;i++){
+					var o = {year:year-i,text:year-i};
 					arr.push(o);
 			}
 			return arr
@@ -72,7 +72,7 @@ String basePath = request.getScheme() + "://"
 		var mData =  (function(){
 			var arr = [];
 			for(var i = 1 ; i<13 ;i++){
-					var o = {m:i,text:i};
+					var o = {month:i,text:i};
 					arr.push(o);
 			}
 			return arr
@@ -84,13 +84,13 @@ String basePath = request.getScheme() + "://"
                         	editor: { type: 'select', data: yData, valueField: 'year' },
 	                        render: function (item)
 	                        {
-	                        	return getGridSelectedData(yData[y-parseInt(item.y)]);
+	                        	return getGridSelectedData(yData[year-parseInt(item.year)]);
 	                        }},
                         { display: '月', name: 'month',width:75,
                         	editor: { type: 'select', data: mData, valueField: 'month' },
 	                        render: function (item)
 	                        {
-	                        	return getGridSelectedData(mData[parseInt(item.m)-1]);
+	                        	return getGridSelectedData(mData[parseInt(item.month)-1]);
 	                        }},
 	                    { display: 1, name: "one", type:"text",editor: { type: 'text'}},
 	                    { display: 2, name: "two", type:"text",editor: { type: 'text'}},
@@ -138,11 +138,11 @@ String basePath = request.getScheme() + "://"
 	//個別訓練記錄下半月
 	function bindingTrainingRecordBottomDataGrid(){
 		var date = new Date();
-		var y = date.getFullYear()+1;
+		var year = date.getFullYear()+1;
 		var yData = (function(){
 			var arr = [];
-			for(var i = 0 ; i<30 ;i++){
-					var o = {y:y-i,text:y-i};
+			for(var i = 0 ; i<50 ;i++){
+					var o = {year:year-i,text:year-i};
 					arr.push(o);
 			}
 			return arr
@@ -150,7 +150,7 @@ String basePath = request.getScheme() + "://"
 		var mData =  (function(){
 			var arr = [];
 			for(var i = 1 ; i<13 ;i++){
-					var o = {m:i,text:i};
+					var o = {month:i,text:i};
 					arr.push(o);
 			}
 			return arr
@@ -163,13 +163,13 @@ String basePath = request.getScheme() + "://"
                         	editor: { type: 'select', data: yData, valueField: 'year' },
 	                        render: function (item)
 	                        {
-	                        	return getGridSelectedData(yData[y-parseInt(item.y)]);
+	                        	return getGridSelectedData(yData[year-parseInt(item.year)]);
 	                        }},
                         { display: '月', name: 'month',
                         	editor: { type: 'select', data: mData, valueField: 'month' },
 	                        render: function (item)
 	                        {
-	                        	return getGridSelectedData(mData[parseInt(item.m)-1]);
+	                        	return getGridSelectedData(mData[parseInt(item.month)-1]);
 	                        }},
 	                   { display: 16, name: "sixteen", type:"text",editor: { type: 'text'}},
 	                   { display: 17, name: "seventeen", type:"text",editor: { type: 'text'}},
@@ -213,10 +213,46 @@ String basePath = request.getScheme() + "://"
 	
     //個人訓練目標
 	function bindingGoalDataGrid(){
+		function getFullName(checkbox) {
+		    var options = {
+		        columns: [
+				{ display: '會員ID', name: 'custID', minWidth: 120, width: 100 },
+		        { display: '案主姓名', name: 'fullName', minWidth: 120, width: 100 }
+		        ], switchPageSizeApplyComboBox: false,
+		        //pageSize: 10
+		       /*  checkbox: checkbox, */
+		       url:"Customer/list.do"
+		      // usePager:false
+		       
+		    };
+		    return options;
+		}
+      function f_onSelected(e) { 
+    	  console.log(e.data[0])
+            if (!e.data || !e.data.length) return;
+
+            var grid = liger.get("goalDataGrid");
+
+            var selected = e.data[0]; 
+            grid.updateRow(grid.lastEditRow, {
+                fullName: selected.fullName,
+                custID: selected.custID,
+            });
+/* 
+            var out = JSON.stringify(selected);
+            $("#message").html('最后选择:'+out); */
+        }
 	
 	var goalDataGridColumn = [
 								{ display: 'targetID', name: 'targetID', hide:true },
-			                    { display: '姓名', name: 'fullName', width: 100,type:"text",editor: { type: 'text' }},
+								{ display: 'custID', name: 'custID', hide:true },
+							    {
+			                        name: 'fullName',align:'center', width:100, display: '姓名', textField: 'fullName'
+			                        , editor:
+			                            {
+			                            	type: 'popup', valueField: 'fullName', textField: 'fullName', grid:  getFullName(true), onSelected:f_onSelected
+			                        	}
+			                    },
 			                    { display: '個人訓練目標', name: 'target', width: 100,type:"text",editor: { type: 'text' }},
 			                    { display: '評估目標', name: 'assess', width: 100 ,type:"text",editor: { type: 'text'}},
 			                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
@@ -272,10 +308,46 @@ String basePath = request.getScheme() + "://"
 	
 	//小組訓練檢討
 	function bindingReviewDataGrid(){
+		function getFullName(checkbox) {
+		    var options = {
+		        columns: [
+				{ display: '會員ID', name: 'custID', minWidth: 120, width: 100 },
+		        { display: '案主姓名', name: 'fullName', minWidth: 120, width: 100 }
+		        ], switchPageSizeApplyComboBox: false,
+		        //pageSize: 10
+		       /*  checkbox: checkbox, */
+		       url:"Customer/list.do"
+		      // usePager:false
+		       
+		    };
+		    return options;
+		}
+      function f_onSelected(e) { 
+    	  console.log(e.data[0])
+            if (!e.data || !e.data.length) return;
+
+            var grid = liger.get("reviewDataGrid");
+
+            var selected = e.data[0]; 
+            grid.updateRow(grid.lastEditRow, {
+                fullName: selected.fullName,
+                custID: selected.custID,
+            });
+/* 
+            var out = JSON.stringify(selected);
+            $("#message").html('最后选择:'+out); */
+        }
 	
 	var reviewDataGridColumn = [
 								{ display: 'detailID', name: 'detailID', hide:true },
-			                    { display: '姓名', name: 'fullName', width: 100,type:"text",editor: { type: 'text' }},
+								{ display: 'custID', name: 'custID', hide:true },
+							    {
+			                        name: 'fullName',align:'center', width:100, display: '姓名', textField: 'fullName'
+			                        , editor:
+			                            {
+			                            	type: 'popup', valueField: 'fullName', textField: 'fullName', grid:  getFullName(true), onSelected:f_onSelected
+			                        	}
+			                    },
 			                    { display: '進度', name: 'schedule', width: 100,type:"text",editor: { type: 'text' }},
 			                    { display: '簡述表現', name: 'performance', width: 100 ,type:"text",editor: { type: 'text'}},
 			                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
@@ -366,8 +438,8 @@ String basePath = request.getScheme() + "://"
  		$("#dormitoryTrainingReviewSettleAdds").val(getAddedRows(accountDataGrid));
  		$("#dormitoryTrainingReviewSettleUpdates").val(getEditedRows(accountDataGrid));
  		$("#dormitoryTrainingReviewSettleDeletes").val(getDeletedRows(accountDataGrid)); 
-		console.log($("#dormitoryTrainingRecordDetailTopAdds").val())
- 		//$("#Button1").click();	
+ 		console.log($("#dormitoryTrainingADPlanDetailUpdates").val())
+ 		$("#Button1").click();	
 	}
     
 	$(function(){
@@ -399,7 +471,7 @@ String basePath = request.getScheme() + "://"
 			switch(targettabid){
 				case "dormitoryRecord":
 					break;
-				case "trainingPlan":showGridInTab();break;
+				case "trainingPlan":break;
 				case "trainingFlow":showGridInTab(trainingFlowDataGrid);break;
 				case "trainingRecord":showGridInTab(trainingRecordTopDataGrid);showGridInTab(trainingRecordBottomDataGrid);break;
 				case "trainingReport":showGridInTab(goalDataGrid);showGridInTab(budgetDataGrid);showGridInTab(reviewDataGrid);showGridInTab(accountDataGrid);break;
@@ -448,199 +520,202 @@ String basePath = request.getScheme() + "://"
 	<div id="tab">
 		  	<div title="院舍記錄" tabid="dormitoryRecord">
 		  		
-		  		<table cellpadding="0" cellspacing="0" class="l-table-edit" >
-			        <tbody>
-			    <tr>
-            	<td align="right" class="l-table-edit-td">住客編號：</td>
-                <td align="left" class="l-table-edit-td">
-                	<input width="120px" value="${dormitoryRecord.recordNO }" name="recordNO" type="text" ltype="text"">
-                </td>
-            
-                <td align="right" class="l-table-edit-td">姓名：</td>
-                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.fullName }" name="fullName" type="text" class="fullName"/></td>
-                
-                <td align="right" class="l-table-edit-td">會員編號：</td>
-                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNO }" name="custNO" type="text" id="custNO" /></td>
-                
-                <td align="right" class="l-table-edit-td">非會員編號：</td>
-                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" id="custNewNO" /></td>
-              </tr>
-              <tr>
-                 <td align="right" class="l-table-edit-td">申請日期:</td>
-				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${dormitoryRecord.applyDate_str }" name="applyDate" type="text" ltype="date" />
-				 </td>
-				  <td align="right" class="l-table-edit-td">預計入住日期:</td>
-				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${dormitoryRecord.planDate_str }" name="planDate" type="text" ltype="date" />
-				 </td>
-			     <td align="right" class="l-table-edit-td">入住狀態：</td>
-                <td align="left" class="l-table-edit-td">
-                   	<select name="revordType" ltype="select" width="120px" >
-                		<option value="0" <c:if test="${dormitoryRecord.recordType == '0' }">selected="selected"</c:if> >輪候</option>
-                		<option value="1" <c:if test="${dormitoryRecord.recordType == '1' }">selected="selected"</c:if> >開始</option>
-                		<option value="2" <c:if test="${dormitoryRecord.recordType == '2' }">selected="selected"</c:if> >結束</option>
-                	</select> 
-                </td>
-               	<td align="right" class="l-table-edit-td">執行員：</td>
-                <td align="left" class="l-table-edit-td">
-                <input width="120px" value="${dormitoryRecord.worker }" name="worker" type="text" id="worker" ltype="text"/>
-                </td>
-            </tr>
-            <tr>
-            	  <td align="right" class="l-table-edit-td">訓練日期:</td>
-				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${dormitoryRecord.trainingBDate_str }" name="trainingBDate" type="text" ltype="date" />
-				 	至
-				 	<input width="120px" value="${dormitoryRecord.trainingEDate_str }" name="trainingEDate" type="text" ltype="date" />
-				 </td>
-				  <td align="right" class="l-table-edit-td">訓練時間:</td>
-				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${dormitoryRecord.trainingBTime }" name="trainingBTime" type="text" ltype="text" />
-				 	至
-				 	<input width="120px" value="${dormitoryRecord.trainingETime }" name="trainingETime" type="text" ltype="text" />
-				 </td>
-            </tr>
-			          
-			             <tr>
-			             	
-			                <td align="right" class="l-table-edit-td">離開日期：</td>
-			                <td align="left" class="l-table-edit-td">
-			                <input width="120px" value="${dormitoryRecord.outDate_str }" name="outDate" type="text" ltype="date"/>
-			                </td>
-			                
-			                
-			                <td align="right" class="l-table-edit-td">訓練類別：</td>
-			                <td align="left" class="l-table-edit-td">
-			                	<input width="120px" value="${dormitoryRecord.trainingType }" name="trainingType" type="text" ltype="text" /> 
-			                </td>
-			                
-			             </tr>
-			            <tr>
-			            	
-			                
-			                <td align="right" class="l-table-edit-td">個人事務：</td>
-			                <td align="left" class="l-table-edit-td">
-			                	<textarea rows="2" cols="55" name="task">${dormitoryRecord.task }</textarea>
-			                </td>
-			                <td align="right" class="l-table-edit-td">社區互動:</td>
-			                <td align="left" class="l-table-edit-td">
-			              	  <textarea rows="2" cols="55" name="interactive">${dormitoryRecord.interactive }</textarea>
-			                </td>
-			                 <td align="right" class="l-table-edit-td">休閒活動:</td>
-			                <td align="left" class="l-table-edit-td">
-			              	  <textarea rows="2" cols="55" name="ativity">${dormitoryRecord.ativity }</textarea>
-			                </td>
-			                
-			                
-			            </tr>  
-			                 
-			            
-			            </tbody>
-			        </table>
+	  		 	 <div class="inline-group row max-width-group-300 label-width-90">
+		  			<div class="col-md-3">
+		  				<label>住客編號：</label>
+		  				<input width="120px" value="${dormitoryRecord.recordNO }" name="recordNO" type="text" ltype="text"">
+		  			</div>
+		  			<div class="col-md-3">
+		  				<label>姓名：</label>
+		  				<input width="120px" value="${customer.fullName }" name="fullName" type="text" class="fullName"/>
+		  			</div>
+		  			<div class="col-md-3">
+		  				<label>會員編號：</label>
+		  				<input width="120px" value="${customer.custNO }" name="custNO" type="text" class="custNO" />
+		  			</div>
+		  			<div class="col-md-3">
+		  				<label>非會員編號：</label>
+		  				<input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" class="custNewNO" />
+		  			</div>
+		  		</div>
+		  		
+		  		<div class="inline-group row max-width-group-300 label-width-90">
+		  			<div class="col-md-3">
+		  				<label>申請日期：</label>
+		  				<input width="120px" value="${dormitoryRecord.applyDate_str }" name="applyDate" type="text" ltype="date" />
+		  			</div>
+		  			<div class="col-md-3">
+		  				<label>預計入住日期：</label>
+		  				<input width="120px" value="${dormitoryRecord.planDate_str }" name="planDate" type="text" ltype="date" />
+		  			</div>
+		  			<div class="col-md-3">
+		  				<label>入住狀態：</label>
+		  				<select name="recordType" ltype="select" width="120px" >
+	                		<option width="120px" value="0" <c:if test="${dormitoryRecord.recordType == '0' }">selected="selected"</c:if> >輪候</option>
+	                		<option width="120px" value="1" <c:if test="${dormitoryRecord.recordType == '1' }">selected="selected"</c:if> >入住</option>
+	                		<option width="120px" value="2" <c:if test="${dormitoryRecord.recordType == '2' }">selected="selected"</c:if> >離開</option>
+	                	</select> 
+		  			</div>
+		  			<div class="col-md-3">
+		  				<label>組別：</label>
+		  				<input width="120px" value="${dormitoryRecord.groupType }" name="groupType" type="text" ltype="text"/>
+		  			</div>
+		  		</div>
+		  		<div class="inline-group row max-width-group-300 label-width-90">
+		  			<div class="col-md-3">
+		  				<label>入住日期：</label>
+		  				<input width="120px" value="${dormitoryRecord.inDate_str }" name="inDate" type="text" ltype="date"/>
+		  			</div>
+		  			<div class="col-md-3">
+		  				<label>活協：</label>
+		  				<input width="120px" value="${dormitoryRecord.actProtocol }" name="actProtocol" type="text" ltype="text"/>
+		  			</div>
+		  			<div class="col-md-3">
+		  				<label>執行員：</label>
+		  				<input width="120px" value="${dormitoryRecord.worker }" name="worker" type="text" id="worker" ltype="text"/>
+		  			</div>
+		  		</div>
+		  		
+		  		<!-- <div class="inline-group row max-width-group-300 label-width-90"> -->
+		  			<div class="inline-group">
+		  				<label style="width:90px;text-align:right;">訓練日期：</label>
+		  				<input width="120px" value="${dormitoryRecord.trainingBDate_str }" name="trainingBDate" type="text" ltype="date" />
+				 		<label>至</label>
+				 		<input width="120px" value="${dormitoryRecord.trainingEDate_str }" name="trainingEDate" type="text" ltype="date" />
+		  			</div>
+		  			<div class="inline-group">
+		  				<label style="width:90px;text-align:right;">訓練時間：</label>
+		  				<input width="120px" value="${dormitoryRecord.trainingBTime }" name="trainingBTime" type="time"/>
+				 		<label>至</label>
+				 		<input width="120px" value="${dormitoryRecord.trainingETime }" name="trainingETime" type="time"/>
+		  			</div>
+		  		<!-- </div> -->
+		  		
+		  		<div class="inline-group row max-width-group-300 label-width-90">
+		  			<div class="col-md-3">
+		  				<label>離開日期：</label>
+				 		 <input width="120px" value="${dormitoryRecord.outDate_str }" name="outDate" type="text" ltype="date"/>
+		  			</div>
+		  			<div class="col-md-3">
+		  				<label>訓練類別：</label>
+		  				<input width="120px" value="${dormitoryRecord.trainingType }" name="trainingType" type="text" ltype="text" />
+		  			</div>
+		  		</div>
+		  		<div class="inline-group">
+	  				<label style="width:90px;text-align:right;">個人事務：</label>
+			 		 <textarea rows="2" cols="55" name="task">${dormitoryRecord.task }</textarea>
+		  		</div>
+	  			<div class="inline-group">
+	  				<label style="width:90px;text-align:right;">社區互動：</label>
+	  				 <textarea rows="2" cols="55" name="interactive">${dormitoryRecord.interactive }</textarea>
+	  			</div>
+	  			<div class="inline-group">
+	  				<label style="width:90px;text-align:right;">休閒活動：</label>
+	  				 <textarea rows="2" cols="55" name="ativity">${dormitoryRecord.ativity }</textarea>
+	  			</div>
+		  		
 		  	</div>
 		  	
 		  	<div tabid="trainingPlan" title="個別訓練策劃">
-						<table cellpadding="0" cellspacing="0" class="l-table-edit" >
-					        <tbody>
-					        		 <tr>
-		            	<td align="right" class="l-table-edit-td">住客編號：</td>
-		                <td align="left" class="l-table-edit-td">
-		                	<input width="120px" value="${dormitoryRecord.recordNO }" name="recordNO" type="text" ltype="text"">
-		                </td>
-		            
-		                <td align="right" class="l-table-edit-td">姓名：</td>
-		                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.fullName }" name="fullName" type="text" class="fullName"/></td>
-		                
-		                <td align="right" class="l-table-edit-td">會員編號：</td>
-		                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNO }" name="custNO" type="text" id="custNO" /></td>
-		                
-		                <td align="right" class="l-table-edit-td">非會員編號：</td>
-		                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" id="custNewNO" /></td>
-		              </tr>
-		              <tr>
-		                 <td align="right" class="l-table-edit-td">活協:</td>
-						 <td align="left" class="l-table-edit-td">
-						 	<input width="120px" value="${dormitoryTrainingPlan.actProtocol }" name="actProtocol" type="text" ltype="text" />
-						 </td>
-						  <td align="right" class="l-table-edit-td">日期:</td>
-						 <td align="left" class="l-table-edit-td">
-						 	<input width="120px" value="${dormitoryTrainingPlan.billDate_str }" name="billDate" type="text" ltype="date" />
-						 </td>
-					    
-		            </tr>
-					            </tbody>
-					        </table>
+		  	
+		  		<div class="inline-group row max-width-group-300 label-width-90">
+		  			<div class="col-md-3">
+		  				<label>住客編號：</label>
+		  				<input width="120px" value="${dormitoryRecord.recordNO }" name="recordNO" type="text" ltype="text"">
+		  			</div>
+		  			<div class="col-md-3">
+		  				<label>姓名：</label>
+		  				<input width="120px" value="${customer.fullName }" name="fullName" type="text" class="fullName"/>
+		  			</div>
+		  			<div class="col-md-3">
+		  				<label>會員編號：</label>
+		  				<input width="120px" value="${customer.custNO }" name="custNO" type="text" class="custNO" />
+		  			</div>
+		  			<div class="col-md-3">
+		  				<label>非會員編號：</label>
+		  				<input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" class="custNewNO" />
+		  			</div>
+		  		</div>
+		  		
+		  		<div class="inline-group row max-width-group-300 label-width-90">
+		  			<div class="col-md-3">
+		  				<label>活協：</label>
+		  				<input width="120px" value="${dormitoryTrainingPlan.actProtocol }" name="actProtocol" type="text" ltype="text" />
+		  			</div>
+		  			<div class="col-md-3">
+		  				<label>日期：</label>
+		  				<input width="120px" value="${dormitoryTrainingPlan.billDate_str }" name="billDate" type="text" ltype="date" />
+		  			</div>
+		  		</div>
+		  		
 					        <div class="inline-group">
 					        	<label style="width:180px;text-align:right;">住客訓練需要、興趣及意願：</label>
-					        	<textarea rows="2" cols="55" name="note" id="note">${dormitoryTrainingPlan.suggest }</textarea>
+					        	<textarea rows="2" cols="55" name="suggest">${dormitoryTrainingPlan.suggest }</textarea>
 					        	<label style="width:120px;text-align:right;">訓練目標：</label>
-					        	<textarea rows="2" cols="55" name="note" id="note">${dormitoryTrainingPlan.target }</textarea>
+					        	<textarea rows="2" cols="55" name="target">${dormitoryTrainingPlan.target }</textarea>
 					        </div>
 					        <div class="inline-group">
 					        	<label style="width:180px;text-align:right;">訓練地點：</label>
-					        	<textarea rows="2" cols="55" name="note" id="note">${dormitoryTrainingPlan.place }</textarea>
+					        	<textarea rows="2" cols="55" name="place" >${dormitoryTrainingPlan.place }</textarea>
 					        	<label style="width:120px;text-align:right;">輔助工具使用情況：</label>
-					        	<textarea rows="2" cols="55" name="note" id="note">${dormitoryTrainingPlan.tools }</textarea>
+					        	<textarea rows="2" cols="55" name="tools">${dormitoryTrainingPlan.tools }</textarea>
 					        </div>
 					        <div class="inline-group">
 					        	<label style="width:180px;text-align:right;">獎勵方式：</label>
-					        	<textarea rows="2" cols="55" name="note" id="note">${dormitoryTrainingPlan.reward }</textarea>
+					        	<textarea rows="2" cols="55" name="reward" >${dormitoryTrainingPlan.reward }</textarea>
 					        	<label style="width:120px;text-align:right;">評估標準：</label>
-					        	<textarea rows="2" cols="55" name="note" id="note">${dormitoryTrainingPlan.standard }</textarea>
+					        	<textarea rows="2" cols="55" name="standard" >${dormitoryTrainingPlan.standard }</textarea>
 					        </div>
 					        <div class="inline-group">
 					        	<label style="width:180px;text-align:right;">須注意事項：</label>
-					        	<textarea rows="2" cols="55" name="note" id="note">${dormitoryTrainingPlan.attention }</textarea>
+					        	<textarea rows="2" cols="55" name="attention">${dormitoryTrainingPlan.attention }</textarea>
 					        </div>
 					        <div class="inline-group">
 					        	<label style="width:180px;text-align:right;">社工：</label>
-					        		<input width="120px" value="${dormitoryTrainingPlan.handler }" name="handle" type="text" ltype="text" />
+					        		<input width="120px" value="${dormitoryTrainingPlan.handler }" name="handler" type="text" ltype="text" />
 					        	<label>日期：</label>
 					        		<input width="120px" value="${dormitoryTrainingPlan.handleDate_str }" name="handleDate" type="text" ltype="date" />
 					        </div>
 					         <div class="inline-group">
 					        	<label style="width:180px;text-align:right;">社工意見：</label>
-					        	<textarea rows="2" cols="55" name="note" id="note">${dormitoryTrainingPlan.handleSuggest }</textarea>
+					        	<textarea rows="2" cols="55" name="handleSuggest" >${dormitoryTrainingPlan.handleSuggest }</textarea>
 					        </div>
 		  	</div>
 		  	
 		  	<div tabid="trainingFlow" title="個別住客整日訓練流程">
-           			<table>
-           				<tbody>
-           					<tr>
-				            	<td align="right" class="l-table-edit-td">住客編號：</td>
-				                <td align="left" class="l-table-edit-td">
-				                	<input width="120px" value="${dormitoryRecord.recordNO }" name="recordNO" type="text" ltype="text"">
-				                </td>
-				            
-				                <td align="right" class="l-table-edit-td">姓名：</td>
-				                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.fullName }" name="fullName" type="text" class="fullName"/></td>
-				                
-				                <td align="right" class="l-table-edit-td">會員編號：</td>
-				                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNO }" name="custNO" type="text" id="custNO" /></td>
-				                
-				                <td align="right" class="l-table-edit-td">非會員編號：</td>
-				                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" id="custNewNO" /></td>
-				             </tr>
-				             <tr>
-				            	<td align="right" class="l-table-edit-td">日期：</td>
-				                <td align="left" class="l-table-edit-td">
-				                	<input width="120px" value="${dormitoryTrainingADPlan.beginDate_str }" name="beginDate" type="text" ltype="date">
-				                	至
-				                	<input width="120px" value="${dormitoryTrainingADPlan.endDate_str }" name="endDate" type="text" ltype="date">
-				                </td>
-				            
-				                <td align="right" class="l-table-edit-td">負責人：</td>
-				                <td align="left" class="l-table-edit-td"><input width="120px" value="${dormitoryTrainingADPlan.handler }" name="handler" type="text" ltype="text"/></td>
-				                
-				               
-				             </tr>
-           				</tbody>
-           			</table>
-           			<div id="trainingFlowDataGrid">
-           				
-           			</div>
+		  	
+		  		<div class="inline-group row max-width-group-300 label-width-90">
+		  			<div class="col-md-3">
+		  				<label>住客編號：</label>
+				 		 <input width="120px" value="${dormitoryRecord.recordNO }" name="recordNO" type="text" ltype="text"">
+		  			</div>
+		  			<div class="col-md-3">
+		  				<label>姓名：</label>
+		  				<input width="120px" value="${customer.fullName }" name="fullName" type="text" class="fullName"/>
+		  			</div>
+		  			<div class="col-md-3">
+		  				<label>會員編號：</label>
+		  				<input width="120px" value="${customer.custNO }" name="custNO" type="text" class="custNO" />
+		  			</div>
+		  			<div class="col-md-3">
+		  				<label>非會員編號：</label>
+		  				<input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" class="custNewNO" />
+		  			</div>
+		  		</div>
+		  		<!-- <div class="inline-group row max-width-group-300 label-width-90"> -->
+		  			<div class="inline-group">
+		  				<label style="width:90px;text-align:right;">日期：</label>
+		  				<input width="120px" value="${dormitoryTrainingADPlan.beginDate_str }" name="beginDate" type="text" ltype="date">
+				        <label>至</label>
+				        <input width="120px" value="${dormitoryTrainingADPlan.endDate_str }" name="endDate" type="text" ltype="date">
+		  			</div>
+		  			<div class="inline-group">
+		  				<label style="width:90px;text-align:right;">負責人：</label>
+		  				<input width="120px" value="${dormitoryTrainingADPlan.handler }" name="handler" type="text" ltype="text"/>
+		  			</div>
+		  		<!-- </div> -->
+           		<div id="trainingFlowDataGrid">
+           	</div>
 		  	   
 		  	</div>
 		  	
@@ -659,8 +734,21 @@ String basePath = request.getScheme() + "://"
           				<label style="width:120px;text-align:right;">訓練目標：</label>
           				<input width="120px" value="${dormitoryTrainingPlan.target }" name="target" type="text" ltype="text"">
           			</div>
-          			<div id="trainingRecordTopDataGrid"></div>
-          			<div id="trainingRecordBottomDataGrid"></div>
+          			 
+	            	<div class="panel panel-default">
+	            		<div class="panel-heading">個別訓練記錄上半月</div>
+	            		<div class="panel-body">
+	            			<div id="trainingRecordTopDataGrid"></div>
+	            		</div>
+	            	</div>
+	            	
+	            	<div class="panel panel-default">
+	            		<div class="panel-heading">個別訓練記錄下半月</div>
+	            		<div class="panel-body">
+	            			<div id="trainingRecordBottomDataGrid"></div>
+	            		</div>
+	            	</div>
+          			
           			
 		  	</div>
 		  	
@@ -681,8 +769,7 @@ String basePath = request.getScheme() + "://"
           				<input width="120px" value="${dormitoryTrainingReview.endDate_str }" name="endDate" type="text" ltype="date"">
           			</div>
           			<div class="inline-group">
-          				<label style="width:120px;text-align:right;">時間：</label>
-          				逢星期
+          				<label style="width:120px;text-align:right;">時間(逢星期)：</label>
           				<select name="beginWeek" id="beginWeek" ltype="select" width="120px" >
                 			<option value="0" <c:if test="${dormitoryTrainingReview.beginWeek == '0' }">selected="selected"</c:if> >日</option>
                 			<option value="1" <c:if test="${dormitoryTrainingReview.beginWeek == '1' }">selected="selected"</c:if> >一</option>

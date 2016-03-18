@@ -14,8 +14,7 @@ public class DormitoryTrainingADPlanDetailDao extends DaoImpl<DormitoryTrainingA
 
 	@Override
 	protected String getSqlPropertiesPath() {
-		// TODO Auto-generated method stub
-		return null;
+		return "/sqls/Macao_JXH/dormitorytrainingadplandetail.properties";
 	}
 
 	/**

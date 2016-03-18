@@ -5,7 +5,7 @@ $(function(){
 	var edulevel = $("#edulevel").ligerComboBox({disabled :true});
    	var isMarry = $("#isMarry").ligerComboBox({disabled :true});
 	//會員編號
-	$("#custNO").ligerPopupEdit({
+	$(".custNO").ligerPopupEdit({
 	  /*   condition: {
 	        prefixID: 'condtion_',
 	        fields: [{ name: 'CompanyName', type: 'text', label: '客户' }]
@@ -31,7 +31,7 @@ $(function(){
 	}
 
 	//非會員編號
-	$("#custNewNO").ligerPopupEdit({
+	$(".custNewNO").ligerPopupEdit({
 	  /*   condition: {
 	        prefixID: 'condtion_',
 	        fields: [{ name: 'CompanyName', type: 'text', label: '客户' }]
@@ -99,6 +99,8 @@ $(function(){
 	    			   $("#mobileTelNO").val(m.mobileTelNO);
 	    			   $("#father").val(m.mother);
 	    			   $("#mother").val(m.mother);
+	    			   $(".custNO").val(m.custNO);
+	    			   $(".custNewNO").val(m.custNewNO); 
 	    			   $("#custNO").val(m.custNO);
 	    			   $("#custNewNO").val(m.custNewNO); 
 				   		$("#linkAdr").val(m.linkAdr);

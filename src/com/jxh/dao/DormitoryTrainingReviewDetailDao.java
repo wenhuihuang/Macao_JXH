@@ -8,14 +8,14 @@ import java.util.List;
 import com.fg.daoImpl.DaoImpl;
 import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
+import com.jxh.pojo.DormitoryTrainingReviewDetailPojo;
 import com.jxh.vo.DormitoryTrainingReviewDetail;
 
-public class DormitoryTrainingReviewDetailDao extends DaoImpl<DormitoryTrainingReviewDetail>{
+public class DormitoryTrainingReviewDetailDao extends DaoImpl{
 
 	@Override
 	protected String getSqlPropertiesPath() {
-		// TODO Auto-generated method stub
-		return null;
+		return "/sqls/Macao_JXH/dormitorytrainingreviewdetail.properties";
 	}
 
 	/**
@@ -27,15 +27,30 @@ public class DormitoryTrainingReviewDetailDao extends DaoImpl<DormitoryTrainingR
 	 * @throws IOException
 	 */
 	public PageUtils<DormitoryTrainingReviewDetail> getDormitoryTrainingReviewDetailByCondition(PageUtils<DormitoryTrainingReviewDetail> page, String condition,Object ...params) throws SQLException, IOException{
+		clazz=DormitoryTrainingReviewDetail.class;
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		condition = condition==null?"":condition;
 		sql += condition;
-		Integer count = this.findElement(getCountSql(sql), params);
+		Integer count = (Integer) this.findElement(getCountSql(sql), params);
 		page.setRowCount(count);
 		
 		
 		List<DormitoryTrainingReviewDetail> dormitoryTrainingReviewDetail = this.findForList(sql, params);
 		page.setList(dormitoryTrainingReviewDetail);
+		
+		return page;
+	}
+	public PageUtils<DormitoryTrainingReviewDetailPojo> getDormitoryTrainingReviewDetailPojoByCondition(PageUtils<DormitoryTrainingReviewDetailPojo> page, String condition,Object ...params) throws SQLException, IOException{
+		clazz=DormitoryTrainingReviewDetailPojo.class;
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		condition = condition==null?"":condition;
+		sql += condition;
+		Integer count = (Integer) this.findElement(getCountSql(sql), params);
+		page.setRowCount(count);
+		
+		
+		List<DormitoryTrainingReviewDetailPojo> dormitoryTrainingReviewDetailPojo = this.findForList(sql, params);
+		page.setList(dormitoryTrainingReviewDetailPojo);
 		
 		return page;
 	}
@@ -77,6 +92,7 @@ public class DormitoryTrainingReviewDetailDao extends DaoImpl<DormitoryTrainingR
 	}
 	
 	public DormitoryTrainingReviewDetail getDormitoryTrainingReviewDetailByCondition(String condition, Object...params) throws IOException, SQLException {
+		clazz=DormitoryTrainingReviewDetail.class;
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		
 		sql += condition==null||"".equals(condition)?"":condition;

@@ -167,3 +167,40 @@ table.td-padding10 tbody td {
     padding: 6px 10px;
     text-decoration:none;
 }
+
+.clearfix:after{
+	display:block;
+	height:0;
+	content:"";
+	clear:both;
+	visibility: hidden;
+}
+.clearfix{
+	*zoom:1;
+}
+.row:after{
+	display:block;
+	height:0;
+	content:"";
+	clear:both;
+	visibility: hidden;
+}
+.row .col-md-3{
+	width:25%;
+	float:left;
+}
+.row .col-md-4{
+	width:33%;
+	float:left;
+}
+.max-width-group-300 div{
+	max-width:300px;
+}
+.label-width-80 label{
+	width:80px;
+	text-align:right;
+}
+.label-width-90 label{
+	width:90px;
+	text-align:right;
+}

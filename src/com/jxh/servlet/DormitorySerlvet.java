@@ -34,6 +34,8 @@ import com.jxh.dao.DormitoryTrainingReviewFinanceDao;
 import com.jxh.dao.DormitoryTrainingReviewSettleDao;
 import com.jxh.dao.DormitoryTrainingReviewTargetDao;
 import com.jxh.pojo.DormitoryRecordPojo;
+import com.jxh.pojo.DormitoryTrainingReviewDetailPojo;
+import com.jxh.pojo.DormitoryTrainingReviewTargetPojo;
 import com.jxh.vo.BCustomer;
 import com.jxh.vo.DormitoryRecord;
 import com.jxh.vo.DormitoryTrainingADPlan;
@@ -228,7 +230,6 @@ public class DormitorySerlvet extends FGServlet {
 		String aPlanID = request.getParameter("aPlanID");
 		String tRecordID = request.getParameter("tRecordID");
 		String reviewID = request.getParameter("reviewID");
-		System.out.println("進入");
 		if(recordID != null && !"".equals(recordID)){
 			flag = dormitoryRecordBiz.deleteDormitoryRecordByRecordID(recordID,aPlanID,tRecordID,reviewID);
 		}
@@ -237,9 +238,9 @@ public class DormitorySerlvet extends FGServlet {
 	
 	private void getDormitoryTrainingReviewTarget(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
 		String reviewID = this.getParameterByName(request, "reviewID");
-		PageUtils<DormitoryTrainingReviewTarget> page = this.getPage(request);
+		PageUtils<DormitoryTrainingReviewTargetPojo> page = this.getPage(request);
 		String condition = " and reviewID = ? ";
-		dormitoryTrainingReviewTargetDao.getDormitoryTrainingReviewTargetByCondition(page, condition, reviewID);
+		dormitoryTrainingReviewTargetDao.getDormitoryTrainingReviewTargetPojoByCondition(page, condition, reviewID);
 		
 		LigerUITools.writeGridJson(page, response);
 	}
@@ -255,9 +256,9 @@ public class DormitorySerlvet extends FGServlet {
 	
 	private void getDormitoryTrainingReviewDetail(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
 		String reviewID = this.getParameterByName(request, "reviewID");
-		PageUtils<DormitoryTrainingReviewDetail> page = this.getPage(request);
+		PageUtils<DormitoryTrainingReviewDetailPojo> page = this.getPage(request);
 		String condition = " and reviewID = ? ";
-		dormitoryTrainingReviewDetailDao.getDormitoryTrainingReviewDetailByCondition(page, condition, reviewID);
+		dormitoryTrainingReviewDetailDao.getDormitoryTrainingReviewDetailPojoByCondition(page, condition, reviewID);
 		
 		LigerUITools.writeGridJson(page, response);
 	}

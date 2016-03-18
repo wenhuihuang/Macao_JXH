@@ -51,12 +51,14 @@ public class DormitoryTrainingADPlanDao extends DaoImpl<DormitoryTrainingADPlan>
 	}
 	
 	
-	public int updateDormitoryTrainingADPlan(List<DormitoryTrainingADPlan> dormitoryTrainingADPlan) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException{
+	public int updateDormitoryTrainingADPlan(DormitoryTrainingADPlan dormitoryTrainingADPlan) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
-		
+		Object[] params = getUpdateParams(sql, dormitoryTrainingADPlan);
+		return this.update(sql, params);
+/*		
 		int[] rows = updateBatchByList(sql, dormitoryTrainingADPlan);
 		
-		return getflagByIntArray(rows);
+		return getflagByIntArray(rows);*/
 	}
 	
 	
