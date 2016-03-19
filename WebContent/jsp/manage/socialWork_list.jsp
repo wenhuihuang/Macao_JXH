@@ -28,22 +28,22 @@ String basePath = request.getScheme() + "://"
         }
         
         function addRow(){
-        	location.href = "Activity/add.do?";
+        	location.href = "SocialWork/add.do?";
         }
         
         function modifyRow(){
-        	var actID = getRowCell(maingrid,"actID");
-        	if(actID!="" && actID!=null){
-	        	location.href = "Activity/edit.do?actID="+actID;        		
+        	var workID = getRowCell(maingrid,"workID");
+        	if(workID!="" && workID!=null){
+	        	location.href = "SocialWork/edit.do?workID="+workID;        		
         	}
         }
         function deleteRow(){
-        	var actID = getRowCell(maingrid,"actID");
+        	var workID = getRowCell(maingrid,"workID");
       		if(confirm("是否刪除？")){
      			$.ajax({
          			type:"post",
-         			url:"Activity/deleteActivity.do",
-         			data:"actID="+actID,
+         			url:"SocialWork/deleteSocialWork.do",
+         			data:"workID="+workID,
          			success:function(msg){
          				if(msg == "true" || msg == true){
          					maingrid.deleteSelectedRow();
@@ -62,25 +62,20 @@ String basePath = request.getScheme() + "://"
         
         $(function ()
         {
-        	setTabTitle(parent.$("#framecenter"),"醫護列表") 
+        	setTabTitle(parent.$("#framecenter"),"社工列表") 
         	
             var serviceStatusData = [{serviceStatus:0,text:'沒有服務'},{serviceStatus:1,text:'服務中'},{serviceStatus:2,text:'服務完成'}];
         	
             var columns = [
-    	                { display: '活動編號', name: 'actNO', minWidth: 100 },
-    	                { display: '活動名稱', name: 'actName', minWidth: 140 },
-    	                { display: '人數控制方式', name: 'way', minWidth: 140 },
-    	                { display: '線上可報名名額', name: 'onlineCan', minWidth: 140 },
-    	                { display: '線下可報名名額', name: 'offlineCan', minWidth: 140 },
-    	                { display: '報名開始日期', name: 'applyBDate', minWidth: 140 },
-    	                { display: '報名結束日期', name: 'applyEDate', minWidth: 140 },
-    	                { display: '活動開始日期', name: 'actBDate', minWidth: 140 },
-    	                { display: '活動結束日期', name: 'actEDate', minWidth: 140 },
-    	                { display: '活動地址', name: 'address', minWidth: 140 },
-    	                { display: '活動負責人', name: 'pegistrant', minWidth: 140 },
-    	                { display: '報名總人數', name: 'applyTotal', minWidth: 140 },
-    	                { display: '參與活動總人數', name: 'participationTotal', minWidth: 140 },
-    	                { display: '備註', name: 'Note', minWidth: 140 }
+    	                { display: '社工編號', name: 'workNO', minWidth: 100 },
+    	                { display: '會員編號', name: 'custNO', minWidth: 140 },
+    	                { display: '非會員編號', name: 'custNewNO', minWidth: 140 },
+    	                { display: '社工姓名', name: 'workName', minWidth: 140 },
+    	                { display: '社工性別', name: 'sex', minWidth: 140 },
+    	                { display: '出生日期', name: 'birthday', minWidth: 140 },
+    	                { display: '聯繫電話', name: 'phone', minWidth: 140 },
+    	                { display: '職位', name: 'work', minWidth: 140 },
+    	                { display: '備註', name: 'note', minWidth: 140 }
                     ] ;
             
             var gridToolBar = [
@@ -90,7 +85,7 @@ String basePath = request.getScheme() + "://"
                                { line: true },
                                { text: '删除', click: itemclick, icon: 'delete' , id:"delete" }
                              ];
-            maingrid = ligerGrid("maingrid",'99%',columns,"Activity/list.do?",gridToolBar,false,true);
+            maingrid = ligerGrid("maingrid",'99%',columns,"SocialWork/list.do?",gridToolBar,false,true);
             $("#pageloading").hide();
         });
 

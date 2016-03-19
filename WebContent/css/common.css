@@ -208,3 +208,12 @@ table.td-padding10 tbody td {
 	width:90px;
 	text-align:right;
 }
+.radio-group{
+	width:80px;
+}
+.radio-group div{
+	display:inline-block;
+}
+.radio-group label{
+	width:auto;
+}

@@ -51,8 +51,10 @@ public class ActivitySettingDao extends DaoImpl{
 	
 	
 	public int updateActivitySetting(ActivitySetting activitySetting) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException{
+		clazz = ActivitySetting.class;
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
-		Object[] params = getInsertParams(sql, activitySetting);
+		Object[] params = getUpdateParams(sql, activitySetting);
+		System.out.println(activitySetting);
 		return this.update(sql, params);
 	}
 	

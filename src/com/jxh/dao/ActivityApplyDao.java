@@ -8,6 +8,7 @@ import java.util.List;
 import com.fg.daoImpl.DaoImpl;
 import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
+import com.jxh.pojo.ActivityApplyPojo;
 import com.jxh.vo.ActivityApply;
 import com.jxh.vo.ActivityRecordNew;
 
@@ -40,7 +41,47 @@ public class ActivityApplyDao extends DaoImpl{
 		return page;
 	}
 	
-	
+	public PageUtils<ActivityApplyPojo> getActivityApply1ByCondition(PageUtils<ActivityApplyPojo> page, String condition,Object ...params) throws SQLException, IOException{
+		clazz = ActivityApplyPojo.class;
+		//获取SQL
+		condition = condition ==null?"":condition;
+		String sql = getSqlByPropKey(ToolsUtils.getCurrentMethodName())+condition;
+		//获取总页数
+		Integer count = (Integer) this.findElement(getCountSql(sql), params);
+		page.setRowCount(count);
+		List<ActivityApplyPojo> activityApplys = this.findForList(sql, params);
+		page.setList(activityApplys);
+		
+		return page;
+	}
+	public PageUtils<ActivityApplyPojo> getActivityApply2ByCondition(PageUtils<ActivityApplyPojo> page, String condition,Object ...params) throws SQLException, IOException{
+		clazz = ActivityApplyPojo.class;
+		//获取SQL
+		condition = condition ==null?"":condition;
+		String sql = getSqlByPropKey(ToolsUtils.getCurrentMethodName())+condition;
+		//获取总页数
+		Integer count = (Integer) this.findElement(getCountSql(sql), params);
+		page.setRowCount(count);
+		List<ActivityApplyPojo> activityApplys = this.findForList(sql, params);
+		page.setList(activityApplys);
+		
+		return page;
+	}
+	public PageUtils<ActivityApplyPojo> getActivityApply3ByCondition(PageUtils<ActivityApplyPojo> page, String condition,Object ...params) throws SQLException, IOException{
+		clazz = ActivityApplyPojo.class;
+		//获取SQL
+		condition = condition ==null?"":condition;
+		String sql = getSqlByPropKey(ToolsUtils.getCurrentMethodName())+condition;
+		System.out.println(sql);
+		//获取总页数
+		Integer count = (Integer) this.findElement(getCountSql(sql), params);
+		page.setRowCount(count);
+		List<ActivityApplyPojo> activityApplys = this.findForList(sql, params);
+		System.out.println(activityApplys);
+		page.setList(activityApplys);
+		
+		return page;
+	}
 	
 	
 	public int insertActivityApply(ActivityApply activityApply) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException{

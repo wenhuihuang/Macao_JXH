@@ -1,24 +1,10 @@
-package com.jxh.vo;
+package com.jxh.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.math.*;
 
-/**
- * ActivityApply
- * 
- * applyID,type,registerDate,custID,pCustID,parentsExpense,amentiaExpense,family,
- * ,fExpense,fNumber,note,actID,amentiaName,parentsName ?,?,?,?,?,?,?,?,?,?,?,?,?,?
- * 
- * activityApply.applyID,activityApply.type,activityApply.registerDate,
- * activityApply.custID,activityApply.pCustID,activityApply.parentsExpense,
- * activityApply.amentiaExpense,activityApply.family,activityApply.fExpense,
- * activityApply.fNumber,activityApply.note,activityApply.actID,activityApply.amentiaName,activityApply.parentsName
- * 
- * applyID=?,type=?,registerDate=?,custID=?,pCustID=?,parentsExpense=?,
- * amentiaExpense=?,family=?,fExpense=?,fNumber=?,note=?,actID=?,amentiaName=?,parentsName=?
- */
-public class ActivityApply implements Serializable {
+public class ActivityApplyPojo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String applyID;
 	private int type;
@@ -35,13 +21,26 @@ public class ActivityApply implements Serializable {
 	private String amentiaName;
 	private String parentsName;
 
-	public ActivityApply() {
+	private String fullName;
+	
+	private String workName;
+	private int sex;
+	private String workID;
+	private String work;
+	private String phone;
+	private String workNO;
+	private String custNO;
+	private String custNewNO;
+	private int age;
+
+	public ActivityApplyPojo() {
 		super();
 	}
 
-	public ActivityApply(String applyID, int type, Date registerDate, String custID, String pCustID,
+	public ActivityApplyPojo(String applyID, int type, Date registerDate, String custID, String pCustID,
 			BigDecimal parentsExpense, BigDecimal amentiaExpense, String family, BigDecimal fExpense, int fNumber,
-			String note, String actID,String amentiaName, String parentsName) {
+			String note, String actID, String amentiaName, String parentsName, String workName, int sex, String workID,
+			String work, String phone, String workNO, String custNO, String custNewNO, int age,String fullName) {
 		super();
 		this.applyID = applyID;
 		this.type = type;
@@ -55,8 +54,18 @@ public class ActivityApply implements Serializable {
 		this.fNumber = fNumber;
 		this.note = note;
 		this.actID = actID;
-		this.amentiaName=amentiaName;
-		this.parentsName=parentsName;
+		this.amentiaName = amentiaName;
+		this.parentsName = parentsName;
+		this.workName = workName;
+		this.sex = sex;
+		this.workID = workID;
+		this.work = work;
+		this.phone = phone;
+		this.workNO = workNO;
+		this.custNO = custNO;
+		this.custNewNO = custNewNO;
+		this.age = age;
+		this.fullName=fullName;
 	}
 
 	public String getAmentiaName() {
@@ -107,7 +116,6 @@ public class ActivityApply implements Serializable {
 		return custID;
 	}
 
-
 	public void setParentsExpense(BigDecimal parentsExpense) {
 		this.parentsExpense = parentsExpense;
 	}
@@ -132,11 +140,9 @@ public class ActivityApply implements Serializable {
 		return family;
 	}
 
-
 	public BigDecimal getFExpense() {
 		return fExpense;
 	}
-
 
 	public void setNote(String note) {
 		this.note = note;
@@ -178,11 +184,94 @@ public class ActivityApply implements Serializable {
 		this.actID = actID;
 	}
 
+	public String getWorkName() {
+		return workName;
+	}
+
+	public void setWorkName(String workName) {
+		this.workName = workName;
+	}
+
+	public int getSex() {
+		return sex;
+	}
+
+	public void setSex(int sex) {
+		this.sex = sex;
+	}
+
+	public String getWorkID() {
+		return workID;
+	}
+
+	public void setWorkID(String workID) {
+		this.workID = workID;
+	}
+
+	public String getWork() {
+		return work;
+	}
+
+	public void setWork(String work) {
+		this.work = work;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getWorkNO() {
+		return workNO;
+	}
+
+	public void setWorkNO(String workNO) {
+		this.workNO = workNO;
+	}
+
+	public String getCustNO() {
+		return custNO;
+	}
+
+	public void setCustNO(String custNO) {
+		this.custNO = custNO;
+	}
+
+	public String getCustNewNO() {
+		return custNewNO;
+	}
+
+	public void setCustNewNO(String custNewNO) {
+		this.custNewNO = custNewNO;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
 	@Override
 	public String toString() {
 		return "ActivityApply [applyID=" + applyID + ",type=" + type + ",registerDate=" + registerDate + ",custID="
 				+ custID + ",pCustID=" + pCustID + ",parentsExpense=" + parentsExpense + ",amentiaExpense="
 				+ amentiaExpense + ",family=" + family + ",fExpense=" + fExpense + ",fNumber=" + fNumber + ",note="
-				+ note + ",actID=" + actID + ",amentiaName="+amentiaName+",parentsName="+parentsName+"]";
+				+ note + ",actID=" + actID + ",amentiaName=" + amentiaName + ",parentsName=" + parentsName
+				+ ",workName=" + workName + ",sex=" + sex + ",workID=" + workID + ",work=" + work + ",phone=" + phone
+				+ ",workNO=" + workNO + ",custNO=" + custNO + ",custNewNO=" + custNewNO + ",age=" + age + ",fullName="+fullName+"]";
 	}
+
 }

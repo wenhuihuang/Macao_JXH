@@ -5,7 +5,8 @@
 	]
     },
     { text: '社工個案',isexpand:false, children: [ 
-		{url:"jsp/custCase/list.jsp",text:"個案" }
+		{url:"jsp/custCase/list.jsp",text:"個案" },
+		{url:"jsp/manage/socialWork_list.jsp",text:"社工資料" }
 	]
     },
     { text: '治療',isexpand:false, children: [ 

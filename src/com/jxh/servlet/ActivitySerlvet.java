@@ -23,6 +23,7 @@ import com.jxh.biz.ActivitySettingBiz;
 import com.jxh.dao.ActivityApplyDao;
 import com.jxh.dao.ActivityRecordNewDao;
 import com.jxh.dao.ActivitySettingDao;
+import com.jxh.pojo.ActivityApplyPojo;
 import com.jxh.pojo.ActivitySettingPojo;
 import com.jxh.vo.ActivityApply;
 import com.jxh.vo.ActivityRecordNew;
@@ -88,7 +89,7 @@ public class ActivitySerlvet extends FGServlet {
 	
 	private void edit(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			ActivitySetting activitySetting = activitySettingDao.getActivitySettingByCondition(" and custID = ? ",
+			ActivitySetting activitySetting = activitySettingDao.getActivitySettingByCondition(" and actID = ? ",
 					this.getParameterByName(request, "actID"));
 		
 			request.setAttribute("activitySetting", activitySetting);
@@ -104,9 +105,16 @@ public class ActivitySerlvet extends FGServlet {
 
 	private void getActivityApply(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
 		String actId = this.getParameterByName(request, "actID");
-		PageUtils<ActivityApply> page = this.getPage(request);
-		String condition = " and actID = ? ";
-		activityApplyDao.getActivityApplyByCondition(page, condition, actId);
+		String type = this.getParameterByName(request, "type");
+		PageUtils<ActivityApplyPojo> page = this.getPage(request);
+		String condition = " and actID = ? and type = ? ";
+		if("1".equals(type)){//會員
+			activityApplyDao.getActivityApply1ByCondition(page, condition, actId,type);
+		}else if("2".equals(type)){//非會員
+			activityApplyDao.getActivityApply2ByCondition(page, condition, actId,type);
+		}else if("3".equals(type)){//社工
+			activityApplyDao.getActivityApply3ByCondition(page, condition, actId,type);
+		}
 		
 		LigerUITools.writeGridJson(page, response);
 	}
@@ -144,7 +152,6 @@ public class ActivitySerlvet extends FGServlet {
 	
 
 		// 设置为表单jsp
-		request.setAttribute(JSPTYPE, ConstantUtils.FORMJSP);
 		request.setAttribute("msg", message);
 		
 
