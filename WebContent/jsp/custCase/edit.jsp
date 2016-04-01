@@ -189,7 +189,7 @@ String basePath = request.getScheme() + "://"
 	}
 	 var addBCustCaseRecordDlg = null;
     function addBCustCaseRecord(){
-    		var fullName = $("#fullName").val();
+    		var fullName = $(".fullName").val();
     		if(fullName != "" && fullName != null && fullName != 'undefined'){
     			addBCustCaseRecordDlg = openDialog("CustCase/addBCustCaseRecord.do?fullName="+fullName,"添加個案撮要記錄","addBCustCaseRecordByDlg");    			
     		}else{
@@ -198,11 +198,14 @@ String basePath = request.getScheme() + "://"
     		}
    	}
    	function addBCustCaseRecordByDlg(){
-   		var y = addBCustCaseRecordDlg.recordData.talksDate.getFullYear();
-   		var m = addBCustCaseRecordDlg.recordData.talksDate.getMonth()+1;
-   		var d = addBCustCaseRecordDlg.recordData.talksDate.getDate();
-   		var date = y+"-"+m+"-"+d;
-   		addBCustCaseRecordDlg.recordData.talksDate=date;
+   		if(addBCustCaseRecordDlg.recordData.talksDate !=  null && addBCustCaseRecordDlg.recordData.talksDate != ""){
+   			var y = addBCustCaseRecordDlg.recordData.talksDate.getFullYear();
+   	   		var m = addBCustCaseRecordDlg.recordData.talksDate.getMonth()+1;
+   	   		var d = addBCustCaseRecordDlg.recordData.talksDate.getDate();
+   	   		var date = y+"-"+m+"-"+d;
+   	   		addBCustCaseRecordDlg.recordData.talksDate=date;	
+   		}
+   		
    		if(addBCustCaseRecordDlg.recordData!=null&&addBCustCaseRecordDlg.recordData!=""){
    			bCustCaseRecordGrid.addRow(addBCustCaseRecordDlg.recordData);
   		}
@@ -249,79 +252,87 @@ String basePath = request.getScheme() + "://"
 	  <input type="hidden" name="bCustCaseSummaryHandleAdds" id="bCustCaseSummaryHandleAdds">
 	  <input type="hidden" name="bCustCaseSummaryHandleUpdates" id="bCustCaseSummaryHandleUpdates">
 	  <input type="hidden" name="bCustCaseSummaryHandleDeletes" id="bCustCaseSummaryHandleDeletes">
-	   <table>
-	   		<tbody>
-	   			<tr>
-	   				 <td align="right" class="l-table-edit-td">個案編碼：</td><!-- 有name -->
-			         <td align="left" class="l-table-edit-td"><input width="120px" value="${custCasePojo.caseNO }" name="caseNO" type="text" class="caseNO" ltype="text" /></td>
-	   				 <td align="right" class="l-table-edit-td">會員編號：</td>
-	                <td align="left" class="l-table-edit-td">
-	                <input width="120px" value="${custCasePojo.custNO }" name="custNO" type="text" id="custNO" />
-	                </td>
-	                
-	                <td align="right" class="l-table-edit-td">非會員編號：</td>
-	                <td align="left" class="l-table-edit-td">
-	                <input width="120px" value="${custCasePojo.custNewNO }" name="custNewNO" type="text" id="custNewNO" ltype="text"/>
-	                </td>
-	                
-	                 <td align="right" class="l-table-edit-td">案主姓名：</td><!-- 有name -->
-	                <td align="left" class="l-table-edit-td"><input disabled="disabled" width="120px"  value="${custCasePojo.fullName }" name="fullName" class="fullName" type="text" /></td>
-	             </tr>
-	             <tr>
-	                <td align="right" class="l-table-edit-td">性別：</td>
-	                <td align="left" class="l-table-edit-td" id="sex">
-	                	<input id="sex1" type="radio" disabled="disabled" name="sex"  value="1" <c:if test="${custCasePojo.sex != 2 }">checked="checked"</c:if> /><label for="sex1">男</label> 
-						<input id="sex2" type="radio" disabled="disabled" name="sex" value="2" <c:if test="${custCasePojo.sex == 2 }">checked="checked"</c:if> /><label for="sex2">女</label>
-	                </td>
-	                <td align="right" class="l-table-edit-td">出生日期：</td>
-	                <td align="left" class="l-table-edit-td">
-	                <input disabled="disabled" width="120px" value="${custCasePojo.birthday_ChnStr }" name="birthday_ChnStr" type="text" id="birthday_ChnStr" ltype="date" />
-	                </td>
-	                 <td align="right" class="l-table-edit-td">聯繫電話:</td>
-			         <td align="left" class="l-table-edit-td"><input width="120px" disabled="disabled" value="${custCasePojo.mobileTelNO }"  name="mobileTelNO" type="text" id="mobileTelNO" ltype="text" /></td>
-                	<td align="right" class="l-table-edit-td">父親姓名:</td>
-                	 <td align="left" class="l-table-edit-td"><input width="120px" value="${custCasePojo.father }"  name="father" type="text" id="father" ltype="text" /></td>
-                </tr>
-                <tr>
-	               
-	                <td align="right" class="l-table-edit-td">母親姓名:</td>
-	                <td align="left" class="l-table-edit-td"><input width="120px" value="${custCasePojo.mother }"  name="mother" type="text" id="mother" ltype="text" /></td>
-			            <td align="right" class="l-table-edit-td">教育程度:</td>
-			                <td align="left" class="l-table-edit-td">
-			                	<!-- <input type="text" id="edulevel"> -->
-			                 	<select disabled="disabled" name="edulevel" id="edulevel" ltype="select" width="120px" >
-			                		<option value="1" <c:if test="${custCasePojo.edulevel != '2' and cust.edulevel != '3' and cust.edulevel != '4' and cust.edulevel != '5' }">selected="selected"</c:if> >無</option>
-			                		<option value="2" <c:if test="${custCasePojo.edulevel == '2' }">selected="selected"</c:if> >小學</option>
-			                		<option value="3" <c:if test="${custCasePojo.edulevel == '3' }">selected="selected"</c:if> >中學</option>
-			                		<option value="4" <c:if test="${custCasePojo.edulevel == '4' }">selected="selected"</c:if> >高中</option>
-			                		<option value="5" <c:if test="${custCasePojo.edulevel == '5' }">selected="selected"</c:if> >大學</option>
-			                	</select> 
-			                </td>       
-	                <td align="right" class="l-table-edit-td">婚姻狀況:</td>
-			               	<td align="left" class="l-table-edit-td">
-			               		<select disabled="disabled" name="isMarry" id="isMarry" ltype="select" width="120px" >
-			                		<option value="0" <c:if test="${custCasePojo.isMarry != '1'}">selected="selected"</c:if> >未婚</option>
-			                		<option value="1" <c:if test="${custCasePojo.isMarry == '1'}">selected="selected"</c:if> >已婚</option>
-			                	</select>
-			               	</td>
-	                 <td align="right" class="l-table-edit-td">身份證號碼:</td>
-   					 <td align="left" class="l-table-edit-td">
-   					 	<input disabled="disabled" width="120px" value="${custCasePojo.cardNO }" name="cardNO" type="text" id="cardNO" ltype="text" />
-   					 </td>
-   				  </tr>
-		           <tr>
-	   				 <td align="right" class="l-table-edit-td">經濟情況:</td>
-		             <td align="left" class="l-table-edit-td"><input width="120px" value="${custCasePojo.economics }" name="economics" type="text" id="economics" ltype="text" /></td>
-		     </tr>
-	   			<tr>
-	   				 <td align="right" class="l-table-edit-td">住址:</td>
-	   				   <td align="left" class="l-table-edit-td" colspan="3">
-	                	<textarea disabled="disabled" rows="2" cols="55" name="linkAdr" id="linkAdr">${custCasePojo.linkAdr }</textarea>
-	               <%--  <input width="120px" value="${custCasePojo.linkAdr }" name="linkAdr" type="text" id="linkAdr" ltype="text" /> --%>
-	                </td>
-	   			</tr>
-	   		</tbody>
-	   </table>
+	  
+	 <div class="inline-group row max-width-group-300 label-width-100">
+		<div class="col-md-3">
+			<label>個案編碼：</label>
+			<input width="120px" value="${custCasePojo.caseNO }" name="caseNO" type="text" class="caseNO" ltype="text"  value="${activitySetting.actName }"  validate="{required:true,notnull:true}" />
+		</div>
+		<div class="col-md-3">
+			<label>會員編號：</label>
+			 <input width="120px" value="${custCasePojo.custNO }" name="custNO" type="text" class="custNO" />
+		</div>
+		<div class="col-md-3">
+			<label>非會員編號：</label>
+			<input width="120px" value="${custCasePojo.custNewNO }" name="custNewNO" type="text" id="custNewNO" ltype="text"/>
+		</div>
+		<div class="col-md-3">
+			<label>案主姓名：</label>
+			<input width="120px"  value="${custCasePojo.fullName }" name="fullName" class="fullName" type="text"  validate="{required:true,notnull:true}" />
+		</div>
+	</div>
+	
+	 <div class="inline-group row max-width-group-300 label-width-100">
+		<div class="col-md-3">
+			<label>性別：</label>
+			<div class="radio-group">
+				<input id="sex1" type="radio" name="sex"  value="1" <c:if test="${socialWork.sex != 2 }">checked="checked"</c:if> /><label for="sex1">男</label> 
+				<input id="sex2" type="radio" name="sex" value="2" <c:if test="${socialWork.sex == 2 }">checked="checked"</c:if> /><label for="sex2">女</label>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<label>出生日期：</label>
+			<input disabled="disabled" width="120px" value="${custCasePojo.birthday_ChnStr }" name="birthday_ChnStr" type="text" id="birthday_ChnStr" ltype="date" />
+		</div>
+		<div class="col-md-3">
+			<label>聯繫電話：</label>
+			<input width="120px" disabled="disabled" value="${custCasePojo.mobileTelNO }"  name="mobileTelNO" type="text" id="mobileTelNO" ltype="text" />
+		</div>
+		<div class="col-md-3">
+			<label>父親姓名：</label>
+			<input width="120px" value="${custCasePojo.father }"  name="father" type="text" id="father" ltype="text" />
+		</div>
+	</div>
+	
+	<div class="inline-group row max-width-group-300 label-width-100">
+		<div class="col-md-3">
+			<label>母親姓名：</label>
+			<input width="120px" value="${custCasePojo.mother }"  name="mother" type="text" id="mother" ltype="text" />
+		</div>
+		<div class="col-md-3">
+			<label>教育程度：</label>
+			<select disabled="disabled" name="edulevel" id="edulevel" ltype="select" width="120px" >
+           		<option value="1" <c:if test="${custCasePojo.edulevel != '2' and cust.edulevel != '3' and cust.edulevel != '4' and cust.edulevel != '5' }">selected="selected"</c:if> >無</option>
+           		<option value="2" <c:if test="${custCasePojo.edulevel == '2' }">selected="selected"</c:if> >小學</option>
+           		<option value="3" <c:if test="${custCasePojo.edulevel == '3' }">selected="selected"</c:if> >中學</option>
+           		<option value="4" <c:if test="${custCasePojo.edulevel == '4' }">selected="selected"</c:if> >高中</option>
+           		<option value="5" <c:if test="${custCasePojo.edulevel == '5' }">selected="selected"</c:if> >大學</option>
+           	</select>
+		</div>
+		<div class="col-md-3">
+			<label>婚姻狀況：</label>
+			<select disabled="disabled" name="isMarry" id="isMarry" ltype="select" width="120px" >
+        		<option value="0" <c:if test="${custCasePojo.isMarry != '1'}">selected="selected"</c:if> >未婚</option>
+        		<option value="1" <c:if test="${custCasePojo.isMarry == '1'}">selected="selected"</c:if> >已婚</option>
+        	</select>
+		</div>
+		<div class="col-md-3">
+			<label>身份證號碼：</label>
+			<input disabled="disabled" width="120px" value="${custCasePojo.cardNO }" name="cardNO" type="text" id="cardNO" ltype="text" />
+		</div>
+	</div>
+	
+	<div class="inline-group row max-width-group-300 label-width-100">
+		<div class="col-md-3">
+			<label>經濟情況：</label>
+			<input width="120px" value="${custCasePojo.economics }" name="economics" type="text" id="economics" ltype="text" />
+		</div>
+	</div>
+	<div class="inline-group label-width-100">
+		<label>住址：</label>
+		<textarea disabled="disabled" rows="2" cols="55" name="linkAdr" id="linkAdr">${custCasePojo.linkAdr }</textarea>
+	</div>
+	  
 	  <div id="tab">
 	  
 		  	<div tabid="WorkerWaysGrid" title="接案登記" id="bCustCase"><!-- 接案登記 -->
@@ -367,54 +378,8 @@ String basePath = request.getScheme() + "://"
 			                <td align="left" class="l-table-edit-td"><input width="120px" value="${custCasePojo.goldCard }"  name="goldCard" class="goldCard" type="text" ltype="text" /></td>
 			            	
 			            </tr>  
-			            <tr>
-			                
-			                
-			               <%-- <td align="right" class="l-table-edit-td">聯繫電話:</td>
-			               <td align="left" class="l-table-edit-td"><input width="120px" value="${custCasePojo.mobileTelNO }"  name="cardNO" type="text" id="cardNO" ltype="text" /></td>
-			                 --%>
-			               <%--  <td align="right" class="l-table-edit-td">父親姓名:</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${custCasePojo.father }"  name="cardNO" type="text" id="cardNO" ltype="text" /></td>
-			                <td align="right" class="l-table-edit-td">母親姓名:</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${custCasePojo.mother }"  name="cardNO" type="text" id="cardNO" ltype="text" /></td>
-			                 --%>
-			              <%--   <td align="right" class="l-table-edit-td">住址:</td>
-			                <td align="left" class="l-table-edit-td" colspan="3">
-			                	<textarea rows="2" cols="55" name="linkAdr">${custCasePojo.linkAdr }</textarea>
-			                <input width="120px" value="${custCasePojo.linkAdr }" name="linkAdr" type="text" id="linkAdr" ltype="text" />
-			                </td> --%>
-			                
-			                
-			            </tr>
 			            
 			            
-			            <tr>
-			          	 <%-- 	<td align="right" class="l-table-edit-td">婚姻狀況:</td>
-			               	<td align="left" class="l-table-edit-td">
-			               		<input type="text" id="isMarry">
-			                	<select name="isSendLetter" id="isSendLetter" ltype="select" width="120px" >
-			                		<option value="0" <c:if test="${custCasePojo.isMarry != '1'}">selected="selected"</c:if> >未婚</option>
-			                		<option value="1" <c:if test="${custCasePojo.isMarry == '1'}">selected="selected"</c:if> >已婚</option>
-			                	</select>
-			              	  </td> --%>
-			         <%--        <td align="right" class="l-table-edit-td">教育程度:</td>
-			                <td align="left" class="l-table-edit-td">
-			                	<input type="text" id="edulevel">
-			                	<select name="edulevel" id="edulevel" ltype="select" width="120px" >
-			                		<option value="1" <c:if test="${custCasePojo.edulevel != '2' and cust.edulevel != '3' and cust.edulevel != '4' and cust.edulevel != '5' }">selected="selected"</c:if> >無</option>
-			                		<option value="2" <c:if test="${custCasePojo.edulevel == '2' }">selected="selected"</c:if> >小學</option>
-			                		<option value="3" <c:if test="${custCasePojo.edulevel == '3' }">selected="selected"</c:if> >中學</option>
-			                		<option value="4" <c:if test="${custCasePojo.edulevel == '4' }">selected="selected"</c:if> >高中</option>
-			                		<option value="5" <c:if test="${custCasePojo.edulevel == '5' }">selected="selected"</c:if> >大學</option>
-			                	</select>
-			                </td> --%>
-			                
-			               <%--  <td align="right" class="l-table-edit-td">經濟情況:</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${custCasePojo.economics }" name="telNo" type="text" id="telNo" ltype="text" /></td>
-			                 --%>
-			              
-			                
-			            </tr>
 			            <tr>
 			            	 <td align="right" class="l-table-edit-td">面對/呈現之問題:</td>
 			                <td align="left" class="l-table-edit-td" colspan="3">
@@ -644,70 +609,6 @@ String basePath = request.getScheme() + "://"
 		  	<div tabid="bCustCaseAssessGrid" title="個案轉介評估"><!-- 個案轉介評估 -->
                	<table>
           			<tbody>
-          				<tr>
-          					 <%-- <td align="right" class="l-table-edit-td">個案編號:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.caseNO }" type="text" class="caseNO" ltype="text" />
-          					 </td> --%>
-          					 <%--  <td align="right" class="l-table-edit-td">會員編號:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.custNO }" name="custNO" type="text" id="custNO" ltype="text" />
-          					 </td> --%>
-          					<%--  <td align="right" class="l-table-edit-td">非會員編號:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.custNewNO }" name="custNewNO" type="text" id="custNewNO" ltype="text" />
-          					 </td> --%>
-          					<%--   <td align="right" class="l-table-edit-td">案主姓名:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.fullName }" class="fullName" type="text" ltype="text" />
-          					 </td> --%>
-          				</tr>
-          				<tr>
-          					<%--  <td align="right" class="l-table-edit-td">出生日期:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.birthday_ChnStr }" name="birthday_ChnStr" type="text" id="birthday_ChnStr" ltype="date" />
-          					 </td> --%>
-          					<%--  <td align="right" class="l-table-edit-td">身份證號碼:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.cardNO }" name="cardNO" type="text" id="cardNO" ltype="text" />
-          					 </td>
-          					 <td align="right" class="l-table-edit-td">性別:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.sex }" name="sex" type="text" id="sex" ltype="text" />
-          					 </td>
-          					  <td align="right" class="l-table-edit-td">聯繫電話:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.mobileTelNO }" name="mobileTelNO" type="text" id="mobileTelNO" ltype="text" />
-          					 </td> --%>
-          				</tr>
-          				<tr>
-          					<%--  <td align="right" class="l-table-edit-td">父親姓名:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.father }" name="father" type="text" id="father" ltype="text" />
-          					 </td>
-          					  <td align="right" class="l-table-edit-td">母親姓名:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.mother }" name="mother" type="text" id="mother" ltype="text" />
-          					 </td>
-          					 <td align="right" class="l-table-edit-td">住址:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.linkAdr }" name="linkAdr" type="text" id="linkAdr" ltype="text" />
-          					 </td>
-          					 <td align="right" class="l-table-edit-td">婚姻狀況:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.isMarry }" name="isMarry" type="text" id="isMarry" ltype="text" />
-          					 </td> --%>
-          				</tr>
-          				<tr>
-          					<%--  <td align="right" class="l-table-edit-td">教育程度:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.edulevel }" name="edulevel" type="text" id="edulevel" ltype="text" />
-          					 </td>
-          					 <td align="right" class="l-table-edit-td">經濟情況:</td>
-          					 <td align="left" class="l-table-edit-td">
-          					 	<input width="120px" value="${custCasePojo.economics }" name="economics" type="text" id="economics" ltype="text" />
-          					 </td> --%>
-          				</tr>
           				<tr>
           					 <td align="right" class="l-table-edit-td">評估社工:</td>
           					 <td align="left" class="l-table-edit-td">

@@ -7,16 +7,19 @@ import java.math.*;
 /**
  * ActivityApply
  * 
- * applyID,type,registerDate,custID,pCustID,parentsExpense,amentiaExpense,family,
- * ,fExpense,fNumber,note,actID,amentiaName,parentsName ?,?,?,?,?,?,?,?,?,?,?,?,?,?
+ * applyID,type,registerDate,custID,pCustID,parentsExpense,amentiaExpense,
+ * family, ,fExpense,fNumber,note,actID,amentiaName,parentsName,tel
+ * ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
  * 
  * activityApply.applyID,activityApply.type,activityApply.registerDate,
  * activityApply.custID,activityApply.pCustID,activityApply.parentsExpense,
  * activityApply.amentiaExpense,activityApply.family,activityApply.fExpense,
- * activityApply.fNumber,activityApply.note,activityApply.actID,activityApply.amentiaName,activityApply.parentsName
+ * activityApply.fNumber,activityApply.note,activityApply.actID,activityApply.
+ * amentiaName,activityApply.parentsName,activityApply.tel
  * 
  * applyID=?,type=?,registerDate=?,custID=?,pCustID=?,parentsExpense=?,
- * amentiaExpense=?,family=?,fExpense=?,fNumber=?,note=?,actID=?,amentiaName=?,parentsName=?
+ * amentiaExpense=?,family=?,fExpense=?,fNumber=?,note=?,actID=?,amentiaName=?,
+ * parentsName=?,tel=?
  */
 public class ActivityApply implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -34,6 +37,7 @@ public class ActivityApply implements Serializable {
 	private String actID;
 	private String amentiaName;
 	private String parentsName;
+	private String tel;
 
 	public ActivityApply() {
 		super();
@@ -41,7 +45,7 @@ public class ActivityApply implements Serializable {
 
 	public ActivityApply(String applyID, int type, Date registerDate, String custID, String pCustID,
 			BigDecimal parentsExpense, BigDecimal amentiaExpense, String family, BigDecimal fExpense, int fNumber,
-			String note, String actID,String amentiaName, String parentsName) {
+			String note, String actID, String amentiaName, String parentsName, String tel) {
 		super();
 		this.applyID = applyID;
 		this.type = type;
@@ -55,8 +59,9 @@ public class ActivityApply implements Serializable {
 		this.fNumber = fNumber;
 		this.note = note;
 		this.actID = actID;
-		this.amentiaName=amentiaName;
-		this.parentsName=parentsName;
+		this.amentiaName = amentiaName;
+		this.parentsName = parentsName;
+		this.tel = tel;
 	}
 
 	public String getAmentiaName() {
@@ -107,7 +112,6 @@ public class ActivityApply implements Serializable {
 		return custID;
 	}
 
-
 	public void setParentsExpense(BigDecimal parentsExpense) {
 		this.parentsExpense = parentsExpense;
 	}
@@ -132,11 +136,9 @@ public class ActivityApply implements Serializable {
 		return family;
 	}
 
-
 	public BigDecimal getFExpense() {
 		return fExpense;
 	}
-
 
 	public void setNote(String note) {
 		this.note = note;
@@ -178,11 +180,20 @@ public class ActivityApply implements Serializable {
 		this.actID = actID;
 	}
 
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
 	@Override
 	public String toString() {
 		return "ActivityApply [applyID=" + applyID + ",type=" + type + ",registerDate=" + registerDate + ",custID="
 				+ custID + ",pCustID=" + pCustID + ",parentsExpense=" + parentsExpense + ",amentiaExpense="
 				+ amentiaExpense + ",family=" + family + ",fExpense=" + fExpense + ",fNumber=" + fNumber + ",note="
-				+ note + ",actID=" + actID + ",amentiaName="+amentiaName+",parentsName="+parentsName+"]";
+				+ note + ",actID=" + actID + ",amentiaName=" + amentiaName + ",parentsName=" + parentsName + ",tel="
+				+ tel + "]";
 	}
 }

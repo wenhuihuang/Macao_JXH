@@ -53,6 +53,8 @@ public class CarSettingDao extends DaoImpl{
 	public int updateCarSetting(CarSetting carSetting) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException{
 		String sql = this.getSqlByPropKey("updateCarSetting");
 		Object[] params = getUpdateParams(sql, carSetting);
+		System.out.println(sql);
+		System.out.println(params);
 		return this.update(sql, params);
 	}
 	

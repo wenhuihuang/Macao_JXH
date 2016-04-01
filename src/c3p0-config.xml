@@ -6,7 +6,7 @@
   	<property name="user">root</property>
   	<property name="password">root</property> -->
   	<property name="driverClass">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-  	<property name="jdbcUrl">jdbc:sqlserver://192.168.1.20:1433;DatabaseName=Macao_JXH2016</property>
+  	<property name="jdbcUrl">jdbc:sqlserver://192.168.1.92:1433;DatabaseName=Macao_JXH2016</property>
   	<property name="user">sa</property>
   	<property name="password">1surewin,</property>
   	

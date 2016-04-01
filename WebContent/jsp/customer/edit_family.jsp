@@ -58,7 +58,7 @@ String basePath = request.getScheme() + "://"
 	function submitForm(){
 		var dialog = getDialog();
 		dialog.familyData = formFamily.getData();
-		dialog.familyData.custId = $("#custId").val();
+		dialog.familyData.custID = $("#custID").val();
 		dialog.familyData.regDate = $("#regDate").val();
 		dialog.familyData.validDate = $("#validDate").val();
 		dialog.familyData.custType2 = $("#custType2").val();
@@ -174,7 +174,7 @@ String basePath = request.getScheme() + "://"
             
               <tr>
                 <td align="right" class="l-table-edit-td">手提電話:</td>
-                <td align="left" class="l-table-edit-td"><input width="130px" value="${cust.mobileTelNo }" name="mobileTelNo" type="text" id="mobileTelNo" ltype="text" /></td>
+                <td align="left" class="l-table-edit-td"><input width="130px" value="${cust.mobileTelNO }" name="mobileTelNO" type="text" ltype="text" /></td>
                 
                 <td align="right" class="l-table-edit-td">家庭電話:</td>
                 <td align="left" class="l-table-edit-td"><input width="130px" value="${cust.telNo }" name="telNo" type="text" id="telNo" ltype="text" /></td>

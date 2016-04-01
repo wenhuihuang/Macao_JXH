@@ -28,18 +28,18 @@ String basePath = request.getScheme() + "://"
 		
 		var familyDataGridColumn = [
 									{ display: 'familyID', name: 'familyID', hide:true },
-				                    { display: '姓名', name: 'userName', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '關係', name: 'relationShip', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '年齡', name: 'age', width: 100 ,type:"text",editor: { type: 'text'}},
-				                    { display: '教育程度', name: 'eduLevel',width:120
+				                    { display: '姓名', name: 'userName', minWidth: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '關係', name: 'relationShip', minWidth: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '年齡', name: 'age', minWidth: 100 ,type:"text",editor: { type: 'text'}},
+				                    { display: '教育程度', name: 'eduLevel',minWidth:120
 			                        	,editor: { type: 'select', data: eduLevelData, valueField: 'eduLevel' },
 				                        render: function (item)
 				                        {
 				                        	return getGridSelectedData(eduLevelData[parseInt(item.eduLevel)-1]);
 				                        }},
-				                    { display: '職業', name: 'work', width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '所說語言', name: 'language',width:300, type:"text", editor: { type: 'text'}},
-				                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
+				                    { display: '職業', name: 'work', minWidth: 150 ,type:"text",editor: { type: 'text'}},
+				                    { display: '所說語言', name: 'language',minWidth:150, type:"text", editor: { type: 'text'}},
+				                    { display: '備註', name: 'note',minWidth:300, type:"text", editor: { type: 'text'}}
 				                  ];
 				
 				
@@ -64,11 +64,11 @@ String basePath = request.getScheme() + "://"
 	function bindingSchoolDataGrid(){
 		var schoolDataGridColumn = [
 									{ display: 'schoolID', name: 'schoolID', hide:true },
-				                    { display: '學校', name: 'schoolName', align: 'left',  width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '開始日期', name: 'startDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '結束日期', name: 'endDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '級別', name: 'grade', width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '備註', name: 'schoolNote', width: 150 ,type:"text",editor: { type: 'text'}}
+				                    { display: '學校', name: 'schoolName', align: 'left',  minWidth: 150 ,type:"text",editor: { type: 'text'}},
+				                    { display: '開始日期', name: 'startDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '結束日期', name: 'endDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '級別', name: 'grade', minWidth: 150 ,type:"text",editor: { type: 'text'}},
+				                    { display: '備註', name: 'schoolNote', minWidth: 150 ,type:"text",editor: { type: 'text'}}
 				                  ];
 				
 				
@@ -94,12 +94,12 @@ String basePath = request.getScheme() + "://"
 		
 		var cureDataGridColumn = [
 									{ display: 'historyID', name: 'historyID', hide:true },
-									{ display: '機構', name: 'org', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '治療項目', name: 'treatmentItem', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '治療開始日期', name: 'tStartDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '治療結束日期', name: 'tEndDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '治療內容', name: 'content', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '備註', name: 'tNote', width: 100,type:"text",editor: { type: 'text' }},
+									{ display: '機構', name: 'org', minWidth: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '治療項目', name: 'treatmentItem', minWidth: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '治療開始日期', name: 'tStartDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '治療結束日期', name: 'tEndDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '治療內容', name: 'content', minWidth: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '備註', name: 'tNote', minWidth: 100,type:"text",editor: { type: 'text' }},
 								];
 				
 				
@@ -125,13 +125,13 @@ String basePath = request.getScheme() + "://"
 		
 		var planDataGridColumn = [
 									{ display: 'planID', name: 'planID', hide:true },
-									{ display: '日期', name: 'billDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '時間', name: 'time', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '治療內容', name: 'content', width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '治療目標', name: 'target', width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '收費金額', name: 'charge', width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '繳費金額', name: 'payment', width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '備註', name: 'note', width: 150 ,type:"text",editor: { type: 'text'}},
+									{ display: '日期', name: 'billDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '時間', name: 'time', minWidth: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '治療內容', name: 'content', minWidth: 150 ,type:"text",editor: { type: 'text'}},
+				                    { display: '治療目標', name: 'target', minWidth: 150 ,type:"text",editor: { type: 'text'}},
+				                    { display: '收費金額', name: 'charge', minWidth: 150 ,type:"text",editor: { type: 'text'}},
+				                    { display: '繳費金額', name: 'payment', minWidth: 150 ,type:"text",editor: { type: 'text'}},
+				                    { display: '備註', name: 'note', minWidth: 150 ,type:"text",editor: { type: 'text'}},
 								];
 				
 				
@@ -157,13 +157,13 @@ String basePath = request.getScheme() + "://"
 		
 		var recordDataGridColumn = [
 									{ display: 'planID', name: 'planID', hide:true },
-									{ display: '日期', name: 'billDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-									{ display: '時間', name: 'time', width: 100,type:"text",editor: { type: 'text' }},
-									{ display: '治療內容', name: 'content', width: 150 ,type:"text",editor: { type: 'text'}},
-									{ display: '治療目標', name: 'target', width: 150 ,type:"text",editor: { type: 'text'}},
-									{ display: '活動', name: 'activity', width: 150 ,type:"text",editor: { type: 'text'}},
-									{ display: '學生表現', name: 'performance', width: 150 ,type:"text",editor: { type: 'text'}},
-									{ display: '備註', name: 'note', width: 150 ,type:"text",editor: { type: 'text'}},
+									{ display: '日期', name: 'billDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+									{ display: '時間', name: 'time', minWidth: 100,type:"text",editor: { type: 'text' }},
+									{ display: '治療內容', name: 'content', minWidth: 150 ,type:"text",editor: { type: 'text'}},
+									{ display: '治療目標', name: 'target', minWidth: 150 ,type:"text",editor: { type: 'text'}},
+									{ display: '活動', name: 'activity', minWidth: 150 ,type:"text",editor: { type: 'text'}},
+									{ display: '學生表現', name: 'performance', minWidth: 150 ,type:"text",editor: { type: 'text'}},
+									{ display: '備註', name: 'note', minWidth: 150 ,type:"text",editor: { type: 'text'}},
 								];
 				
 				
@@ -304,10 +304,10 @@ String basePath = request.getScheme() + "://"
                 <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.fullName }" name="fullName" type="text" class="fullName"/></td>
                 
                 <td align="right" class="l-table-edit-td">會員編號：</td>
-                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNO }" name="custNO" type="text" id="custNO" /></td>
+                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNO }" name="custNO" type="text" class="custNO" /></td>
                 
                 <td align="right" class="l-table-edit-td">非會員編號：</td>
-                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" id="custNewNO" /></td>
+                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" class="custNewNO" /></td>
               </tr>
               <tr>
                  <td align="right" class="l-table-edit-td">出生日期:</td>
@@ -341,32 +341,9 @@ String basePath = request.getScheme() + "://"
 		  		
 		  		<table cellpadding="0" cellspacing="0" class="l-table-edit" >
 			        <tbody>
-			       <%--      <tr>
-			                <td align="right" class="l-table-edit-td">姓名：</td><!-- 有name -->
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentPojo.caseNo }" name="caseNo" type="text" class="caseNo" ltype="text" validate="{required:true,notnull:true}"/></td>
-			                
-			                <td align="right" class="l-table-edit-td">會員編號：</td><!-- 有name -->
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentPojo.billDate_str }" name="billDate" type="text" id="billDate" ltype="date" validate="{required:true,notnull:true}"/></td>
-			                
-			                <td align="right" class="l-table-edit-td">非會員編號：</td>
-			                <td align="left" class="l-table-edit-td"><input width="120px" value="${treatmentPojo.caseWorker }" name="caseWorker" type="text" id="caseWorker" ltype="text" /></td>
-			                
-			                <td align="right" class="l-table-edit-td">語言治療編號：</td>
-			                <td align="left" class="l-table-edit-td">
-			                	<input type="text" id="caseStatus">
-			                </td>
-			
-			              
-			            </tr> --%>
 			           	
 			          
 			             <tr>
-			             	
-			             <%-- 	<td align="right" class="l-table-edit-td">治療師：</td>
-			                <td align="left" class="l-table-edit-td">
-			                <input width="120px" value="${treatmentPojo.worker }" name="worker" type="text" id="worker" ltype="text"/>
-			                </td> --%>
-			                
 			                <td align="right" class="l-table-edit-td">申請服務日期：</td>
 			                <td align="left" class="l-table-edit-td">
 			                <input width="120px" value="${treatmentPojo.applyDate_str }" name="applyDate" type="text" id="applyDate" ltype="date"/>
@@ -388,7 +365,6 @@ String basePath = request.getScheme() + "://"
 			                
 			             </tr>
 			            <tr>
-			            	
 			                
 			                <td align="right" class="l-table-edit-td">接受治療原因：</td>
 			                <td align="left" class="l-table-edit-td">
@@ -398,9 +374,6 @@ String basePath = request.getScheme() + "://"
 			                <td align="left" class="l-table-edit-td">
 			              	  <textarea rows="2" cols="55" name="note" id="note">${treatmentPojo.note }</textarea>
 			                </td>
-			                
-			                
-			                
 			            </tr>  
 			                 
 			            

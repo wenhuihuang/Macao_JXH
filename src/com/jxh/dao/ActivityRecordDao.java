@@ -14,7 +14,7 @@ public class ActivityRecordDao extends DaoImpl<ActivityRecord>{
 
 	@Override
 	protected String getSqlPropertiesPath() {
-		return null;
+		return "/sqls/Macao_JXH/activityrecordnew.properties";
 	}
 	
 	/**
@@ -26,7 +26,7 @@ public class ActivityRecordDao extends DaoImpl<ActivityRecord>{
 	 * @throws IOException
 	 */
 	public PageUtils<ActivityRecord> getActivityRecordByCondition(PageUtils<ActivityRecord> page, String condition,Object ...params) throws SQLException, IOException{
-		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		String sql = this.getSqlByPropKey("getActivityRecordNewByCondition");
 		condition = condition==null?"":condition;
 		sql += condition;
 		Integer count = this.findElement(getCountSql(sql), params);

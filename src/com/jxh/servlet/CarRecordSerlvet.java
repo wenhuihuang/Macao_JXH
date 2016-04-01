@@ -25,6 +25,7 @@ import com.jxh.dao.CarAbsentDao;
 import com.jxh.dao.CarRecordDao;
 import com.jxh.dao.CarSettingDao;
 import com.jxh.pojo.CarAbsentPojo;
+import com.jxh.pojo.CarRecordPojo;
 import com.jxh.pojo.CarSettingPojo;
 import com.jxh.vo.CarAbsent;
 import com.jxh.vo.CarRecord;
@@ -116,12 +117,13 @@ public class CarRecordSerlvet extends FGServlet {
 
 	private void getCarRecord(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
 		String carID = this.getParameterByName(request, "carID");
-		PageUtils<CarRecord> page = this.getPage(request);
+		System.out.println("carID="+carID);
+		PageUtils<CarRecordPojo> page = this.getPage(request);
 		if(carID != null && !"".equals(carID)){
 			String condition = " and carID = ? ";
-			carRecordDao.getCarRecordByCondition(page, condition, carID);
+			carRecordDao.getCarRecordPojoByCondition(page, condition, carID);
 		}else{
-			carRecordDao.getCarRecordByCondition(page, null);
+			carRecordDao.getCarRecordPojoByCondition(page, null);
 		}
 		
 		LigerUITools.writeGridJson(page, response);

@@ -285,12 +285,15 @@ public abstract class DaoImpl<T> implements Dao<T> {
 		Class clz = obj.getClass();
 
 		for (String fieldText : fields) {
+			System.out.println("前"+fieldText);
 			fieldText = fieldText.replace("=", "").replace("?", "").trim();
 			Field field = null;
+			System.out.println("後"+fieldText);
 			try {
 				// 没有该属性
 				field = clz.getDeclaredField(fieldText);
 				field.setAccessible(true);
+				System.out.println("field="+field);
 				params.add(getFieldVale(field, obj));
 			} catch (NoSuchFieldException e) {
 				// TODO: handle exception
@@ -332,12 +335,10 @@ public abstract class DaoImpl<T> implements Dao<T> {
 	private String getFieldString(String sql) {
 		if (sql.toUpperCase().indexOf("UPDATE") > -1) {
 			// update语句
-
-			String fields = sql.substring(sql.toUpperCase().indexOf("SET") + 3, sql.toUpperCase().indexOf("WHERE"))
+			String fields = sql.substring(sql.toUpperCase().indexOf("SET ") + 4, sql.toUpperCase().indexOf("WHERE"))
 					.trim();
 
 			fields += "," + sql.substring(sql.toUpperCase().indexOf("WHERE") + 5, sql.length());
-
 			return fields;
 		} else if (sql.toUpperCase().indexOf("INSERT") > -1) {
 			// insert语句

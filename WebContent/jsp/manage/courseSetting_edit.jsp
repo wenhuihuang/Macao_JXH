@@ -16,11 +16,7 @@ String basePath = request.getScheme() + "://"
 <jsp:include page="/jsp/head.jsp"></jsp:include>
 <jsp:include page="/jsp/menberData.jsp"></jsp:include>
 <script type="text/javascript">
-	       var courseSettingDetailDataGrid;
-        
-	
-	
-	
+	var courseSettingDetailDataGrid;
     //課程詳情
 	function bindingCourseSettingDetailDataGrid(){
 	
@@ -113,34 +109,37 @@ String basePath = request.getScheme() + "://"
 	
 	<div id="tab">
 		  	<div tabid="courseSettingGrid" title="課程設置">
-		  		<div class="inline-group row max-width-group-300 label-width-80">
-		  			<div class="col-md-4">
-		  				<label>課程編號：</label>
-		  				<input width="120px" value="${courseSetting.courseNO }" name="courseNO" type="text" ltype="text" />
-		  			</div>
-		  			<div class="col-md-4">
-		  				<label>課程名稱：</label>
-		  				<input width="120px" value="${courseSetting.courseName }" name="courseName" type="text" ltype="text" />
-		  			</div>
-		  			<div class="col-md-4">
-		  				<label>學費：</label>
-		  				<input width="120px" value="${courseSetting.pay }" name="pay" type="text" ltype="text" />
-		  			</div>
+		  		<div style="padding:8px 0;">
+		  			<div class="inline-group row max-width-group-300 label-width-80">
+			  			<div class="col-md-4">
+			  				<label>課程編號：</label>
+			  				<input width="120px" value="${courseSetting.courseNO }" name="courseNO" type="text" ltype="text" />
+			  			</div>
+			  			<div class="col-md-4">
+			  				<label>課程名稱：</label>
+			  				<input width="120px" value="${courseSetting.courseName }" name="courseName" type="text" ltype="text" />
+			  			</div>
+			  			<div class="col-md-4">
+			  				<label>學費：</label>
+			  				<input width="120px" value="${courseSetting.pay }" name="pay" type="text" ltype="float" />
+			  			</div>
+			  		</div>
+			  		<div class="inline-group row max-width-group-300 label-width-80">
+			  			<div class="col-md-4">
+			  				<label>開始日期：</label>
+			  				<input width="120px" value="${courseSetting.beginDate_str }" name="beginDate" type="text" ltype="date" />
+			  			</div>
+			  			<div class="col-md-4">
+			  				<label>結束日期：</label>
+			  				<input width="120px" value="${courseSetting.endDate_str }" name="endDate" type="text" ltype="date" />
+			  			</div>
+			  			<div class="col-md-4">
+			  				<label>名額限制：</label>
+			  				<input width="120px" value="${courseSetting.qty }" name="qty" type="text" ltype="int" />
+			  			</div>
+			  		</div>
 		  		</div>
-		  		<div class="inline-group row max-width-group-300 label-width-80">
-		  			<div class="col-md-4">
-		  				<label>開始日期：</label>
-		  				<input width="120px" value="${courseSetting.beginDate_str }" name="beginDate" type="text" ltype="date" />
-		  			</div>
-		  			<div class="col-md-4">
-		  				<label>結束日期：</label>
-		  				<input width="120px" value="${courseSetting.endDate_str }" name="endDate" type="text" ltype="date" />
-		  			</div>
-		  			<div class="col-md-4">
-		  				<label>名額限制：</label>
-		  				<input width="120px" value="${courseSetting.qty }" name="qty" type="text" ltype="text" />
-		  			</div>
-		  		</div>
+		  	
 		  		<div class="panel panel-default">
 					<div class="panel-heading"></div>
 					<div class="panel-body">

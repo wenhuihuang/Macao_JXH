@@ -125,21 +125,27 @@ String basePath = request.getScheme() + "://"
 	
 	<div id="tab">
 		  	<div tabid="carSetting" title="校車設置">
-		  		<div class="inline-group">
-		  			<label>校車編號：</label>
-		  			<input width="120px" value="${carSetting.carNO }" name="carNO" type="text" ltype="text" />
-		  			<label>校車車牌號：</label>
-		  			<input width="120px" value="${carSetting.carNumber }" name="carNumber" type="text" ltype="text" />
-		  			<label>司機：</label>
-		  			<input width="120px" value="${carSetting.worker }" name="worker" type="text" ltype="text" />
-		  		</div>
-		  		<div class="inline-group">
-		  			<label>隨車人員：</label>
-		  			<input width="120px" value="${carSetting.assistant }" name="assistant" type="text" ltype="text" />
-		  			<label>發車時間：</label>
-		  			<input width="120px" value="${carSetting.beginDate_str }" name="beginDate" type="text" ltype="date" />
-		  			<label>終點站時間：</label>
-		  			<input width="120px" value="${carSetting.endDate_str }" name="endDate" type="text" ltype="date" />
+		  		<div style="padding:0 0 10px 0;" class="label-width-90">
+			  			<div class="inline-group">
+			  			<label>校車編號：</label>
+			  			<input width="120px" value="${carSetting.carNO }" name="carNO" type="text" ltype="text" />
+			  			<label>校車車牌號：</label>
+			  			<input width="120px" value="${carSetting.carNumber }" name="carNumber" type="text" ltype="text" />
+			  			<label>司機：</label>
+			  			<input width="120px" value="${carSetting.worker }" name="worker" type="text" ltype="text" />
+			  		</div>
+			  		<div class="inline-group">
+			  			<label>隨車人員：</label>
+			  			<input width="120px" value="${carSetting.assistant }" name="assistant" type="text" ltype="text" />
+			  			<label>發車時間：</label>
+			  			<input width="120px" value="${carSetting.beginDate_str }" name="beginDate" type="text" ltype="date" />
+			  			<label>終點站時間：</label>
+			  			<input width="120px" value="${carSetting.endDate_str }" name="endDate" type="text" ltype="date" />
+			  		</div>
+			  		<div class="inline-group">
+			  			<label>備註：</label>
+			  			<textarea  rows="2" cols="55" name="note">${carSetting.note }</textarea>
+			  		</div>
 		  		</div>
 		  		<div class="panel panel-default">
 					<div class="panel-heading">站點設置</div>

@@ -11,15 +11,16 @@ import java.text.ParseException;
 /**
  * SocialWork
  * 
- * workID,workName,sex,age,phone,birthday,work,workNO,custNO,custNewNO,note
- * ?,?,?,?,?,?,?,?,?,?,?
+ * workID,workName,sex,age,phone,birthday,work,workNO,note,custID,Job
+ * ?,?,?,?,?,?,?,?,?,?,?,?
  * 
  * socialWork.workID,socialWork.workName,socialWork.sex,socialWork.age,
  * socialWork.phone,socialWork.birthday,socialWork.work,socialWork.workNO,
- * socialWork.custNO,socialWork.custNewNO,socialWork.note
+ * socialWork.custNO,socialWork.custNewNO,socialWork.note,socialWork.custID,
+ * socialWork.job
  * 
  * workID=?,workName=?,sex=?,age=?,phone=?,birthday=?,work=?,workNO=?,custNO=?,
- * custNewNO=?,note=?
+ * custNewNO=?,note=?,custID=?,job=?
  */
 public class SocialWork implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -31,18 +32,19 @@ public class SocialWork implements Serializable {
 	private Date birthday;
 	private String work;
 	private String workNO;
-	private String custNO;
-	private String custNewNO;
 	private String note;
 
+	private String custID;
+	private String job;
+
 	private String birthday_str;
-	
+
 	public SocialWork() {
 		super();
 	}
 
 	public SocialWork(String workID, String workName, int sex, int age, String phone, Date birthday, String work,
-			String workNO, String custNO, String custNewNO, String note,String birthday_str) {
+			String workNO, String note, String birthday_str, String custID, String job) {
 		super();
 		this.workID = workID;
 		this.workName = workName;
@@ -52,10 +54,10 @@ public class SocialWork implements Serializable {
 		this.birthday = birthday;
 		this.work = work;
 		this.workNO = workNO;
-		this.custNO = custNO;
-		this.custNewNO = custNewNO;
 		this.note = note;
-		this.birthday_str=birthday_str;
+		this.birthday_str = birthday_str;
+		this.custID = custID;
+		this.job = job;
 	}
 
 	public void setWorkID(String workID) {
@@ -122,22 +124,6 @@ public class SocialWork implements Serializable {
 		return workNO;
 	}
 
-	public void setCustNO(String custNO) {
-		this.custNO = custNO;
-	}
-
-	public String getCustNO() {
-		return custNO;
-	}
-
-	public void setCustNewNO(String custNewNO) {
-		this.custNewNO = custNewNO;
-	}
-
-	public String getCustNewNO() {
-		return custNewNO;
-	}
-	
 	public String getNote() {
 		return note;
 	}
@@ -145,7 +131,7 @@ public class SocialWork implements Serializable {
 	public void setNote(String note) {
 		this.note = note;
 	}
-	
+
 	public String getBirthday_str() {
 		try {
 			return birthday == null || "".equals(birthday) ? ""
@@ -160,11 +146,27 @@ public class SocialWork implements Serializable {
 		this.birthday_str = birthday_str;
 	}
 
+	public String getCustID() {
+		return custID;
+	}
+
+	public void setCustID(String custID) {
+		this.custID = custID;
+	}
+
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
+
 	@Override
 	public String toString() {
 		return "SocialWork [workID=" + workID + ",workName=" + workName + ",sex=" + sex + ",age=" + age + ",phone="
-				+ phone + ",birthday=" + birthday + ",work=" + work + ",workNO=" + workNO + ",custNO=" + custNO
-				+ ",custNewNO=" + custNewNO + ",note=" + note + ",birthday_str="+birthday_str+"]";
+				+ phone + ",birthday=" + birthday + ",work=" + work + ",workNO=" + workNO + ",note=" + note
+				+ ",birthday_str=" + birthday_str + ",custID=" + custID + ",job=" + job + "]";
 	}
 
 }

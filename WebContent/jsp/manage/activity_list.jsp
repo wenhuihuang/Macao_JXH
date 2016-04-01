@@ -62,7 +62,7 @@ String basePath = request.getScheme() + "://"
         
         $(function ()
         {
-        	setTabTitle(parent.$("#framecenter"),"醫護列表") 
+        	setTabTitle(parent.$("#framecenter"),"活動列表") 
         	
             var serviceStatusData = [{serviceStatus:0,text:'沒有服務'},{serviceStatus:1,text:'服務中'},{serviceStatus:2,text:'服務完成'}];
         	

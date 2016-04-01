@@ -30,18 +30,18 @@ String basePath = request.getScheme() + "://"
 		
 		var familyDataGridColumn = [
 									{ display: 'familyID', name: 'familyID', hide:true },
-				                    { display: '姓名', name: 'userName', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '關係', name: 'relationShip', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '年齡', name: 'age', width: 100 ,type:"text",editor: { type: 'text'}},
-				                    { display: '教育程度', name: 'eduLevel',width:120
+				                    { display: '姓名', name: 'userName', minWidth: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '關係', name: 'relationShip', minWidth: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '年齡', name: 'age', minWidth: 100 ,type:"text",editor: { type: 'text'}},
+				                    { display: '教育程度', name: 'eduLevel',minWidth:120
 			                        	,editor: { type: 'select', data: eduLevelData, valueField: 'eduLevel' },
 				                        render: function (item)
 				                        {
 				                        	return getGridSelectedData(eduLevelData[parseInt(item.eduLevel)-1]);
 				                        }},
-				                    { display: '職業', name: 'work', width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '所說語言', name: 'language',width:300, type:"text", editor: { type: 'text'}},
-				                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
+				                    { display: '職業', name: 'work', minWidth: 150 ,type:"text",editor: { type: 'text'}},
+				                    { display: '所說語言', name: 'language',minWidth:300, type:"text", editor: { type: 'text'}},
+				                    { display: '備註', name: 'note',minWidth:300, type:"text", editor: { type: 'text'}}
 				                  ];
 				
 				
@@ -66,11 +66,11 @@ String basePath = request.getScheme() + "://"
 	function bindingSchoolDataGrid(){
 		var schoolDataGridColumn = [
 									{ display: 'schoolID', name: 'schoolID', hide:true },
-				                    { display: '學校', name: 'schoolName', align: 'left',  width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '開始日期', name: 'startDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '結束日期', name: 'endDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '級別', name: 'grade', width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '備註', name: 'schoolNote', width: 150 ,type:"text",editor: { type: 'text'}}
+				                    { display: '學校', name: 'schoolName', align: 'left',  minWidth: 150 ,type:"text",editor: { type: 'text'}},
+				                    { display: '開始日期', name: 'startDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '結束日期', name: 'endDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '級別', name: 'grade', minWidth: 150 ,type:"text",editor: { type: 'text'}},
+				                    { display: '備註', name: 'schoolNote', minWidth: 150 ,type:"text",editor: { type: 'text'}}
 				                  ];
 				
 				
@@ -96,11 +96,11 @@ String basePath = request.getScheme() + "://"
 		
 		var cureDataGridColumn = [
 									{ display: 'historyID', name: 'historyID', hide:true },
-									{ display: '機構', name: 'org', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '開始日期', name: 'tStartDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '結束日期', name: 'tEndDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '服務內容', name: 'content', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '備註', name: 'tNote', width: 100,type:"text",editor: { type: 'text' }},
+									{ display: '機構', name: 'org', minWidth: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '開始日期', name: 'tStartDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '結束日期', name: 'tEndDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '服務內容', name: 'content', minWidth: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '備註', name: 'tNote', minWidth: 100,type:"text",editor: { type: 'text' }},
 								];
 				
 				
@@ -127,13 +127,13 @@ String basePath = request.getScheme() + "://"
 		
 		var groupPlanDataGridColumn = [
 									{ display: 'GSID', name: 'GSID', hide:true },
-				                    { display: '小組編號', name: 'GSNO', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '小組名稱', name: 'groupName', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '小組目標', name: 'target', width: 100 ,type:"text",editor: { type: 'text'}},
-				                    { display: '負責人', name: 'handler', width: 100 ,type:"text",editor: { type: 'text'}},
-				                    { display: '開始日期', name: 'beginDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '結束日期', name: 'endDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
+				                    { display: '小組編號', name: 'GSNO', minWidth: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '小組名稱', name: 'groupName', minWidth: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '小組目標', name: 'target', minWidth: 100 ,type:"text",editor: { type: 'text'}},
+				                    { display: '負責人', name: 'handler', minWidth: 100 ,type:"text",editor: { type: 'text'}},
+				                    { display: '開始日期', name: 'beginDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '結束日期', name: 'endDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '備註', name: 'note',minWidth:300, type:"text", editor: { type: 'text'}}
 				                  ];
 				
 				
@@ -159,10 +159,10 @@ String basePath = request.getScheme() + "://"
 		
 		var groupRecordDataGridColumn = [
 									{ display: 'planID', name: 'planID', hide:true },
-				                    { display: '小組編號', name: 'GSNO', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '訓練日期', name: 'beginDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '表現', name: 'performance',width:300, type:"text", editor: { type: 'text'}},
-				                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
+				                    { display: '小組編號', name: 'GSNO', minWidth: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '訓練日期', name: 'beginDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '表現', name: 'performance',minWidth:300, type:"text", editor: { type: 'text'}},
+				                    { display: '備註', name: 'note',minWidth:300, type:"text", editor: { type: 'text'}}
 				                  ];
 				
 				
@@ -188,12 +188,12 @@ String basePath = request.getScheme() + "://"
 		
 		var flowPlanDataGridColumn = [
 									{ display: 'planID', name: 'planID', hide:true },
-				                    { display: '活動編號', name: 'actNO', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '活動名稱', name: 'actName', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '日期', name: 'billDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '時間', name: 'time',width:300, type:"text", editor: { type: 'text'}},
-				                    { display: '活動流程', name: 'actDetail',width:300, type:"text", editor: { type: 'text'}},
-				                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
+				                    { display: '活動編號', name: 'actNO', minWidth: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '活動名稱', name: 'actName', minWidth: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '日期', name: 'billDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '時間', name: 'time',minWidth:300, type:"text", editor: { type: 'text'}},
+				                    { display: '活動流程', name: 'actDetail',minWidth:300, type:"text", editor: { type: 'text'}},
+				                    { display: '備註', name: 'note',minWidth:300, type:"text", editor: { type: 'text'}}
 				                  ];
 				
 				
@@ -378,6 +378,9 @@ String basePath = request.getScheme() + "://"
 	
 	<div id="tab">
 	<div title="職能訓練" tabid="fn">
+	
+	
+	
 	<table>
 		<tbody>
             <tr>
@@ -390,10 +393,10 @@ String basePath = request.getScheme() + "://"
                 <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.fullName }" name="fullName" type="text"  class="fullName"/></td>
                 
                 <td align="right" class="l-table-edit-td">會員編號：</td>
-                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNO }" name="custNO" type="text" id="custNO" /></td>
+                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNO }" name="custNO" type="text" class="custNO" /></td>
                 
                 <td align="right" class="l-table-edit-td">非會員編號：</td>
-                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" id="custNewNO" /></td>
+                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" class="custNewNO" /></td>
               </tr>
             <tr>
             	  <td align="right" class="l-table-edit-td">接案日期:</td>
@@ -424,13 +427,13 @@ String basePath = request.getScheme() + "://"
 				 	<input width="120px" value="${custCasePojo.caseWorker }" name="caseWorker" type="text" id="caseWorker" ltype="text" />
 				 </td>
 				    <td align="right" class="l-table-edit-td">健康狀況:</td>
-				 <td align="left" class="l-table-edit-td">
+				 <td align="left" class="l-table-edit-td" colspan="3">
 				 	<textarea rows="2" cols="55" name="familySituation" id="familySituation">${treatmentPojo.sensoryNote }</textarea>
 				 </td>
             </tr>
 		</tbody>
 	</table>
-	<div>
+	<div style="padding:8px 0;">
 	<table class="table-border input-style">
 		<tbody>
 			<tr>
@@ -1172,7 +1175,7 @@ String basePath = request.getScheme() + "://"
             	</div>
             	<div class="panel panel-default">
             		<div class="panel-heading">學員訓練狀況記錄</div>
-            		<div class="panel-body">
+            		<div class="panel-body  label-width-100">
 						<div class="inline-group">
 							<label>注意力：</label>
 							<textarea rows="2" cols="55" name="attention" id="attention">${treatmentTraining.attention }</textarea>
@@ -1267,13 +1270,13 @@ String basePath = request.getScheme() + "://"
             		</div>
             	</div>
             	<div class="inline-group">
-            		<label>負責人：</label>
+            		<label style="width:75px;text-align:right;">負責人：</label>
             		<input type="text" ltype="text" name="handler" value="${treatmentTrainingWork.handler }">
             		<label>日期：</label>
             		<input type="text" ltype="date" name="handleDate" value="${treatmentTrainingWork.handleDate_str }">
             	</div>
-            	<div class="inline-block">
-            		<label>意見／建議:</label>
+            	<div class="inline-group">
+            		<label style="width:75px;text-align:right;">意見／建議：</label>
             		<textarea rows="2" cols="55" name="handleSuggest" id="handleSuggest">${treatmentTrainingWork.handleSuggest }</textarea>
             	</div>
 		  	   	

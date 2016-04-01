@@ -8,11 +8,13 @@ import java.util.List;
 import com.jxh.dao.CSSADao;
 import com.jxh.dao.CustomerDao;
 import com.jxh.dao.RetardedDao;
+import com.jxh.dao.SocialWorkDao;
 import com.jxh.dao.SpecialAllowanceDao;
 import com.jxh.utils.Constants;
 import com.jxh.vo.BCustomer;
 import com.jxh.vo.CSSA;
 import com.jxh.vo.Retarded;
+import com.jxh.vo.SocialWork;
 import com.jxh.vo.SpecialAllowance;
 
 public class CustomerBiz {
@@ -20,6 +22,7 @@ public class CustomerBiz {
 	private RetardedDao retardedDao = new RetardedDao();
 	private CSSADao cssaDao = new CSSADao();
 	private SpecialAllowanceDao specialAllowanceDao = new SpecialAllowanceDao();
+	private SocialWorkDao socialWorkDao = new SocialWorkDao();
 	
 
 	/**
@@ -40,8 +43,8 @@ public class CustomerBiz {
 	 * @return
 	 * @throws Exception
 	 */
-	public String updateCustomer(BCustomer cust, List<Retarded> retardedAdds,List<Retarded> retardedUpdates,List<Retarded> retardedDeletes, List<BCustomer> familyAdds, List<BCustomer> familyUpdates, List<BCustomer> familyDeletes, List<CSSA> cSSAAdds, List<CSSA> cSSAUpdates, List<CSSA> cSSADeletes, List<SpecialAllowance> specialAllowanceAdds, List<SpecialAllowance> specialAllowanceUpdates, List<SpecialAllowance> specialAllowanceDeletes) throws Exception {
-
+	public String updateCustomer(BCustomer cust, List<Retarded> retardedAdds,List<Retarded> retardedUpdates,List<Retarded> retardedDeletes, List<BCustomer> familyAdds, List<BCustomer> familyUpdates, List<BCustomer> familyDeletes, List<CSSA> cSSAAdds, List<CSSA> cSSAUpdates, List<CSSA> cSSADeletes, List<SpecialAllowance> specialAllowanceAdds, List<SpecialAllowance> specialAllowanceUpdates, List<SpecialAllowance> specialAllowanceDeletes,List<SocialWork> SocialWorkAdds,List<SocialWork> SocialWorkUpdates,List<SocialWork> SocialWorkDeletes) throws Exception {
+		
 		int row = customerDao.updateCustomer(cust);
 		if (row > 0) {
 			//新增智障登记资料
@@ -100,6 +103,18 @@ public class CustomerBiz {
 				throw new Exception("刪除特津記錄記錄失败！");
 			}
 			
+			//津貼記錄相關
+			if(addSocialWork(cust,SocialWorkAdds)<0){
+				throw new Exception("新增特津記錄記錄失败！");
+			}
+			
+			if(updateSocialWork(cust,SocialWorkUpdates)<0){
+				throw new Exception("編輯特津記錄記錄失败！");
+			}
+			
+			if(deleteSocialWork(cust,SocialWorkDeletes)<0){
+				throw new Exception("刪除特津記錄記錄失败！");
+			}
 			
 			
 			
@@ -111,6 +126,28 @@ public class CustomerBiz {
 	
 
 
+	private int deleteSocialWork(BCustomer cust, List<SocialWork> socialWorkDeletes) throws IOException, SQLException {
+		if (socialWorkDeletes == null || socialWorkDeletes.size() <= 0) {
+			return 1;
+		}
+		return socialWorkDao.deleteSocialWork(socialWorkDeletes);
+	}
+
+
+
+
+
+	private int updateSocialWork(BCustomer cust, List<SocialWork> socialWorkUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, IOException, SQLException, ParseException {
+		if (socialWorkUpdates == null || socialWorkUpdates.size() <= 0) {
+			return 1;
+		}
+		return socialWorkDao.updateSocialWork(socialWorkUpdates);
+	}
+
+
+
+
+
 	/**
 	 * 删除特津记录
 	 * @param cust
@@ -120,7 +157,6 @@ public class CustomerBiz {
 	 * @throws SQLException
 	 */
 	private int deleteSpecialAllowance(BCustomer cust, List<SpecialAllowance> specialAllowanceDeletes) throws IOException, SQLException {
-		// TODO Auto-generated method stub
 		if (specialAllowanceDeletes == null || specialAllowanceDeletes.size() <= 0) {
 			return 1;
 		}
@@ -145,7 +181,6 @@ public class CustomerBiz {
 	 * @throws NoSuchFieldException 
 	 */
 	private int updateSpecialAllowance(BCustomer cust, List<SpecialAllowance> specialAllowanceUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
-		// TODO Auto-generated method stub
 		if (specialAllowanceUpdates == null || specialAllowanceUpdates.size() <= 0) {
 			return 1;
 		}
@@ -194,9 +229,10 @@ public class CustomerBiz {
 	 * @return
 	 * @throws Exception
 	 */
-	public String insertCustomer(BCustomer cust, List<Retarded> retardedAdds, List<BCustomer> familyAdds, List<CSSA> cSSAAdds, List<SpecialAllowance> specialAllowanceAdds) throws Exception {
+	public String insertCustomer(BCustomer cust, List<Retarded> retardedAdds, List<BCustomer> familyAdds, List<CSSA> cSSAAdds, List<SpecialAllowance> specialAllowanceAdds,List<SocialWork> SocialWorkAdds) throws Exception {
 		String custId = customerDao.getPrimaryKey(Constants.CORPID);
 		cust.setCustID(custId);
+		System.out.println("SocialWorkAdds="+SocialWorkAdds);
 		int row = customerDao.insertCustomer(cust);
 		if (row > 0) {
 			if (addRetarded(cust, retardedAdds) < 0) {
@@ -212,6 +248,10 @@ public class CustomerBiz {
 			}
 			
 			if(addSpecialAllowance(cust,specialAllowanceAdds)<0){
+				throw new Exception("新增特津記錄記錄失败！");
+			}
+			
+			if(addSocialWork(cust,SocialWorkAdds)<0){
 				throw new Exception("新增特津記錄記錄失败！");
 			}
 			
@@ -231,6 +271,31 @@ public class CustomerBiz {
 	
 	
 	
+	private int addSocialWork(BCustomer cust, List<SocialWork> socialWorkAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, IOException, ParseException {
+		if (socialWorkAdds == null || socialWorkAdds.size() <= 0) {
+			return 1;
+		}
+
+		for (SocialWork add : socialWorkAdds) {
+			String workID = socialWorkDao.getPrimaryKey(Constants.CORPID);
+			add.setWorkID(workID);
+			add.setCustID(cust.getCustID()); 
+		}
+
+		int[] rows = socialWorkDao.insertSocialWork(socialWorkAdds);
+		for (int i : rows) {
+			if (i < 1) {
+				return i;
+			}
+		}
+
+		return 1;
+	}
+
+
+
+
+
 	/**
 	 * 新增特津记录
 	 * @param cust
@@ -245,7 +310,6 @@ public class CustomerBiz {
 	 * @throws SQLException
 	 */
 	private int addSpecialAllowance(BCustomer cust, List<SpecialAllowance> specialAllowanceAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
-		// TODO Auto-generated method stub
 		if (specialAllowanceAdds == null || specialAllowanceAdds.size() <= 0) {
 			return 1;
 		}
@@ -416,7 +480,7 @@ public class CustomerBiz {
 	 */
 	public int addRetarded(BCustomer cust, List<Retarded> adds) throws SQLException, NoSuchFieldException,
 			SecurityException, IllegalArgumentException, IllegalAccessException, IOException, ParseException {
-
+		System.out.println("進入");
 		if (adds == null || adds.size() <= 0) {
 			return 1;
 		}
@@ -426,7 +490,6 @@ public class CustomerBiz {
 			add.setRetardedID(retardedId);
 			add.setCustId(cust.getCustID());
 		}
-
 		int[] rows = retardedDao.insertRetarded(adds);
 		for (int i : rows) {
 			if (i < 1) {

@@ -27,11 +27,11 @@ String basePath = request.getScheme() + "://"
 	
 	var groupSettingBudgetDataGridColumn = [
 								{ display: 'budgetID', name: 'budgetID', hide:true },
-			                    { display: '活動編號', name: 'actNO', width: 100,type:"text",editor: { type: 'text' }},
-			                    { display: '項目', name: 'actName', width: 100 ,type:"text",editor: { type: 'text'}},
-			                    { display: '費用/人', name: 'pay',width:300, type:"text", editor: { type: 'text'}},
-			                    { display: '人數', name: 'qty',width:300, type:"text", editor: { type: 'text'}},
-			                    { display: '支出', name: 'expenditure',width:300, type:"text", editor: { type: 'text'}}
+			                    { display: '活動編號', name: 'actNO', minWidth: 120,type:"text",editor: { type: 'text' }},
+			                    { display: '項目', name: 'actName', minWidth: 120 ,type:"text",editor: { type: 'text'}},
+			                    { display: '費用/人', name: 'pay',minWidth:120, type:"text", editor: { type: 'float'}},
+			                    { display: '人數', name: 'qty',minWidth:120, type:"text", editor: { type: 'int'}},
+			                    { display: '支出', name: 'expenditure',minWidth:120, type:"text", editor: { type: 'float'}}
 			                  ];
 			
 			
@@ -57,12 +57,12 @@ String basePath = request.getScheme() + "://"
 	
 	var groupSettingPlanDataGridColumn = [
 								{ display: 'planID', name: 'planID', hide:true },
-			                    { display: '活動編號', name: 'actNO', type:"text",editor: { type: 'text' }},
-			                    { display: '活動名稱', name: 'actName', type:"text",editor: { type: 'text'}},
-			                    { display: '日期', name: 'billDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-			                    { display: '時間', name: 'time',type:"text", editor: { type: 'text'}},
-			                    { display: '活動流程', name: 'process',type:"text", editor: { type: 'text'}},
-			                    { display: '備註', name: 'note',type:"text", editor: { type: 'text'}}
+			                    { display: '活動編號', name: 'actNO', type:"text",minWidth:120,editor: { type: 'text' }},
+			                    { display: '活動名稱', name: 'actName', type:"text",minWidth:120,editor: { type: 'text'}},
+			                    { display: '日期', name: 'billDate', minWidth: 120 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+			                    { display: '時間', name: 'time',type:"text",minWidth:120, editor: { type: 'text'}},
+			                    { display: '活動流程', name: 'process',type:"text",minWidth:120, editor: { type: 'text'}},
+			                    { display: '備註', name: 'note',type:"text",minWidth:120, editor: { type: 'text'}}
 			                  ];
 			
 			
@@ -151,58 +151,56 @@ String basePath = request.getScheme() + "://"
 	
 	
 	<div id="tab">
-		  	<div tabid="groupSettingGrid" title="小組設置">
-		  		<div class="inline-group">
-		  			<label>小組編號：</label>
-		  			<input width="120px" value="${groupSetting.gSNO }" name="gSNO" type="text" ltype="text" />
-		  			<label>負責人：</label>
-		  			<input width="120px" value="${groupSetting.handler }" name="handler" type="text" ltype="text" />
+		  	<div tabid="groupSettingGrid" title="小組設置" class="label-width-90">
+		  		<div style="padding:8px 0;">
+		  				<div class="inline-group">
+				  			<label>小組編號：</label>
+				  			<input width="120px" value="${groupSetting.gSNO }" name="gSNO" type="text" ltype="text" />
+				  			<label>負責人：</label>
+				  			<input width="120px" value="${groupSetting.handler }" name="handler" type="text" ltype="text" />
+				  			<label>小組名稱：</label>
+				  			<input width="120px" value="${groupSetting.groupName }" name="groupName" type="text" ltype="text" />
+				  			<label>小組目標：</label>
+				  			<input width="120px" value="${groupSetting.target }" name="target" type="text" ltype="text" />
+				  		</div>
+				  		<div class="inline-group">
+				  			<label>開始日期：</label>
+				  			<input width="120px" value="${groupSetting.beginDate_str }" name="beginDate" type="text" ltype="date" />
+				  			<label>結束日期：</label>
+				  			<input width="120px" value="${groupSetting.endDate_str }" name="endDate" type="text" ltype="date" />
+				  			<label>帶領者：</label>
+				  			<input width="120px" value="${groupSetting.leader }" name="leader" type="text" ltype="text" />
+				  			<label>參與人數：</label>
+				  			<input width="120px" style="text-align:left;" value="${groupSetting.qty }" name="qty" type="text" ltype="int" />
+				  		</div>
+				  		<div class="inline-group">
+				  			<label>收費：</label>
+				  			<input width="120px" style="text-align:left;" value="${groupSetting.toll }" name="toll" type="text" ltype="float" />
+				  		</div>
+				  		<div class="inline-group">
+				  			<label>地點：</label>
+				  			<textarea rows="2" cols="55" name="place" >${groupSetting.place }</textarea>
+				  		</div>
+				  		<div class="inline-group">
+				  			<label>材料或設備：</label>
+				  			<textarea rows="2" cols="55" name="device" >${groupSetting.device }</textarea>
+				  		</div>
+				  		<div class="inline-group">
+				  			<label>參與學員：</label>
+				  			<textarea rows="2" cols="55" name="custs" >${groupSetting.custs }</textarea>
+				  		</div>
 		  		</div>
-		  		<div class="inline-group">
-		  			<label>小組名稱：</label>
-		  			<input width="120px" value="${groupSetting.groupName }" name="groupName" type="text" ltype="text" />
-		  			<label>小組目標：</label>
-		  			<input width="120px" value="${groupSetting.target }" name="target" type="text" ltype="text" />
-		  		</div>
-		  		<div class="inline-group">
-		  			<label>開始日期：</label>
-		  			<input width="120px" value="${groupSetting.beginDate_str }" name="beginDate" type="text" ltype="date" />
-		  			<label>結束日期：</label>
-		  			<input width="120px" value="${groupSetting.endDate_str }" name="endDate" type="text" ltype="date" />
-		  		</div>
-		  		<div class="inline-group">
-		  			<label>帶領者：</label>
-		  			<input width="120px" value="${groupSetting.leader }" name="leader" type="text" ltype="text" />
-		  			<label>參與人數：</label>
-		  			<input width="120px" value="${groupSetting.qty }" name="qty" type="text" ltype="text" />
-		  		</div>
-		  		<div class="inline-group">
-		  			<label>收費：</label>
-		  			<textarea rows="2" cols="55" name="toll" >${groupSetting.toll }</textarea>
-		  		</div>
-		  		<div class="inline-group">
-		  			<label>地點：</label>
-		  			<textarea rows="2" cols="55" name="place" >${groupSetting.place }</textarea>
-		  		</div>
-		  		<div class="inline-group">
-		  			<label>材料或設備：</label>
-		  			<textarea rows="2" cols="55" name="device" >${groupSetting.device }</textarea>
-		  		</div>
-		  		<div class="inline-group">
-		  			<label>參與學員：</label>
-		  			<textarea rows="2" cols="55" name="custs" >${groupSetting.custs }</textarea>
-		  		</div>
-		  		<div class="panel panel-default">
-					<div class="panel-heading">預算</div>
-					<div class="panel-body">
-						<div id="groupSettingBudgetDataGrid"></div>
-					</div>
-				</div>
-		  		
-		  		<div class="inline-group">
-		  			<label>場地配置：</label>
-		  			<textarea rows="2" cols="55" name="configuration" >${groupSetting.configuration }</textarea>
-		  		</div>
+		  			<div class="panel panel-default">
+							<div class="panel-heading">預算</div>
+							<div class="panel-body">
+								<div id="groupSettingBudgetDataGrid"></div>
+							</div>
+						</div>
+				  		
+				  		<div class="inline-group">
+				  			<label>場地配置：</label>
+				  			<textarea rows="2" cols="55" name="configuration" >${groupSetting.configuration }</textarea>
+				  		</div>
 		  		<div class="panel panel-default">
 					<div class="panel-heading">流程計畫</div>
 					<div class="panel-body">

@@ -54,7 +54,7 @@ public class GroupSettingDao extends DaoImpl{
 	
 	public int updateGroupSetting(GroupSetting groupSetting) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
-		Object[] params = getInsertParams(sql, groupSetting);
+		Object[] params = getUpdateParams(sql, groupSetting);
 		return this.update(sql, params);
 	}
 	

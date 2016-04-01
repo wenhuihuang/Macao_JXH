@@ -23,8 +23,6 @@ public class Customer implements Serializable {
 	private String telNo;
 	private String mobileTelNo;
 	private String relationship;
-	private String custNO;
-	private String custNewNO;
 
 	public Customer() {
 		super();
@@ -33,7 +31,7 @@ public class Customer implements Serializable {
 
 	public Customer(String custID, String custCode, String fullName, String fullNameEng, String sex, String custType,
 			int cardStatus, Date regDate, Date validDate, String cardType, String cardNo, String telNo,
-			String mobileTelNo, String relationship,String custNO,String custNewNO) {
+			String mobileTelNo, String relationship) {
 		super();
 		this.custID = custID;
 		this.custCode = custCode;
@@ -49,8 +47,6 @@ public class Customer implements Serializable {
 		this.telNo = telNo;
 		this.mobileTelNo = mobileTelNo;
 		this.relationship = relationship;
-		this.custNO=custNO;
-		this.custNewNO=custNewNO;
 	}
 
 	public String getCustID() {
@@ -171,28 +167,12 @@ public class Customer implements Serializable {
 	
 	
 
-	public String getCustNO() {
-		return custNO;
-	}
-
-	public void setCustNO(String custNO) {
-		this.custNO = custNO;
-	}
-
-	public String getCustNewNO() {
-		return custNewNO;
-	}
-
-	public void setCustNewNO(String custNewNO) {
-		this.custNewNO = custNewNO;
-	}
-
 	@Override
 	public String toString() {
 		return "Customer [custID=" + custID + ", custCode=" + custCode + ", fullName=" + fullName + ", fullNameEng="
 				+ fullNameEng + ", sex=" + sex + ", custType=" + custType + ", cardStatus=" + cardStatus + ", regDate="
 				+ regDate + ", validDate=" + validDate + ", cardType=" + cardType + ", cardNo=" + cardNo + ", telNo="
-				+ telNo + ", mobileTelNo=" + mobileTelNo + ", relationship=" + relationship + ",custNO=" + custNO + ",custNewNO="+ custNewNO + "]";
+				+ telNo + ", mobileTelNo=" + mobileTelNo + ", relationship=" + relationship + "]";
 	}
 
 }

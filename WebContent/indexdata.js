@@ -26,9 +26,9 @@
   		{url:"jsp/manage/courseSetting_list.jsp",text:"課程設定" },
   		{url:"jsp/manage/carSetting_list.jsp",text:"校車支援" },
   		{url:"jsp/manage/activity_list.jsp",text:"活動設定" },
-  		{url:"jsp/manage/list.jsp",text:"家庭支援" },
+  		{url:"jsp/manage/familySupport_list.jsp",text:"家庭支援" },
   		{url:"jsp/manage/list.jsp",text:"信息平台" },
-  		{url:"jsp/manage/list.jsp",text:"收費記錄" },
+  		{url:"jsp/manage/chargeRecord_list.jsp",text:"收費記錄" },
   		{url:"jsp/manage/list.jsp",text:"統計報表" }
   	]
     }

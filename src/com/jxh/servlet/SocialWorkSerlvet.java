@@ -21,6 +21,7 @@ import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
 import com.jxh.biz.SocialWorkBiz;
 import com.jxh.dao.SocialWorkDao;
+import com.jxh.pojo.SocialWorkPojo;
 import com.jxh.vo.SocialWork;
 
 import net.sf.json.JSONArray;
@@ -81,10 +82,10 @@ public class SocialWorkSerlvet extends FGServlet {
 	
 	private void edit(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			SocialWork socialWork = socialWorkDao.getSocialWorkByCondition(" and workID = ? ",
+			SocialWorkPojo socialWorkPojo = socialWorkDao.getSocialWorkPojoByCondition(" and workID = ? ",
 					this.getParameterByName(request, "workID"));
 		
-			request.setAttribute("socialWork", socialWork);
+			request.setAttribute("socialWorkPojo", socialWorkPojo);
 			
 				forwardDispatcher("../jsp/manage/socialWork_edit.jsp",request,response);
 			

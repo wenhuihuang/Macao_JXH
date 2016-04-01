@@ -1,12 +1,10 @@
 package com.jxh.pojo;
 
-
 import java.io.Serializable;
 import java.util.Date;
 import java.sql.*;
 
 import java.math.*;
-
 
 public class CarSettingPojo implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -18,72 +16,102 @@ public class CarSettingPojo implements Serializable {
 	private Date beginDate;
 	private Date endDate;
 	private String site;
+	private String note;
 
-	public CarSettingPojo(){
+	public CarSettingPojo() {
 		super();
 	}
-	public CarSettingPojo(String carID, String carNO, String carNumber, String worker, String assistant, Date beginDate, Date endDate, String site ){
+
+	public CarSettingPojo(String carID, String carNO, String carNumber, String worker, String assistant, Date beginDate,
+			Date endDate, String site, String note) {
 		super();
-		this.carID=carID;
-		this.carNO=carNO;
-		this.carNumber=carNumber;
-		this.worker=worker;
-		this.assistant=assistant;
-		this.beginDate=beginDate;
-		this.endDate=endDate;
-		this.site=site;
+		this.carID = carID;
+		this.carNO = carNO;
+		this.carNumber = carNumber;
+		this.worker = worker;
+		this.assistant = assistant;
+		this.beginDate = beginDate;
+		this.endDate = endDate;
+		this.site = site;
+		this.note = note;
 	}
-	public void setCarID(String carID){
-		this.carID=carID;
+
+	public void setCarID(String carID) {
+		this.carID = carID;
 	}
-	public String getCarID(){
+
+	public String getCarID() {
 		return carID;
 	}
-	public void setCarNO(String carNO){
-		this.carNO=carNO;
+
+	public void setCarNO(String carNO) {
+		this.carNO = carNO;
 	}
-	public String getCarNO(){
+
+	public String getCarNO() {
 		return carNO;
 	}
-	public void setCarNumber(String carNumber){
-		this.carNumber=carNumber;
+
+	public void setCarNumber(String carNumber) {
+		this.carNumber = carNumber;
 	}
-	public String getCarNumber(){
+
+	public String getCarNumber() {
 		return carNumber;
 	}
-	public void setWorker(String worker){
-		this.worker=worker;
+
+	public void setWorker(String worker) {
+		this.worker = worker;
 	}
-	public String getWorker(){
+
+	public String getWorker() {
 		return worker;
 	}
-	public void setAssistant(String assistant){
-		this.assistant=assistant;
+
+	public void setAssistant(String assistant) {
+		this.assistant = assistant;
 	}
-	public String getAssistant(){
+
+	public String getAssistant() {
 		return assistant;
 	}
-	public void setBeginDate(Date beginDate){
-		this.beginDate=beginDate;
+
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
 	}
-	public Date getBeginDate(){
+
+	public Date getBeginDate() {
 		return beginDate;
 	}
-	public void setEndDate(Date endDate){
-		this.endDate=endDate;
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
-	public Date getEndDate(){
+
+	public Date getEndDate() {
 		return endDate;
 	}
-	public void setSite(String site){
-		this.site=site;
+
+	public void setSite(String site) {
+		this.site = site;
 	}
-	public String getSite(){
+
+	public String getSite() {
 		return site;
 	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
 	@Override
-	public String toString(){
-		return "CarSetting [carID="+carID+",carNO="+carNO+",carNumber="+carNumber+",worker="+worker+",assistant="+assistant+",beginDate="+beginDate+",endDate="+endDate+",site="+site+"]";
+	public String toString() {
+		return "CarSetting [carID=" + carID + ",carNO=" + carNO + ",carNumber=" + carNumber + ",worker=" + worker
+				+ ",assistant=" + assistant + ",beginDate=" + beginDate + ",endDate=" + endDate + ",site=" + site
+				+ ",note=" + note + "]";
 	}
 }
-

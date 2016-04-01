@@ -61,8 +61,6 @@ public class BCustomer implements Serializable {
 	private String telNO_Work;
 	private String jobSitution;
 	private String jobType;
-	private String custNO;
-	private String custNewNO;
 
 	private String birthday_ChnStr;
 	private String validDateStr;
@@ -87,7 +85,7 @@ public class BCustomer implements Serializable {
 			String houseSitution, int isCSSA, int specialAllowance, String relationship, int isGuardian,
 			int isLiveTogether, String guardianCustID, String isMember, String telNO_Work, String jobSitution,
 			String jobType, String birthday_ChnStr, String validDateStr, String regDateStr, String changeDateStr,
-			String makeCardDateStr, String reciveCardDateStr, String disabilityEndDateStr,String custNO,String custNewNO) {
+			String makeCardDateStr, String reciveCardDateStr, String disabilityEndDateStr) {
 		super();
 		this.custID = custID;
 		this.custCode = custCode;
@@ -144,8 +142,6 @@ public class BCustomer implements Serializable {
 		this.makeCardDateStr = makeCardDateStr;
 		this.reciveCardDateStr = reciveCardDateStr;
 		this.disabilityEndDateStr = disabilityEndDateStr;
-		this.custNO=custNO;
-		this.custNewNO=custNewNO;
 	}
 
 	public String getCustID() {
@@ -643,22 +639,6 @@ public class BCustomer implements Serializable {
 	}
 
 	
-	
-	public String getCustNO() {
-		return custNO;
-	}
-
-	public void setCustNO(String custNO) {
-		this.custNO = custNO;
-	}
-
-	public String getCustNewNO() {
-		return custNewNO;
-	}
-
-	public void setCustNewNO(String custNewNO) {
-		this.custNewNO = custNewNO;
-	}
 
 	@Override
 	public String toString() {
@@ -681,7 +661,7 @@ public class BCustomer implements Serializable {
 				+ ", jobType=" + jobType + ", birthday_ChnStr=" + birthday_ChnStr + ", validDateStr=" + validDateStr
 				+ ", regDateStr=" + regDateStr + ", changeDateStr=" + changeDateStr + ", makeCardDateStr="
 				+ makeCardDateStr + ", reciveCardDateStr=" + reciveCardDateStr + ", disabilityEndDateStr="
-				+ disabilityEndDateStr + ",custNO="+custNO+",custNewNO="+custNewNO+"]";
+				+ disabilityEndDateStr + "]";
 	}
 
 }

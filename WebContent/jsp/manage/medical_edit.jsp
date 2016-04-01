@@ -49,35 +49,125 @@ String basePath = request.getScheme() + "://"
 	
     //約束觀察記錄
 	function bindingMedicalRecordViewDataGrid(){
+    	
+	var mentalitySoberData = [{mentalitySober:0,text:'正常'},{mentalitySober:1,text:'異常'}];
+	var mentalityLethargyData = [{mentalityLethargy:0,text:'正常'},{mentalityLethargy:1,text:'異常'}];
+	var mentalityUneasyData = [{mentalityUneasy:0,text:'正常'},{mentalityUneasy:1,text:'異常'}];
+	var heartLungBreatheData = [{heartLungBreathe:0,text:'正常'},{heartLungBreathe:1,text:'異常'}];
+	var heartLungAnhelationData = [{heartLungAnhelation:0,text:'正常'},{heartLungAnhelation:1,text:'異常'}];
+	var bloodWarmthData = [{bloodWarmth:0,text:'正常'},{bloodWarmth:1,text:'異常'}];
+	var bloodRuddyData = [{bloodRuddy:0,text:'正常'},{bloodRuddy:1,text:'異常'}];
+	var bloodFrozenData = [{bloodFrozen:0,text:'正常'},{bloodFrozen:1,text:'異常'}];
+	var bloodPallorData = [{bloodPallor:0,text:'正常'},{bloodPallor:1,text:'異常'}];
+	var bloodBruiseData = [{bloodBruise:0,text:'正常'},{bloodBruise:1,text:'異常'}];
+	var bloodDeData = [{bloodDe:0,text:'正常'},{bloodDe:1,text:'異常'}];
+	var skinFullData = [{skinFull:0,text:'正常'},{skinFull:1,text:'異常'}];
+	var skinDamagedData = [{skinDamaged:0,text:'正常'},{skinDamaged:1,text:'異常'}];
+	var nerveDiscomfortData = [{nerveDiscomfort:0,text:'正常'},{nerveDiscomfort:1,text:'異常'}];
+	var nerveParalysisData = [{nerveParalysis:0,text:'正常'},{nerveParalysis:1,text:'異常'}];
 	
 	var medicalRecordViewDataGridColumn = [
 								{ display: 'viewID', name: 'viewID', hide:true },
 			                    { display: '日期', name: 'billDate', width: 100,type:"date",format: 'yyyy-MM-dd',editor: { type: 'date' }},
 			                    { display: '觀察時間', name: 'project', id:'time', width: 100 ,type:"text",editor: { type: 'text'}},
 			                    { display: '精神狀況', columns:[
-			                                                	{ display: '清醒', name: 'mentalitySober', type:"text",editor: { type: 'text'}},
-			                                                	{ display: '昏睡', name: 'mentalityLethargy', type:"text",editor: { type: 'text'}},
-			                                                	{ display: '煩燥不安', name: 'mentalityUneasy', type:"text",editor: { type: 'text'}}
+			                                                	{ display: '清醒', name: 'mentalitySober', type:"text",editor: {type: 'select', data: mentalitySoberData, valueField: 'mentalitySober'},
+			                                                		render: function (item)
+			                				                        {
+			                				                        	return getGridSelectedData(mentalitySoberData[parseInt(item.mentalitySober)]);
+			                				                        }},
+			                                                	{ display: '昏睡', name: 'mentalityLethargy', type:"text",editor: {type: 'select', data: mentalityLethargyData, valueField: 'mentalityLethargy'},
+		                				                        	render: function (item)
+			                				                        {
+			                				                        	return getGridSelectedData(mentalityLethargyData[parseInt(item.mentalityLethargy)]);
+			                				                        }    	
+			                                                	},
+			                                                	{ display: '煩燥不安', name: 'mentalityUneasy', type:"text",editor: {type: 'select', data: mentalityUneasyData, valueField: 'mentalityUneasy'},
+			                                                		render: function (item)
+			                				                        {
+			                				                        	return getGridSelectedData(mentalityUneasyData[parseInt(item.mentalityUneasy)]);
+			                				                        }   
+			                                                	}
 			                                                ]},
 			                    { display: '心肺功能', columns:[
-																{ display: '呼吸暢順', name: 'heartLungBreathe', type:"text",editor: { type: 'text'}},
-																{ display: '氣促', name: 'heartLungAnhelation', type:"text",editor: { type: 'text'}},
+																{ display: '呼吸暢順', name: 'heartLungBreathe', type:"text",editor: {type: 'select', data: heartLungBreatheData, valueField: 'heartLungBreathe'},
+																	render: function (item)
+			                				                        {
+			                				                        	return getGridSelectedData(heartLungBreatheData[parseInt(item.heartLungBreathe)]);
+			                				                        }
+																},
+																{ display: '氣促', name: 'heartLungAnhelation', type:"text",editor: {type: 'select', data: heartLungAnhelationData, valueField: 'heartLungAnhelation'},
+																	render: function (item)
+			                				                        {
+			                				                        	return getGridSelectedData(heartLungAnhelationData[parseInt(item.heartLungAnhelation)]);
+			                				                        }	
+																},
 			                                                ]},
 			                    { display: '血液循環', columns:[
-																{ display: '手腳溫暖', name: 'bloodWarmth', type:"text",editor: { type: 'text'}},
-																{ display: '紅潤', name: 'bloodRuddy', type:"text",editor: { type: 'text'}},
-																{ display: '冰凍', name: 'bloodFrozen', type:"text",editor: { type: 'text'}},
-																{ display: '青白', name: 'bloodPallor', type:"text",editor: { type: 'text'}},
-																{ display: '瘀青', name: 'bloodBruise', type:"text",editor: { type: 'text'}},
-																{ display: '消腫', name: 'bloodDe', type:"text",editor: { type: 'text'}}
+																{ display: '手腳溫暖', name: 'bloodWarmth', type:"text",editor: {type: 'select', data: bloodWarmthData, valueField: 'bloodWarmth'},
+																	render: function (item)
+			                				                        {
+			                				                        	return getGridSelectedData(bloodWarmthData[parseInt(item.bloodWarmth)]);
+			                				                        }
+																},
+																{ display: '紅潤', name: 'bloodRuddy', type:"text",editor: {type: 'select', data: bloodRuddyData, valueField: 'bloodRuddy'},
+																	render: function (item)
+			                				                        {
+			                				                        	return getGridSelectedData(bloodRuddyData[parseInt(item.bloodRuddy)]);
+			                				                        }	
+																},
+																{ display: '冰凍', name: 'bloodFrozen', type:"text",editor: {type: 'select', data: bloodFrozenData, valueField: 'bloodFrozen'},
+																	render: function (item)
+			                				                        {
+			                				                        	return getGridSelectedData(bloodFrozenData[parseInt(item.bloodFrozen)]);
+			                				                        }	
+																},
+																{ display: '青白', name: 'bloodPallor', type:"text",editor: {type: 'select', data: bloodPallorData, valueField: 'bloodPallor'},
+																	render: function (item)
+			                				                        {
+			                				                        	return getGridSelectedData(bloodPallorData[parseInt(item.bloodPallor)]);
+			                				                        }	
+																},
+																{ display: '瘀青', name: 'bloodBruise', type:"text",editor: {type: 'select', data: bloodBruiseData, valueField: 'bloodBruise'},
+																	render: function (item)
+			                				                        {
+			                				                        	return getGridSelectedData(bloodBruiseData[parseInt(item.bloodBruise)]);
+			                				                        }	
+																},
+																{ display: '消腫', name: 'bloodDe', type:"text",editor: {type: 'select', data: bloodDeData, valueField: 'bloodDe'},
+																	render: function (item)
+			                				                        {
+			                				                        	return getGridSelectedData(bloodDeData[parseInt(item.bloodDe)]);
+			                				                        }	
+																}
 			                                                ]},
 			                    { display: '皮膚功能', columns:[
-																{ display: '皮膚完整', name: 'skinFull', type:"text",editor: { type: 'text'}},
-																{ display: '皮膚破損', name: 'skinDamaged', type:"text",editor: { type: 'text'}}
+																{ display: '皮膚完整', name: 'skinFull', type:"text",editor: {type: 'select', data: skinFullData, valueField: 'skinFull'},
+																	render: function (item)
+			                				                        {
+			                				                        	return getGridSelectedData(skinFullData[parseInt(item.skinFull)]);
+			                				                        }	
+																},
+																{ display: '皮膚破損', name: 'skinDamaged', type:"text",editor: {type: 'select', data: skinDamagedData, valueField: 'skinDamaged'},
+																	render: function (item)
+			                				                        {
+			                				                        	return getGridSelectedData(skinDamagedData[parseInt(item.skinDamaged)]);
+			                				                        }	
+																}
 			                                                ]},
 			                    { display: '神經系統', columns:[
-																{ display: '感覺無不適', name: 'nerveDiscomfort', type:"text",editor: { type: 'text'}},
-																{ display: '麻痺/痛', name: 'nerveParalysis', type:"text",editor: { type: 'text'}}
+																{ display: '感覺無不適', name: 'nerveDiscomfort', type:"text",editor: {type: 'select', data: nerveDiscomfortData, valueField: 'nerveDiscomfort'},
+																	render: function (item)
+			                				                        {
+			                				                        	return getGridSelectedData(nerveDiscomfortData[parseInt(item.nerveDiscomfort)]);
+			                				                        }	
+																},
+																{ display: '麻痺/痛', name: 'nerveParalysis', type:"text",editor: {type: 'select', data: nerveParalysisData, valueField: 'nerveParalysis'},
+																	render: function (item)
+			                				                        {
+			                				                        	return getGridSelectedData(nerveParalysisData[parseInt(item.nerveParalysis)]);
+			                				                        }	
+																}
 			                                                ]},
 			                    { display: '鬆解時間', name: 'releaseDate',width:120, type:"date", editor: { type: 'date'}},
 			                    { display: '觀察者簽名', name: 'handler',width:120, type:"text", editor: { type: 'text'}},
@@ -236,16 +326,16 @@ function deleteMedicalRecordViewData(){
 					</div>
 				</div>
 				<div class="inline-group">
-					<label>遺傳病 ：</label>
+					<label style="width:75px;text-align:right;">遺傳病 ：</label>
 					<textarea rows="2" cols="55" name="genetic" >${medicalRecord.genetic }</textarea>
 				</div>
 				<div class="inline-group">
-					<label>其他 ：</label>
+					<label style="width:75px;text-align:right;">其他 ：</label>
 					<textarea rows="2" cols="55" name="geneticOther">${medicalRecord.geneticOther }</textarea>
 				</div>
 				
 				<div class="inline-group">
-					<label>嗜好：</label>
+					<label style="width:75px;text-align:right;">嗜好：</label>
 					<div class="checkbox-group">
 						<label><input type="checkbox" class="hobby" value="0" >嗜酒</label>
    						<label><input type="checkbox" class="hobby" value="1" >吸煙</label>
@@ -254,7 +344,7 @@ function deleteMedicalRecordViewData(){
 					</div>
 				</div>
 				<div class="inline-group">
-					<label>其他：</label>
+					<label style="width:75px;text-align:right;">其他：</label>
 					<textarea rows="2" cols="55" name="hobbyNote" >${medicalRecord.hobbyNote }</textarea>
 				</div>
 		  	<div class="inline-group">
@@ -272,8 +362,10 @@ function deleteMedicalRecordViewData(){
 		  	</div>
 		  	</div>
 		  	<div tabid="recordData" title="約束觀察記錄">
-		  		<p style="padding:10px 0;">注：1.每隔兩小時觀察學員生命體征及臨床情況，每次鬆綁15分鐘左右。
-					2.正常用「ˇ」異常時用「×」</p>
+		  		<div style="padding:10px 0;">
+		  			<p>注：1.每隔兩小時觀察學員生命體征及臨床情況，每次鬆綁15分鐘左右。</p>
+		  			<p style="margin-top:8px;">&nbsp;&nbsp;&nbsp;&nbsp;2.正常用「ˇ」異常時用「×」</p>
+		  		</div>
 		  		<div id="medicalRecordViewDataGrid"></div>
 		  	</div>
 		  	

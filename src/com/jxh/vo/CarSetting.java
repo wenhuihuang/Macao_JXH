@@ -12,12 +12,12 @@ import java.math.*;
 /**
  * CarSetting
  * 
- * carID,carNO,carNumber,worker,assistant,beginDate,endDate,site ?,?,?,?,?,?,?,?
+ * carID,carNO,carNumber,worker,assistant,beginDate,endDate,site,note ?,?,?,?,?,?,?,?,?
  * 
  * carSetting.carID,carSetting.carNO,carSetting.carNumber,carSetting.worker,
- * carSetting.assistant,carSetting.beginDate,carSetting.endDate,carSetting.site
+ * carSetting.assistant,carSetting.beginDate,carSetting.endDate,carSetting.site,carSetting.note
  * 
- * carID=?,carNO=?,carNumber=?,worker=?,assistant=?,beginDate=?,endDate=?,site=?
+ * carID=?,carNO=?,carNumber=?,worker=?,assistant=?,beginDate=?,endDate=?,site=?,note=?
  */
 public class CarSetting implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -29,6 +29,7 @@ public class CarSetting implements Serializable {
 	private Date beginDate;
 	private Date endDate;
 	private String site;
+	private String note;
 
 	private String beginDate_str;
 	private String endDate_str;
@@ -38,7 +39,7 @@ public class CarSetting implements Serializable {
 	}
 
 	public CarSetting(String carID, String carNO, String carNumber, String worker, String assistant, Date beginDate,
-			Date endDate, String site, String beginDate_str,String endDate_str) {
+			Date endDate, String site, String beginDate_str,String endDate_str,String note) {
 		super();
 		this.carID = carID;
 		this.carNO = carNO;
@@ -50,6 +51,15 @@ public class CarSetting implements Serializable {
 		this.site = site;
 		this.beginDate_str=beginDate_str;
 		this.endDate_str=endDate_str;
+		this.note=note;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 	public void setCarID(String carID) {
@@ -148,6 +158,6 @@ public class CarSetting implements Serializable {
 	public String toString() {
 		return "CarSetting [carID=" + carID + ",carNO=" + carNO + ",carNumber=" + carNumber + ",worker=" + worker
 				+ ",assistant=" + assistant + ",beginDate=" + beginDate + ",endDate=" + endDate + ",site=" + site + 
-				",beginDate_str="+beginDate+",endDate_str="+endDate_str+"]";
+				",beginDate_str="+beginDate_str+",endDate_str="+endDate_str+",note="+note+"]";
 	}
 }

@@ -24,7 +24,6 @@ String basePath = request.getScheme() + "://"
         //會員報名
 		function bindingMemberDataGrid(){
 			function getParentName(checkbox) {
-				alert("0")
 				if(memberDataGrid != "" && memberDataGrid != null){
 					var custID = getRowCell(memberDataGrid,"custID");
 					alert(custID)
@@ -113,7 +112,7 @@ String basePath = request.getScheme() + "://"
 				                    { display: '家屬', name: 'family', minWidth:100,type:"text", editor: { type: 'text'}},
 				                    { display: '家屬收費', name: 'fExpense', minWidth:100, type:"text", editor: { type: 'text'}},
 				                    { display: '家屬人數', name: 'fNumber', minWidth:100, type:"text", editor: { type: 'text'}},
-				                    { display: '總人數', name: 'note', minWidth:100,type:"text", editor: { type: 'text'}},
+				                    { display: '總人數', name: 't', minWidth:100,type:"text", editor: { type: 'text'}},
 				                    { display: '收費總和', name: 'count', minWidth:100, type:"text", editor: { type: 'text'}},
 				                    { display: '聯繫電話', name: 'mobileTelNO',  minWidth:100,type:"text", editor: { type: 'text'}},
 				                    { display: '備註', name: 'note', type:"text",minWidth:100, editor: { type: 'text'}}
@@ -226,7 +225,10 @@ String basePath = request.getScheme() + "://"
             grid.updateRow(grid.lastEditRow, {
                 workName: selected.workName,
                 custID: selected.workID,
-                custNO: selected.custNO
+                custNO: selected.custNO,
+                age:selected.age,
+                work:selected.work,
+                phone:selected.phone
             });
 /* 
             var out = JSON.stringify(selected);
@@ -363,8 +365,8 @@ String basePath = request.getScheme() + "://"
 		//console.log(getJsonByDataRow(activityApplyUpdates))
 		//activityApplyDeletes
  		var memberDataDeletes = memberDataGrid.getDeleted();
- 		var notMemberDataDeletes = notMemberDataGrid.getDeleted();	
- 		var volunteerDataDeletes = volunteerDataGrid.getDeleted();	
+ 		var notMemberDataDeletes = notMemberDataGrid.getDeleted() == undefined ? [] : notMemberDataGrid.getDeleted();	
+ 		var volunteerDataDeletes = volunteerDataGrid.getDeleted() == undefined ? [] : volunteerDataGrid.getDeleted();	
  		if(memberDataDeletes != null && memberDataDeletes !=""){
  			var activityApplyDeletes=memberDataDeletes.concat(notMemberDataDeletes,volunteerDataDeletes);
  		}else{
@@ -382,9 +384,9 @@ String basePath = request.getScheme() + "://"
     
 	$(function(){
 		if($("#recordID").val() != "" && $("#recordID").val() != 'null' && $("#recordID").val() != 'undefined'){
-			setTabTitle(parent.$("#framecenter"),"醫護記錄編輯")
+			setTabTitle(parent.$("#framecenter"),"活動編輯")
 		}else{
-			setTabTitle(parent.$("#framecenter"),"醫護記錄新增")
+			setTabTitle(parent.$("#framecenter"),"活動新增")
 		}
 		
 		$(".toptoolbar").ligerToolBar({ items: [
@@ -430,106 +432,108 @@ String basePath = request.getScheme() + "://"
 	<input type="hidden" name="activityRecordNewUpdates" id="activityRecordNewUpdates" >
 	<input type="hidden" name="activityRecordNewDeletes" id="activityRecordNewDeletes" >
 	
+	<div style="padding:8px 0;">
+		<div class="inline-group row max-width-group-300 label-width-100">
+			<div class="col-md-3">
+				<label>活動編號：</label>
+				<input type="text" ltype="text" width="120px" name="actNO" value="${activitySetting.actNO }"  validate="{required:true,notnull:true}">
+			</div>
+			<div class="col-md-3">
+				<label>活動名稱：</label>
+				<input type="text" ltype="text" width="120px" name="actName" value="${activitySetting.actName }"  validate="{required:true,notnull:true}">
+			</div>
+			<div class="col-md-3">
+				<label>參加費用1：</label>
+				<input type="text" style="text-align:left;" ltype="float" width="120px" name="expense1" value='${activitySetting.expense1 == null ? "0.00": activitySetting.expense1 }'>
+			</div>
+			<div class="col-md-3">
+				<label>參加費用2：</label>
+				<input type="text" style="text-align:left;" ltype="float" width="120px" name="expense2" value='${activitySetting.expense2 == null ? "0.00": activitySetting.expense2 }'>
+			</div>
+		</div>
+		<div class="inline-group row max-width-group-300 label-width-100">
+			<div class="col-md-3">
+				<label>參加費用3：</label>
+				<input type="text" style="text-align:left;" ltype="float" width="120px" name="expense3" value='${activitySetting.expense3 == null ? "0.00": activitySetting.expense3 }'>
+			</div>
+			<div class="col-md-3">
+				<label>參加費用4：</label>
+				<input type="text" style="text-align:left;" ltype="float" width="120px" name="expense4" value='${activitySetting.expense4 == null ? "0.00": activitySetting.expense4 }'>
+			</div>
+			<div class="col-md-3">
+				<label>允許簽到次數：</label>
+				<input type="text" style="text-align:left;" ltype="int" width="120px" name="time" value="${activitySetting.time }">
+			</div>
+			<div class="col-md-3">
+				<label>人數控制方式：</label>
+				<input type="text" ltype="text" width="120px" name="way" value="${activitySetting.way }">
+			</div>
+		</div>
+		<div class="inline-group row max-width-group-300 label-width-100">
+			<div class="col-md-3">
+				<label>線上可報名名額：</label>
+				<input type="text" style="text-align:left;" ltype="int" width="120px" name="onlineCan" value="${activitySetting.onlineCan }">
+			</div>
+			<div class="col-md-3">
+				<label>線下可報名名額：</label>
+				<input type="text" style="text-align:left;" ltype="int" width="120px" name="offlineCan" value="${activitySetting.offlineCan }">
+			</div>
+			<div class="col-md-3">
+				<label>線上已報名名額：</label>
+				<input type="text" style="text-align:left;" ltype="int" width="120px" name=onlineThen value="${activitySetting.onlineThen }">
+			</div>
+			<div class="col-md-3">
+				<label>線下已報名名額：</label>
+				<input type="text" style="text-align:left;" ltype="int" width="120px" name="offlineThen" value="${activitySetting.offlineThen }">
+			</div>
+		</div>
+		<div class="inline-group row max-width-group-300 label-width-100">
+			<div class="col-md-3">
+				<label>參加可獲取積分：</label>
+				<input type="text" style="text-align:left;" ltype="int" width="120px" name="integral" value="${activitySetting.integral }">
+			</div>
+			<div class="col-md-3">
+				<label>僅會員可報名：</label>
+				<select name="isOnly" id="isOnly" ltype="select" width="120px" >
+	          		<option value="0" <c:if test="${activitySetting.isOnly == '0' }">selected="selected"</c:if> >是</option>
+	          		<option value="1" <c:if test="${activitySetting.isOnly == '1' }">selected="selected"</c:if> >否</option>
+	          	</select> 
+			</div>
+			<div class="col-md-3">
+				<label>報名開始日期：</label>
+				<input type="text" ltype="date" width="120px" name="applyBDate" value="${activitySetting.applyBDate_str }">
+			</div>
+			<div class="col-md-3">
+				<label>報名結束日期：</label>
+				<input type="text" ltype="date" width="120px" name="applyEDate" value="${activitySetting.applyEDate_str }">
+			</div>
+		</div>
+		<div class="inline-group row max-width-group-300 label-width-100">
+			<div class="col-md-3">
+				<label>活動開始日期：</label>
+				<input type="text" ltype="date" width="120px" name="actBDate" value="${activitySetting.actBDate_str }">
+			</div>
+			<div class="col-md-3">
+				<label>活動結束日期：</label>
+				<input type="text" ltype="date" width="120px" name="actEDate" value="${activitySetting.actEDate_str }">
+			</div>
+			<div class="col-md-3">
+				<label>活動地址：</label>
+				<input type="text" ltype="text" width="120px" name="address" value="${activitySetting.address }">
+			</div>
+			<div class="col-md-3">
+				<label>活動負責人：</label>
+				<input type="text" ltype="text" width="120px" name="principal" value="${activitySetting.principal }">
+			</div>
+		</div>
+		<div class="inline-group row max-width-group-300 label-width-100">
+			<div class="col-md-3">
+				<label>登記資料人：</label>
+				<input type="text" ltype="text" width="120px" name="registrant" value="${activitySetting.registrant }">
+			</div>
+		</div>
+	</div>
 	
-	<div class="inline-group row max-width-group-300 label-width-100">
-		<div class="col-md-3">
-			<label>活動編號：</label>
-			<input type="text" ltype="text" width="120px" name="actNO" value="${activitySetting.actNO }">
-		</div>
-		<div class="col-md-3">
-			<label>活動名稱：</label>
-			<input type="text" ltype="text" width="120px" name="actName" value="${activitySetting.actName }">
-		</div>
-		<div class="col-md-3">
-			<label>參加費用1：</label>
-			<input type="text" ltype="text" width="120px" name="expense1" value="${activitySetting.expense1 }">
-		</div>
-		<div class="col-md-3">
-			<label>參加費用2：</label>
-			<input type="text" ltype="text" width="120px" name="expense2" value="${activitySetting.expense2 }">
-		</div>
-	</div>
-	<div class="inline-group row max-width-group-300 label-width-100">
-		<div class="col-md-3">
-			<label>參加費用3：</label>
-			<input type="text" ltype="text" width="120px" name="expense3" value="${activitySetting.expense3 }">
-		</div>
-		<div class="col-md-3">
-			<label>參加費用4：</label>
-			<input type="text" ltype="text" width="120px" name="expense4" value="${activitySetting.expense4 }">
-		</div>
-		<div class="col-md-3">
-			<label>允許簽到次數：</label>
-			<input type="text" ltype="text" width="120px" name="time" value="${activitySetting.time }">
-		</div>
-		<div class="col-md-3">
-			<label>人數控制方式：</label>
-			<input type="text" ltype="text" width="120px" name="way" value="${activitySetting.way }">
-		</div>
-	</div>
-	<div class="inline-group row max-width-group-300 label-width-100">
-		<div class="col-md-3">
-			<label>線上可報名名額：</label>
-			<input type="text" ltype="text" width="120px" name="onlineCan" value="${activitySetting.onlineCan }">
-		</div>
-		<div class="col-md-3">
-			<label>線下可報名名額：</label>
-			<input type="text" ltype="text" width="120px" name="offlineCan" value="${activitySetting.offlineCan }">
-		</div>
-		<div class="col-md-3">
-			<label>線上已報名名額：</label>
-			<input type="text" ltype="text" width="120px" name=onlineThen value="${activitySetting.onlineThen }">
-		</div>
-		<div class="col-md-3">
-			<label>線下已報名名額：</label>
-			<input type="text" ltype="text" width="120px" name="offlineThen" value="${activitySetting.offlineThen }">
-		</div>
-	</div>
-	<div class="inline-group row max-width-group-300 label-width-100">
-		<div class="col-md-3">
-			<label>參加可獲取積分：</label>
-			<input type="text" ltype="text" width="120px" name="integral" value="${activitySetting.integral }">
-		</div>
-		<div class="col-md-3">
-			<label>僅會員可報名：</label>
-			<select name="isOnly" id="isOnly" ltype="select" width="120px" >
-          		<option value="0" <c:if test="${activitySetting.isOnly == '0' }">selected="selected"</c:if> >是</option>
-          		<option value="1" <c:if test="${activitySetting.isOnly == '1' }">selected="selected"</c:if> >否</option>
-          	</select> 
-		</div>
-		<div class="col-md-3">
-			<label>報名開始日期：</label>
-			<input type="text" ltype="date" width="120px" name="applyBDate" value="${activitySetting.applyBDate_str }">
-		</div>
-		<div class="col-md-3">
-			<label>報名結束日期：</label>
-			<input type="text" ltype="date" width="120px" name="applyEDate" value="${activitySetting.applyEDate_str }">
-		</div>
-	</div>
-	<div class="inline-group row max-width-group-300 label-width-100">
-		<div class="col-md-3">
-			<label>活動開始日期：</label>
-			<input type="text" ltype="date" width="120px" name="actBDate" value="${activitySetting.actBDate_str }">
-		</div>
-		<div class="col-md-3">
-			<label>活動結束日期：</label>
-			<input type="text" ltype="date" width="120px" name="actEDate" value="${activitySetting.actEDate_str }">
-		</div>
-		<div class="col-md-3">
-			<label>活動地址：</label>
-			<input type="text" ltype="text" width="120px" name="address" value="${activitySetting.address }">
-		</div>
-		<div class="col-md-3">
-			<label>活動負責人：</label>
-			<input type="text" ltype="text" width="120px" name="principal" value="${activitySetting.principal }">
-		</div>
-	</div>
-	<div class="inline-group row max-width-group-300 label-width-100">
-		<div class="col-md-3">
-			<label>登記資料人：</label>
-			<input type="text" ltype="text" width="120px" name="registrant" value="${activitySetting.registrant }">
-		</div>
-	</div>
 	
 	<div id="tab">
 		  	<div title="會員報名" tabid="memberData">

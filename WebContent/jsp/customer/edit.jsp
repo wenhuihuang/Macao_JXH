@@ -41,7 +41,10 @@ String basePath = request.getScheme() + "://"
 		$("#SpecialAllowanceAdds").val(getAddedRows(SpecialAllowanceGrid));
 		$("#SpecialAllowanceUpdates").val(getEditedRows(SpecialAllowanceGrid));
 		$("#SpecialAllowanceDeletes").val(getDeletedRows(SpecialAllowanceGrid));
-		//$("#Button1").click();
+		$("#SocialWorkAdds").val(getAddedRows(VolunteerGrid));
+		$("#SocialWorkUpdates").val(getEditedRows(VolunteerGrid));
+		$("#SocialWorkDeletes").val(getDeletedRows(VolunteerGrid));
+		$("#Button1").click();
 		
 	}
 	function back(){
@@ -90,7 +93,7 @@ String basePath = request.getScheme() + "://"
 			switch(targettabid){
 			case "SpecialAllowanceGrid":showGridInTab(SpecialAllowanceGrid);break;
 			case "ActivityGrid":showGridInTab(ActivityGrid);break;
-			case "VolunteerGrid":showGridInTab(VolunteerGrid);break;
+			case "VolunteerGrid":showGridInTab(VolunteerGrid);break;			
 			default:break;
 		}
 		
@@ -110,32 +113,32 @@ String basePath = request.getScheme() + "://"
 		
 		var retardedGridColumn = [
 									{ display: 'retardedID', name: 'retardedID', hide:true },
-				                    { display: '智障類別', name: 'retardedType', align: 'left',  width: 150 
+				                    { display: '智障類別', name: 'retardedType', align: 'left',  minWidth: 150 
 				                    	,editor: { type: 'select', data: retardedTypeData, valueField: 'retardedType' },
 				                        render: function (item)
 				                        {
 				                            return getGridSelectedData(retardedTypeData[parseInt(item.retardedType)-1]);
 				                        }},
-				                    { display: '程度', name: 'retardedDegree', width: 100
+				                    { display: '程度', name: 'retardedDegree', minWidth: 100
 				                        ,editor: { type: 'select', data: retardedDegreeData, valueField: 'retardedDegree' },
 				                        render: function (item)
 				                        {
 				                        	return getGridSelectedData(retardedDegreeData[parseInt(item.retardedDegree)-1]);
 				                        }},
-				                    { display: '有否評估報告', name: 'hasRetardedReport', width: 150 
+				                    { display: '有否評估報告', name: 'hasRetardedReport', minWidth: 150 
 				                        ,editor: { type: 'select', data: hasRetardedReportData, valueField: 'hasRetardedReport' },
 				                        render: function (item)
 				                        {
 				                        	return getGridSelectedData(hasRetardedReportData[parseInt(item.hasRetardedReport)]);
 				                        }},
-				                    { display: '評估報告來源', name: 'retardedReportSource',width:250
+				                    { display: '評估報告來源', name: 'retardedReportSource',minWidth:250
 			                        	,editor: { type: 'select', data: retardedReportSourceData, valueField: 'retardedReportSource' },
 				                        render: function (item)
 				                        {
 				                        	return getGridSelectedData(retardedReportSourceData[parseInt(item.retardedReportSource)-1]);
 				                        }},
-				                    { display: '評估日期', name: 'assessDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
+				                    { display: '評估日期', name: 'assessDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '備註', name: 'note',minWidth:300, type:"text", editor: { type: 'text'}}
 				                  ];
 				
 				
@@ -144,7 +147,7 @@ String basePath = request.getScheme() + "://"
 	          { line: true },
 	          { text: '删除', click: deleteRetarded, icon: 'delete' , id:"delete" }];
 		
-		var url = "Customer/getRetarded.do?CUSTID="+$("#custId").val();
+		var url = "Customer/getRetarded.do?CUSTID="+$("#custID").val();
 		
 		retardedGrid = ligerGrid("retardedGrid",null,retardedGridColumn,url,retardedGridToolBar,false);
 		
@@ -181,7 +184,7 @@ String basePath = request.getScheme() + "://"
 		             	          { text: '修改', click: editFamily, icon: 'modify' , id:"edit" },
 		             	          { line: true },
 		             	          { text: '删除', click: deleteFamily, icon: 'delete' , id:"delete" }];
-		var url = "Customer/getFamily.do?CUSTID="+$("#custId").val();
+		var url = "Customer/getFamily.do?CUSTID="+$("#custID").val();
 		familyGrid = ligerGrid("familyGrid",null,familyGridColumn,url,familyGridToolBar,false,true);
 	}
 	
@@ -202,11 +205,11 @@ String basePath = request.getScheme() + "://"
 		var row = getSelectedRow(familyGrid);
 		
 		if(row!=null){
-			if(row.custId==null||""==row.custId){
+			if(row.custID==null||""==row.custID){
 				//如果当前行是新增并没有保存的行
 				editFamilyDlg = openDialog("jsp/customer/edit_family.jsp?jsonData="+JSON.stringify(row),"编辑家庭成員资料","editFamilyByDlg");	
 			}else{
-				editFamilyDlg = openDialog("Customer/editFamily.do?CUSTID="+row.custId,"编辑家庭成員资料","editFamilyByDlg");
+				editFamilyDlg = openDialog("Customer/editFamily.do?CUSTID="+row.custID,"编辑家庭成員资料","editFamilyByDlg");
 			}
 			
 		}
@@ -235,7 +238,7 @@ String basePath = request.getScheme() + "://"
 		             	          { line: true },
 		             	          { text: '删除', click: deleteCSSA, icon: 'delete' , id:"delete" }];
 		
-		var url = "Customer/getCSSA.do?CUSTID="+$("#custId").val();
+		var url = "Customer/getCSSA.do?CUSTID="+$("#custID").val();
 		
 		CSSAGrid = ligerGrid("CSSAGrid",null,CSSAGridColumn,url,CSSAGridToolBar);
 	}
@@ -261,7 +264,7 @@ String basePath = request.getScheme() + "://"
 		             	          { line: true },
 		             	          { text: '删除', click: deleteSpecialAllowance, icon: 'delete' , id:"delete" }];
 		
-		var url = "Customer/getSpecialAllowance.do?CUSTID="+$("#custId").val();
+		var url = "Customer/getSpecialAllowance.do?CUSTID="+$("#custID").val();
 		
 		SpecialAllowanceGrid = ligerGrid("SpecialAllowanceGrid",null,SpecialAllowanceGridColumn,url,SpecialAllowanceGridToolBar,false,true);
 	}
@@ -279,19 +282,19 @@ String basePath = request.getScheme() + "://"
 		var activityWhetherData = [{activityWhether:0,text:'否'},{activityWhether:1,text:'是'}];
 		
 		var ActivityGridColumn = [
-                   { display: '活動編號', name: 'custCode', align: 'left', width: 100, minWidth: 60, editor:{type:'text'} },
-                   { display: '活動名稱', name: 'custCode', align: 'left', width: 100, minWidth: 60, editor:{type:'text'} },
-                   { display: '活動日期', name: 'custCode', align: 'left', width: 100, minWidth: 60, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'} },
-                   { display: '是否遲到', name: 'custCode', align: 'left', width: 100, minWidth: 120, editor: { type: 'select', data: activityWhetherData, valueField: 'activityWhether' } },
-                   { display: '參與人數', name: 'custCode', align: 'left', width: 100, minWidth: 120, editor:{type:'text'} },
-                   { display: '備註', name: 'custCode', align: 'left', width: 100, minWidth: 120, editor:{type:'text'} }
+                   { display: '活動編號', name: 'actNO', align: 'left', width: 100, minWidth: 60, editor:{type:'text'} },
+                   { display: '活動名稱', name: 'actName', align: 'left', width: 100, minWidth: 60, editor:{type:'text'} },
+                   { display: '活動日期', name: 'actBDate', align: 'left', width: 100, minWidth: 60, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'} },
+                   { display: '是否遲到', name: 'isLate', align: 'left', width: 100, minWidth: 120, editor: { type: 'select', data: activityWhetherData, valueField: 'activityWhether' } },
+                   { display: '參與人數', name: '', align: 'left', width: 100, minWidth: 120, editor:{type:'text'} },
+                   { display: '備註', name: 'note', align: 'left', width: 100, minWidth: 120, editor:{type:'text'} }
                   ];
  		var ActivityGridToolBar = [
        	          { text: '新增', click: addActivity, icon: 'add' , id:"add" },
        	          { line: true },
        	          { text: '删除', click: deleteActivity, icon: 'delete' , id:"delete" }];
  			
- 		var url = "Customer/getActivityRecord.do?CUSTID="+$("#custId").val();
+ 		var url = "Customer/getActivityRecord.do?CUSTID="+$("#custID").val();
  		ActivityGrid = ligerGrid("ActivityGrid",null,ActivityGridColumn,url,ActivityGridToolBar,false,true);
 	}
 	function addActivity(){
@@ -301,19 +304,65 @@ String basePath = request.getScheme() + "://"
 		ActivityGrid.deleteSelectedRow();
 	}
 	
+	//參與義工
 	function bindingVolunteerGrid(){
+		function getActName(checkbox) {
+		    var options = {
+		        columns: [
+				{ display: '活動編號', name: 'actNO', minWidth: 120, width: 100 },
+		        { display: '活動名稱', name: 'actName', minWidth: 120, width: 100 }
+		        ], switchPageSizeApplyComboBox: false,
+		        //pageSize: 10
+		       /*  checkbox: checkbox, */
+		       url:"Activity/list.do"
+		      // usePager:false
+		       
+		    };
+		    return options;
+		}
+      function actName_onSelected(e) { 
+            if (!e.data || !e.data.length) return;
+
+            var grid = liger.get("VolunteerGrid");
+
+            var selected = e.data[0]; 
+            grid.updateRow(grid.lastEditRow, {
+                actNO: selected.actNO,
+                workID: selected.workID,
+                actName: selected.actName
+            });
+        }
+		
 		var VolunteerGridColumn = [
-                    { display: '活動編號', name: 'custCode', align: 'left', width: 100, minWidth: 60 },
-                    { display: '活動名稱', name: 'custCode', align: 'left', width: 100, minWidth: 60 },
-                    { display: '工作崗位', name: 'custCode', align: 'left', width: 100, minWidth: 120 },
-                    { display: '備註', name: 'custCode', align: 'left', width: 100, minWidth: 120 }
+                    {
+                        name: 'actNO',align:'center', width:100, display: '活動編號', textField: 'actNO'
+                        , editor:
+                            {
+                            	type: 'popup', valueField: 'actNO', textField: 'actNO', grid:  getActName(true), onSelected:actName_onSelected
+                        	}
+                    },
+                    {
+                        name: 'actName',align:'center', width:100, display: '活動名稱', textField: 'actName'
+                        , editor:
+                            {
+                            	type: 'popup', valueField: 'actName', textField: 'actName', grid:  getActName(true), onSelected:actName_onSelected
+                        	}
+                    },
+                    { display: '工作崗位', name: 'job', align: 'left', width: 100, minWidth: 120 , editor:{type:'text'}},
+                    { display: '備註', name: 'note', align: 'left', width: 100, minWidth: 120 , editor:{type:'text'}}
                    ];
   		var VolunteerGridToolBar = [
-        	          { text: '新增', click: addCSSA, icon: 'add' , id:"add" },
+        	          { text: '新增', click: addVolunteer, icon: 'add' , id:"add" },
         	          { line: true },
-        	          { text: '删除', click: deleteCSSA, icon: 'delete' , id:"delete" }];
-  			
-  		VolunteerGrid = ligerGrid("VolunteerGrid",null,VolunteerGridColumn,"",VolunteerGridToolBar);
+        	          { text: '删除', click: deleteVolunteer, icon: 'delete' , id:"delete" }];
+  		var url ="Customer/getVoluntary.do?custID="+$("#custID").val();
+  		VolunteerGrid = ligerGrid("VolunteerGrid",null,VolunteerGridColumn,url,VolunteerGridToolBar);
+	}
+	function addVolunteer(){
+		VolunteerGrid.addRow();
+	}
+	function deleteVolunteer(){
+		VolunteerGrid.deleteSelectedRow();
 	}
 	
 </script>
@@ -337,6 +386,9 @@ String basePath = request.getScheme() + "://"
 		<input type="hidden" id="SpecialAllowanceAdds" name="SpecialAllowanceAdds">
 		<input type="hidden" id="SpecialAllowanceUpdates" name="SpecialAllowanceUpdates">
 		<input type="hidden" id="SpecialAllowanceDeletes" name="SpecialAllowanceDeletes">
+		<input type="hidden" id="SocialWorkAdds" name="SocialWorkAdds">
+		<input type="hidden" id="SocialWorkUpdates" name="SocialWorkUpdates">
+		<input type="hidden" id="SocialWorkDeletes" name="SocialWorkDeletes">
 		
 		
         <table cellpadding="0" cellspacing="0" class="l-table-edit" >
@@ -611,7 +663,7 @@ String basePath = request.getScheme() + "://"
         <br>
         
         <div id="tab1" style="width: 99%; border:1px solid #A3C0E8; "> 
-            <div  title="綜援家庭" style="height:auto;overflow:auto;">
+            <div title="綜援家庭" style="height:auto;overflow:auto;">
                <div id="CSSAGrid"></div>
             </div>
             <div tabid="SpecialAllowanceGrid" title="特津記錄" style="height:auto;overflow:auto;">

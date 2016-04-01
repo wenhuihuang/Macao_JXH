@@ -1,2 +1,4 @@
-/sqls/
 /com/
+/connswitch.properties
+/dbcp.properties
+/sqls/

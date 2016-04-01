@@ -104,7 +104,7 @@ $(function(){
 	    			   $("#custNO").val(m.custNO);
 	    			   $("#custNewNO").val(m.custNewNO); 
 				   		$("#linkAdr").val(m.linkAdr);
-				   		$("#cardNO").val(m.cardNO);
+				   		$("#cardNO").val(m.cardNo);
 				   		$("#birthday_ChnStr").val(m.birthday_ChnStr);
 				   		$("#receiveDate").val(m.receiveDate_str);
 				   		$("#caseWorker").val(m.caseWorker);

@@ -21,16 +21,21 @@ import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
 import com.jxh.biz.CustomerBiz;
 import com.jxh.dao.ActivityRecordDao;
+import com.jxh.dao.ActivityRecordNewDao;
 import com.jxh.dao.CSSADao;
 import com.jxh.dao.CustomerDao;
 import com.jxh.dao.RetardedDao;
+import com.jxh.dao.SocialWorkDao;
 import com.jxh.dao.SpecialAllowanceDao;
 import com.jxh.pojo.CustCasePojo;
 import com.jxh.pojo.Customer;
+import com.jxh.pojo.VoluntaryPojo;
 import com.jxh.vo.ActivityRecord;
+import com.jxh.vo.ActivityRecordNew;
 import com.jxh.vo.BCustomer;
 import com.jxh.vo.CSSA;
 import com.jxh.vo.Retarded;
+import com.jxh.vo.SocialWork;
 import com.jxh.vo.SpecialAllowance;
 
 import net.sf.json.JSONArray;
@@ -47,7 +52,8 @@ public class CustomerServlet extends FGServlet {
 	private RetardedDao retardedDao = new RetardedDao();
 	private CSSADao cssaDao = new CSSADao();
 	private SpecialAllowanceDao specialAllowanceDao = new SpecialAllowanceDao();
-	private ActivityRecordDao activityRecordDao = new ActivityRecordDao();
+	private ActivityRecordNewDao activityRecordNewDao = new ActivityRecordNewDao();
+	private SocialWorkDao socialWorkDao = new SocialWorkDao();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -106,9 +112,9 @@ public class CustomerServlet extends FGServlet {
 	private void getActivityRecord(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		// TODO Auto-generated method stub
 		String custId = this.getParameterByName(request, "CUSTID");
-		PageUtils<ActivityRecord> page = this.getPage(request);
-		String condition = " and SpecialAllowanceCustID = ? ";
-		activityRecordDao.getActivityRecordByCondition(page, condition, custId);
+		PageUtils<ActivityRecordNew> page = this.getPage(request);
+		String condition = " and ActivityRecordNew.CustID = ? ";
+		activityRecordNewDao.getActivityRecordNewByCondition(page, condition, custId);
 		LigerUITools.writeGridJson(page, response);
 	}
 
@@ -300,19 +306,22 @@ public class CustomerServlet extends FGServlet {
 		List<CSSA>  CSSADeletes = getGridListByParamerName(CSSA.class, request, "CSSADeletes");
 		
 		
-		
 		List<SpecialAllowance>  SpecialAllowanceAdds = getGridListByParamerName(SpecialAllowance.class, request, "SpecialAllowanceAdds");
 		List<SpecialAllowance>  SpecialAllowanceUpdates = getGridListByParamerName(SpecialAllowance.class, request, "SpecialAllowanceUpdates");
 		List<SpecialAllowance>  SpecialAllowanceDeletes = getGridListByParamerName(SpecialAllowance.class, request, "SpecialAllowanceDeletes");
 		
-
+		List<SocialWork>  SocialWorkAdds = getGridListByParamerName(SocialWork.class, request, "SocialWorkAdds");
+		List<SocialWork>  SocialWorkUpdates = getGridListByParamerName(SocialWork.class, request, "SocialWorkUpdates");
+		List<SocialWork>  SocialWorkDeletes = getGridListByParamerName(SocialWork.class, request, "SocialWorkDeletes");
+		
+		
 		BCustomer cust = this.getObjectByParameter(request, BCustomer.class);
 
 		String message = "";
 		if (cust.getCustID() != null && !"".equals(cust.getCustID())) {
-			message = customerBiz.updateCustomer(cust, retardedAdds,retardedUpdates,retardedDeletes,familyAdds,familyUpdates,familyDeletes,CSSAAdds,CSSAUpdates,CSSADeletes,SpecialAllowanceAdds,SpecialAllowanceUpdates,SpecialAllowanceDeletes);
+			message = customerBiz.updateCustomer(cust, retardedAdds,retardedUpdates,retardedDeletes,familyAdds,familyUpdates,familyDeletes,CSSAAdds,CSSAUpdates,CSSADeletes,SpecialAllowanceAdds,SpecialAllowanceUpdates,SpecialAllowanceDeletes,SocialWorkAdds,SocialWorkUpdates,SocialWorkDeletes);
 		} else {
-			message = customerBiz.insertCustomer(cust, retardedAdds,familyAdds,CSSAAdds,SpecialAllowanceAdds);
+			message = customerBiz.insertCustomer(cust, retardedAdds,familyAdds,CSSAAdds,SpecialAllowanceAdds,SocialWorkAdds);
 		}
 
 		// 设置为表单jsp
@@ -367,6 +376,16 @@ public class CustomerServlet extends FGServlet {
 			e.printStackTrace();
 		}
 
+	}
+	
+	private void getVoluntary(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+		String custID = this.getParameterByName(request, "custID");
+		System.out.println("custID="+custID);
+		PageUtils<VoluntaryPojo> page = this.getPage(request);
+		String condition = " and SocialWork.custID = ? ";
+		socialWorkDao.getVoluntaryPojo(page, condition, custID);
+		System.out.println("進");
+		LigerUITools.writeGridJson(page, response);
 	}
 
 }

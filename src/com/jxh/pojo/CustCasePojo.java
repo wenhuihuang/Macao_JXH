@@ -24,8 +24,6 @@ public class CustCasePojo implements Serializable {
 	private String closeWorker;
 	private String note;
 	private int caseSource;
-	private String custNO;
-	private String custNewNO;
 	private String sex;
 	private Date birthday_Chn;
 	private String cardNO;//身份證
@@ -104,8 +102,8 @@ public class CustCasePojo implements Serializable {
 
 
 	public CustCasePojo(String caseID,String caseNO,String fullName,String isMember,Date receiveDate,Date closeDate,int caseStatus
-						,String caseWorker,String closeWorker,String note,int caseSource,String custNO,String receiveDate_str
-						,String closeDate_str,String custNewNO,String sex,Date birthday_Chn,String birthday_ChnStr,String cardNO,String goldCard
+						,String caseWorker,String closeWorker,String note,int caseSource,String receiveDate_str
+						,String closeDate_str,String sex,Date birthday_Chn,String birthday_ChnStr,String cardNO,String goldCard
 						,String mobileTelNO,String father,String mother,String linkAdr,int isMarry,String edulevel
 						,String economics,String caseProblem,String caseRequest,String caseAction,int initAssess,int suggest
 						,String handler,String form,String place,String family,String otherMan,int times
@@ -127,11 +125,9 @@ public class CustCasePojo implements Serializable {
 		this.closeWorker = closeWorker;
 		this.note = note;
 		this.caseSource = caseSource;
-		this.custNO = custNO;
 		this.custID = custID;
 		this.receiveDate_str = receiveDate_str;
 		this.closeDate_str = closeDate_str;
-		this.custNewNO = custNewNO;
 		this.sex = sex;
 		this.birthday_Chn = birthday_Chn;
 		this.birthday_ChnStr = birthday_ChnStr;
@@ -364,32 +360,6 @@ public class CustCasePojo implements Serializable {
 	public void setCaseSource(int caseSource) {
 		this.caseSource = caseSource;
 	}
-
-	
-
-	public String getCustNO() {
-		return custNO;
-	}
-
-
-
-	public void setCustNO(String custNO) {
-		this.custNO = custNO;
-	}
-
-	
-
-	public String getCustNewNO() {
-		return custNewNO;
-	}
-
-
-
-	public void setCustNewNO(String custNewNO) {
-		this.custNewNO = custNewNO;
-	}
-
-
 
 	public String getSex() {
 		return sex;
@@ -1245,7 +1215,7 @@ public class CustCasePojo implements Serializable {
 		return "CustCasePojo [caseID="+caseID+",caseNO=" + caseNO + ", fullName=" + fullName + ", receiveDate=" + receiveDate + ", isMember="
 				+ isMember + ",receiveDate_str=" + receiveDate_str + ",closeDate=" + closeDate +",closeDate_str=" 
 				+ closeDate_str + ",caseStatus=" + caseStatus + ",caseWorker=" + caseWorker + ",closeWorker=" + closeWorker + ",note=" + note 
-				+ ",caseSource=" + caseSource + ",custNO=" + custNO + ",custID=" + custID + ",custNewNO=" + custNewNO + ",sex=" + sex + ",birthday_Chn=" + birthday_Chn 
+				+ ",caseSource=" + caseSource + ",custID=" + custID + ",sex=" + sex + ",birthday_Chn=" + birthday_Chn 
 				+ ",birthday_ChnStr=" + birthday_ChnStr + ",cardNO=" + cardNO + ",goldCard=" + goldCard + ",mobileTelNO=" + mobileTelNO + ",father=" + father + ",mother=" + mother 
 				+ ",linkAdr=" + linkAdr + ",isMarry=" + isMarry + ",edulevel=" + edulevel + ",economics=" + economics + ",caseProblem=" + caseProblem 
 				+ ",caseRequest=" + caseRequest + ",caseAction=" + caseAction + ",initAssess=" + initAssess + ",suggest=" + suggest +",handler=" + handler

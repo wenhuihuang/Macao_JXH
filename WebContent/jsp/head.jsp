@@ -416,6 +416,7 @@ td {width: auto;}
 	*/
 	
 	function showGridInTab(grid){
+		grid.set("isTabCover",true);
 		if(grid.get("isTabCover")){
 			var rows = grid.getSelectedRows();
 			if(rows!=null&&rows.length>0){
@@ -428,7 +429,7 @@ td {width: auto;}
 			}
 		
 			grid.deleteSelectedRow();
-			grid.set("isTabCover",false);
+			grid.set("isTabCover",true);
 		}
 		
 	}

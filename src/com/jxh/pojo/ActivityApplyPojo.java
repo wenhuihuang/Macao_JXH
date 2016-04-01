@@ -22,7 +22,7 @@ public class ActivityApplyPojo implements Serializable {
 	private String parentsName;
 
 	private String fullName;
-	
+
 	private String workName;
 	private int sex;
 	private String workID;
@@ -40,7 +40,7 @@ public class ActivityApplyPojo implements Serializable {
 	public ActivityApplyPojo(String applyID, int type, Date registerDate, String custID, String pCustID,
 			BigDecimal parentsExpense, BigDecimal amentiaExpense, String family, BigDecimal fExpense, int fNumber,
 			String note, String actID, String amentiaName, String parentsName, String workName, int sex, String workID,
-			String work, String phone, String workNO, String custNO, String custNewNO, int age,String fullName) {
+			String work, String phone, String workNO, String custNO, String custNewNO, int age, String fullName) {
 		super();
 		this.applyID = applyID;
 		this.type = type;
@@ -65,7 +65,7 @@ public class ActivityApplyPojo implements Serializable {
 		this.custNO = custNO;
 		this.custNewNO = custNewNO;
 		this.age = age;
-		this.fullName=fullName;
+		this.fullName = fullName;
 	}
 
 	public String getAmentiaName() {
@@ -271,7 +271,8 @@ public class ActivityApplyPojo implements Serializable {
 				+ amentiaExpense + ",family=" + family + ",fExpense=" + fExpense + ",fNumber=" + fNumber + ",note="
 				+ note + ",actID=" + actID + ",amentiaName=" + amentiaName + ",parentsName=" + parentsName
 				+ ",workName=" + workName + ",sex=" + sex + ",workID=" + workID + ",work=" + work + ",phone=" + phone
-				+ ",workNO=" + workNO + ",custNO=" + custNO + ",custNewNO=" + custNewNO + ",age=" + age + ",fullName="+fullName+"]";
+				+ ",workNO=" + workNO + ",custNO=" + custNO + ",custNewNO=" + custNewNO + ",age=" + age + ",fullName="
+				+ fullName + "]";
 	}
 
 }

@@ -8,9 +8,10 @@ import java.util.List;
 import com.fg.daoImpl.DaoImpl;
 import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
+import com.jxh.pojo.CarRecordPojo;
 import com.jxh.vo.CarRecord;
 
-public class CarRecordDao extends DaoImpl<CarRecord>{
+public class CarRecordDao extends DaoImpl{
 
 	@Override
 	protected String getSqlPropertiesPath() {
@@ -25,11 +26,26 @@ public class CarRecordDao extends DaoImpl<CarRecord>{
 	 * @throws SQLException
 	 * @throws IOException
 	 */
-	public PageUtils<CarRecord> getCarRecordByCondition(PageUtils<CarRecord> page, String condition,Object ...params) throws SQLException, IOException{
+	public PageUtils<CarRecordPojo> getCarRecordPojoByCondition(PageUtils<CarRecordPojo> page, String condition,Object ...params) throws SQLException, IOException{
+		clazz=CarRecordPojo.class;
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		condition = condition==null?"":condition;
 		sql += condition;
-		Integer count = this.findElement(getCountSql(sql), params);
+		Integer count = (Integer) this.findElement(getCountSql(sql), params);
+		page.setRowCount(count);
+		
+		
+		List<CarRecordPojo> carRecords = this.findForList(sql, params);
+		page.setList(carRecords);
+		
+		return page;
+	}
+	public PageUtils<CarRecord> getCarRecordByCondition(PageUtils<CarRecord> page, String condition,Object ...params) throws SQLException, IOException{
+		clazz=CarRecord.class;
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		condition = condition==null?"":condition;
+		sql += condition;
+		Integer count = (Integer) this.findElement(getCountSql(sql), params);
 		page.setRowCount(count);
 		
 		

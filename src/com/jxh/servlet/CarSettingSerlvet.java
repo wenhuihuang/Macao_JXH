@@ -108,7 +108,7 @@ public class CarSettingSerlvet extends FGServlet {
 		
 
 		CarSetting carSetting = this.getObjectByParameter(request, CarSetting.class);
-		
+		System.out.println("carSetting="+carSetting);
 		String message = "";
 			if(carSetting.getCarID() != null && !"".equals(carSetting.getCarID())){
 				message = carSettingBiz.updateCarSetting(carSetting);
