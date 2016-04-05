@@ -27,6 +27,7 @@ import com.jxh.dao.CustomerDao;
 import com.jxh.dao.RetardedDao;
 import com.jxh.dao.SocialWorkDao;
 import com.jxh.dao.SpecialAllowanceDao;
+import com.jxh.pojo.ActivityRecordNewPojo;
 import com.jxh.pojo.CustCasePojo;
 import com.jxh.pojo.Customer;
 import com.jxh.pojo.VoluntaryPojo;
@@ -109,12 +110,12 @@ public class CustomerServlet extends FGServlet {
 	 * @throws SQLException
 	 * @throws IOException
 	 */
-	private void getActivityRecord(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+	private void getActivityRecordPojo(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		// TODO Auto-generated method stub
 		String custId = this.getParameterByName(request, "CUSTID");
-		PageUtils<ActivityRecordNew> page = this.getPage(request);
+		PageUtils<ActivityRecordNewPojo> page = this.getPage(request);
 		String condition = " and ActivityRecordNew.CustID = ? ";
-		activityRecordNewDao.getActivityRecordNewByCondition(page, condition, custId);
+		activityRecordNewDao.getActivityRecordNewPojoByCondition(page, condition, custId);
 		LigerUITools.writeGridJson(page, response);
 	}
 
@@ -309,19 +310,22 @@ public class CustomerServlet extends FGServlet {
 		List<SpecialAllowance>  SpecialAllowanceAdds = getGridListByParamerName(SpecialAllowance.class, request, "SpecialAllowanceAdds");
 		List<SpecialAllowance>  SpecialAllowanceUpdates = getGridListByParamerName(SpecialAllowance.class, request, "SpecialAllowanceUpdates");
 		List<SpecialAllowance>  SpecialAllowanceDeletes = getGridListByParamerName(SpecialAllowance.class, request, "SpecialAllowanceDeletes");
-		
 		List<SocialWork>  SocialWorkAdds = getGridListByParamerName(SocialWork.class, request, "SocialWorkAdds");
 		List<SocialWork>  SocialWorkUpdates = getGridListByParamerName(SocialWork.class, request, "SocialWorkUpdates");
 		List<SocialWork>  SocialWorkDeletes = getGridListByParamerName(SocialWork.class, request, "SocialWorkDeletes");
+		
+		List<ActivityRecordNew>  ActivityRecordNewAdds = getGridListByParamerName(ActivityRecordNew.class, request, "ActivityRecordNewAdds");
+		List<ActivityRecordNew>  ActivityRecordNewUpdates = getGridListByParamerName(ActivityRecordNew.class, request, "ActivityRecordNewUpdates");
+		List<ActivityRecordNew>  ActivityRecordNewDeletes = getGridListByParamerName(ActivityRecordNew.class, request, "ActivityRecordNewDeletes");
 		
 		
 		BCustomer cust = this.getObjectByParameter(request, BCustomer.class);
 
 		String message = "";
 		if (cust.getCustID() != null && !"".equals(cust.getCustID())) {
-			message = customerBiz.updateCustomer(cust, retardedAdds,retardedUpdates,retardedDeletes,familyAdds,familyUpdates,familyDeletes,CSSAAdds,CSSAUpdates,CSSADeletes,SpecialAllowanceAdds,SpecialAllowanceUpdates,SpecialAllowanceDeletes,SocialWorkAdds,SocialWorkUpdates,SocialWorkDeletes);
+			message = customerBiz.updateCustomer(cust, retardedAdds,retardedUpdates,retardedDeletes,familyAdds,familyUpdates,familyDeletes,CSSAAdds,CSSAUpdates,CSSADeletes,SpecialAllowanceAdds,SpecialAllowanceUpdates,SpecialAllowanceDeletes,SocialWorkAdds,SocialWorkUpdates,SocialWorkDeletes,ActivityRecordNewAdds,ActivityRecordNewUpdates,ActivityRecordNewDeletes);
 		} else {
-			message = customerBiz.insertCustomer(cust, retardedAdds,familyAdds,CSSAAdds,SpecialAllowanceAdds,SocialWorkAdds);
+			message = customerBiz.insertCustomer(cust, retardedAdds,familyAdds,CSSAAdds,SpecialAllowanceAdds,SocialWorkAdds,ActivityRecordNewAdds);
 		}
 
 		// 设置为表单jsp
@@ -352,6 +356,32 @@ public class CustomerServlet extends FGServlet {
 			LigerUITools.writeGridJson(page, response);
 		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * 根据条件获取会员资料
+	 * @param request
+	 * @param response
+	 */
+	private void custDataList(HttpServletRequest request, HttpServletResponse response) {
+		String custType = request.getParameter("custType");
+		System.out.println("cus="+custType);
+		try {
+			PageUtils<Customer> page = getPage(request);
+			String condition = null;
+			if("0".equals(custType)){
+				condition = " and custType = '0' ";
+				System.out.println("if"+custType);
+			}else if("1".equals(custType) || "2".equals(custType)){
+				System.out.println("else"+custType);
+				condition = " and custType != '0' ";
+			}
+			customerDao.getCustomerList(page, condition);
+			LigerUITools.writeGridJson(page, response);
+		} catch (IOException | SQLException e) {
 			e.printStackTrace();
 		}
 

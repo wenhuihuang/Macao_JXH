@@ -557,11 +557,15 @@ String basePath = request.getScheme() + "://"
 	                	</select> 
 		  			</div>
 		  			<div class="col-md-3">
-		  				<label>組別：</label>
-		  				<input width="120px" value="${dormitoryRecord.groupType }" name="groupType" type="text" ltype="text"/>
+		  				<label>房號：</label>
+		  				<input width="120px" value="${dormitoryRecord.roomNO }" name="roomNO" type="text" ltype="text"/>
 		  			</div>
 		  		</div>
 		  		<div class="inline-group row max-width-group-300 label-width-90">
+		  			<div class="col-md-3">
+		  				<label>組別：</label>
+		  				<input width="120px" value="${dormitoryRecord.groupType }" name="groupType" type="text" ltype="text"/>
+		  			</div>
 		  			<div class="col-md-3">
 		  				<label>入住日期：</label>
 		  				<input width="120px" value="${dormitoryRecord.inDate_str }" name="inDate" type="text" ltype="date"/>

@@ -75,14 +75,8 @@ public class ActivitySettingBiz {
 			update.setActID(activitySetting.getActID());
 		}
 		
-		int [] rows =activityRecordNewDao.updateActivityRecordNewBatch(activityRecordNewUpdates);
+		 return activityRecordNewDao.updateActivityRecordNewBatch(activityRecordNewUpdates);
 		
-		for (int i : rows) {
-			if (i < 1) {
-				return i;
-			}
-		}
-		return 1;
 	}
 
 	private int deleteActivityApply(ActivitySetting activitySetting, List<ActivityApply> activityApplyDeletes) throws IOException, SQLException {

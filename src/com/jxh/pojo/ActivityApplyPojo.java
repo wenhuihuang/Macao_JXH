@@ -29,6 +29,9 @@ public class ActivityApplyPojo implements Serializable {
 	private String work;
 	private String phone;
 	private String workNO;
+	
+	private String custType;
+	private String custCode;
 	private String custNO;
 	private String custNewNO;
 	private int age;
@@ -40,7 +43,7 @@ public class ActivityApplyPojo implements Serializable {
 	public ActivityApplyPojo(String applyID, int type, Date registerDate, String custID, String pCustID,
 			BigDecimal parentsExpense, BigDecimal amentiaExpense, String family, BigDecimal fExpense, int fNumber,
 			String note, String actID, String amentiaName, String parentsName, String workName, int sex, String workID,
-			String work, String phone, String workNO, String custNO, String custNewNO, int age, String fullName) {
+			String work, String phone, String workNO, String custNO, String custNewNO, int age, String fullName,String custType,String custCode) {
 		super();
 		this.applyID = applyID;
 		this.type = type;
@@ -66,6 +69,8 @@ public class ActivityApplyPojo implements Serializable {
 		this.custNewNO = custNewNO;
 		this.age = age;
 		this.fullName = fullName;
+		this.custType=custType;
+		this.custCode=custCode;
 	}
 
 	public String getAmentiaName() {
@@ -233,18 +238,34 @@ public class ActivityApplyPojo implements Serializable {
 	}
 
 	public String getCustNO() {
+		if("0".equals(custType)){
+			custNO = "";
+		}else{
+			custNO = custCode;
+		}
 		return custNO;
 	}
 
 	public void setCustNO(String custNO) {
+		if("1".equals(custType) || "2".equals(custType)){
+			this.custNO = custCode;
+		}
 		this.custNO = custNO;
 	}
 
 	public String getCustNewNO() {
+		if("1".equals(custType) || "2".equals(custType)){
+			custNewNO = "";
+		}else{
+			custNewNO = custCode;
+		}
 		return custNewNO;
 	}
 
 	public void setCustNewNO(String custNewNO) {
+		if("0".equals(custType)){
+			this.custCode=custNewNO;
+		}
 		this.custNewNO = custNewNO;
 	}
 
@@ -263,6 +284,22 @@ public class ActivityApplyPojo implements Serializable {
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
+	
+	public String getCustType() {
+		return custType;
+	}
+
+	public void setCustType(String custType) {
+		this.custType = custType;
+	}
+
+	public String getCustCode() {
+		return custCode;
+	}
+
+	public void setCustCode(String custCode) {
+		this.custCode = custCode;
+	}
 
 	@Override
 	public String toString() {
@@ -272,7 +309,7 @@ public class ActivityApplyPojo implements Serializable {
 				+ note + ",actID=" + actID + ",amentiaName=" + amentiaName + ",parentsName=" + parentsName
 				+ ",workName=" + workName + ",sex=" + sex + ",workID=" + workID + ",work=" + work + ",phone=" + phone
 				+ ",workNO=" + workNO + ",custNO=" + custNO + ",custNewNO=" + custNewNO + ",age=" + age + ",fullName="
-				+ fullName + "]";
+				+ fullName + ",custType="+custType+",custCode="+custCode+"]";
 	}
 
 }

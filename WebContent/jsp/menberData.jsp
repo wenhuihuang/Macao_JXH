@@ -11,20 +11,21 @@ $(function(){
 	        fields: [{ name: 'CompanyName', type: 'text', label: '客户' }]
 	    }, */
 	    grid: getcustNOGridOptions(true),
-	    valueField: 'custNO',
-	    textField: 'custNO',
+	    valueField: 'custCode',
+	    textField: 'custCode',
 	    width: 200,
-	    readonly:false
+	    readonly:false,
+	    onSelected:fullNameSelected
 	});
 
 	function getcustNOGridOptions(checkbox) {
 	    var options = {
 	        columns: [
-	        { display: '會員編號', name: 'custNO', align: 'left', width: 100, minWidth: 60 },
+	        { display: '會員編號', name: 'custCode', align: 'left', width: 100, minWidth: 60 },
 	        { display: '案主姓名', name: 'fullName', minWidth: 120, width: 100 }
 	        ], switchPageSizeApplyComboBox: false,
 	       //data:{"Rows":[{"cardNO":"44071112902313264","cardStatus":1,"cardType":"1","custCode":"001002","custId":"00010000000000000105","custType":"1","fullName":"王祖蓝","fullNameEng":"","mobileTelNO":"13543212653","regDate":{"date":8,"day":5,"hours":0,"minutes":0,"month":0,"nanos":0,"seconds":0,"time":1452182400000,"timezoneOffset":-480,"year":116},"relationship":"","sex":"1","telNo":"","validDate":{"date":8,"day":5,"hours":0,"minutes":0,"month":0,"nanos":0,"seconds":0,"time":1452182400000,"timezoneOffset":-480,"year":116}},{"cardNO":"","cardStatus":0,"cardType":"1","custCode":"022222","custId":"0001000000000000011S","custType":"0","fullName":"gg","fullNameEng":"","mobileTelNO":"","regDate":{"date":15,"day":1,"hours":0,"minutes":0,"month":1,"nanos":0,"seconds":0,"time":1455465600000,"timezoneOffset":-480,"year":116},"relationship":"","sex":"1","telNo":"","validDate":{"date":15,"day":1,"hours":0,"minutes":0,"month":1,"nanos":0,"seconds":0,"time":1455465600000,"timezoneOffset":-480,"year":116}},{"cardNO":"6543012","cardStatus":1,"cardType":"1","custCode":"001001","custId":"1","custType":"1","fullName":"劉燁","fullNameEng":"Ye.Lao","mobileTelNO":"13543215712","regDate":{"date":14,"day":4,"hours":0,"minutes":0,"month":0,"nanos":0,"seconds":0,"time":1452700800000,"timezoneOffset":-480,"year":116},"relationship":"","sex":"1","telNo":"3052135","validDate":{"date":20,"day":3,"hours":0,"minutes":0,"month":0,"nanos":0,"seconds":0,"time":1453219200000,"timezoneOffset":-480,"year":116}}],"Total":3},
-	       url:"CustCase/listPojos.do",
+	       url:"Customer/custDataList.do?custType=2",
 	       pageSize: 10
 	    };
 	    return options;
@@ -37,24 +38,26 @@ $(function(){
 	        fields: [{ name: 'CompanyName', type: 'text', label: '客户' }]
 	    }, */
 	    grid: getcustNewNOGridOptions(true),
-	    valueField: 'custNewNO',
-	    textField: 'custNewNO',
+	    valueField: 'custCode',
+	    textField: 'custCode',
 	    width: 200,
-	    readonly:false
+	    readonly:false,
+	    onSelected:fullNameSelected
 	});
 
 	function getcustNewNOGridOptions(checkbox) {
 	    var options = {
 	        columns: [
-	        { display: '非會員編號', name: 'custNewNO', align: 'left', width: 100, minWidth: 60 },
+	        { display: '非會員編號', name: 'custCode', align: 'left', width: 100, minWidth: 60 },
 	        { display: '案主姓名', name: 'fullName', minWidth: 120, width: 100 }
 	        ], switchPageSizeApplyComboBox: false,
 	       //data:{"Rows":[{"cardNO":"44071112902313264","cardStatus":1,"cardType":"1","custCode":"001002","custId":"00010000000000000105","custType":"1","fullName":"王祖蓝","fullNameEng":"","mobileTelNO":"13543212653","regDate":{"date":8,"day":5,"hours":0,"minutes":0,"month":0,"nanos":0,"seconds":0,"time":1452182400000,"timezoneOffset":-480,"year":116},"relationship":"","sex":"1","telNo":"","validDate":{"date":8,"day":5,"hours":0,"minutes":0,"month":0,"nanos":0,"seconds":0,"time":1452182400000,"timezoneOffset":-480,"year":116}},{"cardNO":"","cardStatus":0,"cardType":"1","custCode":"022222","custId":"0001000000000000011S","custType":"0","fullName":"gg","fullNameEng":"","mobileTelNO":"","regDate":{"date":15,"day":1,"hours":0,"minutes":0,"month":1,"nanos":0,"seconds":0,"time":1455465600000,"timezoneOffset":-480,"year":116},"relationship":"","sex":"1","telNo":"","validDate":{"date":15,"day":1,"hours":0,"minutes":0,"month":1,"nanos":0,"seconds":0,"time":1455465600000,"timezoneOffset":-480,"year":116}},{"cardNO":"6543012","cardStatus":1,"cardType":"1","custCode":"001001","custId":"1","custType":"1","fullName":"劉燁","fullNameEng":"Ye.Lao","mobileTelNO":"13543215712","regDate":{"date":14,"day":4,"hours":0,"minutes":0,"month":0,"nanos":0,"seconds":0,"time":1452700800000,"timezoneOffset":-480,"year":116},"relationship":"","sex":"1","telNo":"3052135","validDate":{"date":20,"day":3,"hours":0,"minutes":0,"month":0,"nanos":0,"seconds":0,"time":1453219200000,"timezoneOffset":-480,"year":116}}],"Total":3},
-	       url:"CustCase/listPojos.do",
+	       url:"Customer/custDataList.do?custType=0",
 	       pageSize: 10
 	    };
 	    return options;
 	}
+	
 
 	//案生姓名
 	 var full = $(".fullName").ligerPopupEdit({
@@ -101,8 +104,6 @@ $(function(){
 	    			   $("#mother").val(m.mother);
 	    			   $(".custNO").val(m.custNO);
 	    			   $(".custNewNO").val(m.custNewNO); 
-	    			   $("#custNO").val(m.custNO);
-	    			   $("#custNewNO").val(m.custNewNO); 
 				   		$("#linkAdr").val(m.linkAdr);
 				   		$("#cardNO").val(m.cardNo);
 				   		$("#birthday_ChnStr").val(m.birthday_ChnStr);

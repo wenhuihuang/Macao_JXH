@@ -5,12 +5,14 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
+import com.jxh.dao.ActivityRecordNewDao;
 import com.jxh.dao.CSSADao;
 import com.jxh.dao.CustomerDao;
 import com.jxh.dao.RetardedDao;
 import com.jxh.dao.SocialWorkDao;
 import com.jxh.dao.SpecialAllowanceDao;
 import com.jxh.utils.Constants;
+import com.jxh.vo.ActivityRecordNew;
 import com.jxh.vo.BCustomer;
 import com.jxh.vo.CSSA;
 import com.jxh.vo.Retarded;
@@ -23,6 +25,7 @@ public class CustomerBiz {
 	private CSSADao cssaDao = new CSSADao();
 	private SpecialAllowanceDao specialAllowanceDao = new SpecialAllowanceDao();
 	private SocialWorkDao socialWorkDao = new SocialWorkDao();
+	private ActivityRecordNewDao activityRecordNewDao = new ActivityRecordNewDao();
 	
 
 	/**
@@ -43,7 +46,7 @@ public class CustomerBiz {
 	 * @return
 	 * @throws Exception
 	 */
-	public String updateCustomer(BCustomer cust, List<Retarded> retardedAdds,List<Retarded> retardedUpdates,List<Retarded> retardedDeletes, List<BCustomer> familyAdds, List<BCustomer> familyUpdates, List<BCustomer> familyDeletes, List<CSSA> cSSAAdds, List<CSSA> cSSAUpdates, List<CSSA> cSSADeletes, List<SpecialAllowance> specialAllowanceAdds, List<SpecialAllowance> specialAllowanceUpdates, List<SpecialAllowance> specialAllowanceDeletes,List<SocialWork> SocialWorkAdds,List<SocialWork> SocialWorkUpdates,List<SocialWork> SocialWorkDeletes) throws Exception {
+	public String updateCustomer(BCustomer cust, List<Retarded> retardedAdds,List<Retarded> retardedUpdates,List<Retarded> retardedDeletes, List<BCustomer> familyAdds, List<BCustomer> familyUpdates, List<BCustomer> familyDeletes, List<CSSA> cSSAAdds, List<CSSA> cSSAUpdates, List<CSSA> cSSADeletes, List<SpecialAllowance> specialAllowanceAdds, List<SpecialAllowance> specialAllowanceUpdates, List<SpecialAllowance> specialAllowanceDeletes,List<SocialWork> SocialWorkAdds,List<SocialWork> SocialWorkUpdates,List<SocialWork> SocialWorkDeletes,List<ActivityRecordNew> ActivityRecordNewAdds, List<ActivityRecordNew> ActivityRecordNewUpdates,List<ActivityRecordNew> ActivityRecordNewDeletes) throws Exception {
 		
 		int row = customerDao.updateCustomer(cust);
 		if (row > 0) {
@@ -116,7 +119,17 @@ public class CustomerBiz {
 				throw new Exception("刪除特津記錄記錄失败！");
 			}
 			
+			if(addActivityRecordNew(cust,ActivityRecordNewAdds)<0){
+				throw new Exception("新增特津記錄記錄失败！");
+			}
 			
+			if(updateActivityRecordNew(cust,ActivityRecordNewUpdates)<0){
+				throw new Exception("編輯特津記錄記錄失败！");
+			}
+			
+			if(deleteActivityRecordNew(cust,ActivityRecordNewDeletes)<0){
+				throw new Exception("刪除特津記錄記錄失败！");
+			}
 			
 		}
 		return "操作成功！";
@@ -124,6 +137,28 @@ public class CustomerBiz {
 
 
 	
+
+
+	private int deleteActivityRecordNew(BCustomer cust, List<ActivityRecordNew> activityRecordNewDeletes) throws IOException, SQLException {
+		if (activityRecordNewDeletes == null || activityRecordNewDeletes.size() <= 0) {
+			return 1;
+		}
+		return activityRecordNewDao.deleteActivityRecordNew(activityRecordNewDeletes);
+	}
+
+
+
+
+
+	private int updateActivityRecordNew(BCustomer cust, List<ActivityRecordNew> activityRecordNewUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
+		if (activityRecordNewUpdates == null || activityRecordNewUpdates.size() <= 0) {
+			return 1;
+		}
+		return activityRecordNewDao.updateActivityRecordNewBatch(activityRecordNewUpdates);
+	}
+
+
+
 
 
 	private int deleteSocialWork(BCustomer cust, List<SocialWork> socialWorkDeletes) throws IOException, SQLException {
@@ -229,7 +264,7 @@ public class CustomerBiz {
 	 * @return
 	 * @throws Exception
 	 */
-	public String insertCustomer(BCustomer cust, List<Retarded> retardedAdds, List<BCustomer> familyAdds, List<CSSA> cSSAAdds, List<SpecialAllowance> specialAllowanceAdds,List<SocialWork> SocialWorkAdds) throws Exception {
+	public String insertCustomer(BCustomer cust, List<Retarded> retardedAdds, List<BCustomer> familyAdds, List<CSSA> cSSAAdds, List<SpecialAllowance> specialAllowanceAdds,List<SocialWork> SocialWorkAdds,List<ActivityRecordNew> ActivityRecordNewAdds) throws Exception {
 		String custId = customerDao.getPrimaryKey(Constants.CORPID);
 		cust.setCustID(custId);
 		System.out.println("SocialWorkAdds="+SocialWorkAdds);
@@ -255,6 +290,10 @@ public class CustomerBiz {
 				throw new Exception("新增特津記錄記錄失败！");
 			}
 			
+			if(addActivityRecordNew(cust,ActivityRecordNewAdds)<0){
+				throw new Exception("新增特津記錄記錄失败！");
+			}
+			
 		}
 		return "操作成功！";
 	}
@@ -271,6 +310,29 @@ public class CustomerBiz {
 	
 	
 	
+	private int addActivityRecordNew(BCustomer cust, List<ActivityRecordNew> activityRecordNewAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
+		if (activityRecordNewAdds == null || activityRecordNewAdds.size() <= 0) {
+			return 1;
+		}
+
+		for (ActivityRecordNew add : activityRecordNewAdds) {
+			add.setCustID(cust.getCustID()); 
+		}
+
+		int[] rows = activityRecordNewDao.insertActivityRecordNewBatch(activityRecordNewAdds);
+		for (int i : rows) {
+			if (i < 1) {
+				return i;
+			}
+		}
+
+		return 1;
+	}
+
+
+
+
+
 	private int addSocialWork(BCustomer cust, List<SocialWork> socialWorkAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, IOException, ParseException {
 		if (socialWorkAdds == null || socialWorkAdds.size() <= 0) {
 			return 1;

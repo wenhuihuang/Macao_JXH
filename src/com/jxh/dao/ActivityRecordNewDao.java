@@ -8,6 +8,7 @@ import java.util.List;
 import com.fg.daoImpl.DaoImpl;
 import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
+import com.jxh.pojo.ActivityRecordNewPojo;
 import com.jxh.vo.ActivityRecordNew;
 import com.jxh.vo.CSSA;
 
@@ -35,6 +36,20 @@ public class ActivityRecordNewDao extends DaoImpl{
 		Integer count = (Integer) this.findElement(getCountSql(sql), params);
 		page.setRowCount(count);
 		List<ActivityRecordNew> activityRecordNews = this.findForList(sql, params);
+		page.setList(activityRecordNews);
+		
+		return page;
+	}
+	
+	public PageUtils<ActivityRecordNewPojo> getActivityRecordNewPojoByCondition(PageUtils<ActivityRecordNewPojo> page, String condition,Object ...params) throws SQLException, IOException{
+		clazz = ActivityRecordNewPojo.class;
+		//获取SQL
+		condition = condition ==null?"":condition;
+		String sql = getSqlByPropKey(ToolsUtils.getCurrentMethodName())+condition;
+		//获取总页数
+		Integer count = (Integer) this.findElement(getCountSql(sql), params);
+		page.setRowCount(count);
+		List<ActivityRecordNewPojo> activityRecordNews = this.findForList(sql, params);
 		page.setList(activityRecordNews);
 		
 		return page;
@@ -87,9 +102,10 @@ public class ActivityRecordNewDao extends DaoImpl{
 		return insertBatchByList(sql, activityRecordNewAdds);
 	}
 
-	public int[] updateActivityRecordNewBatch(List<ActivityRecordNew> activityRecordNewUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
+	public int updateActivityRecordNewBatch(List<ActivityRecordNew> activityRecordNewUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
 		String sql = this.getSqlByPropKey("updateActivityRecordNew");
-		return updateBatchByList(sql, activityRecordNewUpdates);
+		 int[] rows = updateBatchByList(sql, activityRecordNewUpdates);
+		return getflagByIntArray(rows);
 	}
 
 	public int deleteActivityRecordNewByActID(String actID) throws IOException, SQLException {

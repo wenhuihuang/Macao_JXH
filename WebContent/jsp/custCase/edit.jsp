@@ -260,11 +260,11 @@ String basePath = request.getScheme() + "://"
 		</div>
 		<div class="col-md-3">
 			<label>會員編號：</label>
-			 <input width="120px" value="${custCasePojo.custNO }" name="custNO" type="text" class="custNO" />
+			 <input width="120px" value="${customer.custNO }" name="custNO" type="text" class="custNO" />
 		</div>
 		<div class="col-md-3">
 			<label>非會員編號：</label>
-			<input width="120px" value="${custCasePojo.custNewNO }" name="custNewNO" type="text" id="custNewNO" ltype="text"/>
+			<input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" class="custNewNO" ltype="text"/>
 		</div>
 		<div class="col-md-3">
 			<label>案主姓名：</label>

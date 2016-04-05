@@ -45,6 +45,7 @@ public class CustomerDao extends DaoImpl<BCustomer>{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		condition = condition==null?"":condition;
 		sql += condition;
+		System.out.println(sql);
 		Integer count = this.findElement(getCountSql(sql), params);
 		page.setRowCount(count);
 		
@@ -62,7 +63,7 @@ public class CustomerDao extends DaoImpl<BCustomer>{
 				custs.add(new Customer(cust.getCustID(), cust.getCustCode(), cust.getFullName(),
 						cust.getFullNameEng(), cust.getSex(), cust.getCustType(), cust.getCardStatus(), 
 						regDate, validDate, cust.getCardType(), cust.getCardNo(),cust.getTelNo()
-						,cust.getMobileTelNO(),cust.getRelationship()));
+						,cust.getMobileTelNO(),cust.getRelationship(),cust.getCustNO(),cust.getCustNewNO()));
 			}
 		}
 		

@@ -23,9 +23,10 @@ String basePath = request.getScheme() + "://"
         
         ligerUiFn.modifyGridRow=function(){
         	var caseID = getRowCell(maingrid,"caseID");
+        	var custID = getRowCell(maingrid,"custID");
         	if(caseID!=""){
         		alert(caseID)
-	        	location.href = "CustCase/edit.do?caseID="+caseID;        		
+	        	location.href = "CustCase/edit.do?caseID="+caseID+"&custID="+custID;        		
         	}
         }
         

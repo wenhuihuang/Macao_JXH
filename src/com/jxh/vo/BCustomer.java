@@ -69,6 +69,9 @@ public class BCustomer implements Serializable {
 	private String makeCardDateStr;
 	private String reciveCardDateStr;
 	private String disabilityEndDateStr;
+	
+	private String custNO;
+	private String custNewNO;
 
 	public BCustomer() {
 		super();
@@ -85,7 +88,7 @@ public class BCustomer implements Serializable {
 			String houseSitution, int isCSSA, int specialAllowance, String relationship, int isGuardian,
 			int isLiveTogether, String guardianCustID, String isMember, String telNO_Work, String jobSitution,
 			String jobType, String birthday_ChnStr, String validDateStr, String regDateStr, String changeDateStr,
-			String makeCardDateStr, String reciveCardDateStr, String disabilityEndDateStr) {
+			String makeCardDateStr, String reciveCardDateStr, String disabilityEndDateStr,String custNO,String custNewNO) {
 		super();
 		this.custID = custID;
 		this.custCode = custCode;
@@ -142,6 +145,8 @@ public class BCustomer implements Serializable {
 		this.makeCardDateStr = makeCardDateStr;
 		this.reciveCardDateStr = reciveCardDateStr;
 		this.disabilityEndDateStr = disabilityEndDateStr;
+		this.custNO=custNO;
+		this.custNewNO=custNewNO;
 	}
 
 	public String getCustID() {
@@ -638,7 +643,37 @@ public class BCustomer implements Serializable {
 		this.jobType = jobType;
 	}
 
-	
+	public String getCustNO() {
+		if("0".equals(custType)){
+			custNO = "";
+		}else if("1".equals(custType) || "2".equals(custType)){
+			custNO=custCode;
+		}
+		return custNO;
+	}
+
+	public void setCustNO(String custNO) {
+		if("1".equals(custType) || "2".equals(custType) ){
+			this.custCode=custNO;
+		}
+		this.custNO = custNO;
+	}
+
+	public String getCustNewNO() {
+		if("0".equals(custType)){
+			custNewNO = custCode;
+		}else if("1".equals(custType) || "2".equals(custType)){
+			custNewNO="";
+		}
+		return custNewNO;
+	}
+
+	public void setCustNewNO(String custNewNO) {
+		if("0".equals(custType)){
+			this.custCode=custNewNO;
+		}
+		this.custNewNO=custNewNO;
+	}
 
 	@Override
 	public String toString() {
@@ -661,7 +696,7 @@ public class BCustomer implements Serializable {
 				+ ", jobType=" + jobType + ", birthday_ChnStr=" + birthday_ChnStr + ", validDateStr=" + validDateStr
 				+ ", regDateStr=" + regDateStr + ", changeDateStr=" + changeDateStr + ", makeCardDateStr="
 				+ makeCardDateStr + ", reciveCardDateStr=" + reciveCardDateStr + ", disabilityEndDateStr="
-				+ disabilityEndDateStr + "]";
+				+ disabilityEndDateStr + ",custNO="+custNO+",custNewNO="+custNewNO+"]";
 	}
 
 }

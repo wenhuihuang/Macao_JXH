@@ -23,6 +23,9 @@ public class Customer implements Serializable {
 	private String telNo;
 	private String mobileTelNo;
 	private String relationship;
+	
+	private String custNO;
+	private String custNewNO;
 
 	public Customer() {
 		super();
@@ -31,7 +34,7 @@ public class Customer implements Serializable {
 
 	public Customer(String custID, String custCode, String fullName, String fullNameEng, String sex, String custType,
 			int cardStatus, Date regDate, Date validDate, String cardType, String cardNo, String telNo,
-			String mobileTelNo, String relationship) {
+			String mobileTelNo, String relationship,String custNO,String custNewNO) {
 		super();
 		this.custID = custID;
 		this.custCode = custCode;
@@ -47,6 +50,8 @@ public class Customer implements Serializable {
 		this.telNo = telNo;
 		this.mobileTelNo = mobileTelNo;
 		this.relationship = relationship;
+		this.custNO=custNO;
+		this.custNewNO=custNewNO;
 	}
 
 	public String getCustID() {
@@ -167,12 +172,44 @@ public class Customer implements Serializable {
 	
 	
 
+	public String getCustNO() {
+		if("0".equals(custType)){
+			custNO = "";
+		}else if("1".equals(custType) || "2".equals(custType)){
+			custNO=custCode;
+		}
+		return custNO;
+	}
+
+	public void setCustNO(String custNO) {
+		if("1".equals(custType) || "2".equals(custType) ){
+			this.custCode=custNO;
+		}
+		this.custNO = custNO;
+	}
+
+	public String getCustNewNO() {
+		if("0".equals(custType)){
+			custNewNO = custCode;
+		}else if("1".equals(custType) || "2".equals(custType)){
+			custNewNO="";
+		}
+		return custNewNO;
+	}
+
+	public void setCustNewNO(String custNewNO) {
+		if("0".equals(custType)){
+			this.custCode=custNewNO;
+		}
+		this.custNewNO=custNewNO;
+	}
+
 	@Override
 	public String toString() {
 		return "Customer [custID=" + custID + ", custCode=" + custCode + ", fullName=" + fullName + ", fullNameEng="
 				+ fullNameEng + ", sex=" + sex + ", custType=" + custType + ", cardStatus=" + cardStatus + ", regDate="
 				+ regDate + ", validDate=" + validDate + ", cardType=" + cardType + ", cardNo=" + cardNo + ", telNo="
-				+ telNo + ", mobileTelNo=" + mobileTelNo + ", relationship=" + relationship + "]";
+				+ telNo + ", mobileTelNo=" + mobileTelNo + ", relationship=" + relationship + ",custNO="+custNO+",custNewNO="+custNewNO+"]";
 	}
 
 }

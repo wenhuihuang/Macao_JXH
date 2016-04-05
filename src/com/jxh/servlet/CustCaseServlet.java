@@ -55,6 +55,7 @@ public class CustCaseServlet extends FGServlet {
 	private CustCaseBiz custCaseBiz = new CustCaseBiz();
 	private CustCaseRecordDao custCaseRecordDao = new CustCaseRecordDao();
 	private BCustCaseSummaryHandleDao bCustCaseSummaryHandleDao = new BCustCaseSummaryHandleDao();
+	private CustomerDao customerDao = new CustomerDao();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -87,8 +88,16 @@ public class CustCaseServlet extends FGServlet {
 	 * @throws SQLException
 	 */
 	private void listPojos(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException{
+		String custType = request.getParameter("custType");
+		System.out.println(custType);
+		String condition=null;
+		if("0".equals(custType) ){
+			condition = " and bCustomer.custType =  '0' ";
+		}else if("1".equals(custType) || "2".equals(custType)){
+			condition = " and bCustomer.custType != '0' ";
+		}
 		PageUtils<CustCasePojo> page = this.getPage(request);
-		custCaseDao.getCustCasePojoList(page,null);
+		custCaseDao.getCustCasePojoList(page,condition);
 		LigerUITools.writeGridJson(page, response);
 	}
 	
@@ -154,7 +163,10 @@ public class CustCaseServlet extends FGServlet {
 		try {
 			CustCasePojo custCasePojo = custCaseDao.getCustCasePojoByCondition(" and bCustCase.caseID = ? ",
 					this.getParameterByName(request, "caseID"));
+			BCustomer customer = customerDao.getCustomerByCondition(" and custID = ? ",
+					this.getParameterByName(request, "custID"));
 			request.setAttribute("custCasePojo", custCasePojo);
+			request.setAttribute("customer", customer);
 			
 			
 			forwardDispatcher("../jsp/custCase/edit.jsp", request, response);

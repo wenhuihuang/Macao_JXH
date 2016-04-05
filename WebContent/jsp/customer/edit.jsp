@@ -44,6 +44,9 @@ String basePath = request.getScheme() + "://"
 		$("#SocialWorkAdds").val(getAddedRows(VolunteerGrid));
 		$("#SocialWorkUpdates").val(getEditedRows(VolunteerGrid));
 		$("#SocialWorkDeletes").val(getDeletedRows(VolunteerGrid));
+		$("#ActivityRecordNewAdds").val(getAddedRows(ActivityGrid));
+		$("#ActivityRecordNewUpdates").val(getEditedRows(ActivityGrid));
+		$("#ActivityRecordNewDeletes").val(getDeletedRows(ActivityGrid))
 		$("#Button1").click();
 		
 	}
@@ -276,25 +279,30 @@ String basePath = request.getScheme() + "://"
 	}
 	
 	
-	
+	//參與活動
 	function bindingActivityGrid(){
 		//是/否
-		var activityWhetherData = [{activityWhether:0,text:'否'},{activityWhether:1,text:'是'}];
+		var isLateData = [{isLate:0,text:'否'},{isLate:1,text:'是'}];
 		
 		var ActivityGridColumn = [
-                   { display: '活動編號', name: 'actNO', align: 'left', width: 100, minWidth: 60, editor:{type:'text'} },
-                   { display: '活動名稱', name: 'actName', align: 'left', width: 100, minWidth: 60, editor:{type:'text'} },
-                   { display: '活動日期', name: 'actBDate', align: 'left', width: 100, minWidth: 60, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'} },
-                   { display: '是否遲到', name: 'isLate', align: 'left', width: 100, minWidth: 120, editor: { type: 'select', data: activityWhetherData, valueField: 'activityWhether' } },
-                   { display: '參與人數', name: '', align: 'left', width: 100, minWidth: 120, editor:{type:'text'} },
-                   { display: '備註', name: 'note', align: 'left', width: 100, minWidth: 120, editor:{type:'text'} }
+                   { display: '活動編號', name: 'actNO', align: 'center', width: 100, minWidth: 60, editor:{type:'text'} },
+                   { display: '活動名稱', name: 'actName', align: 'center', width: 100, minWidth: 60, editor:{type:'text'} },
+                   { display: '活動日期', name: 'actBDate', align: 'center', width: 100, minWidth: 60, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'} },
+                   { display: '是否遲到', name: 'isLate', align: 'center', width: 100, minWidth: 60
+                  	 ,editor: {type: 'select', data: isLateData, valueField: 'isLate' },
+	                        render: function (item)
+	                        {
+	                        	return getGridSelectedData(isLateData[parseInt(item.isLate)]);
+	                        } },
+                   { display: '參與人數', name: '', align: 'center', width: 100, minWidth: 120, editor:{type:'text'} },
+                   { display: '備註', name: 'note', align: 'center', width: 100, minWidth: 120, editor:{type:'text'} }
                   ];
  		var ActivityGridToolBar = [
        	          { text: '新增', click: addActivity, icon: 'add' , id:"add" },
        	          { line: true },
        	          { text: '删除', click: deleteActivity, icon: 'delete' , id:"delete" }];
  			
- 		var url = "Customer/getActivityRecord.do?CUSTID="+$("#custID").val();
+ 		var url = "Customer/getActivityRecordPojo.do?CUSTID="+$("#custID").val();
  		ActivityGrid = ligerGrid("ActivityGrid",null,ActivityGridColumn,url,ActivityGridToolBar,false,true);
 	}
 	function addActivity(){
@@ -389,6 +397,9 @@ String basePath = request.getScheme() + "://"
 		<input type="hidden" id="SocialWorkAdds" name="SocialWorkAdds">
 		<input type="hidden" id="SocialWorkUpdates" name="SocialWorkUpdates">
 		<input type="hidden" id="SocialWorkDeletes" name="SocialWorkDeletes">
+		<input type="hidden" id="ActivityRecordNewAdds" name="ActivityRecordNewAdds">
+		<input type="hidden" id="ActivityRecordNewUpdates" name="ActivityRecordNewUpdates">
+		<input type="hidden" id="ActivityRecordNewDeletes" name="ActivityRecordNewDeletes">
 		
 		
         <table cellpadding="0" cellspacing="0" class="l-table-edit" >
