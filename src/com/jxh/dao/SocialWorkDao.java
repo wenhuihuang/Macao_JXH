@@ -24,10 +24,24 @@ public class SocialWorkDao extends DaoImpl {
 		//获取SQL
 		condition = condition ==null?"":condition;
 		String sql = getSqlByPropKey(ToolsUtils.getCurrentMethodName())+condition;
+		System.out.println(sql);
 		//获取总页数
 		Integer count = (Integer) this.findElement(getCountSql(sql), params);
 		page.setRowCount(count);
 		List<SocialWork> socialWorks = this.findForList(sql, params);
+		page.setList(socialWorks);
+		
+		return page;
+	}
+	public PageUtils<SocialWorkPojo> getSocialWorkPojo(PageUtils<SocialWorkPojo> page,String condition,Object...params) throws IOException, SQLException{
+		clazz = SocialWorkPojo.class;
+		//获取SQL
+		condition = condition ==null?"":condition;
+		String sql = getSqlByPropKey(ToolsUtils.getCurrentMethodName())+condition;
+		//获取总页数
+		Integer count = (Integer) this.findElement(getCountSql(sql), params);
+		page.setRowCount(count);
+		List<SocialWorkPojo> socialWorks = this.findForList(sql, params);
 		page.setList(socialWorks);
 		
 		return page;

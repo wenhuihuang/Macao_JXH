@@ -11,20 +11,23 @@ import java.text.ParseException;
 public class SocialWorkPojo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String workID;
-	private String workName;
-	private int sex;
-	private int age;
-	private String phone;
-	private Date birthday;
 	private String work;
 	private String workNO;
 	private String note;
-
 	private String custID;
+	
+	private String fullName;
+	private int sex;
+	private int age;
+	private String mobileTelNO;
+	private Date birthday_Chn;
 	private String job;
 
-	private String birthday_str;
+	private String birthday_ChnStr;
 
+	private String custType;
+	private String custCode;
+	
 	private String custNO;
 	private String custNewNO;
 
@@ -32,24 +35,26 @@ public class SocialWorkPojo implements Serializable {
 		super();
 	}
 
-	public SocialWorkPojo(String workID, String workName, int sex, int age, String phone, Date birthday, String work,
-			String workNO, String note, String birthday_str, String custID, String custNO, String custNewNO,
-			String job) {
+	public SocialWorkPojo(String workID, String fullName, int sex, int age, String mobileTelNO, Date birthday_Chn, String work,
+			String workNO, String note, String birthday_ChnStr, String custID, String custType, String custCode,
+			String job,String custNO,String custNewNO) {
 		super();
 		this.workID = workID;
-		this.workName = workName;
+		this.fullName = fullName;
 		this.sex = sex;
 		this.age = age;
-		this.phone = phone;
-		this.birthday = birthday;
+		this.mobileTelNO = mobileTelNO;
+		this.birthday_Chn = birthday_Chn;
 		this.work = work;
 		this.workNO = workNO;
 		this.note = note;
-		this.birthday_str = birthday_str;
+		this.birthday_ChnStr = birthday_ChnStr;
 		this.custID = custID;
-		this.custNO = custNO;
-		this.custNewNO = custNewNO;
+		this.custType = custType;
+		this.custCode = custCode;
 		this.job = job;
+		this.custNO=custNO;
+		this.custNewNO=custNewNO;
 	}
 
 	public void setWorkID(String workID) {
@@ -60,12 +65,12 @@ public class SocialWorkPojo implements Serializable {
 		return workID;
 	}
 
-	public void setWorkName(String workName) {
-		this.workName = workName;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
-	public String getWorkName() {
-		return workName;
+	public String getFullName() {
+		return fullName;
 	}
 
 	public void setSex(int sex) {
@@ -84,20 +89,20 @@ public class SocialWorkPojo implements Serializable {
 		return age;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setMobileTelNO(String mobileTelNO) {
+		this.mobileTelNO = mobileTelNO;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getMobileTelNO() {
+		return mobileTelNO;
 	}
 
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
+	public void setBirthday_Chn(Date birthday_Chn) {
+		this.birthday_Chn = birthday_Chn;
 	}
 
-	public Date getBirthday() {
-		return birthday;
+	public Date getBirthday_Chn() {
+		return birthday_Chn;
 	}
 
 	public void setWork(String work) {
@@ -124,18 +129,18 @@ public class SocialWorkPojo implements Serializable {
 		this.note = note;
 	}
 
-	public String getBirthday_str() {
+	public String getBirthday_ChnStr() {
 		try {
-			return birthday == null || "".equals(birthday) ? ""
-					: ToolsUtils.getDateStringByFormat(birthday, null, "yyyy-MM-dd");
+			return birthday_Chn == null || "".equals(birthday_Chn) ? ""
+					: ToolsUtils.getDateStringByFormat(birthday_Chn, null, "yyyy-MM-dd");
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 
-	public void setBirthday_str(String birthday_str) {
-		this.birthday_str = birthday_str;
+	public void setBirthday_ChnStr(String birthday_ChnStr) {
+		this.birthday_ChnStr = birthday_ChnStr;
 	}
 
 	public String getCustID() {
@@ -146,20 +151,20 @@ public class SocialWorkPojo implements Serializable {
 		this.custID = custID;
 	}
 
-	public String getCustNO() {
-		return custNO;
+	public String getCustType() {
+		return custType;
 	}
 
-	public void setCustNO(String custNO) {
-		this.custNO = custNO;
+	public void setCustType(String custType) {
+		this.custType = custType;
 	}
 
-	public String getCustNewNO() {
-		return custNewNO;
+	public String getCustCode() {
+		return custCode;
 	}
 
-	public void setCustNewNO(String custNewNO) {
-		this.custNewNO = custNewNO;
+	public void setCustCode(String custCode) {
+		this.custCode = custCode;
 	}
 
 	public String getJob() {
@@ -169,13 +174,45 @@ public class SocialWorkPojo implements Serializable {
 	public void setJob(String job) {
 		this.job = job;
 	}
+	
+	public String getCustNO() {
+		if ("0".equals(custType)) {
+			custNO = "";
+		} else if ("1".equals(custType) || "2".equals(custType)) {
+			custNO = custCode;
+		}
+		return custNO;
+	}
+
+	public void setCustNO(String custNO) {
+		if ("1".equals(custType) || "2".equals(custType)) {
+			this.custCode = custNO;
+		}
+		this.custNO = custNO;
+	}
+
+	public String getCustNewNO() {
+		if ("0".equals(custType)) {
+			custNewNO = custCode;
+		} else if ("1".equals(custType) || "2".equals(custType)) {
+			custNewNO = "";
+		}
+		return custNewNO;
+	}
+
+	public void setCustNewNO(String custNewNO) {
+		if ("0".equals(custType)) {
+			this.custCode = custNewNO;
+		}
+		this.custNewNO = custNewNO;
+	}
 
 	@Override
 	public String toString() {
-		return "SocialWork [workID=" + workID + ",workName=" + workName + ",sex=" + sex + ",age=" + age + ",phone="
-				+ phone + ",birthday=" + birthday + ",work=" + work + ",workNO=" + workNO + ",note=" + note
-				+ ",birthday_str=" + birthday_str + ",custID=" + custID + ",custNO=" + custNO + ",custNewNO="
-				+ custNewNO + ",job=" + job + "]";
+		return "SocialWork [workID=" + workID + ",fullName=" + fullName + ",sex=" + sex + ",age=" + age + ",mobileTelNO="
+				+ mobileTelNO + ",birthday_Chn=" + birthday_Chn + ",work=" + work + ",workNO=" + workNO + ",note=" + note
+				+ ",birthday_ChnStr=" + birthday_ChnStr + ",custID=" + custID + ",custType=" + custType + ",custCode="
+				+ custCode + ",job=" + job + ",custNO="+custNO+",custNewNO="+custNewNO+"]";
 	}
 
 }

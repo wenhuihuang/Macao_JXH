@@ -66,43 +66,43 @@ String basePath = request.getScheme() + "://"
 			<input type="text" ltype="text" width="120px" name="workNO" value="${socialWorkPojo.workNO }">
 		</div>
 		<div class="col-md-3">
-			<label>會員編號：</label>
-			<input type="text" ltype="text" width="120px" name="custNO" value="${socialWorkPojo.custNO }">
+			<label>會員類別：</label>
+			<select name="custType" id="custType" ltype="select" width="120px">
+           		<option value="1" <c:if test="${customer.custType == '1' }">selected="selected"</c:if> >永久會員</option>
+           		<option value="2" <c:if test="${customer.custType == '2' }">selected="selected"</c:if> >臨時會員</option>
+           		<option value="0" <c:if test="${customer.custType != '1' and customer.custType != '2'  }">selected="selected"</c:if> >非會員</option>
+           	</select>
 		</div>
 		<div class="col-md-3">
-			<label>非會員編號：</label>
-			<input type="text" ltype="text" width="120px" name="custNewNO" value="${socialWorkPojo.custNewNO }">
+			<label>會員編號：</label>
+			<input type="text" ltype="text" width="120px" name="custCode" value="${customer.custCode }">
 		</div>
 		<div class="col-md-3">
 			<label>社工姓名：</label>
-			<input type="text" ltype="text" width="120px" name="workName" value="${socialWorkPojo.workName }">
+			<input type="text" ltype="text" width="120px" name="fullName" value="${customer.fullName }">
 		</div>
 	</div>
 	<div class="inline-group row max-width-group-300 label-width-100">
 		<div class="col-md-3">
 			<label>社工性別：</label>
 			<div class="radio-group">
-				<input id="sex1" type="radio" name="sex"  value="1" <c:if test="${socialWorkPojo.sex != 2 }">checked="checked"</c:if> /><label for="sex1">男</label> 
-				<input id="sex2" type="radio" name="sex" value="2" <c:if test="${socialWorkPojo.sex == 2 }">checked="checked"</c:if> /><label for="sex2">女</label>
+				<input id="sex1" type="radio" name="sex"  value="1" <c:if test="${customer.sex != 2 }">checked="checked"</c:if> /><label for="sex1">男</label> 
+				<input id="sex2" type="radio" name="sex" value="2" <c:if test="${customer.sex == 2 }">checked="checked"</c:if> /><label for="sex2">女</label>
 			</div>
 		</div>
 		<div class="col-md-3">
-			<label>社工年齡：</label>
-			<input type="text" ltype="text" width="120px" name="age" value="${socialWorkPojo.age }">
-		</div>
-		<div class="col-md-3">
 			<label>出生日期：</label>
-			<input type="text" ltype="date" width="120px" name="birthday" value="${socialWorkPojo.birthday_str }">
+			<input type="text" ltype="date" width="120px" name="birthday_Chn" value="${customer.birthday_ChnStr }">
 		</div>
 		<div class="col-md-3">
 			<label>聯繫電話：</label>
-			<input type="text" ltype="text" width="120px" name="phone" value="${socialWorkPojo.phone }">
+			<input type="text" ltype="text" width="120px" name="mobileTelNO" value="${customer.mobileTelNO }">
 		</div>
 	</div>
 	<div class="inline-group row max-width-group-300 label-width-100">
 		<div class="col-md-3">
 			<label>職業：</label>
-			<input type="text" ltype="text" width="120px" name="job" value="${socialWorkPojo.job }">
+			<input type="text" ltype="text" width="120px" name="job" value="${customer.job }">
 		</div>
 		<div class="col-md-3">
 			<label>備註：</label>

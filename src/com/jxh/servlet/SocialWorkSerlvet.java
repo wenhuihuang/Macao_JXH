@@ -20,8 +20,10 @@ import com.fg.servlet.FGServlet;
 import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
 import com.jxh.biz.SocialWorkBiz;
+import com.jxh.dao.CustomerDao;
 import com.jxh.dao.SocialWorkDao;
 import com.jxh.pojo.SocialWorkPojo;
+import com.jxh.vo.BCustomer;
 import com.jxh.vo.SocialWork;
 
 import net.sf.json.JSONArray;
@@ -35,6 +37,7 @@ public class SocialWorkSerlvet extends FGServlet {
     
 	private SocialWorkDao socialWorkDao = new SocialWorkDao();
 	private SocialWorkBiz socialWorkBiz = new SocialWorkBiz();
+	private CustomerDao customerDao = new CustomerDao();
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -61,8 +64,8 @@ public class SocialWorkSerlvet extends FGServlet {
 	}
 	
 	private void list(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException{
-		PageUtils<SocialWork> page = this.getPage(request);
-		socialWorkDao.getSocialWork(page,null);
+		PageUtils<SocialWorkPojo> page = this.getPage(request);
+		socialWorkDao.getSocialWorkPojo(page,null);
 		LigerUITools.writeGridJson(page, response);
 	}
 	
@@ -84,8 +87,11 @@ public class SocialWorkSerlvet extends FGServlet {
 		try {
 			SocialWorkPojo socialWorkPojo = socialWorkDao.getSocialWorkPojoByCondition(" and workID = ? ",
 					this.getParameterByName(request, "workID"));
+			BCustomer customer = customerDao.getCustomerByCondition(" and custID = ? ",
+					this.getParameterByName(request, "custID"));
 		
 			request.setAttribute("socialWorkPojo", socialWorkPojo);
+			request.setAttribute("customer", customer);
 			
 				forwardDispatcher("../jsp/manage/socialWork_edit.jsp",request,response);
 			
@@ -101,12 +107,13 @@ public class SocialWorkSerlvet extends FGServlet {
 		
 
 		SocialWork socialWork = this.getObjectByParameter(request, SocialWork.class);
+		BCustomer bCustomer = this.getObjectByParameter(request, BCustomer.class);
 		String message = "";
 		
 			if (socialWork.getWorkID() != null && !"".equals(socialWork.getWorkID())) {
-				message = socialWorkBiz.updateSocialWork(socialWork);
+				message = socialWorkBiz.updateSocialWork(socialWork,bCustomer);
 			} else {
-				message = socialWorkBiz.insertSocialWork(socialWork);
+				message = socialWorkBiz.insertSocialWork(socialWork,bCustomer);
 			}
 	
 
@@ -128,8 +135,9 @@ public class SocialWorkSerlvet extends FGServlet {
 	private void deleteSocialWork(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		boolean flag = false;
 		String workID = request.getParameter("workID");
+		String custID = request.getParameter("custID");
 		if(workID != null && !"".equals(workID)){
-			flag = socialWorkBiz.deleteSocialWorkByWorkID(workID);
+			flag = socialWorkBiz.deleteSocialWorkByWorkID(workID,custID);
 		}
 		response.getWriter().print(flag);
 	}

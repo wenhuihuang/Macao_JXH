@@ -33,17 +33,19 @@ String basePath = request.getScheme() + "://"
         
         function modifyRow(){
         	var workID = getRowCell(maingrid,"workID");
+        	var custID = getRowCell(maingrid,"custID");
         	if(workID!="" && workID!=null){
-	        	location.href = "SocialWork/edit.do?workID="+workID;        		
+	        	location.href = "SocialWork/edit.do?workID="+workID+"&custID="+custID;        		
         	}
         }
         function deleteRow(){
         	var workID = getRowCell(maingrid,"workID");
+        	var custID = getRowCell(maingrid,"custID");
       		if(confirm("是否刪除？")){
      			$.ajax({
          			type:"post",
          			url:"SocialWork/deleteSocialWork.do",
-         			data:"workID="+workID,
+         			data:"workID="+workID+"&custID="+custID,
          			success:function(msg){
          				if(msg == "true" || msg == true){
          					maingrid.deleteSelectedRow();
@@ -64,16 +66,20 @@ String basePath = request.getScheme() + "://"
         {
         	setTabTitle(parent.$("#framecenter"),"社工列表") 
         	
-            var serviceStatusData = [{serviceStatus:0,text:'沒有服務'},{serviceStatus:1,text:'服務中'},{serviceStatus:2,text:'服務完成'}];
-        	
+        	var sexData = [{sex:1,text:'男'},{sex:2,text:'女'}];
             var columns = [
     	                { display: '社工編號', name: 'workNO', minWidth: 100 },
     	                { display: '會員編號', name: 'custNO', minWidth: 140 },
     	                { display: '非會員編號', name: 'custNewNO', minWidth: 140 },
-    	                { display: '社工姓名', name: 'workName', minWidth: 140 },
-    	                { display: '社工性別', name: 'sex', minWidth: 140 },
-    	                { display: '出生日期', name: 'birthday', minWidth: 140 },
-    	                { display: '聯繫電話', name: 'phone', minWidth: 140 },
+    	                { display: '社工姓名', name: 'fullName', minWidth: 140 },
+    	                { display: '社工性別', name: 'sex',width:70 
+    	                	,editor: { data: sexData, valueField: 'sex' },
+	                        render: function (item)
+	                        {
+	                        	return getGridSelectedData(sexData[parseInt(item.sex)-1]);
+	                        } },
+    	                { display: '出生日期', name: 'birthday_Chn', minWidth: 140 },
+    	                { display: '聯繫電話', name: 'mobileTelNO', minWidth: 140 },
     	                { display: '職位', name: 'work', minWidth: 140 },
     	                { display: '備註', name: 'note', minWidth: 140 }
                     ] ;
