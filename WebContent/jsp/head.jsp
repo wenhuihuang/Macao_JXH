@@ -279,7 +279,6 @@ td {width: auto;}
     		return "";
     	}
     	
-    	alert(rows[0][rowId])
     	return rows[0][rowId];
 	}
 	

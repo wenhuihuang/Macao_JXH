@@ -484,7 +484,6 @@ public class BCustomer implements Serializable {
 			return validDate == null || "".equals(validDate) ? ""
 					: ToolsUtils.getDateStringByFormat(validDate, null, "yyyy-MM-dd");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}

@@ -1,5 +1,5 @@
 ﻿/**
-* jQuery ligerUI 1.3.2
+* jQuery ligerUI 1.3.3
 * 
 * http://ligerui.com
 *  
@@ -87,7 +87,8 @@
         //id字段
         idField: null,
         //parent id字段，可用于线性数据转换为tree数据
-        parentIDField: null
+        parentIDField: null,
+	    iconClsFieldName : null 
     };
 
     $.ligerui.controls.Tree = function (element, options)
@@ -197,7 +198,7 @@
             var parentTreeNode = g.getParentTreeItem(treenode, level);
             if (!parentTreeNode) return null;
             var parentIndex = $(parentTreeNode).attr("treedataindex");
-            return g._getDataNodeByTreeDataIndex(parentIndex);
+            return g._getDataNodeByTreeDataIndex(g.data,parentIndex);
         },
         //获取父节点
         getParentTreeItem: function (treenode, level)
@@ -726,7 +727,11 @@
                 {
                     var dataItem = items[i];
                     if (dataItem[p.idFieldName] == id) return dataItem;
-                    if (dataItem.children && dataItem.children.length) return find(dataItem.children);
+                    if (dataItem.children && dataItem.children.length)
+                    {
+                        var o = find(dataItem.children);
+                        if (o) return o;
+                    } 
                 }
                 return null;
             }
@@ -994,6 +999,8 @@
                         treehtmlarr.push(g._getParentNodeClassName(isExpandCurrent ? true : false) + " ");
                         if (p.iconFieldName && o[p.iconFieldName])
                             treehtmlarr.push('l-tree-icon-none');
+                        else if (p.iconClsFieldName && o[p.iconClsFieldName])
+                            treehtmlarr.push('l-tree-icon-' + o[p.iconClsFieldName] + " ");
                         treehtmlarr.push('">');
                         if (p.iconFieldName && o[p.iconFieldName])
                             treehtmlarr.push('<img src="' + o[p.iconFieldName] + '" />');
@@ -1018,6 +1025,9 @@
                         treehtmlarr.push(g._getChildNodeClassName() + " ");
                         if (p.iconFieldName && o[p.iconFieldName])
                             treehtmlarr.push('l-tree-icon-none');
+                        else if (p.iconClsFieldName && o[p.iconClsFieldName])
+                            treehtmlarr.push('l-tree-icon-' + o[p.iconClsFieldName] + " ");
+
                         treehtmlarr.push('">');
                         if (p.iconFieldName && o[p.iconFieldName])
                             treehtmlarr.push('<img src="' + o[p.iconFieldName] + '" />');

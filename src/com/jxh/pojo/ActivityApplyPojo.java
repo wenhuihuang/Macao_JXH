@@ -1,6 +1,7 @@
 package com.jxh.pojo;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.math.*;
 
@@ -23,13 +24,15 @@ public class ActivityApplyPojo implements Serializable {
 
 	private String fullName;
 
-	private String workName;
 	private int sex;
 	private String workID;
 	private String work;
-	private String phone;
+	private String job;
+	private String mobileTelNO;
+	private Date birthday_Chn;
+	private String birthday_ChnStr;
 	private String workNO;
-	
+
 	private String custType;
 	private String custCode;
 	private String custNO;
@@ -42,8 +45,9 @@ public class ActivityApplyPojo implements Serializable {
 
 	public ActivityApplyPojo(String applyID, int type, Date registerDate, String custID, String pCustID,
 			BigDecimal parentsExpense, BigDecimal amentiaExpense, String family, BigDecimal fExpense, int fNumber,
-			String note, String actID, String amentiaName, String parentsName, String workName, int sex, String workID,
-			String work, String phone, String workNO, String custNO, String custNewNO, int age, String fullName,String custType,String custCode) {
+			String note, String actID, String amentiaName, String parentsName, int sex, String workID, String work,
+			String mobileTelNO, String workNO, String custNO, String custNewNO, int age, String fullName,
+			String custType, String custCode, Date birthday_Chn, String job, String birthday_ChnStr) {
 		super();
 		this.applyID = applyID;
 		this.type = type;
@@ -59,18 +63,20 @@ public class ActivityApplyPojo implements Serializable {
 		this.actID = actID;
 		this.amentiaName = amentiaName;
 		this.parentsName = parentsName;
-		this.workName = workName;
 		this.sex = sex;
 		this.workID = workID;
 		this.work = work;
-		this.phone = phone;
+		this.mobileTelNO = mobileTelNO;
 		this.workNO = workNO;
 		this.custNO = custNO;
 		this.custNewNO = custNewNO;
 		this.age = age;
 		this.fullName = fullName;
-		this.custType=custType;
-		this.custCode=custCode;
+		this.custType = custType;
+		this.custCode = custCode;
+		this.birthday_Chn = birthday_Chn;
+		this.birthday_ChnStr = birthday_ChnStr;
+		this.job = job;
 	}
 
 	public String getAmentiaName() {
@@ -189,14 +195,6 @@ public class ActivityApplyPojo implements Serializable {
 		this.actID = actID;
 	}
 
-	public String getWorkName() {
-		return workName;
-	}
-
-	public void setWorkName(String workName) {
-		this.workName = workName;
-	}
-
 	public int getSex() {
 		return sex;
 	}
@@ -221,12 +219,12 @@ public class ActivityApplyPojo implements Serializable {
 		this.work = work;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getMobileTelNO() {
+		return mobileTelNO;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setMobileTelNO(String mobileTelNO) {
+		this.mobileTelNO = mobileTelNO;
 	}
 
 	public String getWorkNO() {
@@ -238,38 +236,69 @@ public class ActivityApplyPojo implements Serializable {
 	}
 
 	public String getCustNO() {
-		if("0".equals(custType)){
+		if ("0".equals(custType)) {
 			custNO = "";
-		}else{
+		} else {
 			custNO = custCode;
 		}
 		return custNO;
 	}
 
 	public void setCustNO(String custNO) {
-		if("1".equals(custType) || "2".equals(custType)){
+		if ("1".equals(custType) || "2".equals(custType)) {
 			this.custNO = custCode;
 		}
 		this.custNO = custNO;
 	}
 
 	public String getCustNewNO() {
-		if("1".equals(custType) || "2".equals(custType)){
+		if ("1".equals(custType) || "2".equals(custType)) {
 			custNewNO = "";
-		}else{
+		} else {
 			custNewNO = custCode;
 		}
 		return custNewNO;
 	}
 
 	public void setCustNewNO(String custNewNO) {
-		if("0".equals(custType)){
-			this.custCode=custNewNO;
+		if ("0".equals(custType)) {
+			this.custCode = custNewNO;
 		}
 		this.custNewNO = custNewNO;
 	}
 
+
+
 	public int getAge() {
+		Calendar cal = Calendar.getInstance();
+
+		if (cal.before(birthday_Chn)) {
+			throw new IllegalArgumentException("The birthday_Chn is before Now.It's unbelievable!");
+		}
+
+		int yearNow = cal.get(Calendar.YEAR);
+		int monthNow = cal.get(Calendar.MONTH) + 1;
+		int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
+
+		cal.setTime(birthday_Chn);
+		int yearBirth = cal.get(Calendar.YEAR);
+		int monthBirth = cal.get(Calendar.MONTH);
+		int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
+
+		int age1 = yearNow - yearBirth;
+
+		if (monthNow <= monthBirth) {
+			if (monthNow == monthBirth) {
+				// monthNow==monthBirth
+				if (dayOfMonthNow < dayOfMonthBirth) {
+					age1--;
+				}
+			} else {
+				// monthNow>monthBirth
+				age1--;
+			}
+		}
+		age = age1;
 		return age;
 	}
 
@@ -284,7 +313,7 @@ public class ActivityApplyPojo implements Serializable {
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
-	
+
 	public String getCustType() {
 		return custType;
 	}
@@ -301,15 +330,40 @@ public class ActivityApplyPojo implements Serializable {
 		this.custCode = custCode;
 	}
 
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
+
+	public Date getBirthday_Chn() {
+		return birthday_Chn;
+	}
+
+	public void setBirthday_Chn(Date birthday_Chn) {
+		this.birthday_Chn = birthday_Chn;
+	}
+
+	public String getBirthday_ChnStr() {
+		return birthday_ChnStr;
+	}
+
+	public void setBirthday_ChnStr(String birthday_ChnStr) {
+		this.birthday_ChnStr = birthday_ChnStr;
+	}
+
 	@Override
 	public String toString() {
 		return "ActivityApply [applyID=" + applyID + ",type=" + type + ",registerDate=" + registerDate + ",custID="
 				+ custID + ",pCustID=" + pCustID + ",parentsExpense=" + parentsExpense + ",amentiaExpense="
 				+ amentiaExpense + ",family=" + family + ",fExpense=" + fExpense + ",fNumber=" + fNumber + ",note="
-				+ note + ",actID=" + actID + ",amentiaName=" + amentiaName + ",parentsName=" + parentsName
-				+ ",workName=" + workName + ",sex=" + sex + ",workID=" + workID + ",work=" + work + ",phone=" + phone
-				+ ",workNO=" + workNO + ",custNO=" + custNO + ",custNewNO=" + custNewNO + ",age=" + age + ",fullName="
-				+ fullName + ",custType="+custType+",custCode="+custCode+"]";
+				+ note + ",actID=" + actID + ",amentiaName=" + amentiaName + ",parentsName=" + parentsName + ",sex="
+				+ sex + ",workID=" + workID + ",work=" + work + ",mobileTelNO=" + mobileTelNO + ",workNO=" + workNO
+				+ ",custNO=" + custNO + ",custNewNO=" + custNewNO + ",age=" + age + ",fullName=" + fullName
+				+ ",custType=" + custType + ",custCode=" + custCode + ",job=" + job + ",birthday_Chn=" + birthday_Chn
+				+ ",birthday_ChnStr=" + birthday_ChnStr + "]";
 	}
 
 }

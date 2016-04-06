@@ -351,7 +351,7 @@ public class CustomerServlet extends FGServlet {
 		// TODO Auto-generated method stub
 		try {
 			PageUtils<Customer> page = getPage(request);
-			String condition = " and CustType2 != 2 ";//and custid = ?
+			String condition = " and CustType2 != 2 and CustType2 != 3 ";//and custid = ?
 			customerDao.getCustomerList(page, condition);
 			LigerUITools.writeGridJson(page, response);
 		} catch (IOException | SQLException e) {

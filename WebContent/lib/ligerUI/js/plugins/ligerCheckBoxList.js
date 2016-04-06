@@ -1,5 +1,5 @@
 ﻿/**
-* jQuery ligerUI 1.3.2
+* jQuery ligerUI 1.3.3
 * 
 * http://ligerui.com
 *  
@@ -24,6 +24,8 @@
         data: null,             //数据  
         parms: null,            //ajax提交表单 
         url: null,              //数据源URL(需返回JSON)
+        urlParms: null,                     //url带参数
+        ajaxContentType: null,
         ajaxType : 'post',
         onSuccess: null,
         onError: null,  
@@ -211,14 +213,28 @@
         }, 
         _setUrl: function (url) {
             if (!url) return;
-            var g = this, p = this.options;
+            var g = this, p = this.options; 
+            var urlParms = $.isFunction(p.urlParms) ? p.urlParms.call(g) : p.urlParms;
+            if (urlParms)
+            {
+                for (name in urlParms)
+                {
+                    url += url.indexOf('?') == -1 ? "?" : "&";
+                    url += name + "=" + urlParms[name];
+                }
+            }
             var parms = $.isFunction(p.parms) ? p.parms() : p.parms;
+            if (p.ajaxContentType == "application/json" && typeof (parms) != "string")
+            {
+                parms = liger.toJSON(parms);
+            } 
             $.ajax({
                 type: p.ajaxType || 'post',
                 url: url,
                 data: parms,
                 cache: false,
                 dataType: 'json',
+                contentType: p.ajaxContentType,
                 success: function (data) { 
                     g.setData(data);
                     g.trigger('success', [data]);

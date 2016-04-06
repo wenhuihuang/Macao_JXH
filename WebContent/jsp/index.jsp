@@ -293,7 +293,7 @@
 <body style="padding:0px;background:#EAEEF5;">  
 <div id="pageloading"></div>  
 <div id="topmenu" class="l-topmenu">
-    <div class="l-topmenu-logo">jQuery ligerUI Demos导航主页</div>
+    <div class="l-topmenu-logo">會員管理系統</div>
     <div class="l-topmenu-welcome">
         <label> 皮肤切换：</label>
         <select id="skinSelect">
@@ -302,29 +302,41 @@
             <option value="gray">Gray</option>
             <option value="gray2014">Gray2014</option>
         </select>
-        <a href="index.aspx" class="l-link2">服务器版本</a>
-        <span class="space">|</span>
-        <a href="http://www.ligerui.com/pay.html" class="l-link2" target="_blank">捐赠</a> 
-                <span class="space">|</span>
-        <a href="http://www.ligerui.com/server.html" class="l-link2" target="_blank">服务支持</a> 
     </div> 
 </div>
   <div id="layout1" style="width:99.2%; margin:0 auto; margin-top:4px; "> 
-        <div position="left"  title="主要菜单" id="accordion1"> 
-                     <div title="功能列表" class="l-scroll">
-                         <ul id="tree1" style="margin-top:3px;">
+        <div position="left"  title="菜单" id="accordion1"> 
+                     <div title="基礎" class="l-scroll">
+                          <!-- <ul id="tree1" style="margin-top:3px;">  -->
+                         <a class="l-link" href="javascript:f_addTab('customer','會員資料列表','jsp/customer/list.jsp')">會員資料</a>
                     </div>
-                    <div title="应用场景">
+                    <div title="社工個案">
                     <div style=" height:7px;"></div>
-                        <a class="l-link" href="http://www.ligerui.com/go.aspx?id=case" target="_blank">演示系统</a>  
-                         <a class="l-link" href="javascript:f_addTab('listpage','列表页面','demos/case/listpage.htm')">列表页面</a> 
-                         <a class="l-link" href="demos/dialog/win7.htm" target="_blank">模拟Window桌面</a> 
-                        <a class="l-link" href="javascript:f_addTab('week','工作日志','demos/case/week.htm')">工作日志</a>  
+                         <a class="l-link" href="javascript:f_addTab('custCase','個案列表','jsp/custCase/list.jsp')">個案</a> 
+                        <a class="l-link" href="javascript:f_addTab('socialWork','社工資料列表','jsp/manage/socialWork_list.jsp')">社工資料</a>  
                     </div>    
-                     <div title="实验室">
+                     <div title="治療">
                     <div style=" height:7px;"></div>
-                          <a class="l-link" href="lab/generate/index.htm" target="_blank">表格表单设计器</a> 
-                          <a class="l-link" href="lab/formdesign/index.htm" target="_blank">可视化表单设计</a> 
+                          <a class="l-link" href="javascript:f_addTab('language','語言治療列表','jsp/treatment/language_list.jsp')">語言治療</a>
+                          <a class="l-link" href="javascript:f_addTab('job','職業治療列表','jsp/treatment/job_list.jsp')">職業治療</a>
+                          <a class="l-link" href="javascript:f_addTab('physics','物理治療列表','jsp/treatment/physics_list.jsp')">物理治療</a>
+                          <a class="l-link" href="javascript:f_addTab('special','特殊教育治療及IEP列表','jsp/treatment/special_list.jsp')">特殊教育及IEP</a> 
+                          <a class="l-link" href="javascript:f_addTab('function','職能訓練列表','jsp/treatment/function_list.jsp')">職能訓練</a>
+                          <a class="l-link" href="javascript:f_addTab('collocation','暫托服務列表','jsp/treatment/collocation_list.jsp')">暫托服務</a> 
+                    </div> 
+                     <div title="院舍管理">
+                    <div style=" height:7px;"></div>
+                          <a class="l-link" href="javascript:f_addTab('dormitory','院舍管理列表','jsp/manage/dormitory_list.jsp')">院舍管理</a>
+                          <a class="l-link" href="javascript:f_addTab('medical','醫護記錄列表','jsp/manage/medical_list.jsp')">醫護記錄</a>
+                          <a class="l-link" href="javascript:f_addTab('groupSetting','小組設定列表','jsp/manage/groupSetting_list.jsp')">小組設定</a>
+                          <a class="l-link" href="javascript:f_addTab('groupRecord','小組記錄列表','jsp/manage/groupRecord_list.jsp')">小組記錄</a> 
+                          <a class="l-link" href="javascript:f_addTab('courseSetting','課程設定列表','jsp/manage/courseSetting_list.jsp')">課程設定</a>
+                          <a class="l-link" href="javascript:f_addTab('carSetting','校車支援列表','jsp/manage/carSetting_list.jsp')">校車支援</a>
+                          <a class="l-link" href="javascript:f_addTab('activity','活動設定列表','jsp/manage/activity_list.jsp')">活動設定</a>
+                          <a class="l-link" href="javascript:f_addTab('familySupport','家庭支援列表','jsp/manage/familySupport_list.jsp')">家庭支援</a>
+                          <a class="l-link" href="javascript:f_addTab('message','信息平臺列表','jsp/manage/message_list.jsp')">信息平臺</a>
+                          <a class="l-link" href="javascript:f_addTab('chargeRecord','收費記錄列表','jsp/manage/chargeRecord_list.jsp')">收費記錄</a> 
+                          <a class="l-link" href="javascript:f_addTab('statistics','統計報表','jsp/manage/statistics_list.jsp')">統計報表</a>
                     </div> 
         </div>
         <div position="center" id="framecenter"> 
@@ -335,7 +347,7 @@
         
     </div>
     <div  style="height:32px; line-height:32px; text-align:center;">
-            Copyright © 2011-2014 www.ligerui.com
+            <!-- Copyright ©  -->
     </div>
     <div style="display:none"></div>
 </body>

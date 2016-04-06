@@ -169,16 +169,16 @@ String basePath = request.getScheme() + "://"
 		var sexData = [{sex:1,text:'男'},{sex:2,text:'女'}];
 		
 		var familyGridColumn = [
-			                     { display: '姓名', name: 'fullName', align: 'left', width: 100, minWidth: 60 },
-			                     { display: '性别', name: 'sex', align: 'left', width: 100, minWidth: 60
+			                     { display: '姓名', name: 'fullName', align: 'left',  minWidth: 60 },
+			                     { display: '性别', name: 'sex', align: 'left',  minWidth: 60
 			                    	 ,editor: { data: sexData, valueField: 'sex' },
 				                        render: function (item)
 				                        {
 				                        	return getGridSelectedData(sexData[parseInt(item.sex)-1]);
 				                        } },
-			                     { display: '關係', name: 'relationship', align: 'left', width: 100, minWidth: 60 },
-			                     { display: '手提', name: 'mobileTelNo', align: 'left', width: 100, minWidth: 60 },
-			                     { display: '家庭電話', name: 'telNo', align: 'left', width: 100, minWidth: 120 }
+			                     { display: '關係', name: 'relationship', align: 'left',  minWidth: 60 },
+			                     { display: '手提', name: 'mobileTelNo', align: 'left', minWidth: 60 },
+			                     { display: '家庭電話', name: 'telNo', align: 'left',  minWidth: 120 }
 			                     
 			                    ];
 		var familyGridToolBar = [
@@ -231,10 +231,10 @@ String basePath = request.getScheme() + "://"
 	
 	function bindingCSSAGrid(){
 		var CSSAGridColumn = [
-			                     { display: '綜援編號', name: 'CSSANO', align: 'left', width: 250, minWidth: 60,editor:{type:'text'} },
-			                     { display: '申請人姓名', name: 'userName', align: 'left', width: 120, minWidth: 60 ,editor:{type:'text'}},
-			                     { display: '申請日期', name: 'billDate', align: 'left', width: 130, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-			                     { display: '備註', name: 'note', align: 'left', width: 400 ,editor:{type:'text'} }
+			                     { display: '綜援編號', name: 'CSSANO', align: 'left',  minWidth: 60,editor:{type:'text'} },
+			                     { display: '申請人姓名', name: 'userName', align: 'left',  minWidth: 60 ,editor:{type:'text'}},
+			                     { display: '申請日期', name: 'billDate', align: 'left',  type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+			                     { display: '備註', name: 'note', align: 'left', editor:{type:'text'} }
 			                    ];
 		var CSSAGridToolBar = [
 		             	          { text: '新增', click: addCSSA, icon: 'add' , id:"add" },
@@ -257,10 +257,10 @@ String basePath = request.getScheme() + "://"
 	function bindingSpecialAllowanceGrid(){
 		
 		var SpecialAllowanceGridColumn = [
-			                     { display: '特津編號', name: 'specialAllowanceNO', align: 'left', width: 250, minWidth: 60,editor:{type:'text'} },
-			                     { display: '申請人姓名', name: 'userName', align: 'left', width: 120 ,editor:{type:'text'}},
-			                     { display: '申請日期', name: 'billDate', align: 'left', width: 130, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'} },
-			                     { display: '備註', name: 'note', align: 'left', width: 400 ,editor:{type:'text'} }
+			                     { display: '特津編號', name: 'specialAllowanceNO', align: 'left', minWidth: 60,editor:{type:'text'} },
+			                     { display: '申請人姓名', name: 'userName', align: 'left', editor:{type:'text'}},
+			                     { display: '申請日期', name: 'billDate', align: 'left',  type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'} },
+			                     { display: '備註', name: 'note', align: 'left', editor:{type:'text'} }
 			                    ];
 		var SpecialAllowanceGridToolBar = [
 		             	          { text: '新增', click: addSpecialAllowance, icon: 'add' , id:"add" },
@@ -284,8 +284,8 @@ String basePath = request.getScheme() + "://"
 		function getActName(checkbox) {
 		    var options = {
 		        columns: [
-				{ display: '活動編號', name: 'actNO', minWidth: 120, width: 100 },
-		        { display: '活動名稱', name: 'actName', minWidth: 120, width: 100 }
+				{ display: '活動編號', name: 'actNO', minWidth: 120 },
+		        { display: '活動名稱', name: 'actName', minWidth: 120}
 		        ], switchPageSizeApplyComboBox: false,
 		        //pageSize: 10
 		       /*  checkbox: checkbox, */
@@ -314,28 +314,28 @@ String basePath = request.getScheme() + "://"
 		var ActivityGridColumn = [
 					{ display: 'actID', name: 'actID', hide:true },
                    {
-                       name: 'actNO',align:'center', width:100, display: '活動編號', textField: 'actNO'
+                       name: 'actNO',align:'center',minWidth: 100, display: '活動編號', textField: 'actNO'
                        , editor:
                            {
-                           	type: 'popup', valueField: 'actNO', textField: 'actNO', grid:  getActName(true), onSelected:actName_onSelected
+                           	type: 'popup',minWidth: 100, valueField: 'actNO', textField: 'actNO', grid:  getActName(true), onSelected:actName_onSelected
                        	}
                    },
                    {
-                       name: 'actName',align:'center', width:100, display: '活動名稱', textField: 'actName'
+                       name: 'actName',align:'center',minWidth: 100, display: '活動名稱', textField: 'actName'
                        , editor:
                            {
-                           	type: 'popup', valueField: 'actName', textField: 'actName', grid:  getActName(true), onSelected:actName_onSelected
+                           	type: 'popup', minWidth: 100,valueField: 'actName', textField: 'actName', grid:  getActName(true), onSelected:actName_onSelected
                        	}
                    },
-                   { display: '活動日期', name: 'actBDate', align: 'center', width: 100, minWidth: 60, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'} },
-                   { display: '是否遲到', name: 'isLate', align: 'center', width: 100, minWidth: 60
+                   { display: '活動日期', name: 'actBDate', align: 'center', minWidth: 60, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'} },
+                   { display: '是否遲到', name: 'isLate', align: 'center',  minWidth: 60
                   	 ,editor: {type: 'select', data: isLateData, valueField: 'isLate' },
 	                        render: function (item)
 	                        {
 	                        	return getGridSelectedData(isLateData[parseInt(item.isLate)]);
 	                        } },
-                   { display: '參與人數', name: '', align: 'center', width: 100, minWidth: 120, editor:{type:'text'} },
-                   { display: '備註', name: 'note', align: 'center', width: 100, minWidth: 120, editor:{type:'text'} }
+                   { display: '參與人數', name: '', align: 'center',  minWidth: 120, editor:{type:'text'} },
+                   { display: '備註', name: 'note', align: 'center', minWidth: 120, editor:{type:'text'} }
                   ];
  		var ActivityGridToolBar = [
        	          { text: '新增', click: addActivity, icon: 'add' , id:"add" },
@@ -357,8 +357,8 @@ String basePath = request.getScheme() + "://"
 		function getActName(checkbox) {
 		    var options = {
 		        columns: [
-				{ display: '活動編號', name: 'actNO', minWidth: 120, width: 100 },
-		        { display: '活動名稱', name: 'actName', minWidth: 120, width: 100 }
+				{ display: '活動編號', name: 'actNO', minWidth: 120 },
+		        { display: '活動名稱', name: 'actName', minWidth: 120 }
 		        ], switchPageSizeApplyComboBox: false,
 		        //pageSize: 10
 		       /*  checkbox: checkbox, */
@@ -385,20 +385,20 @@ String basePath = request.getScheme() + "://"
 		var VolunteerGridColumn = [
 					{ display: 'actID', name: 'actID', hide:true },
                     {
-                        name: 'actNO',align:'center', width:100, display: '活動編號', textField: 'actNO'
+                        name: 'actNO',align:'center', minWidth: 100, display: '活動編號', textField: 'actNO'
                         , editor:
                             {
                             	type: 'popup', valueField: 'actNO', textField: 'actNO', grid:  getActName(true), onSelected:actName_onSelected
                         	}
                     },
                     {
-                        name: 'actName',align:'center', width:100, display: '活動名稱', textField: 'actName'
+                        name: 'actName',align:'center',  display: '活動名稱',minWidth: 100, textField: 'actName'
                         , editor:
                             {
                             	type: 'popup', valueField: 'actName', textField: 'actName', grid:  getActName(true), onSelected:actName_onSelected
                         	}
                     },
-                    { display: '備註', name: 'note', align: 'left', width: 100, minWidth: 120 , editor:{type:'text'}}
+                    { display: '備註', name: 'note', align: 'left', minWidth: 120 , editor:{type:'text'}}
                    ];
   		var VolunteerGridToolBar = [
         	          { text: '新增', click: addVolunteer, icon: 'add' , id:"add" },

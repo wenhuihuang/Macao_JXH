@@ -23,6 +23,7 @@ import com.jxh.biz.SocialWorkBiz;
 import com.jxh.dao.CustomerDao;
 import com.jxh.dao.SocialWorkDao;
 import com.jxh.pojo.SocialWorkPojo;
+import com.jxh.utils.Constants;
 import com.jxh.vo.BCustomer;
 import com.jxh.vo.SocialWork;
 
@@ -69,12 +70,17 @@ public class SocialWorkSerlvet extends FGServlet {
 		LigerUITools.writeGridJson(page, response);
 	}
 	
-	private void add(HttpServletRequest request, HttpServletResponse response) {
+	private void add(HttpServletRequest request, HttpServletResponse response) throws ParseException, SQLException {
 		try {
 
-			SocialWork socialWork = new SocialWork();
-
-			request.setAttribute("socialWork", socialWork);
+			SocialWorkPojo socialWorkPojo = new SocialWorkPojo();
+			String d = ToolsUtils.getDateStringByFormat(new Date(), null, "yyyyMMdd");
+			String workNO = "S" +d+ socialWorkDao.getWorkNO(Constants.NO);
+			socialWorkPojo.setWorkNO(workNO);
+			BCustomer customer = new BCustomer();
+			customer.setCustType2("3");
+			request.setAttribute("socialWorkPojo", socialWorkPojo);
+			request.setAttribute("customer", customer);
 			forwardDispatcher("../jsp/manage/socialWork_edit.jsp", request, response);
 			
 

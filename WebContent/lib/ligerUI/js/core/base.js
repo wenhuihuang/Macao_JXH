@@ -87,6 +87,7 @@
                     delete liger.managers[$(arg).attr(this.idAttrName)];
                 }
             }
+             
         },
         //获取ligerui对象
         //1,传入ligerui ID
@@ -1193,6 +1194,8 @@
         
         return $.extend({}, defaultOp, liger.editorCreatorDefaults || {}, e);
     }
+
+
     //几个默认的编辑器构造函数
     liger.editors = {
         "text": {

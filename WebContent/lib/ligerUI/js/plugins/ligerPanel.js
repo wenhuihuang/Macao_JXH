@@ -1,5 +1,5 @@
 ﻿/**
-* jQuery ligerUI 1.3.2
+* jQuery ligerUI 1.3.3
 * 
 * http://ligerui.com
 *  
@@ -19,7 +19,7 @@
         height : 300,
         title: 'Panel',
         content: null,      //内容
-        url: null,          //远程内容Url
+        url: null,          //远程内容Url 
         urlParms: null,     //传参
         frameName: null,     //创建iframe时 作为iframe的name和id 
         data: null,          //可用于传递到iframe的数据 
@@ -29,7 +29,8 @@
         icon: null,          //左侧按钮
         onClose:null,       //关闭前事件
         onClosed:null,      //关闭事件
-        onLoaded:null           //url模式 加载完事件
+        onLoaded: null,           //url模式 加载完事件
+        onToggle: null        //收缩/展开事件
     };
 
     $.ligerDefaults.PanelString = {
@@ -85,7 +86,14 @@
                 var obj = (e.target || e.srcElement), jobj = $(obj);
                 if (jobj.hasClass("l-panel-header-toggle"))
                 {
+                   
+
+                    var isShowed = !g.panel.find(".l-panel-header .l-panel-header-toggle:first").hasClass("l-panel-header-toggle-hide");
+
                     g.toggle();
+                    g.trigger('toggle', [isShowed]);
+
+
                 } else if (jobj.hasClass("l-panel-header-close"))
                 {
                     g.close();
@@ -168,7 +176,7 @@
                 toggle.addClass("l-panel-header-toggle-hide");
                 toggle.attr("title", p.expandMessage);
             }
-            g.panel.find(".l-panel-content:first").toggle("normal");
+            g.panel.find(".l-panel-content:first").toggle();
         },
         refresh : function()
         {

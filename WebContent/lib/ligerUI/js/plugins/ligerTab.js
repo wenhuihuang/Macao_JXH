@@ -1,5 +1,5 @@
 ﻿/**
-* jQuery ligerUI 1.3.2
+* jQuery ligerUI 1.3.3
 * 
 * http://ligerui.com
 *  
@@ -210,7 +210,12 @@
             {
                 var w = g.tab.width() - parseInt(g.tab.links.css("marginLeft"), 10) - parseInt(g.tab.links.css("marginRight"), 10); 
                 g.tab.links.width(w);
-            } 
+            }
+
+            g.bind('sysWidthChange', function ()
+            {
+                setLinksWidth.call(g);
+            });
         },
         _setShowSwitch: function (value)
         {

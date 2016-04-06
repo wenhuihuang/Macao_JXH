@@ -59,6 +59,7 @@ String basePath = request.getScheme() + "://"
 	<form name="form1" class="liger-form" method="post" action="SocialWork/submit.do" id="form1" style="margin: 20px;">
 	<input type="hidden" name="workID" id="workID" value="${socialWorkPojo.workID }">
 	<input type="hidden" name="custID" value="${socialWorkPojo.custID }">
+	<input type="hidden" name="custType2" value="${customer.custType2 }">
 	
 	
 	<div class="inline-group row max-width-group-300 label-width-100">

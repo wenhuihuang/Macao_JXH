@@ -1,5 +1,5 @@
 ﻿/**
-* jQuery ligerUI 1.3.2
+* jQuery ligerUI 1.3.3
 * 
 * http://ligerui.com
 *  
@@ -83,7 +83,8 @@
         parms: null,         //ajax提交表单 
         renderItem: null,   //选项自定义函数
         autocomplete: false,  //自动完成 
-        autocompleteAllowEmpty : true, //是否允许空值搜索
+        autocompleteAllowEmpty: true, //是否允许空值搜索
+        isTextBoxMode : false,     //是否文本框的形式
         highLight: false,    //自动完成是否匹配字符高亮显示
         readonly: false,              //是否只读
         ajaxType: 'post',
@@ -94,9 +95,10 @@
         rowClsRender: null,       //选项行 class name 自定义函数
         keySupport: false,              //按键支持： 上、下、回车 支
         initIsTriggerEvent: false,      //初始化时是否触发选择事件
-        conditionSearchClick: null      //下拉框表格搜索按钮自定义函数
-
-
+        conditionSearchClick: null,      //下拉框表格搜索按钮自定义函数
+        onChangeValue: null,
+        delayLoadGrid: true,       //是否在按下显示下拉框的时候才 加载 grid
+        setTextBySource : true       //设置文本框值时是否从数据源中加载
     };
 
     $.ligerDefaults.ComboBoxString = {
@@ -318,6 +320,9 @@
             {
                 if (p.disabled || p.readonly) return;
                 g.wrapper.addClass("l-text-focus");
+            }).change(function ()
+            {
+                g.trigger('changeValue', [this.value]);
             });
             g.wrapper.hover(function ()
             {
@@ -351,14 +356,25 @@
             }
             if (p.grid)
             {
-                g.bind('show', function ()
+                if (p.delayLoadGrid)
+                {
+                    g.bind('show', function ()
+                    {
+                        if (!g.grid)
+                        {
+                            g.setGrid(p.grid);
+                            g.set('SelectBoxHeight', p.selectBoxHeight);
+                        }
+                    });
+                }
+                else
                 {
                     if (!g.grid)
                     {
                         g.setGrid(p.grid);
                         g.set('SelectBoxHeight', p.selectBoxHeight);
                     }
-                });
+                }
             }
             g.updateSelectBoxPosition();
             $(document).bind("click.combobox", function (e)
@@ -406,6 +422,9 @@
                         g.selectBoxInner.height(p.selectBoxHeight);
                     }
                 }
+            } else
+            {
+                g.selectBoxInner.height(p.selectBoxHeight);
             }
         },
         _setCss: function (css)
@@ -576,10 +595,10 @@
             var texts = "";
             var contain = function (checkvalue)
             {
-                var targetdata = value.toString().split(p.split);
+                var targetdata = value.toString().split(p.split); 
                 for (var i = 0; i < targetdata.length; i++)
                 {
-                    if (targetdata[i] == checkvalue) return true;
+                    if (targetdata[i] == checkvalue && targetdata[i] != "") return true;
                 }
                 return false;
             };
@@ -641,9 +660,16 @@
             var g = this, p = this.options;
             g.insertItem(data, (g.data || []).length);
         },
+        _setIsTextBoxMode : function(value){
+            var g = this, p = this.options;
+            if (value)
+            { 
+                g.inputText.removeAttr("readonly");
+            }
+        },
         _setValue: function (value, text)
         {
-            var g = this, p = this.options;
+            var g = this, p = this.options; 
             var isInit = false, isTriggerEvent = true;
             if (text == "init")
             {
@@ -651,10 +677,28 @@
                 isInit = true;
                 isTriggerEvent = p.initIsTriggerEvent ? true : false;
             }
-            text = text || g.findTextByValue(value);
+	        if (p.isTextBoxMode)
+            {
+                text = value;
+            } else
+            {
+                text = text || g.findTextByValue(value);
+            }
             if (p.tree)
             {
-                g.selectValueByTree(value);
+ 
+                //刷新树的选中状态
+	            setTimeout(function ()
+	            {
+	                if (p.setTextBySource)
+	                {
+	                    //刷新树的选中状态并更新文本框
+	                    g.selectValueByTree(value);
+	                } else
+	                {
+	                    g.treeSelectInit(value);
+	                }
+	            }, 100); 
             }
             else if (!p.isMultiSelect)
             {
@@ -862,6 +906,7 @@
             if (!g.data || !g.data.length) return -1;
             for (var i = 0; i < g.data.length; i++)
             {
+                if (g.data[i] == null) continue;
                 var val = g.data[i][p.valueField];
                 if (val == value) return i;
             }
@@ -875,6 +920,7 @@
             if (!g.data || !g.data.length) return null;
             for (var i = 0; i < g.data.length; i++)
             {
+                if (g.data[i] == null) continue;
                 var val = g.data[i][p.valueField];
                 if (val == value) return g.data[i];
             }
@@ -1112,16 +1158,26 @@
             var g = this, p = this.options;
             if (value != null)
             {
+                var text = g.treeSelectInit(value);
+                
+                g._changeValue(value, text, p.initIsTriggerEvent);
+            }
+        },
+        //Tree选择状态初始化
+        treeSelectInit: function (value)
+        {
+            var g = this, p = this.options;
+            if (value != null)
+            { 
                 var text = "";
                 var valuelist = value.toString().split(p.split);
                 $(valuelist).each(function (i, item)
-                { 
-                    g.treeManager.selectNode(item.toString(),false);
+                {
+                    g.treeManager.selectNode(item.toString(), false);
                     text += g.treeManager.getTextByID(item);
                     if (i < valuelist.length - 1) text += p.split;
                 });
-                
-                g._changeValue(value, text, p.initIsTriggerEvent);
+                return text;
             }
         },
         //表格
@@ -1278,7 +1334,7 @@
                             });
                         } else
                         {
-                            if (g.grid.url)
+                            if (g.grid.get('url'))
                             {
                                 g.grid.setParm(grid.conditionParmName || 'condition', $.ligerui.toJSON(rules));
                                 g.grid.reload();
@@ -1308,6 +1364,12 @@
         },
         _getValue: function ()
         {
+
+            var g = this, p = this.options;
+            if (p.isTextBoxMode)
+            {
+                return g.inputText.val();
+            }
             return $(this.valueField).val();
         },
         getValue: function ()
@@ -1323,38 +1385,81 @@
         upFocus : function()
         {
             var g = this, p = this.options;
-            var currentIndex = g.selectBox.table.find("td.l-over").attr("index");
-            if (currentIndex == undefined || currentIndex == "0")
+            if (g.grid)
             {
-                return;
-            } 
-            else
-            {
-                currentIndex = parseInt(currentIndex) - 1;
-            } 
-            g.selectBox.table.find("td.l-over").removeClass("l-over"); 
-            g.selectBox.table.find("td[index=" + currentIndex + "]").addClass("l-over");
+                if (!g.grid.rows || !g.grid.rows.length) return;
+                var selected = g.grid.getSelected();
+                if (selected)
+                {
+                    var index = $.inArray(selected, g.grid.rows);
+                    if (index - 1 < g.grid.rows.length)
+                    {
+                        g.grid.unselect(selected);
+                        g.grid.select(g.grid.rows[index - 1]);
+                    }
+                }
+                else
+                {
+                    g.grid.select(g.grid.rows[0]);
+                }
 
-            g._scrollAdjust(currentIndex);
+            } else
+            {
+                var currentIndex = g.selectBox.table.find("td.l-over").attr("index");
+                if (currentIndex == undefined || currentIndex == "0")
+                {
+                    return;
+                }
+                else
+                {
+                    currentIndex = parseInt(currentIndex) - 1;
+                }
+                g.selectBox.table.find("td.l-over").removeClass("l-over");
+                g.selectBox.table.find("td[index=" + currentIndex + "]").addClass("l-over");
+
+                g._scrollAdjust(currentIndex);
+            }
         },
         downFocus : function()
         {
-            var g = this, p = this.options; 
-            var currentIndex = g.selectBox.table.find("td.l-over").attr("index");
-            if (currentIndex == g.data.length - 1) return;
-            if (currentIndex == undefined)
+            var g = this, p = this.options;
+            if (g.grid)
             {
-                currentIndex = 0;
-            }
-            else
-            {
-                currentIndex = parseInt(currentIndex) + 1;
-            }
-            g.selectBox.table.find("td.l-over").removeClass("l-over");
-            g.selectBox.table.find("td[index=" + currentIndex + "]").addClass("l-over");
+                if (!g.grid.rows || !g.grid.rows.length) return;
+                var selected = g.grid.getSelected();
+                if (selected)
+                {
+                    var index = $.inArray(selected, g.grid.rows);
+                    if (index + 1 < g.grid.rows.length)
+                    {
+                        g.grid.unselect(selected);
+                        g.grid.select(g.grid.rows[index + 1]);
+                    }
+                }
+                else
+                {
+                    g.grid.select(g.grid.rows[0]);
+                }
 
-            g._scrollAdjust(currentIndex); 
+            } else
+            {
+                var currentIndex = g.selectBox.table.find("td.l-over").attr("index");
+                if (currentIndex == g.data.length - 1) return;
+                if (currentIndex == undefined)
+                {
+                    currentIndex = 0;
+                }
+                else
+                {
+                    currentIndex = parseInt(currentIndex) + 1;
+                }
+                g.selectBox.table.find("td.l-over").removeClass("l-over");
+                g.selectBox.table.find("td[index=" + currentIndex + "]").addClass("l-over");
+
+                g._scrollAdjust(currentIndex);
+            }
         },
+
 
         _scrollAdjust:function(currentIndex)
         {
@@ -1375,12 +1480,14 @@
         },
         setText: function (value)
         {
-            this.inputText.val(value);
+            var g = this, p = this.options;
+            if (p.isTextBoxMode) return;
+            g.inputText.val(value);
         },
         updateStyle: function ()
         {
             var g = this, p = this.options;
-            p.initValue = g._getValue();
+            p.initValue = g._getValue(); 
             g._dataInit();
         },
         _dataInit: function ()
@@ -1668,6 +1775,7 @@
         _toggleSelectBox: function (isHide)
         {
             var g = this, p = this.options;
+             
             if (!g || !p) return;
             //避免同一界面弹出多个菜单的问题
             var managers = $.ligerui.find($.ligerui.controls.ComboBox);
@@ -1744,6 +1852,8 @@
         _selectBoxShow : function()
         {
             var g = this, p = this.options;
+             
+            if (p.readonly) return;
             if (!p.grid && !p.tree)
             {
                 if (g.selectBox.table.find("tr").length || (p.selectBoxRender && g.selectBoxInner.html()))
@@ -1769,6 +1879,7 @@
         {
             var g = this, p = this.options;
             if (!value) return;
+            if (p.readonly) return;
             g.inputText.removeAttr("readonly");
             g.lastInputText = g.inputText.val();
             g.inputText.keyup(function (event)
@@ -1782,11 +1893,23 @@
                 this._acto = setTimeout(function ()
                 { 
                     if (g.lastInputText == g.inputText.val()) return;
-                    p.initValue = "";
-                    g.valueField.val("");
+
+                   
+               
 
                     var currentKey = g.inputText.val();
-                    if (currentKey) currentKey = currentKey.replace(/(^\s*)|(\s*$)/g, "");
+                    if (currentKey)
+                    {
+                        currentKey = currentKey.replace(/(^\s*)|(\s*$)/g, "");
+                    }
+                    else
+                    {
+                        p.initValue = "";
+                        g.valueField.val("");
+                    }
+
+                    g.lastInputText = g.inputText.val();
+
                     if ($.isFunction(value))
                     {
                         value.call(g, {
@@ -1816,7 +1939,7 @@
                         g.grid.setParm('key', currentKey);
                         g.grid.reload();
                     }
-                    g.lastInputText = g.inputText.val();
+                 
                     this._acto = null;
                 }, 300);
             });
@@ -1844,17 +1967,30 @@
             }
             function toSelect()
             {
-                combobox._changeValue(value, curTd.attr("text"), true);
-                combobox.selectBox.hide();
-                combobox.trigger('textBoxKeyEnter', [{
-                    element: curTd.get(0)
-                }]);
+                if (!curGridSelected)
+                {
+                    combobox._changeValue(value, curTd.attr("text"), true);
+                    combobox.selectBox.hide();
+                    combobox.trigger('textBoxKeyEnter', [{
+                        element: curTd.get(0)
+                    }]);
+                }
+                else
+                { 
+                    combobox._changeValue(curGridSelected[combobox_op.valueField], curGridSelected[combobox_op.textField], true);
+
+                    combobox.selectBox.hide();
+                    combobox.trigger('textBoxKeyEnter', [{
+                        rowdata: curGridSelected
+                    }]);
+                }
             }
             var curInput = $("input:focus");
             if (curInput.length && curInput.attr("data-comboboxid"))
             { 
                 var combobox = liger.get(curInput.attr("data-comboboxid"));
                 if (!combobox) return;
+                var combobox_op = combobox.options;
                 if (!combobox.get("keySupport")) return;
                 if (event.keyCode == 38) //up 
                 {
@@ -1879,19 +2015,29 @@
                 else if (event.keyCode == 13) //enter
                 {
                     if (!combobox.selectBox.is(":visible")) return;
+                    var curGridSelected = null;
+                    if (combobox.grid)
+                    {
+                        curGridSelected = combobox.grid.getSelected();
+
+                    }
                     var curTd = combobox.selectBox.table.find("td.l-over");
-                    if (curTd.length)
+                    if (curGridSelected || curTd.length)
                     {
                         var value = curTd.attr("value");
-                        
+                        if (curGridSelected && curGridSelected.ID) value = curGridSelected.ID;
+
                         if (combobox.enabledLoadDetail())
                         {
                             combobox.loadDetail(value, function (data)
                             {
-                                var index = combobox.getRowIndex(value);
-                                if (index == -1) return;
-                                combobox.data = combobox.data || [];
-                                combobox.data[index] = combobox.selected = data;
+                                if (!curGridSelected)
+                                { 
+                                    var index = combobox.getRowIndex(value);
+                                    if (index == -1) return;
+                                    combobox.data = combobox.data || [];
+                                    combobox.data[index] = combobox.selected = data; 
+                                }
                                 toSelect();
                             });
                         } else

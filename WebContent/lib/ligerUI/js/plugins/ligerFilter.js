@@ -1,5 +1,5 @@
 ﻿/**
-* jQuery ligerUI 1.3.2
+* jQuery ligerUI 1.3.3
 * 
 * http://ligerui.com
 *  
@@ -315,7 +315,20 @@
                 $(group.rules).each(function ()
                 {
                     var rulerow = g.addRule(jgroup); 
-                    $("select.opsel", rulerow).html(g._bulidOpSelectOptionsHtml(this.type || "string"));
+                    var fieldName = this.field;
+
+                    var field = (function ()
+                    {
+                        for (var i = 0; i < p.fields.length; i++)
+                        {
+                            if (p.fields[i].name == fieldName)
+                            {
+                                return p.fields[i];
+                            } 
+                        }
+                        return null;
+                    })();
+                    $("select.opsel", rulerow).html(g._bulidOpSelectOptionsHtml(this.type || "string", field.operator ));
                     rulerow.attr("fieldtype", this.type || "string");
                     $("select.opsel", rulerow).val(this.op);
                     $("select.fieldsel", rulerow).val(this.field).trigger('change');
@@ -375,7 +388,7 @@
                 var oldFieldtype = rulerow.attr("fieldtype");
                 if (fieldType != oldFieldtype)
                 {
-                    jopsel.html(g._bulidOpSelectOptionsHtml(fieldType));
+                    jopsel.html(g._bulidOpSelectOptionsHtml(fieldType,field.operator ));
                     rulerow.attr("fieldtype", fieldType);
                 }
                 //当前的编辑器
@@ -463,7 +476,7 @@
                     var value = g._getRuleValue(row, field);
                     var type = $(row).attr("fieldtype") || "string";
                     if (!groupData.rules) groupData.rules = []; 
-                    if (value)
+                    if (value != null)
                     {
                         groupData.rules.push({
                             field: fieldName, op: op, value: value, type: type
@@ -547,7 +560,7 @@
             var g = this, p = this.options;
             fields = fields || p.fields;
             var rowHtmlArr = [];
-            var fieldType = fields[0].type || "string";
+            var fieldType = fields && fields.length && fields[0].type ? fields[0].type : "string";
             rowHtmlArr.push('<tr fieldtype="' + fieldType + '"><td class="l-filter-column">');
             rowHtmlArr.push('<select class="fieldsel">');
             for (var i = 0, l = fields.length; i < l; i++)
@@ -563,8 +576,8 @@
             rowHtmlArr.push('</td>');
 
             rowHtmlArr.push('<td class="l-filter-op">');
-            rowHtmlArr.push('<select class="opsel">');
-            rowHtmlArr.push(g._bulidOpSelectOptionsHtml(fieldType));
+            rowHtmlArr.push('<select class="opsel">'); 
+            rowHtmlArr.push(g._bulidOpSelectOptionsHtml(fieldType, fields && fields.length ? fields[0].operator : null));
             rowHtmlArr.push('</select>');
             rowHtmlArr.push('</td>');
             rowHtmlArr.push('<td class="l-filter-value">');
@@ -578,11 +591,15 @@
         },
 
         //获取一个运算符选择框的html
-        _bulidOpSelectOptionsHtml: function (fieldType)
+        _bulidOpSelectOptionsHtml: function (fieldType, operator)
         {
             var g = this, p = this.options;
             var ops = p.operators[fieldType];
             var opHtmlArr = [];
+            if (operator && operator.length)
+            {
+                ops = operator.split(',');
+            }
             if (!ops || !ops.length)
             {
                 ops = ["equal", "notequal"];

@@ -206,7 +206,7 @@ String basePath = request.getScheme() + "://"
 		    var options = {
 		        columns: [
 				{ display: '會員ID', name: 'workID', minWidth: 120, width: 100 },
-		        { display: '義工姓名', name: 'workName', minWidth: 120, width: 100 }
+		        { display: '義工姓名', name: 'fullName', minWidth: 120, width: 100 }
 		        ], switchPageSizeApplyComboBox: false,
 		        //pageSize: 10
 		       /*  checkbox: checkbox, */
@@ -248,13 +248,13 @@ String basePath = request.getScheme() + "://"
 			                        	}
 			                    }, */
 			                    {
-			                        name: 'workName',align:'center', width:100, display: '義工姓名', textField: 'workName'
+			                        name: 'fullName',align:'center', width:100, display: '義工姓名', textField: 'fullName'
 			                        , editor:
 			                            {
-			                            	type: 'popup', valueField: 'workName', textField: 'workName', grid:  getWorkName(true), onSelected:w_onSelected
+			                            	type: 'popup', valueField: 'fullName', textField: 'fullName', grid:  getWorkName(true), onSelected:w_onSelected
 			                        	}
 			                    },
-			                    { display: '年齡', name: 'age',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '年齡', name: 'age',minWidth:100, type:"text"},
 			                    { display: '職位', name: 'work',minWidth:100, type:"text", editor: { type: 'text'}},
 			                    { display: '活動工作', name: 'actWork',minWidth:100, type:"text", editor: { type: 'text'}},
 			                    { display: '聯繫電話', name: 'phone',minWidth:100, type:"text", editor: { type: 'text'}},

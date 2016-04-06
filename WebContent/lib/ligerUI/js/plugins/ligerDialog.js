@@ -1,5 +1,5 @@
 ﻿/**
-* jQuery ligerUI 1.3.2
+* jQuery ligerUI 1.3.3
 * 
 * http://ligerui.com
 *  
@@ -87,7 +87,8 @@
         onContentHeightChange: null,
         onClose: null,
         onClosed: null,
-        onStopResize: null
+        onStopResize: null,
+        minIsHide : false   //最小化仅隐藏
     };
     $.ligerDefaults.DialogString = {
         titleMessage: '提示',                     //提示文本标题
@@ -246,7 +247,10 @@
                     $(".l-dialog-btn-inner", btn).html(item.text);
                     $(".l-dialog-buttons-inner", g.dialog.buttons).prepend(btn);
                     item.width && btn.width(item.width);
-                    item.onclick && btn.click(function () { item.onclick(item, g, i) });
+                    item.onclick && btn.click(function ()
+                    {
+                        item.onclick(item, g, i); 
+                    });
                     item.cls && btn.addClass(item.cls);
                 });
             } else
@@ -409,21 +413,28 @@
         //最小化
         min: function ()
         {
-            var g = this, p = this.options;
-            var task = l.win.getTask(this);
-            if (p.slide)
+            var g = this, p = this.options; 
+            if (p.minIsHide)
             {
-                g.dialog.body.animate({ width: 1 }, p.slide);
-                task.y = task.offset().top + task.height();
-                task.x = task.offset().left + task.width() / 2;
-                g.dialog.animate({ left: task.x, top: task.y }, p.slide, function ()
-                {
-                    g.dialog.hide();
-                });
+                g.dialog.hide();
             }
             else
             {
-                g.dialog.hide();
+                var task = l.win.getTask(this);
+                if (p.slide)
+                {
+                    g.dialog.body.animate({ width: 1 }, p.slide);
+                    task.y = task.offset().top + task.height();
+                    task.x = task.offset().left + task.width() / 2;
+                    g.dialog.animate({ left: task.x, top: task.y }, p.slide, function ()
+                    {
+                        g.dialog.hide();
+                    });
+                }
+                else
+                {
+                    g.dialog.hide();
+                }
             }
             g.unmask();
             g.minimize = true;
@@ -602,7 +613,10 @@
                     {
                         g.min();
                     });
-                    l.win.addTask(g);
+                    if (!p.minIsHide)
+                    {
+                        l.win.addTask(g);
+                    }
                 }
             }
             else if (g.winmin)

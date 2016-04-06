@@ -1,5 +1,5 @@
 ﻿/**
-* jQuery ligerUI 1.3.2
+* jQuery ligerUI 1.3.3
 * 
 * http://ligerui.com
 *  
@@ -961,7 +961,7 @@
             }
         },
         toggleLoading: function (show)
-        {
+        { 
             this.gridloading[show ? 'show' : 'hide']();
         },
         _createEditor: function (editorBuilder, container, editParm, width, height)
@@ -1067,7 +1067,7 @@
         },
         submitEdit: function (rowParm)
         {
-            var g = this, p = this.options;
+            var g = this, p = this.options; 
             if (rowParm == undefined)
             {
                 for (var rowid in g.editors)
@@ -1079,7 +1079,7 @@
             {
                 var rowdata = g.getRow(rowParm);
                 var newdata = {};
-                if (!g.editors[rowdata['__id']]) return;
+                if (!rowdata || !g.editors[rowdata['__id']]) return;
                 for (var columnid in g.editors[rowdata['__id']])
                 {
                     var o = g.editors[rowdata['__id']][columnid];
@@ -2079,7 +2079,13 @@
             else
             {
                 $("div:first", g.gridheader).width(g.gridtablewidth + 40);
-                $("div:first", g.gridbody).width(g.gridtablewidth);
+                if (g.gridtablewidth)
+                {
+                    $("div:first", g.gridbody).width(g.gridtablewidth);
+                } else
+                {
+                    $("div:first", g.gridbody).css("width", "auto");
+                }
             }
             g._updateFrozenWidth();
             if (!toggleByPopup)
@@ -2448,6 +2454,8 @@
             if (parentdata && g.isLeaf(parentdata)) g.upgrade(parentdata);
             g.addRow(rowdata, neardata, isBefore ? true : false, parentdata);
         },
+         
+
         upgrade: function (rowParm)
         {
             var g = this, p = this.options;
@@ -2528,37 +2536,7 @@
             var linkbtn = $(".l-grid-tree-link:first", targetRowObj);
             var opening = true;
             g.collapsedRows = g.collapsedRows || [];
-            if (linkbtn.hasClass("l-grid-tree-link-close")) //收缩
-            {
-                if (g.hasBind('treeExpand') && g.trigger('treeExpand', [rowdata]) == false) return false;
-                linkbtn.removeClass("l-grid-tree-link-close").addClass("l-grid-tree-link-open");
-                indexInCollapsedRows = $.inArray(rowdata, g.collapsedRows);
-                if (indexInCollapsedRows != -1) g.collapsedRows.splice(indexInCollapsedRows, 1);
-            }
-            else //折叠
-            {
-                if (g.hasBind('treeCollapse') && g.trigger('treeCollapse', [rowdata]) == false) return false;
-                opening = false;
-                linkbtn.addClass("l-grid-tree-link-close").removeClass("l-grid-tree-link-open");
-                indexInCollapsedRows = $.inArray(rowdata, g.collapsedRows);
-                if (indexInCollapsedRows == -1) g.collapsedRows.push(rowdata);
-            }
-            var children = [];
-            //折叠,那么直接隐藏所有子节点即可
-            if (!opening)
-            {
-                children = g.getChildren(rowdata, true);
-                $(children).each(function ()
-                {
-                    $(g.getRowObj(this)).hide();
-                    if (g.enabledFrozen()) $(g.getRowObj(this,true)).hide();
-                });
-                g.trigger( 'treeCollapsed', [rowdata]);
-                return;
-            }
-
-            //展开,下面逻辑处理(选择性递归)
-            children = g.getChildren(rowdata, false);
+            var isToExpanding = linkbtn.hasClass("l-grid-tree-link-close");
 
             function toggleChildren(items)
             {
@@ -2576,7 +2554,7 @@
                         {
                             currentRow.show();
                         }
-                        //如果是展开状态的
+                            //如果是展开状态的
                         else
                         {
                             currentRow.show();
@@ -2588,13 +2566,76 @@
                         $(".l-grid-tree-link", currentRow).removeClass("l-grid-tree-link-close").addClass("l-grid-tree-link-open");
                         currentRow.show();
                     }
-                     
+
                 }
             }
-             
-            toggleChildren(children);
+            function update()
+            {
+                var children = [];
+                //折叠,那么直接隐藏所有子节点即可
+                if (!opening)
+                {
+                    children = g.getChildren(rowdata, true);
+                    $(children).each(function ()
+                    {
+                        $(g.getRowObj(this)).hide();
+                        if (g.enabledFrozen()) $(g.getRowObj(this, true)).hide();
+                    });
+                    g.trigger('treeCollapsed', [rowdata]);
+                    return;
+                }
 
-          g.trigger('treeExpanded', [rowdata]);
+                //展开,下面逻辑处理(选择性递归)
+                children = g.getChildren(rowdata, false); 
+
+                toggleChildren(children);
+
+
+                g.trigger('treeExpanded', [rowdata]);
+            }
+
+          
+            if (isToExpanding) //收缩
+            {
+                function linkbtn_expand()
+                {
+                    linkbtn.removeClass("l-grid-tree-link-close").addClass("l-grid-tree-link-open");
+                    indexInCollapsedRows = $.inArray(rowdata, g.collapsedRows);
+                    if (indexInCollapsedRows != -1) g.collapsedRows.splice(indexInCollapsedRows, 1);
+                }
+                var e = {
+                    update: function ()
+                    {
+                        linkbtn_expand();
+                        update();
+                    }
+                };
+                if (g.hasBind('treeExpand') && g.trigger('treeExpand', [rowdata, e]) == false) return false;
+                linkbtn_expand();
+            }
+            else //折叠
+            {
+                function linkbtn_collapse()
+                {
+                    linkbtn.addClass("l-grid-tree-link-close").removeClass("l-grid-tree-link-open");
+                    indexInCollapsedRows = $.inArray(rowdata, g.collapsedRows);
+                    if (indexInCollapsedRows == -1) g.collapsedRows.push(rowdata);
+                }
+                var e = {
+                    update: function ()
+                    {
+                        linkbtn_collapse();
+                        update();
+                    }
+                };
+                if (g.hasBind('treeCollapse') && g.trigger('treeCollapse', [rowdata, e]) == false) return false;
+                opening = false;
+                linkbtn_collapse();
+            } 
+
+            update();
+              
+
         },
         _bulid: function ()
         {
@@ -3387,6 +3428,20 @@
                     };
                     if (isHide()) gridhtmlarr.push(' style="display:none;" ');
                 }
+                else if (p.tree && p.tree.isExtend)
+                {
+                    var isHide = function ()
+                    {
+                        var pitem = g.getParent(item);
+                        while (pitem)
+                        {
+                            if (p.tree.isExtend(pitem) == false) return true;
+                            pitem = g.getParent(pitem);
+                        }
+                        return false;
+                    };
+                    if (isHide()) gridhtmlarr.push(' style="display:none;" ');
+                }
                 gridhtmlarr.push('>');
                 $(g.columns).each(function (columnindex, column)
                 {
@@ -3544,14 +3599,15 @@
             var level = rowdata['__level'];
             var g = this, p = this.options;
             //var isExtend = p.tree.isExtend(rowdata);
-            var isExtend = $.inArray(rowdata, g.collapsedRows || []) == -1;
+            var isExtend =  g.collapsedRows == null ? p.tree.isExtend(rowdata) : $.inArray(rowdata, g.collapsedRows || []) == -1;
             var isParent = p.tree.isParent(rowdata);
             var content = "";
             level = parseInt(level) || 1;
             for (var i = 1; i < level; i++)
             {
                 content += "<div class='l-grid-tree-space'></div>";
-            }
+            } 
+
             if (isExtend && isParent)
                 content += "<div class='l-grid-tree-space l-grid-tree-link l-grid-tree-link-open'></div>";
             else if (isParent)
@@ -3641,10 +3697,7 @@
                     {
                         $(rowcell).addClass("l-grid-row-cell-edited");
                         g.changedCells[rowid + "_" + column['__id']] = true;
-                        if (column.textField != column.name) //如果textField跟name一样，那么获取text就可以
-                        {
-                            editParm.value = newValue;
-                        }
+                        editParm.value = newValue;
                     }
                     if (column.editor.onChange) column.editor.onChange.call(editorInput, editParm);
                     if (g._checkEditAndUpdateCell(editParm))
@@ -3904,7 +3957,28 @@
         //在外部点击的时候，判断是否在编辑状态，比如弹出的层点击的，如果自定义了编辑器，而且生成的层没有包括在grid内部，建议重载
         _isEditing: function (jobjs)
         {
-            return jobjs.hasClass("l-box-dateeditor") || jobjs.hasClass("l-box-select");
+            var g = this;
+            if (jobjs.hasClass("l-box-dateeditor") || jobjs.hasClass("l-box-select")) return true;
+
+            //判断是否位于编辑器弹出的框
+            if (jobjs.hasClass("l-dialog"))
+            {
+                var ids = [];
+                jobjs.find(".l-dialog").each(function ()
+                {
+                    var curId = $(this).attr("ligeruiid");
+                    if (curId)
+                    {
+                        ids.push(curId);
+                    }
+                });
+                if (g._editorIncludeCotrols(ids))
+                {
+                    return true;
+                }
+            }
+            return false;
+
         },
         _getSrcElementByEvent: function (e)
         {
@@ -3983,9 +4057,11 @@
                 r.checkboxcell = $(r.cell).hasClass("l-grid-row-cell-checkbox") ? r.cell : null;
                 r.treelink = fn("l-grid-tree-link");
                 r.editor = fn("l-grid-editor");
+
+
                 if (r.row) r.data = this._getRowByDomId(r.row.id);
                 if (r.cell) r.editing = $(r.cell).hasClass("l-grid-row-cell-editing");
-                if (r.editor) r.editing = true;
+                if (r.editor) r.editing = true;  
                 if (r.editing) r.out = false;
             }
             if (r.toolbar)
@@ -3999,6 +4075,43 @@
             }
 
             return r;
+        },
+
+        _editorIncludeCotrols : function(ids){
+            var g = this, p = this.options;
+            if (!ids || !ids.length) return false;
+            if (g.editor && g.editor.input)
+            {
+                if (g._controlIncludeCotrols(g.editor.input, ids)) return true;
+            }
+            else if (g.editors)
+            {
+                for (var a in g.editors)
+                {
+                    if(!g.editors[a]) continue;
+                    for (var b in g.editors[a])
+                    {
+                        var editor = g.editors[a][b];
+                        if (editor && editor.input)
+                        {
+                            if (g._controlIncludeCotrols(editor.input, ids)) return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        },
+
+        _controlIncludeCotrols: function (control,ids)
+        {
+            var g = this, p = this.options; 
+            if (!control || !control.includeControls || !control.includeControls.length) return false;
+
+            for(var i = 0;i< control.includeControls.length;i++){
+                var sub = control.includeControls[i];
+                if ($.inArray(sub.id, ids) != -1) return true;
+            }
+            return false;
         },
 
         _getOnePageHeight : function()
@@ -4903,10 +5016,18 @@
             if (g.enabledFrozen())
             {
                 var gridView1Width = g.gridview1.width();
-                var gridViewWidth = g.gridview.width()
-                g.gridview2.css({
-                    width: gridViewWidth - gridView1Width
-                });
+                var gridViewWidth = g.gridview.width();
+                if (gridViewWidth - gridView1Width <= 0)
+                {
+                    g.gridview2.css({
+                        width: 'auto'
+                    });
+                } else
+                {
+                    g.gridview2.css({
+                        width: gridViewWidth - gridView1Width
+                    });
+                }
             }
 
             g.trigger('SysGridHeightChanged');
@@ -4996,7 +5117,9 @@
     $.ligerui.controls.Grid.prototype.setOptions = $.ligerui.controls.Grid.prototype.set;
     $.ligerui.controls.Grid.prototype.reload = $.ligerui.controls.Grid.prototype.loadData;
     $.ligerui.controls.Grid.prototype.refreshSize = $.ligerui.controls.Grid.prototype._onResize;
+    $.ligerui.controls.Grid.prototype.append = $.ligerui.controls.Grid.prototype.appendRange;
 
+    
 
     function removeArrItem(arr, filterFn)
     {

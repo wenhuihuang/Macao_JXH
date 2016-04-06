@@ -205,7 +205,7 @@ String basePath = request.getScheme() + "://"
 		        columns: [
 				{ display: '會員ID', name: 'workID', minWidth: 120, width: 100 },
 		        { display: '義工姓名', name: 'fullName', minWidth: 120, width: 100 }
-		        ], switchPageSizeApplyComboBox: false,checkbox:false,
+		        ], 
 		        //pageSize: 10
 		       /*  checkbox: checkbox, */
 		       url:"SocialWork/list.do"
@@ -220,7 +220,7 @@ String basePath = request.getScheme() + "://"
             var grid = liger.get("volunteerDataGrid");
 
             var selected = e.data[0]; 
-            
+
             grid.updateRow(grid.getSelected(), {
                 fullName: selected.fullName,
                 custID: selected.workID,
@@ -228,9 +228,7 @@ String basePath = request.getScheme() + "://"
                 age:selected.age,
                 work:selected.work,
                 mobileTelNO:selected.mobileTelNO
-            });
-            debugger
-            console.log(selected)
+            }); 
 /* 
             var out = JSON.stringify(selected);
             $("#message").html('最后选择:'+out); */

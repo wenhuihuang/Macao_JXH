@@ -217,3 +217,9 @@ table.td-padding10 tbody td {
 .radio-group label{
 	width:auto;
 }
+a.l-link{
+	text-decoration:none;
+}
+.l-layout-header-inner{
+	text-align:center;
+}

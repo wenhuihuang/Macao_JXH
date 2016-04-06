@@ -1,6 +1,7 @@
 package com.jxh.pojo;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 import com.fg.utils.ToolsUtils;
@@ -18,7 +19,7 @@ public class SocialWorkPojo implements Serializable {
 	
 	private String fullName;
 	private int sex;
-	private int age;
+	private String age;
 	private String mobileTelNO;
 	private Date birthday_Chn;
 	private String job;
@@ -35,7 +36,7 @@ public class SocialWorkPojo implements Serializable {
 		super();
 	}
 
-	public SocialWorkPojo(String workID, String fullName, int sex, int age, String mobileTelNO, Date birthday_Chn, String work,
+	public SocialWorkPojo(String workID, String fullName, int sex, String age, String mobileTelNO, Date birthday_Chn, String work,
 			String workNO, String note, String birthday_ChnStr, String custID, String custType, String custCode,
 			String job,String custNO,String custNewNO) {
 		super();
@@ -81,13 +82,44 @@ public class SocialWorkPojo implements Serializable {
 		return sex;
 	}
 
-	public void setAge(int age) {
+	public void setAge(String age) {
 		this.age = age;
 	}
 
-	public int getAge() {
-		return age;
-	}
+	
+	public  String getAge(Date birthday_Chn) throws Exception { 
+        Calendar cal = Calendar.getInstance(); 
+
+        if (cal.before(birthday_Chn)) { 
+            throw new IllegalArgumentException( 
+                "The birthday_Chn is before Now.It's unbelievable!"); 
+        } 
+
+        int yearNow = cal.get(Calendar.YEAR); 
+        int monthNow = cal.get(Calendar.MONTH)+1; 
+        int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH); 
+        
+        cal.setTime(birthday_Chn); 
+        int yearBirth = cal.get(Calendar.YEAR); 
+        int monthBirth = cal.get(Calendar.MONTH); 
+        int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH); 
+
+        int age = yearNow - yearBirth; 
+
+        if (monthNow <= monthBirth) { 
+            if (monthNow == monthBirth) { 
+                //monthNow==monthBirth 
+                if (dayOfMonthNow < dayOfMonthBirth) { 
+                    age--; 
+                } 
+            } else { 
+                //monthNow>monthBirth 
+                age--; 
+            } 
+        } 
+        System.out.println("age="+age);
+        return age +""; 
+    }
 
 	public void setMobileTelNO(String mobileTelNO) {
 		this.mobileTelNO = mobileTelNO;

@@ -1,5 +1,5 @@
 ﻿/**
-* jQuery ligerUI 1.3.2
+* jQuery ligerUI 1.3.3
 * 
 * http://ligerui.com
 *  
@@ -171,7 +171,21 @@
     $.ligerDefaults.Form_editor = {
     };
 
-    //description 自动创建ligerui风格的表单-编辑器构造函数
+    //description 自动创建自定义风格的表单-编辑器构造函数
+    //格式为：
+    //{
+    //    name: jinput.attr("name"),
+    //    control: {
+    //        getValue: function ()
+    //        {
+    //            return jinput.val();
+    //        },
+    //        setValue: function (value)
+    //        {
+    //            jinput.val(value);
+    //        }
+    //    }
+    //}
     //editorBulider -> editorBuilder 命名错误 
     //param {jinput} 表单元素jQuery对象 比如input、select、textarea 
     $.ligerDefaults.Form.editorBulider = function (jinput)
@@ -271,46 +285,66 @@
                         break;
                     case "listbox":
                         control = jinput.ligerListBox(options);
+                        break; 
+                }
+            }
+        } 
+        else //没有定义ltype的 text or hidden
+        {
+            var classname = jinput.get(0).className;
+            if (classname) 
+            {
+                var autoTypePrev = p.autoTypePrev || "ui-";
+                if (classname.indexOf(autoTypePrev) != -1)
+                {
+                    classname = classname.replace(autoTypePrev, "");
+                }
+            } 
+            if (!classname && (jinput.is(":hidden") || jinput.is(":text")) && jinput.attr("name")) //没有匹配的classname
+            {
+                control = {
+                    getValue: function ()
+                    {
+                        return jinput.val();
+                    },
+                    setValue: function (value)
+                    {
+                        jinput.val(value);
+                    }
+                };
+            }
+            else
+            {
+                switch (classname)
+                {
+                    case "textbox":
+                    case "password":
+                        control = jinput.ligerTextBox(options);
+                        break;
+                    case "datepicker":
+                        control = jinput.ligerDateEditor(options);
+                        break;
+                    case "spinner":
+                        control = jinput.ligerSpinner(options);
+                        break;
+                    case "checkbox":
+                        control = jinput.ligerCheckBox(options);
+                        break;
+                    case "combobox":
+                        control = jinput.ligerComboBox(options);
+                        break;
+                    case "checkboxlist":
+                        control = jinput.ligerCheckBoxList(options);
+                        break;
+                    case "radiolist":
+                        control = jinput.ligerRadioList(options);
+                        break;
+                    case "listbox":
+                        control = jinput.ligerListBox(options);
                         break;
                 }
             }
-        }
-        else
-        {
-            var classname = jinput.get(0).className;
-            if (!classname) return;
-            var autoTypePrev = p.autoTypePrev || "ui-";
-            if (classname.indexOf(autoTypePrev) == -1) return;
-            classname = classname.replace(autoTypePrev, "");
-            switch (classname)
-            {
-                case "textbox":  
-                case "password": 
-                    control = jinput.ligerTextBox(options);
-                    break;
-                case "datepicker": 
-                    control = jinput.ligerDateEditor(options);
-                    break;
-                case "spinner": 
-                    control = jinput.ligerSpinner(options);
-                    break;
-                case "checkbox": 
-                    control = jinput.ligerCheckBox(options);
-                    break;
-                case "combobox": 
-                    control = jinput.ligerComboBox(options);
-                    break;
-                case "checkboxlist": 
-                    control = jinput.ligerCheckBoxList(options);
-                    break;
-                case "radiolist": 
-                    control = jinput.ligerRadioList(options);
-                    break;
-                case "listbox": 
-                    control = jinput.ligerListBox(options);
-                    break;
-            } 
-        }
+        } 
         if (!control) return null;
         return {
             name: jinput.attr("name"),
@@ -537,7 +571,7 @@
         },
         _setFields: function (fields)
         {
-            var g = this, p = this.options;
+            var g = this, p = this.options; 
             if ($.isFunction(p.prefixID)) p.prefixID = p.prefixID(g);
             var jform = $(g.element).addClass("l-form"); 
             g._initFieldsValidate({
