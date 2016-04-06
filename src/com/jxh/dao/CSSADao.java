@@ -100,4 +100,9 @@ public class CSSADao extends DaoImpl<CSSA>{
 		return getflagByIntArray(rows);
 	}
 	
+	public int deleteCSSAByCustID(String custID) throws SQLException, IOException{
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		return this.update(sql, custID);
+	}
+	
 }

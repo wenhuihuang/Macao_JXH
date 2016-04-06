@@ -617,4 +617,97 @@ public class CustomerBiz {
 		}
 		return 1;
 	}
+	
+	public boolean deleteCustomer(String custID) throws Exception {
+		boolean flag=false;
+		int row = customerDao.deleteCustomer(custID);
+			if (row > 0) {
+				
+
+				//删除智障登记资料
+				if(deleteRetardedByCustID(custID) < 0){
+					throw new Exception("智障登記刪除失敗！");
+				}
+				
+				//編輯家庭成員資料失败
+				if(deleteFamilyByCustID(custID)<0){
+					throw new Exception("刪除家庭成員資料失败！");
+				}
+				
+				
+				if(deleteCSSAByCustID(custID)<0){
+					throw new Exception("刪除綜援記錄失败！");
+				}
+				
+				
+				
+				if(deleteSpecialAllowanceByCustID(custID)<0){
+					throw new Exception("刪除特津記錄記錄失败！");
+				}
+				
+				
+				if(deleteSocialWorkByCustID(custID)<0){
+					throw new Exception("刪除特津記錄記錄失败！");
+				}
+				
+				
+				if(deleteActivityRecordNewByCustID(custID)<0){
+					throw new Exception("刪除特津記錄記錄失败！");
+				}
+				
+				
+				flag=true;
+				
+			}
+		return flag;
+	}
+
+
+
+
+
+	private int deleteActivityRecordNewByCustID(String custID) throws IOException, SQLException {
+		return activityRecordNewDao.deleteActivityRecordNewByCustID(custID);
+	}
+
+
+
+
+
+	private int deleteSocialWorkByCustID(String custID) throws SQLException, IOException {
+		return socialWorkDao.deleteSocialWorkByCustID(custID);
+	}
+
+
+
+
+
+	private int deleteSpecialAllowanceByCustID(String custID) throws SQLException, IOException {
+		return specialAllowanceDao.deleteSpecialAllowanceByCustID(custID);
+	}
+
+
+
+
+
+	private int deleteCSSAByCustID(String custID) throws SQLException, IOException {
+		return cssaDao.deleteCSSAByCustID(custID);
+	}
+
+
+
+
+
+	private int deleteFamilyByCustID(String custID) throws IOException, SQLException {
+		return customerDao.deleteFamilyByGuardianCustID(custID);
+	}
+
+
+
+
+
+	private int deleteRetardedByCustID(String custID) throws SQLException, IOException {
+		return retardedDao.deleteRetardedByCustID(custID);
+	}
+	
 }

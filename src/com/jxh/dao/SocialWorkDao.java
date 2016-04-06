@@ -90,6 +90,10 @@ public class SocialWorkDao extends DaoImpl {
 		//String sql = "delete from SocialWork where SocialWorkID = ? ";
 		return this.update(sql, workID);
 	}
+	public int deleteSocialWorkByCustID(String custID) throws SQLException, IOException{
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		return this.update(sql, custID);
+	}
 
 	public int updateSocialWork(List<SocialWork> socialWorkUpdates) throws IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException {
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());

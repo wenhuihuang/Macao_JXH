@@ -16,13 +16,12 @@ public class SocialWorkBiz {
 
 	private SocialWorkDao socialWorkDao = new SocialWorkDao();
 	private CustomerDao customerDao = new CustomerDao();
+	
 	public String updateSocialWork(SocialWork socialWork, BCustomer bCustomer) throws Exception {
 		int row = socialWorkDao.updateSocialWork(socialWork);
-		if(row > 0){
-			int r = customerDao.updateCustomer(bCustomer);
+		int r = customerDao.updateCustomer(bCustomer);
 			if(r < 0){
 			}
-		}
 		
 		return "操作成功！";
 	}
@@ -49,8 +48,9 @@ public class SocialWorkBiz {
 	public boolean deleteSocialWorkByWorkID(String workID,String custID) throws Exception {
 		boolean flag=false;
 		int row = socialWorkDao.deleteSocialWorkByWorkID(workID);
-		if(row > 0){
-			int r = customerDao.deleteCustomer(custID);
+		int r = customerDao.deleteCustomer(custID);
+		if(r > 0){
+			flag = true;
 		}
 		return flag;
 	}

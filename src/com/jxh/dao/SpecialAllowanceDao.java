@@ -102,4 +102,8 @@ public class SpecialAllowanceDao extends DaoImpl<SpecialAllowance> {
 		int[] rows = this.updateBatch(sql, params);
 		return getflagByIntArray(rows);
 	}
+	public int deleteSpecialAllowanceByCustID(String custID) throws SQLException, IOException{
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		return this.update(sql, custID);
+	}
 }

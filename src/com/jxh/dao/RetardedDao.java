@@ -120,7 +120,10 @@ public class RetardedDao extends DaoImpl<Retarded>{
 	}
 	
 	
-	
+	public int deleteRetardedByCustID(String custID) throws SQLException, IOException{
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		return this.update(sql, custID);
+	}
 	
 	
 	

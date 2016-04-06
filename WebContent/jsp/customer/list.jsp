@@ -22,6 +22,7 @@ String basePath = request.getScheme() + "://"
             switch(item.id){
             	case "add":addRow();break;
             	case "modify":modifyRow();break;
+            	case "delete":deleteRow();break;
             	default : break;
             }
         }
@@ -36,6 +37,28 @@ String basePath = request.getScheme() + "://"
 	        	location.href = "Customer/edit.do?CUSTID="+custID;        		
         	}
         }
+        
+     	function deleteRow(){
+     		var custID = getRowCell(maingrid,"custID");
+     		if(confirm("是否刪除？")){
+     			$.ajax({
+         			type:"post",
+         			url:"Customer/deleteCustomer.do",
+         			data:"custID="+custID,
+         			success:function(msg){
+         				if(msg == true || msg == "true"){
+         					maingrid.deleteSelectedRow()  
+         				}else{
+         					alert("刪除失敗！");
+         				}
+         				
+         			},
+         			error:function(){
+         				alert("刪除失敗！")
+         			}
+         		})
+     		}
+     	}
         
         
         $(function ()

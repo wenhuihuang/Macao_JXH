@@ -113,5 +113,8 @@ public class ActivityRecordNewDao extends DaoImpl{
 		return this.update(sql, actID);
 	}
 	
-	
+	public int deleteActivityRecordNewByCustID(String custID) throws IOException, SQLException {
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		return this.update(sql, custID);
+	}
 }

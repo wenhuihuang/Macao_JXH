@@ -281,12 +281,52 @@ String basePath = request.getScheme() + "://"
 	
 	//參與活動
 	function bindingActivityGrid(){
+		function getActName(checkbox) {
+		    var options = {
+		        columns: [
+				{ display: '活動編號', name: 'actNO', minWidth: 120, width: 100 },
+		        { display: '活動名稱', name: 'actName', minWidth: 120, width: 100 }
+		        ], switchPageSizeApplyComboBox: false,
+		        //pageSize: 10
+		       /*  checkbox: checkbox, */
+		       url:"Activity/list.do"
+		      // usePager:false
+		       
+		    };
+		    return options;
+		}
+      function actName_onSelected(e) { 
+            if (!e.data || !e.data.length) return;
+
+            var grid = liger.get("ActivityGrid");
+
+            var selected = e.data[0]; 
+            grid.updateRow(grid.lastEditRow, {
+                actNO: selected.actNO,
+                actID: selected.actID,
+                actName: selected.actName
+            });
+        }
+		
 		//是/否
 		var isLateData = [{isLate:0,text:'否'},{isLate:1,text:'是'}];
 		
 		var ActivityGridColumn = [
-                   { display: '活動編號', name: 'actNO', align: 'center', width: 100, minWidth: 60, editor:{type:'text'} },
-                   { display: '活動名稱', name: 'actName', align: 'center', width: 100, minWidth: 60, editor:{type:'text'} },
+					{ display: 'actID', name: 'actID', hide:true },
+                   {
+                       name: 'actNO',align:'center', width:100, display: '活動編號', textField: 'actNO'
+                       , editor:
+                           {
+                           	type: 'popup', valueField: 'actNO', textField: 'actNO', grid:  getActName(true), onSelected:actName_onSelected
+                       	}
+                   },
+                   {
+                       name: 'actName',align:'center', width:100, display: '活動名稱', textField: 'actName'
+                       , editor:
+                           {
+                           	type: 'popup', valueField: 'actName', textField: 'actName', grid:  getActName(true), onSelected:actName_onSelected
+                       	}
+                   },
                    { display: '活動日期', name: 'actBDate', align: 'center', width: 100, minWidth: 60, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'} },
                    { display: '是否遲到', name: 'isLate', align: 'center', width: 100, minWidth: 60
                   	 ,editor: {type: 'select', data: isLateData, valueField: 'isLate' },
@@ -334,14 +374,16 @@ String basePath = request.getScheme() + "://"
             var grid = liger.get("VolunteerGrid");
 
             var selected = e.data[0]; 
+            console.log(selected)
             grid.updateRow(grid.lastEditRow, {
                 actNO: selected.actNO,
-                workID: selected.workID,
+                actID: selected.actID,
                 actName: selected.actName
             });
         }
 		
 		var VolunteerGridColumn = [
+					{ display: 'actID', name: 'actID', hide:true },
                     {
                         name: 'actNO',align:'center', width:100, display: '活動編號', textField: 'actNO'
                         , editor:
@@ -356,7 +398,6 @@ String basePath = request.getScheme() + "://"
                             	type: 'popup', valueField: 'actName', textField: 'actName', grid:  getActName(true), onSelected:actName_onSelected
                         	}
                     },
-                    { display: '工作崗位', name: 'job', align: 'left', width: 100, minWidth: 120 , editor:{type:'text'}},
                     { display: '備註', name: 'note', align: 'left', width: 100, minWidth: 120 , editor:{type:'text'}}
                    ];
   		var VolunteerGridToolBar = [

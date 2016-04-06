@@ -129,8 +129,7 @@ public class CustomerDao extends DaoImpl<BCustomer> {
 	 */
 	public int updateCustomer(BCustomer cust) throws IOException, NoSuchFieldException, SecurityException,
 			IllegalArgumentException, IllegalAccessException, SQLException, ParseException {
-		// TODO Auto-generated method stub
-		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		String sql = this.getSqlByPropKey("updateCustomer");
 		Object[] params = getUpdateParams(sql, cust);
 		return this.update(sql, params);
 	}
@@ -180,6 +179,10 @@ public class CustomerDao extends DaoImpl<BCustomer> {
 	}
 	public int deleteCustomer(String custID) throws IOException, SQLException {
 		String sql = this.getSqlByPropKey("deleteCustomerById");
+		return this.update(sql, custID);
+	}
+	public int deleteFamilyByGuardianCustID(String custID) throws IOException, SQLException {
+		String sql = this.getSqlByPropKey("deleteFamilyByGuardianCustID");
 		return this.update(sql, custID);
 	}
 

@@ -417,5 +417,18 @@ public class CustomerServlet extends FGServlet {
 		System.out.println("進");
 		LigerUITools.writeGridJson(page, response);
 	}
+	
+	private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		boolean flag=false;
+		String custID = request.getParameter("custID");
+		if (custID != null && !"".equals(custID)) {
+			try {
+				flag = customerBiz.deleteCustomer(custID);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} 
+		response.getWriter().print(flag);
+	}
 
 }
