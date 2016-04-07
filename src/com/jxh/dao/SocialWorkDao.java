@@ -76,7 +76,7 @@ public class SocialWorkDao extends DaoImpl {
 	}
 	
 	public String getWorkNO(String corpId) throws SQLException{
-		return this.getPrimaryKey("WORKN", corpId, 4);
+		return this.getPrimaryKey("WORKNO", corpId, 4);
 	}
 	
 	public int[] insertSocialWork(List<SocialWork> socialWorkAdds) throws SQLException, IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException{

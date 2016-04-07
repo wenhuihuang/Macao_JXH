@@ -139,11 +139,11 @@ String basePath = request.getScheme() + "://"
 	//工作員處理方式
 	function bindingWorkerWaysGrid(){
 		var WorkerWaysGridColumn = [
-			                     { display: '次數', name: 'times', align: 'left', width: 250, minWidth: 60,editor:{type:'text'} },
-			                     { display: '日期', name: 'disposeDate', align: 'left', width: 130, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-			                     { display: '形式', name: 'form', align: 'left', width: 120, minWidth: 60 ,editor:{type:'text'}},
-			                     { display: '工作人员', name: 'worker', align: 'left', width: 120, minWidth: 60 ,editor:{type:'text'}},
-			                     { display: '備註', name: 'note', align: 'left', width: 400 ,editor:{type:'text'} }
+			                     { display: '次數', name: 'times', align: 'center', width: 250, minWidth: 60,editor:{type:'int'} },
+			                     { display: '日期', name: 'disposeDate', align: 'center', width: 130, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+			                     { display: '形式', name: 'form', align: 'center', width: 120, minWidth: 60 ,editor:{type:'text'}},
+			                     { display: '工作人员', name: 'worker', align: 'center', width: 120, minWidth: 60 ,editor:{type:'text'}},
+			                     { display: '備註', name: 'note', align: 'center', width: 400 ,editor:{type:'text'} }
 			                    ];
 		var WorkerWaysGridToolBar = [
 		             	          { text: '新增', click: addWorkerWays, icon: 'add' , id:"add" },
@@ -333,10 +333,9 @@ String basePath = request.getScheme() + "://"
 		<textarea disabled="disabled" rows="2" cols="55" name="linkAdr" id="linkAdr">${custCasePojo.linkAdr }</textarea>
 	</div>
 	  
-	  <div id="tab">
+	  <div id="tab" class="padding-top-both-10">
 	  
-		  	<div tabid="WorkerWaysGrid" title="接案登記" id="bCustCase"><!-- 接案登記 -->
-		  		
+		  	<div tabid="WorkerWaysGrid" class="padding-top-both-10" title="接案登記" id="bCustCase"><!-- 接案登記 -->
 		  		
 		  		<table cellpadding="0" cellspacing="0" class="l-table-edit" >
 			        <tbody>
@@ -502,12 +501,12 @@ String basePath = request.getScheme() + "://"
 			        </table>
 		  	</div>
 		  	
-		  	<div tabid="bCustCaseRecordGrid" class="bCustCaseRecordGrid" title="個案撮要記錄"><!-- 個案撮要記錄 -->
+		  	<div tabid="bCustCaseRecordGrid" class="bCustCaseRecordGrid padding-top-both-10" title="個案撮要記錄"><!-- 個案撮要記錄 -->
 		  		<div id="bCustCaseRecordGrid"></div>
 		  	
 		  	</div>
 		  	
-		  	<div tabid="bCustCaseSummaryGrid" title="結案摘要 "><!-- 結案摘要 -->
+		  	<div tabid="bCustCaseSummaryGrid" class="padding-top-both-10" title="結案摘要 "><!-- 結案摘要 -->
                		<%-- <input type="hidden" name="summaryID" id="summaryID" value="${custCasePojo.summaryID }"> --%>
                		<table>
                			<tbody>
@@ -606,7 +605,7 @@ String basePath = request.getScheme() + "://"
                		</table>
 		  	</div>
 		  	
-		  	<div tabid="bCustCaseAssessGrid" title="個案轉介評估"><!-- 個案轉介評估 -->
+		  	<div tabid="bCustCaseAssessGrid" class="padding-top-both-10" title="個案轉介評估"><!-- 個案轉介評估 -->
                	<table>
           			<tbody>
           				<tr>

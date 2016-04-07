@@ -104,7 +104,7 @@ String basePath = request.getScheme() + "://"
              					 <td align="right" class="l-table-edit-td">其他人士:</td>
              					 <td align="left" class="l-table-edit-td"><input width="120px" value="${bCustCaseRecordPojo.otherMan }" name="otherMan" type="text" id="otherMan" ltype="text" /></td>
              					  <td align="right" class="l-table-edit-td">會談次數:</td>
-             					 <td align="left" class="l-table-edit-td"><input width="120px" value="${bCustCaseRecordPojo.times }" name="times" type="text" id="times" ltype="text" /></td>
+             					 <td align="left" class="l-table-edit-td"><input width="120px" value="${bCustCaseRecordPojo.times }" name="times" type="int" id="times" ltype="text" /></td>
              				</tr>
              				<tr>
              					 <td align="right" class="l-table-edit-td">記錄者:</td>

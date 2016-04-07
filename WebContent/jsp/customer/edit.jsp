@@ -102,6 +102,16 @@ String basePath = request.getScheme() + "://"
 		
 	}}); 
 		
+ 		$("#custType")[0].onchange=function(){
+ 			if(this.value == "0"){
+ 				alert("非")
+ 			}else if(this.value == "1"){
+ 				alert("永久")
+ 			}else if(this.value == "2"){
+ 				alert("臨時")
+ 			}
+ 		}
+		
 	})
 	
 	function bindingRetardedGrid(){

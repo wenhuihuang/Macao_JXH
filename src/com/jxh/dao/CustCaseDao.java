@@ -224,7 +224,8 @@ public class CustCaseDao extends DaoImpl{
 		return this.getPrimaryKey("BCUSTOMER", corpId, 20);
 	}
 
-
-	
+	public String getCaseNO(String corpId) throws SQLException{
+		return this.getPrimaryKey("CASENO", corpId, 4);
+	}
 	
 }

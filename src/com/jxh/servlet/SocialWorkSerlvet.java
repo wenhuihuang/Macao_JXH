@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -74,9 +75,12 @@ public class SocialWorkSerlvet extends FGServlet {
 		try {
 
 			SocialWorkPojo socialWorkPojo = new SocialWorkPojo();
-			String d = ToolsUtils.getDateStringByFormat(new Date(), null, "yyyyMMdd");
-			String workNO = "S" +d+ socialWorkDao.getWorkNO(Constants.NO);
-			socialWorkPojo.setWorkNO(workNO);
+			
+			
+			Timestamp time = Timestamp.valueOf(ToolsUtils.getDateStringByFormat(new Date(), null, null));
+			String ts= (time+"").replace("-", "");
+			String d = "NEW"+ts.substring(0, 8)+customerDao.getCUSTCODE(Constants.NO);
+			socialWorkPojo.setWorkNO(d);
 			BCustomer customer = new BCustomer();
 			customer.setCustType2("3");
 			request.setAttribute("socialWorkPojo", socialWorkPojo);

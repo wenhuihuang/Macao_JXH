@@ -223,3 +223,9 @@ a.l-link{
 .l-layout-header-inner{
 	text-align:center;
 }
+.padding-top-both-10{
+	padding:10px 0;
+}
+.padding-left-both-10{
+	padding:0 10px;
+}

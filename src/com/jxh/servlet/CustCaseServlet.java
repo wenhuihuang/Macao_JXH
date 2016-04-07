@@ -26,6 +26,7 @@ import com.jxh.pojo.BCustCaseRecordPojo;
 import com.jxh.pojo.BCustCaseSummaryHandlePojo;
 import com.jxh.pojo.CustCasePojo;
 import com.jxh.pojo.Customer;
+import com.jxh.utils.Constants;
 import com.jxh.vo.BCustomer;
 import com.jxh.vo.CSSA;
 import com.jxh.vo.BCustCase;
@@ -184,12 +185,17 @@ public class CustCaseServlet extends FGServlet {
 	 * 
 	 * @param request
 	 * @param response
+	 * @throws ParseException 
+	 * @throws SQLException 
 	 */
-	private void add(HttpServletRequest request, HttpServletResponse response) {
+	private void add(HttpServletRequest request, HttpServletResponse response) throws ParseException, SQLException {
 			try {
 
-				BCustCase custCase = new BCustCase();
-				request.setAttribute("custCase", custCase);
+				CustCasePojo custCase = new CustCasePojo();
+				String d = ToolsUtils.getDateStringByFormat(new Date(), null, "yyyyMMdd");
+				String caseNO = "C" +d+ custCaseDao.getCaseNO(Constants.NO);
+				custCase.setCaseNO(caseNO);
+				request.setAttribute("custCasePojo", custCase);
 				request.setAttribute(JSPTYPE, ConstantUtils.FORMJSP);
 				forwardDispatcher("../jsp/custCase/edit.jsp", request, response);
 			} catch (ServletException e) {

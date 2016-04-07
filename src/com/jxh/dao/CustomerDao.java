@@ -177,6 +177,9 @@ public class CustomerDao extends DaoImpl<BCustomer> {
 	public String getPrimaryKey(String corpId) throws SQLException {
 		return this.getPrimaryKey("BCUSTOMER", corpId, 20);
 	}
+	public String getCUSTCODE(String corpId) throws SQLException{
+		return this.getPrimaryKey("CASECODE", corpId, 4);
+	}
 	public int deleteCustomer(String custID) throws IOException, SQLException {
 		String sql = this.getSqlByPropKey("deleteCustomerById");
 		return this.update(sql, custID);
