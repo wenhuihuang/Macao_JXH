@@ -40,6 +40,7 @@ import com.jxh.pojo.Customer;
 import com.jxh.pojo.TreatmentPojo;
 import com.jxh.pojo.TreatmentAssessPojo;
 import com.jxh.pojo.TreatmentReportPojo;
+import com.jxh.utils.Constants;
 import com.jxh.vo.BCustomer;
 import com.jxh.vo.BCustomerSchool;
 import com.jxh.vo.CSSA;
@@ -116,26 +117,40 @@ public class TreatmentSerlvet extends FGServlet {
 		LigerUITools.writeGridJson(page, response);
 	}
 	
-	private void add(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void add(HttpServletRequest request, HttpServletResponse response) throws SQLException, ParseException {
 		String treatmentType = request.getParameter("treatmentType");
 		try {
 
-			Treatment treatment = new Treatment();
+			TreatmentPojo treatmentPojo = new TreatmentPojo();
 
-			request.setAttribute("treatment", treatment);
-			request.setAttribute(JSPTYPE, ConstantUtils.FORMJSP);
+			Timestamp time = Timestamp.valueOf(ToolsUtils.getDateStringByFormat(new Date(), null, null));
+			String ts= (time+"").replace("-", "");
+			String NO = ts.substring(0, 8)+treatmentDao.getTreatmentNO(Constants.NO);
+			
+			//request.setAttribute(JSPTYPE, ConstantUtils.FORMJSP);
 			if("1".equals(treatmentType)){
+				treatmentPojo.setTreatmentNO("L"+NO);
+				request.setAttribute("treatmentPojo", treatmentPojo);
 				forwardDispatcher("../jsp/treatment/language_edit.jsp", request, response);
 			}else if("2".equals(treatmentType)){
+				treatmentPojo.setTreatmentNO("J"+NO);
+				request.setAttribute("treatmentPojo", treatmentPojo);
 				forwardDispatcher("../jsp/treatment/job_edit.jsp", request, response);
 			}else if("3".equals(treatmentType)){
+				treatmentPojo.setTreatmentNO("P"+NO);
+				request.setAttribute("treatmentPojo", treatmentPojo);
 				forwardDispatcher("../jsp/treatment/physics_edit.jsp", request, response);
 			}else if("4".equals(treatmentType)){
+				treatmentPojo.setTreatmentNO("S"+NO);
+				request.setAttribute("treatmentPojo", treatmentPojo);
 				forwardDispatcher("../jsp/treatment/special_edit.jsp", request, response);
 			}else if("5".equals(treatmentType)){
+				treatmentPojo.setTreatmentNO("F"+NO);
+				request.setAttribute("treatmentPojo", treatmentPojo);
 				forwardDispatcher("../jsp/treatment/function_edit.jsp", request, response);
 			}else if("6".equals(treatmentType)){
+				treatmentPojo.setTreatmentNO("C"+NO);
+				request.setAttribute("treatmentPojo", treatmentPojo);
 				forwardDispatcher("../jsp/treatment/collocation_edit.jsp", request, response);
 			}
 			

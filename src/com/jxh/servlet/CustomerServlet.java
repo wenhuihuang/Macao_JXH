@@ -31,6 +31,7 @@ import com.jxh.pojo.ActivityRecordNewPojo;
 import com.jxh.pojo.CustCasePojo;
 import com.jxh.pojo.Customer;
 import com.jxh.pojo.VoluntaryPojo;
+import com.jxh.utils.Constants;
 import com.jxh.vo.ActivityRecord;
 import com.jxh.vo.ActivityRecordNew;
 import com.jxh.vo.BCustomer;
@@ -258,8 +259,9 @@ public class CustomerServlet extends FGServlet {
 	 * 
 	 * @param request
 	 * @param response
+	 * @throws SQLException 
 	 */
-	private void add(HttpServletRequest request, HttpServletResponse response) {
+	private void add(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		// TODO Auto-generated method stub
 
 		try {
@@ -267,9 +269,13 @@ public class CustomerServlet extends FGServlet {
 			BCustomer cust = new BCustomer();
 			Date now = new Date();
 			Timestamp time = Timestamp.valueOf(ToolsUtils.getDateStringByFormat(now, null, null));
+			String ts= (time+"").replace("-", "");
+			String custCode = "P"+ts.substring(0,8)+customerDao.getCUSTCODE(Constants.NO);
 			cust.setRegDate(time);
 			cust.setValidDate(time);
 			cust.setCustType2("1");
+			cust.setCustType("1");
+			cust.setCustCode(custCode);
 
 			request.setAttribute("cust", cust);
 			request.setAttribute(JSPTYPE, ConstantUtils.FORMJSP);
@@ -352,6 +358,20 @@ public class CustomerServlet extends FGServlet {
 		try {
 			PageUtils<Customer> page = getPage(request);
 			String condition = " and CustType2 != 2 and CustType2 != 3 ";//and custid = ?
+			customerDao.getCustomerList(page, condition);
+			LigerUITools.writeGridJson(page, response);
+		} catch (IOException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	private void getCustomerByCondition(HttpServletRequest request, HttpServletResponse response) {
+		String guardianCustID = request.getParameter("guardianCustID");
+		try {
+			PageUtils<Customer> page = getPage(request);
+			String condition = " and guardianCustID='"+guardianCustID +"' ";
+			System.out.println(condition);
 			customerDao.getCustomerList(page, condition);
 			LigerUITools.writeGridJson(page, response);
 		} catch (IOException | SQLException e) {

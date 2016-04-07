@@ -49,7 +49,8 @@ String basePath = request.getScheme() + "://"
           });
 		
 		ligerForm("form1");
-		
+	
+
 		
     })
     </script>
@@ -76,8 +77,8 @@ String basePath = request.getScheme() + "://"
            	</select>
 		</div>
 		<div class="col-md-3">
-			<label>會員編號：</label>
-			<input type="text" ltype="text" width="120px" name="custCode" value="${customer.custCode }">
+			<label class="custCode-label">會員編號：</label>
+			<input type="text" ltype="text" width="120px" class="custCode" name="custCode" value="${customer.custCode }">
 		</div>
 		<div class="col-md-3">
 			<label>社工姓名：</label>

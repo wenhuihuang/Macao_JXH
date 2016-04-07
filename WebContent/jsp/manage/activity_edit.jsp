@@ -20,85 +20,98 @@ String basePath = request.getScheme() + "://"
         	notMemberDataGrid,
         	volunteerDataGrid,
         	activityRecordDataGrid;
+       
         
+        
+         function getParentName(checkbox,condition) {
+			alert("2"+condition)
+			if(memberDataGrid != "" && memberDataGrid != null){
+				var custID = getRowCell(memberDataGrid,"custID");
+			}
+	
+		    var options = {
+		        columns: [
+				{ display: '會員ID', name: 'custID', minWidth: 120, width: 100 },
+				{ display: '會員NO', name: 'custNO', minWidth: 120, width: 100 },
+		        { display: '義工姓名', name: 'fullName', minWidth: 120, width: 100 }
+		        ], switchPageSizeApplyComboBox: false,
+		        //pageSize: 10
+		       url:"Customer/getCustomerByCondition.do?guardianCustID="+condition,
+		       usePager:false
+		       
+		    };
+		    return options;
+		}  
+      function p_onSelected(e) { 
+    	  alert("1")
+            if (!e.data || !e.data.length) return;
+
+            var grid = liger.get("memberDataGrid");
+
+            var selected = e.data[0]; 
+            grid.updateRow(grid.lastEditRow, {
+                fullName: selected.fullName,
+                custID: selected.custID,
+                custNO: selected.custNO
+            });
+        } 
+      
+
+		function getFullName(checkbox) {
+		    var options = {
+		        columns: [
+				{ display: '會員ID', name: 'custID', minWidth: 120, width: 100 },
+				{ display: '會員NO', name: 'custNO', minWidth: 120, width: 100 },
+		        { display: '義工姓名', name: 'fullName', minWidth: 120, width: 100 }
+		        ], switchPageSizeApplyComboBox: false,
+		        //pageSize: 10
+		       /*  checkbox: checkbox, */
+		       url:"Customer/list.do"
+		      // usePager:false
+		       
+		    };
+		    return options;
+		}
+    function f_onSelected(e) { 
+          if (!e.data || !e.data.length) return;
+
+          var grid = liger.get("memberDataGrid");
+
+          var selected = e.data[0]; 
+          var parentName=null;
+          $.ajax({
+        	  url:"Customer/getCustomerByCondition.do",
+        	  data:"guardianCustID="+selected.custID,
+        	  success:function(d){
+        		  alert(d)
+        		  parentName=d
+        	  }
+          })
+          grid.updateRow(grid.lastEditRow, {
+              fullName: selected.fullName,
+              custID: selected.custID,
+              custNO: selected.custNO,
+          });
+      }
+	
         //會員報名
 		function bindingMemberDataGrid(){
-			function getParentName(checkbox) {
-				if(memberDataGrid != "" && memberDataGrid != null){
-					var custID = getRowCell(memberDataGrid,"custID");
-					alert(custID)
-				}
-		
-			    var options = {
-			        columns: [
-					{ display: '會員ID', name: 'custID', minWidth: 120, width: 100 },
-					{ display: '會員NO', name: 'custNO', minWidth: 120, width: 100 },
-			        { display: '義工姓名', name: 'fullName', minWidth: 120, width: 100 }
-			        ], switchPageSizeApplyComboBox: false,
-			        //pageSize: 10
-			       /*  checkbox: checkbox, */
-			       url:"Customer/list.do"
-			      // usePager:false
-			       
-			    };
-			    return options;
-			}
-	      function p_onSelected(e) { 
-	    	  alert("1")
-	            if (!e.data || !e.data.length) return;
-
-	            var grid = liger.get("memberDataGrid");
-
-	            var selected = e.data[0]; 
-	            grid.updateRow(grid.lastEditRow, {
-	                fullName: selected.fullName,
-	                custID: selected.custID,
-	                custNO: selected.custNO
-	            });
-	        }
+			
         	
-			function getFullName(checkbox) {
-			    var options = {
-			        columns: [
-					{ display: '會員ID', name: 'custID', minWidth: 120, width: 100 },
-					{ display: '會員NO', name: 'custNO', minWidth: 120, width: 100 },
-			        { display: '義工姓名', name: 'fullName', minWidth: 120, width: 100 }
-			        ], switchPageSizeApplyComboBox: false,
-			        //pageSize: 10
-			       /*  checkbox: checkbox, */
-			       url:"Customer/list.do"
-			      // usePager:false
-			       
-			    };
-			    return options;
-			}
-	      function f_onSelected(e) { 
-	            if (!e.data || !e.data.length) return;
-
-	            var grid = liger.get("memberDataGrid");
-
-	            var selected = e.data[0]; 
-	            grid.updateRow(grid.lastEditRow, {
-	                fullName: selected.fullName,
-	                custID: selected.custID,
-	                custNO: selected.custNO
-	            });
-	        }
-		
 		var memberDataGridColumn = [
 									{ display: 'applyID', name: 'applyID', hide:true },
 									{ display: 'custID', name: 'custID', hide:true },
 									{ display: 'type', name: 'type', hide:true},
 									{ display: '登記日期', name: 'registerDate', minWidth:100, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
 				                    { display: '會員編號', name: 'custNO', minWidth:100, type:"text",editor: { type: 'text'}},
-				                    //{ display: '會員家長姓名', name: 'parentName', minWidth:100,type:"text", editor: { type: 'text'}},
-				                    {
+				                    { display: '會員家長姓名', name: 'parentName', minWidth:100,type:"text", editor: { type: 'text'}},
+				                     {
 				                        name: 'parentName',align:'center', width:100, display: '會員家長姓名', textField: 'parentName'
 				                        , editor:
 				                            {
 				                            	type: 'popup', valueField: 'parentName', textField: 'parentName', grid:  getParentName(true), onSelected:p_onSelected
 				                        	}
-				                    },
+				                    }, 
 				                    { display: '會員家長收費', name: 'parentsExpense', minWidth:100, type:"text", editor: { type: 'text'}},
 				                    //{ display: '智障人士姓名', name: 'fullName', minWidth:100,type:"text", editor: { type: 'text'}},
 				                    {

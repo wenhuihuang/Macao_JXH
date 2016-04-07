@@ -102,15 +102,6 @@ String basePath = request.getScheme() + "://"
 		
 	}}); 
 		
- 		$("#custType")[0].onchange=function(){
- 			if(this.value == "0"){
- 				alert("非")
- 			}else if(this.value == "1"){
- 				alert("永久")
- 			}else if(this.value == "2"){
- 				alert("臨時")
- 			}
- 		}
 		
 	})
 	
@@ -455,8 +446,16 @@ String basePath = request.getScheme() + "://"
 		
         <table cellpadding="0" cellspacing="0" class="l-table-edit" >
             <tr>
-                <td align="right" class="l-table-edit-td">會員編碼：</td>
-                <td align="left" class="l-table-edit-td"><input width="120px" value="${cust.custCode }" name="custCode" type="text" id="custCode" ltype="text" validate="{required:true,notnull:true}"/></td>
+            	<td align="right" class="l-table-edit-td">會員類別：</td>
+                <td align="left" class="l-table-edit-td">
+                	<select name="custType" id="custType" ltype="select" width="120px">
+                		<option value="1" <c:if test="${cust.custType == '1' }">selected="selected"</c:if> >永久會員</option>
+                		<option value="2" <c:if test="${cust.custType == '2' }">selected="selected"</c:if> >臨時會員</option>
+                		<option value="0" <c:if test="${cust.custType != '1' and cust.custType != '2'  }">selected="selected"</c:if> >非會員</option>
+                	</select>
+                </td>
+                <td align="right" class="l-table-edit-td"><label class="custCode-label">會員編碼：</label></td>
+                <td align="left" class="l-table-edit-td"><input width="120px" value="${cust.custCode }" name="custCode" type="text" class="custCode" ltype="text" validate="{required:true,notnull:true}"/></td>
                 
                 <td align="right" class="l-table-edit-td">姓名：</td>
                 <td align="left" class="l-table-edit-td"><input width="120px" value="${cust.fullName }" name="fullName" type="text" id="fullName" ltype="text" validate="{required:true,notnull:true}"/></td>
@@ -467,23 +466,16 @@ String basePath = request.getScheme() + "://"
                 <td align="right" class="l-table-edit-td">出生日期：</td>
                 <td align="left" class="l-table-edit-td"><input width="120px" value="${cust.birthday_ChnStr }" name="birthday_Chn" type="text" id="birthday_Chn" ltype="date" validate="{required:true,notnull:true}"/></td>
 
+             
+            </tr>
+           
+          
+             <tr>
                 <td align="right" class="l-table-edit-td">性别：</td>
                 <td align="left" class="l-table-edit-td">
 					<input id="sex1" type="radio" name="sex" value="1" <c:if test="${cust.sex != 2 }">checked="checked"</c:if> /><label for="sex1">男</label> 
 					<input id="sex2" type="radio" name="sex" value="2" <c:if test="${cust.sex == 2 }">checked="checked"</c:if> /><label for="sex2">女</label>
 				</td>
-            </tr>
-           
-          
-             <tr>
-             	<td align="right" class="l-table-edit-td">會員類別：</td>
-                <td align="left" class="l-table-edit-td">
-                	<select name="custType" id="custType" ltype="select" width="120px">
-                		<option value="1" <c:if test="${cust.custType == '1' }">selected="selected"</c:if> >永久會員</option>
-                		<option value="2" <c:if test="${cust.custType == '2' }">selected="selected"</c:if> >臨時會員</option>
-                		<option value="0" <c:if test="${cust.custType != '1' and cust.custType != '2'  }">selected="selected"</c:if> >非會員</option>
-                	</select>
-                </td>
                 
                 <td align="right" class="l-table-edit-td">會員證狀態：</td>
                 <td align="left" class="l-table-edit-td">

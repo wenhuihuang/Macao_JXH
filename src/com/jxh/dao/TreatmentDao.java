@@ -55,6 +55,10 @@ public class TreatmentDao extends DaoImpl {
 		return this.getPrimaryKey("TREATMENT", corpId, 20);
 	}
 	
+	public String getTreatmentNO(String corpId) throws SQLException{
+		return this.getPrimaryKey("TREATMENTNO", corpId, 4);
+	}
+	
 	public int insertTreatment(Treatment treatment) throws SQLException, IOException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		Object[] params = getInsertParams(sql, treatment);

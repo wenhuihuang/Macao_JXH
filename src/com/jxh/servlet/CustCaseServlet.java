@@ -192,8 +192,10 @@ public class CustCaseServlet extends FGServlet {
 			try {
 
 				CustCasePojo custCase = new CustCasePojo();
-				String d = ToolsUtils.getDateStringByFormat(new Date(), null, "yyyyMMdd");
-				String caseNO = "C" +d+ custCaseDao.getCaseNO(Constants.NO);
+				Date now = new Date();
+				Timestamp time = Timestamp.valueOf(ToolsUtils.getDateStringByFormat(now, null, null));
+				String ts= (time+"").replace("-", "");
+				String caseNO = "C"+ts.substring(0,8)+custCaseDao.getCaseNO(Constants.NO);
 				custCase.setCaseNO(caseNO);
 				request.setAttribute("custCasePojo", custCase);
 				request.setAttribute(JSPTYPE, ConstantUtils.FORMJSP);

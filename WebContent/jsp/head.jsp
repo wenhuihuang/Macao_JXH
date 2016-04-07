@@ -484,5 +484,24 @@ td {width: auto;}
 			}
 		})
 	}
-
+	
+	$(function(){
+		$("body").delegate("#custType","change",function(){
+			var custCode = $(".custCode").val();
+			if(this.value == "0"){
+				//alert("非")
+				$(".custCode-label").html("非會員編號")
+				$(".custCode").val(custCode.replace(/^\w/,"N"))
+			}else if(this.value == "1"){
+				//alert("永久")
+				$(".custCode-label").html("永久會員編號")
+				$(".custCode").val(custCode.replace(/^\w/,"P"))
+			}else if(this.value == "2"){
+				//alert("臨時")
+				$(".custCode-label").html("臨時會員編號")
+				$(".custCode").val(custCode.replace(/^\w/,"T"))
+			}
+		})
+	})
+	
 </script>

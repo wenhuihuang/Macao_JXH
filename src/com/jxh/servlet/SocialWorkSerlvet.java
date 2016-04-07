@@ -79,12 +79,17 @@ public class SocialWorkSerlvet extends FGServlet {
 			
 			Timestamp time = Timestamp.valueOf(ToolsUtils.getDateStringByFormat(new Date(), null, null));
 			String ts= (time+"").replace("-", "");
-			String d = "NEW"+ts.substring(0, 8)+customerDao.getCUSTCODE(Constants.NO);
-			socialWorkPojo.setWorkNO(d);
+			String workNO = "S"+ts.substring(0, 8)+socialWorkDao.getWorkNO(Constants.NO);
+			socialWorkPojo.setWorkNO(workNO);
+			
 			BCustomer customer = new BCustomer();
+			String custCode = "P"+ts.substring(0,8)+customerDao.getCUSTCODE(Constants.NO);
 			customer.setCustType2("3");
+			customer.setCustCode(custCode);
+			customer.setCustType("1");
 			request.setAttribute("socialWorkPojo", socialWorkPojo);
 			request.setAttribute("customer", customer);
+			
 			forwardDispatcher("../jsp/manage/socialWork_edit.jsp", request, response);
 			
 

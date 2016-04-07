@@ -386,7 +386,7 @@ String basePath = request.getScheme() + "://"
             <tr>
             	<td align="right" class="l-table-edit-td">檔案編號：</td>
                 <td align="left" class="l-table-edit-td">
-                	<input width="120px" value="${customer.custCode }" name="custCode" type="text" ltype="text"">
+                	<input width="120px" value="${treatmentPojo.treatmentNO }" name="treatmentNO" type="text" ltype="text"">
                 </td>
             
                 <td align="right" class="l-table-edit-td">姓名：</td>
