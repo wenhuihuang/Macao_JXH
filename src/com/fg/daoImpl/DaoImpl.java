@@ -115,7 +115,6 @@ public abstract class DaoImpl<T> implements Dao<T> {
 	public int update(String sql, Object... params) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection conn = ConnectionContext.getInstance().getConnection();
-		System.out.println("sql="+sql+"params="+params);
 		return qr.update(conn, sql, params);
 	}
 
@@ -168,7 +167,6 @@ public abstract class DaoImpl<T> implements Dao<T> {
 	public T findForObject(String sql, Object... params) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection conn = ConnectionContext.getInstance().getConnection();
-		System.out.println(sql);
 		return qr.query(conn, sql, new BeanHandler<>(clazz), params);
 	}
 
@@ -285,15 +283,12 @@ public abstract class DaoImpl<T> implements Dao<T> {
 		Class clz = obj.getClass();
 
 		for (String fieldText : fields) {
-			System.out.println("前"+fieldText);
 			fieldText = fieldText.replace("=", "").replace("?", "").trim();
 			Field field = null;
-			System.out.println("後"+fieldText);
 			try {
 				// 没有该属性
 				field = clz.getDeclaredField(fieldText);
 				field.setAccessible(true);
-				System.out.println("field="+field);
 				params.add(getFieldVale(field, obj));
 			} catch (NoSuchFieldException e) {
 				// TODO: handle exception
@@ -301,7 +296,6 @@ public abstract class DaoImpl<T> implements Dao<T> {
 				continue;
 			}
 		}
-		System.out.println("pa="+params);
 		return params.toArray();
 	}
 

@@ -36,7 +36,7 @@ public class ActivityApply implements Serializable {
 	private String note;
 	private String actID;
 	private String amentiaName;
-	private String parentsName;
+	private String parentName;
 	private String tel;
 
 	public ActivityApply() {
@@ -45,7 +45,7 @@ public class ActivityApply implements Serializable {
 
 	public ActivityApply(String applyID, int type, Date registerDate, String custID, String pCustID,
 			BigDecimal parentsExpense, BigDecimal amentiaExpense, String family, BigDecimal fExpense, int fNumber,
-			String note, String actID, String amentiaName, String parentsName, String tel) {
+			String note, String actID, String amentiaName, String parentName, String tel) {
 		super();
 		this.applyID = applyID;
 		this.type = type;
@@ -60,7 +60,7 @@ public class ActivityApply implements Serializable {
 		this.note = note;
 		this.actID = actID;
 		this.amentiaName = amentiaName;
-		this.parentsName = parentsName;
+		this.parentName = parentName;
 		this.tel = tel;
 	}
 
@@ -72,12 +72,12 @@ public class ActivityApply implements Serializable {
 		this.amentiaName = amentiaName;
 	}
 
-	public String getParentsName() {
-		return parentsName;
+	public String getParentName() {
+		return parentName;
 	}
 
-	public void setParentsName(String parentsName) {
-		this.parentsName = parentsName;
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
 	}
 
 	public void setApplyID(String applyID) {
@@ -136,9 +136,6 @@ public class ActivityApply implements Serializable {
 		return family;
 	}
 
-	public BigDecimal getFExpense() {
-		return fExpense;
-	}
 
 	public void setNote(String note) {
 		this.note = note;
@@ -193,7 +190,7 @@ public class ActivityApply implements Serializable {
 		return "ActivityApply [applyID=" + applyID + ",type=" + type + ",registerDate=" + registerDate + ",custID="
 				+ custID + ",pCustID=" + pCustID + ",parentsExpense=" + parentsExpense + ",amentiaExpense="
 				+ amentiaExpense + ",family=" + family + ",fExpense=" + fExpense + ",fNumber=" + fNumber + ",note="
-				+ note + ",actID=" + actID + ",amentiaName=" + amentiaName + ",parentsName=" + parentsName + ",tel="
+				+ note + ",actID=" + actID + ",amentiaName=" + amentiaName + ",parentName=" + parentName + ",tel="
 				+ tel + "]";
 	}
 }

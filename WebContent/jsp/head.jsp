@@ -102,7 +102,6 @@ td {width: auto;}
 			$("#"+selectId+"_txt").attr("name",selectId+"_txt"); 
 		}
 		
-		
 		return formResult;
 	}
 	
@@ -502,6 +501,13 @@ td {width: auto;}
 				$(".custCode").val(custCode.replace(/^\w/,"T"))
 			}
 		})
+		
+	/* 	$("body").delegate("input[type='text']","focus",function(){
+			if($(this).parents(".l-text-popup").hasClass("l-text-popup")){
+				$(this).removeAttr("readonly");
+			}
+		}) */
+		
 	})
 	
 </script>

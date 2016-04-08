@@ -20,7 +20,7 @@ public class ActivityApplyPojo implements Serializable {
 	private String note;
 	private String actID;
 	private String amentiaName;
-	private String parentsName;
+	private String parentName;
 
 	private String fullName;
 
@@ -45,7 +45,7 @@ public class ActivityApplyPojo implements Serializable {
 
 	public ActivityApplyPojo(String applyID, int type, Date registerDate, String custID, String pCustID,
 			BigDecimal parentsExpense, BigDecimal amentiaExpense, String family, BigDecimal fExpense, int fNumber,
-			String note, String actID, String amentiaName, String parentsName, int sex, String workID, String work,
+			String note, String actID, String amentiaName, String parentName, int sex, String workID, String work,
 			String mobileTelNO, String workNO, String custNO, String custNewNO, int age, String fullName,
 			String custType, String custCode, Date birthday_Chn, String job, String birthday_ChnStr) {
 		super();
@@ -62,7 +62,7 @@ public class ActivityApplyPojo implements Serializable {
 		this.note = note;
 		this.actID = actID;
 		this.amentiaName = amentiaName;
-		this.parentsName = parentsName;
+		this.parentName = parentName;
 		this.sex = sex;
 		this.workID = workID;
 		this.work = work;
@@ -87,12 +87,12 @@ public class ActivityApplyPojo implements Serializable {
 		this.amentiaName = amentiaName;
 	}
 
-	public String getParentsName() {
-		return parentsName;
+	public String getParentName() {
+		return parentName;
 	}
 
-	public void setParentsName(String parentsName) {
-		this.parentsName = parentsName;
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
 	}
 
 	public void setApplyID(String applyID) {
@@ -270,7 +270,11 @@ public class ActivityApplyPojo implements Serializable {
 
 
 	public int getAge() {
+		System.out.println("birthday_Chn="+birthday_Chn);
 		Calendar cal = Calendar.getInstance();
+		if("".equals(birthday_Chn) || birthday_Chn==null){
+			return 0;
+		}
 
 		if (cal.before(birthday_Chn)) {
 			throw new IllegalArgumentException("The birthday_Chn is before Now.It's unbelievable!");
@@ -359,7 +363,7 @@ public class ActivityApplyPojo implements Serializable {
 		return "ActivityApply [applyID=" + applyID + ",type=" + type + ",registerDate=" + registerDate + ",custID="
 				+ custID + ",pCustID=" + pCustID + ",parentsExpense=" + parentsExpense + ",amentiaExpense="
 				+ amentiaExpense + ",family=" + family + ",fExpense=" + fExpense + ",fNumber=" + fNumber + ",note="
-				+ note + ",actID=" + actID + ",amentiaName=" + amentiaName + ",parentsName=" + parentsName + ",sex="
+				+ note + ",actID=" + actID + ",amentiaName=" + amentiaName + ",parentName=" + parentName + ",sex="
 				+ sex + ",workID=" + workID + ",work=" + work + ",mobileTelNO=" + mobileTelNO + ",workNO=" + workNO
 				+ ",custNO=" + custNO + ",custNewNO=" + custNewNO + ",age=" + age + ",fullName=" + fullName
 				+ ",custType=" + custType + ",custCode=" + custCode + ",job=" + job + ",birthday_Chn=" + birthday_Chn

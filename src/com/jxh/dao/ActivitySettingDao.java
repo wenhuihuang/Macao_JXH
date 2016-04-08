@@ -89,4 +89,8 @@ public class ActivitySettingDao extends DaoImpl{
 		return this.getPrimaryKey("ACTIVITYSETTING", corpId, 20);
 	}
 	
+	public String getActNO(String corpId) throws SQLException{
+		return this.getPrimaryKey("ACTNO", corpId, 4);
+	}
+	
 }

@@ -99,7 +99,7 @@ public class ActivityApplyDao extends DaoImpl{
 	
 	
 	
-	public int deleteActivityApply(List<ActivityApply> activityApply) throws IOException, SQLException{
+	public int deleteActivityApply(List<ActivityApplyPojo> activityApply) throws IOException, SQLException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		Object[][] params = new Object[activityApply.size()][1];
 		for (int i = 0;i<activityApply.size();i++) {
@@ -124,12 +124,12 @@ public class ActivityApplyDao extends DaoImpl{
 		return  (ActivityApply) this.findForObject(sql, params);
 	}
 	
-	public int[] insertActivityApplyBatch(List<ActivityApply> activityApplyAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
+	public int[] insertActivityApplyBatch(List<ActivityApplyPojo> activityApplyAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
 		String sql = this.getSqlByPropKey("insertActivityApply");
 		return insertBatchByList(sql, activityApplyAdds);
 	}
 
-	public int[] updateActivityApplyBatch(List<ActivityApply> activityApplyUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
+	public int[] updateActivityApplyBatch(List<ActivityApplyPojo> activityApplyUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
 		String sql = this.getSqlByPropKey("updateActivityApply");
 		return updateBatchByList(sql, activityApplyUpdates);
 	}

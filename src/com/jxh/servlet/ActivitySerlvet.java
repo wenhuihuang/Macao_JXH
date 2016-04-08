@@ -25,6 +25,7 @@ import com.jxh.dao.ActivityRecordNewDao;
 import com.jxh.dao.ActivitySettingDao;
 import com.jxh.pojo.ActivityApplyPojo;
 import com.jxh.pojo.ActivitySettingPojo;
+import com.jxh.utils.Constants;
 import com.jxh.vo.ActivityApply;
 import com.jxh.vo.ActivityRecordNew;
 import com.jxh.vo.ActivitySetting;
@@ -72,12 +73,17 @@ public class ActivitySerlvet extends FGServlet {
 		LigerUITools.writeGridJson(page, response);
 	}
 	
-	private void add(HttpServletRequest request, HttpServletResponse response) {
+	private void add(HttpServletRequest request, HttpServletResponse response) throws ParseException, SQLException {
 		// TODO Auto-generated method stub
 		try {
 
 			ActivitySetting activitySetting = new ActivitySetting();
-
+			Date now = new Date();
+			Timestamp time = Timestamp.valueOf(ToolsUtils.getDateStringByFormat(now, null, null));
+			String ts= (time+"").replace("-", "");
+			String actNO = "A"+ts.substring(0,8)+activitySettingDao.getActNO(Constants.NO);
+			activitySetting.setActNO(actNO);
+			
 			request.setAttribute("activitySetting", activitySetting);
 			forwardDispatcher("../jsp/manage/activity_edit.jsp", request, response);
 			
@@ -131,23 +137,45 @@ public class ActivitySerlvet extends FGServlet {
 	
 	private void submit(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		
-		List<ActivityApply> activityApplyAdds = getGridListByParamerName(ActivityApply.class, request, "activityApplyAdds");
-		List<ActivityApply> activityApplyUpdates = getGridListByParamerName(ActivityApply.class, request, "activityApplyUpdates");
-		List<ActivityApply> activityApplyDeletes = getGridListByParamerName(ActivityApply.class, request, "activityApplyDeletes");
-		
+		List<ActivityApplyPojo> memberDataAdds = getGridListByParamerName(ActivityApplyPojo.class, request, "memberDataAdds");
+		List<ActivityApplyPojo> memberDataUpdates = getGridListByParamerName(ActivityApplyPojo.class, request, "memberDataUpdates");
+		List<ActivityApplyPojo> memberDataDeletes = getGridListByParamerName(ActivityApplyPojo.class, request, "memberDataDeletes");
+		System.out.println("memberDataAdds=="+memberDataAdds);
+		if( !"".equals(memberDataAdds) && memberDataAdds != null){
+			for(int i = 0;i<memberDataAdds.size();i++){
+				 memberDataAdds.get(i).setType(1);
+			 }
+		}
+	
+		List<ActivityApplyPojo> notMemberDataAdds = getGridListByParamerName(ActivityApplyPojo.class, request, "notMemberDataAdds");
+		List<ActivityApplyPojo> notMemberDataUpdates = getGridListByParamerName(ActivityApplyPojo.class, request, "notMemberDataUpdates");
+		List<ActivityApplyPojo> notMemberDataDeletes = getGridListByParamerName(ActivityApplyPojo.class, request, "notMemberDataDeletes");
+		if( !"".equals(notMemberDataAdds) && notMemberDataAdds != null ){
+			for(int i = 0;i<notMemberDataAdds.size();i++){
+				 notMemberDataAdds.get(i).setType(2);
+			 }
+		}
+	
+		List<ActivityApplyPojo> volunteerDataAdds = getGridListByParamerName(ActivityApplyPojo.class, request, "volunteerDataAdds");
+		List<ActivityApplyPojo> volunteerDataUpdates = getGridListByParamerName(ActivityApplyPojo.class, request, "volunteerDataUpdates");
+		List<ActivityApplyPojo> volunteerDataDeletes = getGridListByParamerName(ActivityApplyPojo.class, request, "volunteerDataDeletes");
+		if( !"".equals(volunteerDataAdds) && volunteerDataAdds != null){
+			for(int i = 0;i<volunteerDataAdds.size();i++){
+				 volunteerDataAdds.get(i).setType(3);
+			 }
+		}
+	
 		
 		List<ActivityRecordNew>  activityRecordNewAdds = getGridListByParamerName(ActivityRecordNew.class, request, "activityRecordNewAdds");
 		List<ActivityRecordNew>  activityRecordNewUpdates = getGridListByParamerName(ActivityRecordNew.class, request, "activityRecordNewUpdates");
 		List<ActivityRecordNew>  activityRecordNewDeletes = getGridListByParamerName(ActivityRecordNew.class, request, "activityRecordNewDeletes");
-
 		ActivitySetting activitySetting = this.getObjectByParameter(request, ActivitySetting.class);
 		String message = "";
 		
 			if (activitySetting.getActID() != null && !"".equals(activitySetting.getActID())) {
-				message = activitySettingBiz.updateActivitySetting(activitySetting, activityApplyAdds,activityApplyUpdates,activityApplyDeletes,activityRecordNewAdds,activityRecordNewUpdates,activityRecordNewDeletes);
+				message = activitySettingBiz.updateActivitySetting(activitySetting, memberDataAdds,memberDataUpdates,memberDataDeletes,notMemberDataAdds,notMemberDataUpdates,notMemberDataDeletes,volunteerDataAdds,volunteerDataUpdates,volunteerDataDeletes,activityRecordNewAdds,activityRecordNewUpdates,activityRecordNewDeletes);
 			} else {
-				message = activitySettingBiz.insertActivitySetting(activitySetting,activityApplyAdds,activityRecordNewAdds);
+				message = activitySettingBiz.insertActivitySetting(activitySetting,memberDataAdds,notMemberDataAdds,volunteerDataAdds,activityRecordNewAdds);
 			}
 	
 
