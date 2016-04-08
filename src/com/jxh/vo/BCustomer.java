@@ -18,7 +18,7 @@ public class BCustomer implements Serializable {
 	private String fullNameEng;
 	private String sex;
 	private Date birthday_Chn;
-	private String custType; // 會員類別
+	private String custType; // 會員類別 0.非会员 1.永久会员 2，临时会员
 	private int cardStatus;
 	private Date regDate;
 	private Date validDate;

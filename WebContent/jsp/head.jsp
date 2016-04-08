@@ -502,11 +502,21 @@ td {width: auto;}
 			}
 		})
 		
-	/* 	$("body").delegate("input[type='text']","focus",function(){
+		//设置popup可以自己输入
+	  	$("body").delegate("input[type='text']","focus",function(){
 			if($(this).parents(".l-text-popup").hasClass("l-text-popup")){
 				$(this).removeAttr("readonly");
 			}
-		}) */
+		}) 
+		//改变popup的值
+		$("body").delegate("input[type='text']","change",function(){
+			if($(this).parents(".l-text-popup").hasClass("l-text-popup")){
+				alert($(this).val())
+				var at = $(this).attr("ligeruiid");
+				alert(at)
+				$('[data-ligerid='+at+']').val($(this).val());
+			}
+		}) 
 		
 	})
 	

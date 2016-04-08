@@ -354,10 +354,16 @@ public class CustomerServlet extends FGServlet {
 	 * @param response
 	 */
 	private void list(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+		String type = request.getParameter("type");
+		System.out.println("type="+type);
 		try {
 			PageUtils<Customer> page = getPage(request);
 			String condition = " and CustType2 != 2 and CustType2 != 3 ";//and custid = ?
+			if("1".equals(type)){
+				condition = " and CustType2 != 2 and CustType2 != 3 and custType != 0 ";
+			}else if("0".equals(type)){
+				condition = " and CustType2 != 2 and CustType2 != 3 and custType = 0 ";
+			}
 			customerDao.getCustomerList(page, condition);
 			LigerUITools.writeGridJson(page, response);
 		} catch (IOException | SQLException e) {

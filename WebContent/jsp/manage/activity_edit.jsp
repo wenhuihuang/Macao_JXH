@@ -42,21 +42,24 @@ String basePath = request.getScheme() + "://"
 		    return options;
 		}   */
       function p_onSelected(e) { 
-    	  alert("1")
             if (!e.data || !e.data.length) return;
 
             var grid = liger.get("memberDataGrid");
 
             var selected = e.data[0]; 
+            console.log(grid.lastEditRow)
+			console.log(selected)
+			alert(selected.parentName)
             grid.updateRow(grid.lastEditRow, {
-                fullName: selected.fullName,
-                custID: selected.custID,
-                custNO: selected.custNO
+            	parentName: selected.parentName,
+               // custID: selected.custID,
+               // custNO: selected.custNO
             });
+            console.log(memberDataGridColumn)
         } 
       
 
-		function getFullName(checkbox) {
+		function getFullName(type) {
 		    var options = {
 		        columns: [
 				{ display: '會員ID', name: 'custID', minWidth: 120, width: 100 },
@@ -65,12 +68,13 @@ String basePath = request.getScheme() + "://"
 		        ], switchPageSizeApplyComboBox: false,
 		        //pageSize: 10
 		       /*  checkbox: checkbox, */
-		       url:"Customer/list.do"
+		       url:"Customer/list.do?type="+type
 		      // usePager:false
 		       
 		    };
 		    return options;
 		}
+		var memberDataGridColumn;
     function f_onSelected(e) { 
           if (!e.data || !e.data.length) return;
 
@@ -78,16 +82,20 @@ String basePath = request.getScheme() + "://"
 
           var selected = e.data[0]; 
          
-  /*         $.ajax({
+     $.ajax({
         	  url:"Customer/getCustomerByCondition.do",
         	  data:"guardianCustID="+selected.custID,
         	  success:function(d){
-        		  alert(d)
-        		  parentName=d
+        		 d = d.replace(/fullName/g,"parentName");
+        	 	  memberDataGridColumn[5].editor.grid= {
+                          data: JSON.parse(d), columns: [
+                                             { name: 'custID', width: 200, display: 'custID' }, { name: 'parentName', width: 200, display: '名字' }
+                                             ]
+                                         } 
         	  }
-          }) */
+          }) 
           grid.updateRow(grid.lastEditRow, {
-              fullName: selected.fullName,
+              fulName: selected.fullName,
               custID: selected.custID,
               custNO: selected.custNO,
           });
@@ -97,27 +105,27 @@ String basePath = request.getScheme() + "://"
 		function bindingMemberDataGrid(){
 			
         	
-		var memberDataGridColumn = [
+		 memberDataGridColumn = [
 									{ display: 'applyID', name: 'applyID', hide:true },
 									{ display: 'custID', name: 'custID', hide:true },
 									{ display: 'type', name: 'type', hide:true},
 									{ display: '登記日期', name: 'registerDate', minWidth:100, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
 				                    { display: '會員編號', name: 'custNO', minWidth:100, type:"text",editor: { type: 'text'}},
-				                    { display: '會員家長姓名', name: 'parentName', minWidth:100,type:"text", editor: { type: 'text'}},
-				           /*           {
+				                    //{ display: '會員家長姓名', name: 'parentName', minWidth:100,type:"text", editor: { type: 'text'}},
+				                      {
 				                        name: 'parentName',align:'center', width:100, display: '會員家長姓名', textField: 'parentName'
 				                        , editor:
 				                            {
-				                            	type: 'popup', valueField: 'parentName', textField: 'parentName', grid:  getParentName(true), onSelected:p_onSelected
+				                            	type: 'popup', valueField: 'parentName', textField: 'parentName',grid:{}, onSelected: p_onSelected 
 				                        	}
-				                    }, */ 
-				                    { display: '會員家長收費', name: 'parentsExpense', minWidth:100, type:"text", editor: { type: 'text'}},
+				                    }, 
+				                    { display: '會員家長收費', name: 'parentsExpense', minWidth:100, type:"text", editor: { type: 'float'}},
 				                    //{ display: '智障人士姓名', name: 'fullName', minWidth:100,type:"text", editor: { type: 'text'}},
 				                    {
 				                        name: 'fullName',align:'center', width:100, display: '智障人士姓名', textField: 'fullName'
 				                        , editor:
 				                            {
-				                            	type: 'popup', valueField: 'fullName', textField: 'fullName', grid:  getFullName(true), onSelected:f_onSelected
+				                            	type: 'popup', valueField: 'fullName', textField: 'fullName', grid: getFullName(1), onSelected:f_onSelected
 				                        	}
 				                    },
 				                    { display: '智障人士收費', name: 'amentiaExpense', minWidth:100, type:"text", editor: { type: 'float'}},
@@ -155,9 +163,23 @@ String basePath = request.getScheme() + "://"
 								{ display: 'applyID', name: 'applyID', hide:true },
 								{ display: 'type', name: 'type', hide:true},
 								{ display: '登記日期', name: 'registerDate', minWidth:100, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-			                    { display: '家長姓名', name: 'parentName',minWidth:100, type:"text", editor: { type: 'text'}},
-			                    { display: '家長收費', name: 'parentsExpense',minWidth:100,type:"text", editor: { type: 'float'}},
-			                    { display: '智障人士姓名', name: 'amentiaName',minWidth:100, type:"text", editor: { type: 'text'}},
+							      //{ display: '會員家長姓名', name: 'parentName', minWidth:100,type:"text", editor: { type: 'text'}},
+			                      {
+			                        name: 'parentName',align:'center', width:100, display: '會員家長姓名', textField: 'parentName'
+			                        , editor:
+			                            {
+			                            	type: 'popup', valueField: 'parentName', textField: 'parentName',grid:{}, onSelected: p_onSelected 
+			                        	}
+			                    }, 
+			                    { display: '會員家長收費', name: 'parentsExpense', minWidth:100, type:"text", editor: { type: 'float'}},
+			                    //{ display: '智障人士姓名', name: 'fullName', minWidth:100,type:"text", editor: { type: 'text'}},
+			                    {
+			                        name: 'fullName',align:'center', width:100, display: '智障人士姓名', textField: 'fullName'
+			                        , editor:
+			                            {
+			                            	type: 'popup', valueField: 'fullName', textField: 'fullName', grid: getFullName(0), onSelected:f_onSelected
+			                        	}
+			                    },
 			                    { display: '智障人士收費', name: 'amentiaExpense',wminWidth:100, type:"text", editor: { type: 'float'}},
 			                    { display: '家屬', name: 'family',minWidth:100, type:"text", editor: { type: 'text'}},
 			                    { display: '家屬收費', name: 'fExpense',minWidth:100, type:"text", editor: { type: 'float'}},
@@ -300,13 +322,13 @@ String basePath = request.getScheme() + "://"
 	var activityRecordDataGridColumn = [
 								{ display: 'recordID', name: 'applyID', hide:true },
 			                    { display: '會員編號', name: 'custNO',minWidth:100,type:"text",editor: { type: 'text'}},
-			                    { display: '會員家長姓名', name: 'ParentsName',minWidth:100,type:"text", editor: { type: 'text'}},
+			                    { display: '會員家長姓名', name: 'parentsName',minWidth:100,type:"text", editor: { type: 'text'}},
 			                    //{ display: '智障人士姓名', name: 'fullName',minWidth:100,type:"text", editor: { type: 'text'}},
 			                     {
 			                        name: 'fullName',align:'center',enabledEdit :true,type:"text", width:100, display: '智障人士姓名', textField: 'fullName'
 			                        , editor:
 			                            {
-			                            	type: 'popup',enabledEdit :true, valueField: 'fullName', textField: 'fullName', grid:  getWorkName(true), onSelected:w_onSelected
+			                            	type: 'popup',enabledEdit :true, valueField: 'fullName', textField: 'fullName', grid:  getFullName(true), onSelected:f_onSelected
 			                        	}
 			                    },
 			                    { display: '家屬', name: 'family',minWidth:100, type:"text", editor: { type: 'text'}},
@@ -422,11 +444,11 @@ String basePath = request.getScheme() + "://"
 	}
     
 	$(function(){
-		if($("#recordID").val() != "" && $("#recordID").val() != 'null' && $("#recordID").val() != 'undefined'){
+		/* if($("#recordID").val() != "" && $("#recordID").val() != 'null' && $("#recordID").val() != 'undefined'){
 			setTabTitle(parent.$("#framecenter"),"活動編輯")
 		}else{
 			setTabTitle(parent.$("#framecenter"),"活動新增")
-		}
+		} */
 		
 		$(".toptoolbar").ligerToolBar({ items: [
             { text: '保存', click: itemclick, icon: 'save' , id:"save" },
