@@ -47,15 +47,14 @@ String basePath = request.getScheme() + "://"
             var grid = liger.get("memberDataGrid");
 
             var selected = e.data[0]; 
-            console.log(grid.lastEditRow)
-			console.log(selected)
-			alert(selected.parentName)
+            //console.log(grid.lastEditRow)
+			//console.log(selected)
             grid.updateRow(grid.lastEditRow, {
             	parentName: selected.parentName,
                // custID: selected.custID,
                // custNO: selected.custNO
             });
-            console.log(memberDataGridColumn)
+           // console.log(memberDataGridColumn)
         } 
       
 
@@ -94,6 +93,7 @@ String basePath = request.getScheme() + "://"
                                          } 
         	  }
           }) 
+          console.log(memberDataGrid.getColumnByName("fNumber").val())
           grid.updateRow(grid.lastEditRow, {
               fulName: selected.fullName,
               custID: selected.custID,
@@ -132,7 +132,14 @@ String basePath = request.getScheme() + "://"
 				                    { display: '家屬', name: 'family', minWidth:100,type:"text", editor: { type: 'text'}},
 				                    { display: '家屬收費', name: 'fExpense', minWidth:100, type:"text", editor: { type: 'float'}},
 				                    { display: '家屬人數', name: 'fNumber', minWidth:100, type:"text", editor: { type: 'int'}},
-				                    { display: '總人數', name: 'total', minWidth:100,type:"text", editor: { type: 'int'}},
+				                    { display: '總人數', name: 'total', minWidth:100,type:"text", editor: { type: 'int'}, render: function(item)
+				                        {
+				                    	var parent = 0;
+				                    	if(item.parentName != null && item.parentName != 'undefined' && item.undefined != ""){
+				                    		parent=1;
+				                    	}
+				                        return item.fNumber+1+parent;
+				                    } },
 				                    { display: '收費總和', name: 'count', minWidth:100, type:"text", editor: { type: 'float'}},
 				                    { display: '聯繫電話', name: 'mobileTelNO',  minWidth:100,type:"text", editor: { type: 'text'}},
 				                    { display: '備註', name: 'note', type:"text",minWidth:100, editor: { type: 'text'}}
@@ -147,7 +154,7 @@ String basePath = request.getScheme() + "://"
 		var url = "Activity/getActivityApply.do?actID="+$("#actID").val()+"&type=1";
 		
 		memberDataGrid = ligerGrid("memberDataGrid",null,memberDataGridColumn,url,memberDataGridToolBar,false,true);
-    }
+       }
 	function addMemberData(){
 		memberDataGrid.addRow();
 	}
