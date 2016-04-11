@@ -117,4 +117,8 @@ public class ActivityRecordNewDao extends DaoImpl{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		return this.update(sql, custID);
 	}
+	public int getParticipationTotal(String actID) throws IOException, SQLException {
+		String sql = "select sum(sum) from ActivityRecordNew WHERE ActID=? ";//this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		return this.query(sql, actID);
+	}
 }

@@ -77,10 +77,10 @@ String basePath = request.getScheme() + "://"
     	                { display: '活動開始日期', name: 'actBDate', minWidth: 140 },
     	                { display: '活動結束日期', name: 'actEDate', minWidth: 140 },
     	                { display: '活動地址', name: 'address', minWidth: 140 },
-    	                { display: '活動負責人', name: 'pegistrant', minWidth: 140 },
+    	                { display: '活動負責人', name: 'principal', minWidth: 140 },
     	                { display: '報名總人數', name: 'applyTotal', minWidth: 140 },
     	                { display: '參與活動總人數', name: 'participationTotal', minWidth: 140 },
-    	                { display: '備註', name: 'Note', minWidth: 140 }
+    	                { display: '備註', name: 'note', minWidth: 140 }
                     ] ;
             
             var gridToolBar = [

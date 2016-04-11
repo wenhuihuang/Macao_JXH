@@ -29,6 +29,8 @@ public class Customer implements Serializable {
 	private String custNO;
 	private String custNewNO;
 
+	private String amentiaName;// 活動
+
 	public Customer() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -36,7 +38,7 @@ public class Customer implements Serializable {
 
 	public Customer(String custID, String custCode, String fullName, String fullNameEng, String sex, String custType,
 			int cardStatus, Date regDate, Date validDate, String cardType, String cardNo, String telNo,
-			String mobileTelNO, String relationship, String custNO, String custNewNO, String job, String isSociaWork) {
+			String mobileTelNO, String relationship, String custNO, String custNewNO, String job, String isSociaWork,String amentiaName) {
 		super();
 		this.custID = custID;
 		this.custCode = custCode;
@@ -50,12 +52,13 @@ public class Customer implements Serializable {
 		this.cardType = cardType;
 		this.cardNo = cardNo;
 		this.telNo = telNo;
-		this.mobileTelNO= mobileTelNO;
+		this.mobileTelNO = mobileTelNO;
 		this.relationship = relationship;
 		this.custNO = custNO;
 		this.custNewNO = custNewNO;
 		this.job = job;
 		this.isSociaWork = isSociaWork;
+		this.amentiaName=amentiaName;
 	}
 
 	public String getCustID() {
@@ -205,7 +208,7 @@ public class Customer implements Serializable {
 		}
 		this.custNewNO = custNewNO;
 	}
-	
+
 	public String getJob() {
 		return job;
 	}
@@ -221,6 +224,16 @@ public class Customer implements Serializable {
 	public void setIsSociaWork(String isSociaWork) {
 		this.isSociaWork = isSociaWork;
 	}
+	
+
+	public String getAmentiaName() {
+		//amentiaName = fullName;
+		return fullName;
+	}
+
+	public void setAmentiaName(String amentiaName) {
+		this.amentiaName = amentiaName;
+	}
 
 	@Override
 	public String toString() {
@@ -228,7 +241,7 @@ public class Customer implements Serializable {
 				+ fullNameEng + ", sex=" + sex + ", custType=" + custType + ", cardStatus=" + cardStatus + ", regDate="
 				+ regDate + ", validDate=" + validDate + ", cardType=" + cardType + ", cardNo=" + cardNo + ", telNo="
 				+ telNo + ", mobileTelNO=" + mobileTelNO + ", relationship=" + relationship + ",custNO=" + custNO
-				+ ",custNewNO=" + custNewNO + ",job=" + job + ",isSociaWork=" + isSociaWork + "]";
+				+ ",custNewNO=" + custNewNO + ",job=" + job + ",isSociaWork=" + isSociaWork +",amentiaName="+amentiaName+ "]";
 	}
 
 }

@@ -511,9 +511,8 @@ td {width: auto;}
 		//改变popup的值
 		$("body").delegate("input[type='text']","change",function(){
 			if($(this).parents(".l-text-popup").hasClass("l-text-popup")){
-				alert($(this).val())
+				//alert($(this).val())
 				var at = $(this).attr("ligeruiid");
-				alert(at)
 				$('[data-ligerid='+at+']').val($(this).val());
 			}
 		}) 

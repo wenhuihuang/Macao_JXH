@@ -24,6 +24,7 @@ import com.jxh.dao.ActivityApplyDao;
 import com.jxh.dao.ActivityRecordNewDao;
 import com.jxh.dao.ActivitySettingDao;
 import com.jxh.pojo.ActivityApplyPojo;
+import com.jxh.pojo.ActivityRecordNewPojo;
 import com.jxh.pojo.ActivitySettingPojo;
 import com.jxh.utils.Constants;
 import com.jxh.vo.ActivityApply;
@@ -114,12 +115,15 @@ public class ActivitySerlvet extends FGServlet {
 		String type = this.getParameterByName(request, "type");
 		PageUtils<ActivityApplyPojo> page = this.getPage(request);
 		String condition = " and actID = ? and type = ? ";
+			
 		if("1".equals(type)){//會員
 			activityApplyDao.getActivityApply1ByCondition(page, condition, actId,type);
 		}else if("2".equals(type)){//非會員
 			activityApplyDao.getActivityApply2ByCondition(page, condition, actId,type);
 		}else if("3".equals(type)){//社工
 			activityApplyDao.getActivityApply3ByCondition(page, condition, actId,type);
+		}else{
+			activityApplyDao.getActivityApplyByCondition(page, null);
 		}
 		
 		LigerUITools.writeGridJson(page, response);
@@ -171,7 +175,7 @@ public class ActivitySerlvet extends FGServlet {
 		List<ActivityRecordNew>  activityRecordNewDeletes = getGridListByParamerName(ActivityRecordNew.class, request, "activityRecordNewDeletes");
 		ActivitySetting activitySetting = this.getObjectByParameter(request, ActivitySetting.class);
 		String message = "";
-		
+		System.out.println(activityRecordNewUpdates);
 			if (activitySetting.getActID() != null && !"".equals(activitySetting.getActID())) {
 				message = activitySettingBiz.updateActivitySetting(activitySetting, memberDataAdds,memberDataUpdates,memberDataDeletes,notMemberDataAdds,notMemberDataUpdates,notMemberDataDeletes,volunteerDataAdds,volunteerDataUpdates,volunteerDataDeletes,activityRecordNewAdds,activityRecordNewUpdates,activityRecordNewDeletes);
 			} else {

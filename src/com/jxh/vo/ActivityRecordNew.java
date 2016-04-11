@@ -7,15 +7,12 @@ import java.math.*;
 /**
  * ActivityRecordNew
  * 
- * recordID,custID,pCustID,registerDate,registerTime,isLate,note,actID
- * ?,?,?,?,?,?,?,?
+ * recordID,custID,pCustID,registerDate,registerTime,isLate,note,actID,
+ * parentName,family,sum,amentiaName ?,?,?,?,?,?,?,?,?,?,?,?
  * 
- * activityRecordNew.recordID,activityRecordNew.custID,activityRecordNew.pCustID
- * ,activityRecordNew.registerDate,activityRecordNew.registerTime,
- * activityRecordNew.isLate,activityRecordNew.note,activityRecordNew.actID
  * 
  * recordID=?,custID=?,pCustID=?,registerDate=?,registerTime=?,isLate=?,note=?,
- * actID=?
+ * actID=?,parentName=?,family=?,sum=?,amentiaName=?
  */
 public class ActivityRecordNew implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -27,13 +24,20 @@ public class ActivityRecordNew implements Serializable {
 	private int isLate;
 	private String note;
 	private String actID;
+	private String parentName;
+	private String family;
+	private int sum;
+	private String amentiaName;
+
+	private String custCode;
 
 	public ActivityRecordNew() {
 		super();
 	}
 
 	public ActivityRecordNew(int recordID, String custID, String pCustID, Date registerDate, String registerTime,
-			int isLate, String note, String actID) {
+			int isLate, String note, String actID, String parentName, String family, int sum, String amentiaName,
+			String custCode) {
 		super();
 		this.recordID = recordID;
 		this.custID = custID;
@@ -43,6 +47,11 @@ public class ActivityRecordNew implements Serializable {
 		this.isLate = isLate;
 		this.note = note;
 		this.actID = actID;
+		this.parentName = parentName;
+		this.family = family;
+		this.sum = sum;
+		this.amentiaName = amentiaName;
+		this.custCode = custCode;
 	}
 
 	public void setRecordID(int recordID) {
@@ -60,7 +69,6 @@ public class ActivityRecordNew implements Serializable {
 	public String getCustID() {
 		return custID;
 	}
-
 
 	public void setRegisterDate(Date registerDate) {
 		this.registerDate = registerDate;
@@ -110,10 +118,51 @@ public class ActivityRecordNew implements Serializable {
 		this.actID = actID;
 	}
 
+	public String getParentName() {
+		return parentName;
+	}
+
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
+
+	public String getFamily() {
+		return family;
+	}
+
+	public void setFamily(String family) {
+		this.family = family;
+	}
+
+	public int getSum() {
+		return sum;
+	}
+
+	public void setSum(int sum) {
+		this.sum = sum;
+	}
+
+	public String getAmentiaName() {
+		return amentiaName;
+	}
+
+	public void setAmentiaName(String amentiaName) {
+		this.amentiaName = amentiaName;
+	}
+
+	public String getCustCode() {
+		return custCode;
+	}
+
+	public void setCustCode(String custCode) {
+		this.custCode = custCode;
+	}
+
 	@Override
 	public String toString() {
 		return "ActivityRecordNew [recordID=" + recordID + ",custID=" + custID + ",pCustID=" + pCustID
 				+ ",registerDate=" + registerDate + ",registerTime=" + registerTime + ",isLate=" + isLate + ",note="
-				+ note + ",actID=" + actID + "]";
+				+ note + ",actID=" + actID + ",parentName=" + parentName + ",family=" + family + ",sum=" + sum
+				+ ",amentiaName=" + amentiaName + ",custCode=" + custCode + "]";
 	}
 }

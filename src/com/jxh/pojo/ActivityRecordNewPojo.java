@@ -21,6 +21,12 @@ public class ActivityRecordNewPojo implements Serializable {
 	private Date actEDate;
 	private String actBDate_str;
 	private String actEDate_str;
+	private String parentName;
+	private String family;
+	private int sum;
+	private String amentiaName;
+
+	private String custCode;
 
 	public ActivityRecordNewPojo() {
 		super();
@@ -28,7 +34,8 @@ public class ActivityRecordNewPojo implements Serializable {
 
 	public ActivityRecordNewPojo(int recordID, String custID, String pCustID, Date registerDate, String registerTime,
 			int isLate, String note, String actID, String actNO, String actName, Date actBDate, Date actEDate,
-			String actBDate_str, String actEDate_str) {
+			String actBDate_str, String actEDate_str, String parentName, String family, int sum, String amentiaName,
+			String custCode) {
 		super();
 		this.recordID = recordID;
 		this.custID = custID;
@@ -44,6 +51,11 @@ public class ActivityRecordNewPojo implements Serializable {
 		this.actEDate = actEDate;
 		this.actBDate_str = actBDate_str;
 		this.actEDate_str = actEDate_str;
+		this.parentName = parentName;
+		this.family = family;
+		this.sum = sum;
+		this.amentiaName = amentiaName;
+		this.custCode = custCode;
 
 	}
 
@@ -110,7 +122,7 @@ public class ActivityRecordNewPojo implements Serializable {
 	public void setActID(String actID) {
 		this.actID = actID;
 	}
-	
+
 	public String getActNO() {
 		return actNO;
 	}
@@ -159,11 +171,53 @@ public class ActivityRecordNewPojo implements Serializable {
 		this.actEDate_str = actEDate_str;
 	}
 
+	public String getParentName() {
+		return parentName;
+	}
+
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
+
+	public String getFamily() {
+		return family;
+	}
+
+	public void setFamily(String family) {
+		this.family = family;
+	}
+
+	public int getSum() {
+		return sum;
+	}
+
+	public void setSum(int sum) {
+		this.sum = sum;
+	}
+
+	public String getAmentiaName() {
+		return amentiaName;
+	}
+
+	public void setAmentiaName(String amentiaName) {
+		this.amentiaName = amentiaName;
+	}
+	
+	public String getCustCode() {
+		return custCode;
+	}
+
+	public void setCustCode(String custCode) {
+		this.custCode = custCode;
+	}
+
 	@Override
 	public String toString() {
 		return "ActivityRecordNew [recordID=" + recordID + ",custID=" + custID + ",pCustID=" + pCustID
 				+ ",registerDate=" + registerDate + ",registerTime=" + registerTime + ",isLate=" + isLate + ",note="
 				+ note + ",actID=" + actID + ",actNO=" + actNO + ",actName=" + actName + ",actBDate=" + actBDate
-				+ ",actEDate=" + actEDate + ",actBDate_str" + actBDate_str + ",actEDate_str=" + actEDate_str + "]";
+				+ ",actEDate=" + actEDate + ",actBDate_str" + actBDate_str + ",actEDate_str=" + actEDate_str
+				+ ",parentName=" + parentName + ",family=" + family + ",sum=" + sum + ",amentiaName=" + amentiaName
+				+ ",custCode=" + custCode + "]";
 	}
 }

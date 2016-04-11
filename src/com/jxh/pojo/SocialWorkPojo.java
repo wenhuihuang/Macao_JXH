@@ -31,6 +31,7 @@ public class SocialWorkPojo implements Serializable {
 	
 	private String custNO;
 	private String custNewNO;
+	private String amentiaName;
 
 	public SocialWorkPojo() {
 		super();
@@ -38,7 +39,7 @@ public class SocialWorkPojo implements Serializable {
 
 	public SocialWorkPojo(String workID, String fullName, int sex, String age, String mobileTelNO, Date birthday_Chn, String work,
 			String workNO, String note, String birthday_ChnStr, String custID, String custType, String custCode,
-			String job,String custNO,String custNewNO) {
+			String job,String custNO,String custNewNO,String amentiaName) {
 		super();
 		this.workID = workID;
 		this.fullName = fullName;
@@ -56,6 +57,7 @@ public class SocialWorkPojo implements Serializable {
 		this.job = job;
 		this.custNO=custNO;
 		this.custNewNO=custNewNO;
+		this.amentiaName=amentiaName;
 	}
 
 	public void setWorkID(String workID) {
@@ -87,7 +89,7 @@ public class SocialWorkPojo implements Serializable {
 	}
 
 	
-	public  String getAge(Date birthday_Chn) throws Exception { 
+	public  String getAge() throws Exception { 
         Calendar cal = Calendar.getInstance(); 
 
         if (cal.before(birthday_Chn)) { 
@@ -239,12 +241,20 @@ public class SocialWorkPojo implements Serializable {
 		this.custNewNO = custNewNO;
 	}
 
+	public String getAmentiaName() {
+		return fullName;
+	}
+
+	public void setAmentiaName(String amentiaName) {
+		this.amentiaName = amentiaName;
+	}
+
 	@Override
 	public String toString() {
 		return "SocialWork [workID=" + workID + ",fullName=" + fullName + ",sex=" + sex + ",age=" + age + ",mobileTelNO="
 				+ mobileTelNO + ",birthday_Chn=" + birthday_Chn + ",work=" + work + ",workNO=" + workNO + ",note=" + note
 				+ ",birthday_ChnStr=" + birthday_ChnStr + ",custID=" + custID + ",custType=" + custType + ",custCode="
-				+ custCode + ",job=" + job + ",custNO="+custNO+",custNewNO="+custNewNO+"]";
+				+ custCode + ",job=" + job + ",custNO="+custNO+",custNewNO="+custNewNO+",amentiaName="+amentiaName+"]";
 	}
 
 }

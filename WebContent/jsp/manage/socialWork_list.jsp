@@ -64,7 +64,7 @@ String basePath = request.getScheme() + "://"
         
         $(function ()
         {
-        	setTabTitle(parent.$("#framecenter"),"社工列表") 
+        /* 	setTabTitle(parent.$("#framecenter"),"社工列表")  */
         	
         	var sexData = [{sex:1,text:'男'},{sex:2,text:'女'}];
             var columns = [
@@ -80,7 +80,7 @@ String basePath = request.getScheme() + "://"
 	                        } },
     	                { display: '出生日期', name: 'birthday_Chn', minWidth: 140 },
     	                { display: '聯繫電話', name: 'mobileTelNO', minWidth: 140 },
-    	                { display: '職位', name: 'work', minWidth: 140 },
+    	                { display: '職位', name: 'job', minWidth: 140 },
     	                { display: '備註', name: 'note', minWidth: 140 }
                     ] ;
             

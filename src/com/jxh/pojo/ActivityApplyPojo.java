@@ -38,6 +38,8 @@ public class ActivityApplyPojo implements Serializable {
 	private String custNO;
 	private String custNewNO;
 	private int age;
+	private String tel;
+	private int total;// 報名總人數
 
 	public ActivityApplyPojo() {
 		super();
@@ -47,7 +49,8 @@ public class ActivityApplyPojo implements Serializable {
 			BigDecimal parentsExpense, BigDecimal amentiaExpense, String family, BigDecimal fExpense, int fNumber,
 			String note, String actID, String amentiaName, String parentName, int sex, String workID, String work,
 			String mobileTelNO, String workNO, String custNO, String custNewNO, int age, String fullName,
-			String custType, String custCode, Date birthday_Chn, String job, String birthday_ChnStr) {
+			String custType, String custCode, Date birthday_Chn, String job, String birthday_ChnStr, String tel,
+			int total) {
 		super();
 		this.applyID = applyID;
 		this.type = type;
@@ -77,6 +80,8 @@ public class ActivityApplyPojo implements Serializable {
 		this.birthday_Chn = birthday_Chn;
 		this.birthday_ChnStr = birthday_ChnStr;
 		this.job = job;
+		this.tel = tel;
+		this.total = total;
 	}
 
 	public String getAmentiaName() {
@@ -267,12 +272,10 @@ public class ActivityApplyPojo implements Serializable {
 		this.custNewNO = custNewNO;
 	}
 
-
-
 	public int getAge() {
-		System.out.println("birthday_Chn="+birthday_Chn);
+		System.out.println("birthday_Chn=" + birthday_Chn);
 		Calendar cal = Calendar.getInstance();
-		if("".equals(birthday_Chn) || birthday_Chn==null){
+		if ("".equals(birthday_Chn) || birthday_Chn == null) {
 			return 0;
 		}
 
@@ -358,16 +361,32 @@ public class ActivityApplyPojo implements Serializable {
 		this.birthday_ChnStr = birthday_ChnStr;
 	}
 
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
 	@Override
 	public String toString() {
 		return "ActivityApply [applyID=" + applyID + ",type=" + type + ",registerDate=" + registerDate + ",custID="
 				+ custID + ",pCustID=" + pCustID + ",parentsExpense=" + parentsExpense + ",amentiaExpense="
 				+ amentiaExpense + ",family=" + family + ",fExpense=" + fExpense + ",fNumber=" + fNumber + ",note="
-				+ note + ",actID=" + actID + ",amentiaName=" + amentiaName + ",parentName=" + parentName + ",sex="
-				+ sex + ",workID=" + workID + ",work=" + work + ",mobileTelNO=" + mobileTelNO + ",workNO=" + workNO
+				+ note + ",actID=" + actID + ",amentiaName=" + amentiaName + ",parentName=" + parentName + ",sex=" + sex
+				+ ",workID=" + workID + ",work=" + work + ",mobileTelNO=" + mobileTelNO + ",workNO=" + workNO
 				+ ",custNO=" + custNO + ",custNewNO=" + custNewNO + ",age=" + age + ",fullName=" + fullName
 				+ ",custType=" + custType + ",custCode=" + custCode + ",job=" + job + ",birthday_Chn=" + birthday_Chn
-				+ ",birthday_ChnStr=" + birthday_ChnStr + "]";
+				+ ",birthday_ChnStr=" + birthday_ChnStr + ",tel=" + tel + ",total=" + total + "]";
 	}
 
 }

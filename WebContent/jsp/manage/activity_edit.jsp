@@ -22,25 +22,7 @@ String basePath = request.getScheme() + "://"
         	activityRecordDataGrid;
         
         
-     /*     function getParentName(checkbox,condition) {
-			alert("2"+condition)
-			if(memberDataGrid != "" && memberDataGrid != null){
-				var custID = getRowCell(memberDataGrid,"custID");
-			}
-	
-		    var options = {
-		        columns: [
-				{ display: '會員ID', name: 'custID', minWidth: 120, width: 100 },
-				{ display: '會員NO', name: 'custNO', minWidth: 120, width: 100 },
-		        { display: '義工姓名', name: 'fullName', minWidth: 120, width: 100 }
-		        ], switchPageSizeApplyComboBox: false,
-		        //pageSize: 10
-		       url:"Customer/getCustomerByCondition.do?guardianCustID="+condition,
-		       usePager:false
-		       
-		    };
-		    return options;
-		}   */
+	//會員父
       function p_onSelected(e) { 
             if (!e.data || !e.data.length) return;
 
@@ -55,7 +37,23 @@ String basePath = request.getScheme() + "://"
                // custNO: selected.custNO
             });
            // console.log(memberDataGridColumn)
-        } 
+        }
+		//非會員父
+	    function pN_onSelected(e) { 
+	            if (!e.data || !e.data.length) return;
+
+	            var grid = liger.get("notMemberDataGrid");
+
+	            var selected = e.data[0]; 
+	            //console.log(grid.lastEditRow)
+				//console.log(selected)
+	            grid.updateRow(grid.getSelectedRow(), {
+	            	parentName: selected.parentName,
+	               // custID: selected.custID,
+	               // custNO: selected.custNO
+	            });
+	           // console.log(memberDataGridColumn)
+	        } 
       
 
 		function getFullName(type) {
@@ -73,7 +71,10 @@ String basePath = request.getScheme() + "://"
 		    };
 		    return options;
 		}
-		var memberDataGridColumn;
+		var memberDataGridColumn,
+		notMemberDataGridColumn,
+		activityRecordDataGridColumn;
+	//會員
     function f_onSelected(e) { 
           if (!e.data || !e.data.length) return;
 
@@ -86,20 +87,46 @@ String basePath = request.getScheme() + "://"
         	  data:"guardianCustID="+selected.custID,
         	  success:function(d){
         		 d = d.replace(/fullName/g,"parentName");
-        	 	  memberDataGridColumn[5].editor.grid= {
+        	 	  memberDataGridColumn[6].editor.grid= {
                           data: JSON.parse(d), columns: [
                                              { name: 'custID', width: 200, display: 'custID' }, { name: 'parentName', width: 200, display: '名字' }
                                              ]
                                          } 
         	  }
           }) 
-          console.log(memberDataGrid.getColumnByName("fNumber").val())
-          grid.updateRow(grid.lastEditRow, {
-              fulName: selected.fullName,
+          grid.updateRow(grid.getSelectedRow(), {
+        	  amentiaName: selected.amentiaName,
               custID: selected.custID,
-              custNO: selected.custNO,
+              custCode: selected.custCode,
           });
       }
+	//非會員
+    function fN_onSelected(e) { 
+        if (!e.data || !e.data.length) return;
+
+        var grid = liger.get("notMemberDataGrid");
+
+        var selected = e.data[0]; 
+       console.log(notMemberDataGridColumn)
+   $.ajax({
+      	  url:"Customer/getCustomerByCondition.do",
+      	  data:"guardianCustID="+selected.custID,
+      	  success:function(d){
+      		 d = d.replace(/fullName/g,"parentName");
+      		notMemberDataGridColumn[6].editor.grid= {
+                        data: JSON.parse(d), columns: [
+                                           { name: 'custID', width: 200, display: 'custID' }, { name: 'parentName', width: 200, display: '名字' }
+                                           ]
+                                       } 
+      	  }
+        }) 
+        grid.updateRow(grid.getSelectedRow(), {
+        	 amentiaName: selected.amentiaName,
+            custID: selected.custID,
+            custCode: selected.custCode,
+        });
+    }
+
 	
         //會員報名
 		function bindingMemberDataGrid(){
@@ -110,9 +137,17 @@ String basePath = request.getScheme() + "://"
 									{ display: 'custID', name: 'custID', hide:true },
 									{ display: 'type', name: 'type', hide:true},
 									{ display: '登記日期', name: 'registerDate', minWidth:100, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '會員編號', name: 'custNO', minWidth:100, type:"text",editor: { type: 'text'}},
+				                    { display: '會員編號', name: 'custCode', minWidth:100, type:"text",editor: { type: 'text'}},
 				                    //{ display: '會員家長姓名', name: 'parentName', minWidth:100,type:"text", editor: { type: 'text'}},
-				                      {
+				                    //{ display: '智障人士姓名', name: 'fullName', minWidth:100,type:"text", editor: { type: 'text'}},
+				                    {
+				                        name: 'amentiaName',align:'center', width:100, display: '智障人士姓名', textField: 'amentiaName'
+				                        , editor:
+				                            {
+				                            	type: 'popup', valueField: 'amentiaName', textField: 'amentiaName', grid: getFullName("1"), onSelected:f_onSelected
+				                        	}
+				                    },
+				                    {
 				                        name: 'parentName',align:'center', width:100, display: '會員家長姓名', textField: 'parentName'
 				                        , editor:
 				                            {
@@ -120,28 +155,24 @@ String basePath = request.getScheme() + "://"
 				                        	}
 				                    }, 
 				                    { display: '會員家長收費', name: 'parentsExpense', minWidth:100, type:"text", editor: { type: 'float'}},
-				                    //{ display: '智障人士姓名', name: 'fullName', minWidth:100,type:"text", editor: { type: 'text'}},
-				                    {
-				                        name: 'fullName',align:'center', width:100, display: '智障人士姓名', textField: 'fullName'
-				                        , editor:
-				                            {
-				                            	type: 'popup', valueField: 'fullName', textField: 'fullName', grid: getFullName(1), onSelected:f_onSelected
-				                        	}
-				                    },
 				                    { display: '智障人士收費', name: 'amentiaExpense', minWidth:100, type:"text", editor: { type: 'float'}},
 				                    { display: '家屬', name: 'family', minWidth:100,type:"text", editor: { type: 'text'}},
 				                    { display: '家屬收費', name: 'fExpense', minWidth:100, type:"text", editor: { type: 'float'}},
 				                    { display: '家屬人數', name: 'fNumber', minWidth:100, type:"text", editor: { type: 'int'}},
-				                    { display: '總人數', name: 'total', minWidth:100,type:"text", editor: { type: 'int'}, render: function(item)
+				                    { display: '總人數', name: 'total', minWidth:100,type:"text", render: function(item)
 				                        {
 				                    	var parent = 0;
 				                    	if(item.parentName != null && item.parentName != 'undefined' && item.undefined != ""){
 				                    		parent=1;
 				                    	}
+				                    	item.total=item.fNumber+1+parent;
 				                        return item.fNumber+1+parent;
 				                    } },
-				                    { display: '收費總和', name: 'count', minWidth:100, type:"text", editor: { type: 'float'}},
-				                    { display: '聯繫電話', name: 'mobileTelNO',  minWidth:100,type:"text", editor: { type: 'text'}},
+				                    { display: '收費總和', name: 'count', minWidth:100, type:"float",render: function(item)
+				                        {
+				                        return item.fExpense*item.fNumber+item.parentsExpense+item.amentiaExpense;
+				                    } },
+				                    { display: '聯繫電話', name: 'tel',  minWidth:100,type:"text", editor: { type: 'text'}},
 				                    { display: '備註', name: 'note', type:"text",minWidth:100, editor: { type: 'text'}}
 				                  ];
 				
@@ -162,38 +193,52 @@ String basePath = request.getScheme() + "://"
 		memberDataGrid.deleteSelectedRow();
 	}
 	
+	
 	 //非會員報名
 	function bindingNotMemberDataGrid(){
 		 
 	
-	var notMemberDataGridColumn = [
+	notMemberDataGridColumn = [
 								{ display: 'applyID', name: 'applyID', hide:true },
+								{ display: 'custID', name: 'custID', hide:true },
 								{ display: 'type', name: 'type', hide:true},
+								{ display: 'custCode', name: 'custCode', hide:true},
 								{ display: '登記日期', name: 'registerDate', minWidth:100, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
 							      //{ display: '會員家長姓名', name: 'parentName', minWidth:100,type:"text", editor: { type: 'text'}},
-			                      {
+			                    //{ display: '智障人士姓名', name: 'fullName', minWidth:100,type:"text", editor: { type: 'text'}},
+			                    {
+			                        name: 'amentiaName',align:'center', width:100, display: '智障人士姓名', textField: 'amentiaName'
+			                        , editor:
+			                            {
+			                            	type: 'popup', valueField: 'amentiaName', textField: 'amentiaName', grid: getFullName("0"), onSelected:fN_onSelected
+			                        	}
+			                    },
+			                    {
 			                        name: 'parentName',align:'center', width:100, display: '會員家長姓名', textField: 'parentName'
 			                        , editor:
 			                            {
-			                            	type: 'popup', valueField: 'parentName', textField: 'parentName',grid:{}, onSelected: p_onSelected 
+			                            	type: 'popup', valueField: 'parentName', textField: 'parentName',grid:{}, onSelected: pN_onSelected 
 			                        	}
 			                    }, 
 			                    { display: '會員家長收費', name: 'parentsExpense', minWidth:100, type:"text", editor: { type: 'float'}},
-			                    //{ display: '智障人士姓名', name: 'fullName', minWidth:100,type:"text", editor: { type: 'text'}},
-			                    {
-			                        name: 'fullName',align:'center', width:100, display: '智障人士姓名', textField: 'fullName'
-			                        , editor:
-			                            {
-			                            	type: 'popup', valueField: 'fullName', textField: 'fullName', grid: getFullName(0), onSelected:f_onSelected
-			                        	}
-			                    },
 			                    { display: '智障人士收費', name: 'amentiaExpense',wminWidth:100, type:"text", editor: { type: 'float'}},
 			                    { display: '家屬', name: 'family',minWidth:100, type:"text", editor: { type: 'text'}},
 			                    { display: '家屬收費', name: 'fExpense',minWidth:100, type:"text", editor: { type: 'float'}},
-			                    { display: '家屬人數', name: 'fNumber',minWidth:100, type:"text", editor: { type: 'float'}},
-			                    { display: '總人數', name: 'total',minWidth:100, type:"text", editor: { type: 'int'}},
-			                    { display: '收費總和', name: 'count',minWidth:100, type:"text", editor: { type: 'float'}},
-			                    { display: '聯繫電話', name: 'mobileTelNO',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '家屬人數', name: 'fNumber',minWidth:100, type:"text", editor: { type: 'int'}},
+			                    { display: '總人數', name: 'total', minWidth:100,type:"text", render: function(item)
+			                        {
+			                    	var parent = 0;
+			                    	if(item.parentName != null && item.parentName != 'undefined' && item.undefined != ""){
+			                    		parent=1;
+			                    	}
+			                    	item.total= item.fNumber+1+parent;
+			                        return item.fNumber+1+parent;
+			                    } },
+			                    { display: '收費總和', name: 'count', minWidth:100, type:"float",render: function(item)
+			                        {
+			                        return item.fExpense*item.fNumber+item.parentsExpense+item.amentiaExpense;
+			                    } },
+			                    { display: '聯繫電話', name: 'tel',minWidth:100, type:"text", editor: { type: 'text'}},
 			                    { display: '備註', name: 'note',minWidth:100, type:"text", editor: { type: 'text'}}
 			                  ];
 			
@@ -218,30 +263,6 @@ String basePath = request.getScheme() + "://"
 	 //義工報名
 	function bindingVolunteerDataGrid(){
 		 
-/* 		function getCustNO(checkbox) {
-		    var options = {
-		        columns: [
-				{ display: '會員編號', name: 'workID', minWidth: 120, width: 100 },
-		        { display: '義工姓名', name: 'workName', minWidth: 120, width: 100 }
-		        ], switchPageSizeApplyComboBox: false,
-		        //pageSize: 10
-		       url:"SocialWork/list.do"
-		      // usePager:false
-		       
-		    };
-		    return options;
-		}
-      function c_onSelected(e) { 
-            if (!e.data || !e.data.length) return;
-
-            var grid = liger.get("volunteerDataGrid");
-
-            var selected = e.data[0]; 
-            grid.updateRow(grid.lastEditRow, {
-                workName: selected.workName,
-                custID: selected.workID,
-            });
-        } */
 		 
 		function getWorkName(checkbox) {
         	$(".l-text-popup").find("input").attr("r","dd");
@@ -265,23 +286,21 @@ String basePath = request.getScheme() + "://"
 
             var selected = e.data[0]; 
             grid.updateRow(grid.lastEditRow, {
-                workName: selected.workName,
+            	amentiaName: selected.amentiaName,
                 custID: selected.workID,
-                custNO: selected.custNO,
+                custCode: selected.custCode,
                 age:selected.age,
                 work:selected.work,
-                phone:selected.phone
+                job:selected.job,
+                tel:selected.tel
             });
-/* 
-            var out = JSON.stringify(selected);
-            $("#message").html('最后选择:'+out); */
         }
 	
 	var volunteerDataGridColumn = [
 								{ display: 'applyID', name: 'applyID', hide:true },
 								{ display: 'custID', name: 'custID', hide:true },
 								{ display: 'type', name: 'type', hide:true},
-			                    { display: '會員編號', name: 'custNO', minWidth:100,type:"text"},
+			                    { display: '會員編號', name: 'custCode', minWidth:100,type:"text"},
 	/* 		                    {
 			                        name: 'workName',align:'center', width:100, display: '會員編號', textField: 'custNO'
 			                        , editor:
@@ -290,18 +309,24 @@ String basePath = request.getScheme() + "://"
 			                        	}
 			                    }, */
 			                    {
-			                        name: 'fullName',align:'center',enabledEdit :true,type:"text", width:100, display: '義工姓名', textField: 'fullName'
+			                        name: 'amentiaName',align:'center',enabledEdit :true,type:"text", width:100, display: '義工姓名', textField: 'amentiaName'
 			                        , editor:
 			                            {
-			                            	type: 'popup',enabledEdit :true, valueField: 'fullName', textField: 'fullName', grid:  getWorkName(true), onSelected:w_onSelected
+			                            	type: 'popup',enabledEdit :true, valueField: 'amentiaName', textField: 'amentiaName', grid:  getWorkName(true), onSelected:w_onSelected
 			                        	}
 			                    },
 			                    { display: '年齡', name: 'age',minWidth:100, type:"int"},
-			                    { display: '職位', name: 'job',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '職位', name: 'job',minWidth:100, type:"text"},
 			                    { display: '活動工作', name: 'work',minWidth:100, type:"text", editor: { type: 'text'}},
-			                    { display: '聯繫電話', name: 'mobileTelNO',minWidth:100, type:"text", editor: { type: 'text'}},
-			                    { display: '備註', name: 'note',minWidth:100, type:"text", editor: { type: 'text'}}
-			                  ];
+			                    { display: '聯繫電話', name: 'tel',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '備註', name: 'note',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '總人數', name: 'total', minWidth:100,type:"text", render: function(item)
+			                        {
+			                    	item.total= 1;
+			                        return 1;
+			                    } },
+			                  		
+			                    ];
 			
 			
 	var volunteerDataGridToolBar = [
@@ -323,25 +348,86 @@ String basePath = request.getScheme() + "://"
 
 	//參與活動記錄
 	function bindingActivityRecordDataGrid(){
+		//活動記錄
+		function getAmentiaName(type) {
+			    var options = {
+			        columns: [
+					//{ display: '會員ID', name: 'custID', minWidth: 120, width: 100 },
+					{ display: '會員編號', name: 'custCode', minWidth: 120, width: 100 },
+			        { display: '姓名', name: 'amentiaName', minWidth: 120, width: 100 }
+			        ], switchPageSizeApplyComboBox: false,
+			        //pageSize: 10
+			       /*  checkbox: checkbox, */
+			       url:"Activity/getActivityApply.do"
+			      // usePager:false
+			       
+			    };
+			    return options;
+			    
+			}
+	    function fA_onSelected(e) { 
+	        if (!e.data || !e.data.length) return;
+
+	        var grid = liger.get("activityRecordDataGrid");
+
+	        var selected = e.data[0]; 
+ 	   $.ajax({
+	      	  url:"Customer/getCustomerByCondition.do",
+	      	  data:"guardianCustID="+selected.custID,
+	      	  success:function(d){
+	      		 d = d.replace(/fullName/g,"parentName");
+	      		activityRecordDataGridColumn[4].editor.grid= {
+	                        data: JSON.parse(d), columns: [
+	                                           { name: 'custID', width: 200, display: 'custID' }, { name: 'parentName', width: 200, display: '名字' }
+	                                           ]
+	                                       } 
+	      	  }
+	        })  
+	        grid.updateRow(grid.getSelectedRow(), {
+	            fulName: selected.fullName,
+	            custID: selected.custID,
+	            custCode: selected.custCode,
+	        });
+	    }
+	    function pA_onSelected(e) { 
+            if (!e.data || !e.data.length) return;
+
+            var grid = liger.get("activityRecordDataGrid");
+
+            var selected = e.data[0]; 
+            grid.updateRow(grid.getSelectedRow(), {
+            	parentName: selected.parentName,
+                custID: selected.custID,
+                custCode: selected.custCode
+            });
+        } 
 	
 	//是/否
 	var isLateData = [{isLate:0,text:'否'},{isLate:1,text:'是'}];
-	var activityRecordDataGridColumn = [
-								{ display: 'recordID', name: 'applyID', hide:true },
-			                    { display: '會員編號', name: 'custNO',minWidth:100,type:"text",editor: { type: 'text'}},
-			                    { display: '會員家長姓名', name: 'parentsName',minWidth:100,type:"text", editor: { type: 'text'}},
-			                    //{ display: '智障人士姓名', name: 'fullName',minWidth:100,type:"text", editor: { type: 'text'}},
+	 activityRecordDataGridColumn = [
+								{ display: 'recordID', name: 'recordID', hide:true },
+								{ display: 'custID', name: 'custID', hide:true },
+			                    { display: '會員編號', name: 'custCode',minWidth:100,type:"text",editor: { type: 'text'}},
+			                   // { display: '會員家長姓名', name: 'parentName',minWidth:100,type:"text", editor: { type: 'text'}},
+			                   //{ display: '智障人士姓名', name: 'fullName',minWidth:100,type:"text", editor: { type: 'text'}},
 			                     {
-			                        name: 'fullName',align:'center',enabledEdit :true,type:"text", width:100, display: '智障人士姓名', textField: 'fullName'
+			                        name: 'amentiaName',align:'center',enabledEdit :true,type:"text", width:100, display: '智障人士姓名', textField: 'amentiaName'
 			                        , editor:
 			                            {
-			                            	type: 'popup',enabledEdit :true, valueField: 'fullName', textField: 'fullName', grid:  getFullName(true), onSelected:f_onSelected
+			                            	type: 'popup',enabledEdit :true, valueField: 'amentiaName', textField: 'amentiaName', grid:  getAmentiaName(true), onSelected:fA_onSelected
 			                        	}
 			                    },
+			                    {
+			                        name: 'parentName',align:'center', width:100, display: '會員家長姓名', textField: 'parentName'
+			                        , editor:
+			                            {
+			                            	type: 'popup', valueField: 'parentName', textField: 'parentName',grid:{}, onSelected: pA_onSelected 
+			                        	}
+			                    },  
 			                    { display: '家屬', name: 'family',minWidth:100, type:"text", editor: { type: 'text'}},
-			                    { display: '總人數', name: 'total',minWidth:100,type:"text", editor: { type: 'text'}},
+			                    { display: '總人數', name: 'sum',minWidth:100,type:"text", editor: { type: 'text'}},
 			                    { display: '報到日期', name: 'registerDate', minWidth:100, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-			                    { display: '報到時間', name: 'RegisterTime',minWidth:100, type:"text", editor: { type: 'text'}},
+			                    { display: '報到時間', name: 'registerTime',minWidth:100, type:"text", editor: { type: 'text'}},
 			                    //{ display: '是否遲到', name: 'isLate',minWidth:100, type:"text", editor: { type: 'text'}},
 			                    { display: '是否遲到', name: 'isLate', align: 'center',  minWidth: 60
 			                     	 ,editor: {type: 'select', data: isLateData, valueField: 'isLate' },
@@ -385,53 +471,6 @@ String basePath = request.getScheme() + "://"
 	}
 	
 	function save(){
- 		//activityApplyAdds
- 	/* 	var memberDataAdds = memberDataGrid.getAdded();	
- 		for(var i = 0; i<memberDataAdds.length;i++){
- 			memberDataAdds[i].type=1;
- 		}
- 		var notMemberDataAdds = notMemberDataGrid.getAdded();	
- 		for(var i = 0; i<notMemberDataAdds.length;i++){
- 			notMemberDataAdds[i].type=2;
- 		}
- 		var volunteerDataAdds = volunteerDataGrid.getAdded();
- 		for(var i = 0; i<volunteerDataAdds.length;i++){
- 			volunteerDataAdds[i].type=3;
- 		}
- 		if(memberDataAdds != null && memberDataAdds != ""){
- 			var activityApplyAdds=memberDataAdds.concat(notMemberDataAdds,volunteerDataAdds);
- 		}else{
- 			var activityApplyAdds=[].concat(notMemberDataAdds,volunteerDataAdds);
- 		}
-		
-		$("#activityApplyAdds").val(getJsonByDataRow(activityApplyAdds));
-		console.log(memberDataAdds)
-		//console.log(getJsonByDataRow(activityApplyAdds))
- 		//activityApplyUpdates
- 		var memberDataUpdates = memberDataGrid.getUpdated();
-		
- 		var notMemberDataUpdates = notMemberDataGrid.getUpdated();	
- 		var volunteerDataUpdates = volunteerDataGrid.getUpdated();	
- 		if(memberDataUpdates != null && memberDataUpdates != ""){
- 			var activityApplyUpdates=memberDataUpdates.concat(notMemberDataUpdates,volunteerDataUpdates);
- 		}else{
- 			var activityApplyUpdates=[].concat(notMemberDataUpdates,volunteerDataUpdates);
- 		}
-		
-		$("#activityApplyUpdates").val(getJsonByDataRow(activityApplyUpdates));
-		//console.log(getJsonByDataRow(activityApplyUpdates))
-		//activityApplyDeletes
- 		var memberDataDeletes = memberDataGrid.getDeleted();
- 		var notMemberDataDeletes = notMemberDataGrid.getDeleted() == undefined ? [] : notMemberDataGrid.getDeleted();	
- 		var volunteerDataDeletes = volunteerDataGrid.getDeleted() == undefined ? [] : volunteerDataGrid.getDeleted();	
- 		if(memberDataDeletes != null && memberDataDeletes !=""){
- 			var activityApplyDeletes=memberDataDeletes.concat(notMemberDataDeletes,volunteerDataDeletes);
- 		}else{
- 			var activityApplyDeletes=[].concat(notMemberDataDeletes,volunteerDataDeletes);
- 		}
-		
-		$("#activityApplyDeletes").val(getJsonByDataRow(activityApplyDeletes)); */
-		//console.log(getJsonByDataRow(activityApplyDeletes))
 		$("#memberDataAdds").val(getAddedRows(memberDataGrid));
  		$("#memberDataUpdates").val(getEditedRows(memberDataGrid));
  		$("#memberDataDeletes").val(getDeletedRows(memberDataGrid));
@@ -610,6 +649,10 @@ String basePath = request.getScheme() + "://"
 			<div class="col-md-3">
 				<label>登記資料人：</label>
 				<input type="text" ltype="text" width="120px" name="registrant" value="${activitySetting.registrant }">
+			</div>
+			<div class="col-md-3">
+				<label>備註：</label>
+				<input type="text" ltype="text" width="120px" name="note" value="${activitySetting.note }">
 			</div>
 		</div>
 	</div>

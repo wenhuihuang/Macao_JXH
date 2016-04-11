@@ -527,6 +527,10 @@ String basePath = request.getScheme() + "://"
 			<div class="col-md-3">
 				<label>登記資料人：</label>
 				<input type="text" ltype="text" width="120px" name="registrant" value="${familySupport.registrant }">
+				<div class="col-md-3">
+				<label>備註：</label>
+				<input type="text" ltype="text" width="120px" name="note" value="${familySupport.note }">
+			</div>
 			</div>
 		</div>
 	</div>

@@ -8,18 +8,18 @@ import java.math.*;
  * ActivityApply
  * 
  * applyID,type,registerDate,custID,pCustID,parentsExpense,amentiaExpense,
- * family, ,fExpense,fNumber,note,actID,amentiaName,parentsName,tel
- * ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
+ * family, ,fExpense,fNumber,note,actID,amentiaName,parentsName,tel,total
+ * ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
  * 
  * activityApply.applyID,activityApply.type,activityApply.registerDate,
  * activityApply.custID,activityApply.pCustID,activityApply.parentsExpense,
  * activityApply.amentiaExpense,activityApply.family,activityApply.fExpense,
  * activityApply.fNumber,activityApply.note,activityApply.actID,activityApply.
- * amentiaName,activityApply.parentsName,activityApply.tel
+ * amentiaName,activityApply.parentsName,activityApply.tel,activityApply.total
  * 
  * applyID=?,type=?,registerDate=?,custID=?,pCustID=?,parentsExpense=?,
  * amentiaExpense=?,family=?,fExpense=?,fNumber=?,note=?,actID=?,amentiaName=?,
- * parentsName=?,tel=?
+ * parentsName=?,tel=?,total=?
  */
 public class ActivityApply implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -38,6 +38,7 @@ public class ActivityApply implements Serializable {
 	private String amentiaName;
 	private String parentName;
 	private String tel;
+	private int total;//總人數
 
 	public ActivityApply() {
 		super();
@@ -45,7 +46,7 @@ public class ActivityApply implements Serializable {
 
 	public ActivityApply(String applyID, int type, Date registerDate, String custID, String pCustID,
 			BigDecimal parentsExpense, BigDecimal amentiaExpense, String family, BigDecimal fExpense, int fNumber,
-			String note, String actID, String amentiaName, String parentName, String tel) {
+			String note, String actID, String amentiaName, String parentName, String tel,int total) {
 		super();
 		this.applyID = applyID;
 		this.type = type;
@@ -62,6 +63,7 @@ public class ActivityApply implements Serializable {
 		this.amentiaName = amentiaName;
 		this.parentName = parentName;
 		this.tel = tel;
+		this.total=total;
 	}
 
 	public String getAmentiaName() {
@@ -185,12 +187,20 @@ public class ActivityApply implements Serializable {
 		this.tel = tel;
 	}
 
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
 	@Override
 	public String toString() {
 		return "ActivityApply [applyID=" + applyID + ",type=" + type + ",registerDate=" + registerDate + ",custID="
 				+ custID + ",pCustID=" + pCustID + ",parentsExpense=" + parentsExpense + ",amentiaExpense="
 				+ amentiaExpense + ",family=" + family + ",fExpense=" + fExpense + ",fNumber=" + fNumber + ",note="
 				+ note + ",actID=" + actID + ",amentiaName=" + amentiaName + ",parentName=" + parentName + ",tel="
-				+ tel + "]";
+				+ tel + ",total="+total+ "]";
 	}
 }

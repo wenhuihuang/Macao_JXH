@@ -13,8 +13,8 @@ import java.text.ParseException;
  * 
  * actID,actName,expense1,expense2,expense3,expense4,time,way,onlineCan,
  * offlineCan,onlineThen,offlineThen,integral,isOnly,applyBDate,applyEDate,
- * actBDate,actEDate,address,principal,registrant,actNO
- * ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
+ * actBDate,actEDate,address,principal,registrant,actNO,note
+ * ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
  * 
  * activitySetting.actID,activitySetting.actName,activitySetting.expense1,
  * activitySetting.expense2,activitySetting.expense3,activitySetting.expense4,
@@ -23,12 +23,12 @@ import java.text.ParseException;
  * offlineThen,activitySetting.integral,activitySetting.isOnly,activitySetting.
  * applyBDate,activitySetting.applyEDate,activitySetting.actBDate,
  * activitySetting.actEDate,activitySetting.address,activitySetting.principal,
- * activitySetting.registrant,activitySetting.actNO
+ * activitySetting.registrant,activitySetting.actNO,activitySetting.note
  * 
  * actID=?,actName=?,expense1=?,expense2=?,expense3=?,expense4=?,time=?,way=?,
  * onlineCan=?,offlineCan=?,onlineThen=?,offlineThen=?,integral=?,isOnly=?,
  * applyBDate=?,applyEDate=?,actBDate=?,actEDate=?,address=?,principal=?,
- * registrant=?,actNO=?
+ * registrant=?,actNO=?,note=?
  */
 public class ActivitySetting implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -59,6 +59,7 @@ public class ActivitySetting implements Serializable {
 	private String applyEDate_str;
 	private String actBDate_str;
 	private String actEDate_str;
+	private String note;
 
 	public ActivitySetting() {
 		super();
@@ -68,7 +69,7 @@ public class ActivitySetting implements Serializable {
 			BigDecimal expense4, int time, String way, int onlineCan, int offlineCan, int onlineThen, int offlineThen,
 			String integral, int isOnly, Date applyBDate, Date applyEDate, Date actBDate, Date actEDate, String address,
 			String principal, String registrant, String actNO, String applyBDate_str, String applyEDate_str,
-			String actBDate_str, String actEDate_str) {
+			String actBDate_str, String actEDate_str, String note) {
 		super();
 		this.actID = actID;
 		this.actName = actName;
@@ -96,6 +97,7 @@ public class ActivitySetting implements Serializable {
 		this.applyEDate_str = applyEDate_str;
 		this.actBDate_str = actBDate_str;
 		this.actEDate_str = actEDate_str;
+		this.note = note;
 	}
 
 	public void setActID(String actID) {
@@ -330,6 +332,14 @@ public class ActivitySetting implements Serializable {
 		this.actEDate_str = actEDate_str;
 	}
 
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
 	@Override
 	public String toString() {
 		return "ActivitySetting [actID=" + actID + ",actName=" + actName + ",expense1=" + expense1 + ",expense2="
@@ -339,6 +349,6 @@ public class ActivitySetting implements Serializable {
 				+ applyBDate + ",applyEDate=" + applyEDate + ",actBDate=" + actBDate + ",actEDate=" + actEDate
 				+ ",address=" + address + ",principal=" + principal + ",registrant=" + registrant + ",actNO=" + actNO
 				+ ",applyBDate_str=" + applyBDate_str + ",applyEDate_str" + applyEDate_str + ",actBDate_str="
-				+ actBDate_str + ",actEDate_str=" + actEDate_str + "]";
+				+ actBDate_str + ",actEDate_str=" + actEDate_str + ",note=" + note + "]";
 	}
 }

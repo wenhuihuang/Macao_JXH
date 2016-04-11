@@ -68,6 +68,31 @@ public abstract class DaoImpl<T> implements Dao<T> {
 
 		return row;
 	}
+	
+	public int query(String sql, String param) throws SQLException {
+		// TODO Auto-generated method stub
+		int total=0;
+		Connection conn = ConnectionContext.getInstance().getConnection();
+
+		PreparedStatement pstm = null;
+
+		ResultSet rs;
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, param);
+			rs = pstm.executeQuery();
+			while(rs.next()){
+				total=rs.getInt(1);
+			}
+
+		} finally {
+			if (pstm != null) {
+				pstm.close();
+			}
+		}
+
+		return total;
+	}
 
 	@Override
 	public Map<Integer, Object> callProcedureForSingleLine(String sql, Map<Integer,Integer> ouputIndexAndType, Object... params) throws SQLException {

@@ -1,6 +1,7 @@
 package com.jxh.dao;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
@@ -27,15 +28,15 @@ public class ActivityApplyDao extends DaoImpl{
 	 * @throws SQLException
 	 * @throws IOException
 	 */
-	public PageUtils<ActivityApply> getActivityApplyByCondition(PageUtils<ActivityApply> page, String condition,Object ...params) throws SQLException, IOException{
-		clazz = ActivityApply.class;
+	public PageUtils<ActivityApplyPojo> getActivityApplyByCondition(PageUtils<ActivityApplyPojo> page, String condition,Object ...params) throws SQLException, IOException{
+		clazz = ActivityApplyPojo.class;
 		//获取SQL
 		condition = condition ==null?"":condition;
 		String sql = getSqlByPropKey(ToolsUtils.getCurrentMethodName())+condition;
 		//获取总页数
 		Integer count = (Integer) this.findElement(getCountSql(sql), params);
 		page.setRowCount(count);
-		List<ActivityApply> activityApplys = this.findForList(sql, params);
+		List<ActivityApplyPojo> activityApplys = this.findForList(sql, params);
 		page.setList(activityApplys);
 		
 		return page;
@@ -137,6 +138,13 @@ public class ActivityApplyDao extends DaoImpl{
 	public int deleteActivityApplyByActID(String actID) throws IOException, SQLException {
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		return this.update(sql, actID);
+	}
+
+	public int getApplyTotal(String actID) throws IOException, SQLException {
+		String sql = "select sum(total) from ActivityApply WHERE ActID=? ";//this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		
+
+		return this.query(sql, actID);
 	}
 	
 	

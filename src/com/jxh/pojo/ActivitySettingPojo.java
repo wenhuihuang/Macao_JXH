@@ -28,9 +28,10 @@ public class ActivitySettingPojo implements Serializable {
 	private String principal;
 	private String registrant;
 	private String actNO;
+	private String note;
 
-	private String participationTotal;
-	private int applyTotal;
+	private int participationTotal;//參與總人數
+	private int applyTotal;//報名總人數
 
 	public ActivitySettingPojo() {
 		super();
@@ -40,7 +41,7 @@ public class ActivitySettingPojo implements Serializable {
 			BigDecimal expense3, BigDecimal expense4, int time, String way, int onlineCan, int offlineCan,
 			int onlineThen, int offlineThen, String integral, int isOnly, Date applyBDate, Date applyEDate,
 			Date actBDate, Date actEDate, String address, String principal, String registrant, String actNO,
-			String participationTotal, int ApplyTotal) {
+			int participationTotal, int ApplyTotal,String note) {
 		super();
 		this.actID = actID;
 		this.actName = actName;
@@ -66,6 +67,7 @@ public class ActivitySettingPojo implements Serializable {
 		this.actNO = actNO;
 		this.participationTotal = participationTotal;
 		this.applyTotal = applyTotal;
+		this.note=note;
 	}
 
 	public void setActID(String actID) {
@@ -244,20 +246,28 @@ public class ActivitySettingPojo implements Serializable {
 		return actNO;
 	}
 
-	public String getParticipationTotal() {
+	public int getParticipationTotal() {
 		return participationTotal;
 	}
 
-	public void setParticipationTotal(String participationTotal) {
+	public void setParticipationTotal(int participationTotal) {
 		this.participationTotal = participationTotal;
 	}
 
 	public int getApplyTotal() {
-		return this.onlineThen + this.offlineThen;
+		return this.applyTotal;
 	}
 
 	public void setApplyTotal(int applyTotal) {
 		this.applyTotal = applyTotal;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 	@Override
@@ -268,6 +278,6 @@ public class ActivitySettingPojo implements Serializable {
 				+ ",offlineThen=" + offlineThen + ",integral=" + integral + ",isOnly=" + isOnly + ",applyBDate="
 				+ applyBDate + ",applyEDate=" + applyEDate + ",actBDate=" + actBDate + ",actEDate=" + actEDate
 				+ ",address=" + address + ",principal=" + principal + ",registrant=" + registrant + ",actNO=" + actNO
-				+ ",participationTotal=" + participationTotal + ",applyTotal=" + applyTotal + "]";
+				+ ",participationTotal=" + participationTotal + ",applyTotal=" + applyTotal + ",note="+note+ "]";
 	}
 }

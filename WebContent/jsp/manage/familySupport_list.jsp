@@ -62,7 +62,7 @@ String basePath = request.getScheme() + "://"
         
         $(function ()
         {
-        	setTabTitle(parent.$("#framecenter"),"家庭支援列表") 
+        	/* setTabTitle(parent.$("#framecenter"),"家庭支援列表")  */
         	
             var columns = [
     	                { display: '家庭支援編號', name: 'supportID', minWidth: 100 },
@@ -76,7 +76,7 @@ String basePath = request.getScheme() + "://"
     	                { display: '支援結束日期', name: 'actEDate', minWidth: 140 },
     	                { display: '支援地址', name: 'address', minWidth: 140 },
     	                { display: '贊助機構', name: 'pegistrant', minWidth: 140 },
-    	                { display: '支援負責人', name: 'pegistrant', minWidth: 140 },
+    	                { display: '支援負責人', name: 'principal', minWidth: 140 },
     	                { display: '報名總人數', name: 'applyTotal', minWidth: 140 },
     	                { display: '接受支援總人數', name: 'participationTotal', minWidth: 140 },
     	                { display: '備註', name: 'Note', minWidth: 140 }

@@ -1,6 +1,7 @@
 package com.jxh.dao;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
@@ -13,6 +14,8 @@ import com.jxh.vo.ActivitySetting;
 
 public class ActivitySettingDao extends DaoImpl{
 
+	private ActivityApplyDao activityApplyDao = new ActivityApplyDao();
+	private ActivityRecordNewDao activityRecordNewDao = new ActivityRecordNewDao();
 	@Override
 	protected String getSqlPropertiesPath() {
 		return "/sqls/Macao_JXH/activitysetting.properties";
@@ -35,6 +38,12 @@ public class ActivitySettingDao extends DaoImpl{
 		Integer count = (Integer) this.findElement(getCountSql(sql), params);
 		page.setRowCount(count);
 		List<ActivitySettingPojo> activitySettingPojos = this.findForList(sql, params);
+		for(int i = 0; i<activitySettingPojos.size();i++){
+			int applyTotal = activityApplyDao.getApplyTotal(activitySettingPojos.get(i).getActID());
+			activitySettingPojos.get(i).setApplyTotal(applyTotal);
+			int participationTotal = activityRecordNewDao.getParticipationTotal(activitySettingPojos.get(i).getActID());
+			activitySettingPojos.get(i).setParticipationTotal(participationTotal);
+		}
 		page.setList(activitySettingPojos);
 		
 		return page;
