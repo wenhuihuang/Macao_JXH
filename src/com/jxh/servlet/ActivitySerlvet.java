@@ -175,7 +175,6 @@ public class ActivitySerlvet extends FGServlet {
 		List<ActivityRecordNew>  activityRecordNewDeletes = getGridListByParamerName(ActivityRecordNew.class, request, "activityRecordNewDeletes");
 		ActivitySetting activitySetting = this.getObjectByParameter(request, ActivitySetting.class);
 		String message = "";
-		System.out.println(activityRecordNewUpdates);
 			if (activitySetting.getActID() != null && !"".equals(activitySetting.getActID())) {
 				message = activitySettingBiz.updateActivitySetting(activitySetting, memberDataAdds,memberDataUpdates,memberDataDeletes,notMemberDataAdds,notMemberDataUpdates,notMemberDataDeletes,volunteerDataAdds,volunteerDataUpdates,volunteerDataDeletes,activityRecordNewAdds,activityRecordNewUpdates,activityRecordNewDeletes);
 			} else {

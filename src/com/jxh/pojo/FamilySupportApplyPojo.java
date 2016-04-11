@@ -17,10 +17,9 @@ public class FamilySupportApplyPojo implements Serializable {
 	private BigDecimal fExpense;
 	private int fNumber;
 	private String note;
-	private String actID;
+	private String supportID;
 	private String amentiaName;
-	private String parentsName;
-	private String actWork;
+	private String parentName;
 	private String tel;
 
 	private String fullName;
@@ -29,8 +28,9 @@ public class FamilySupportApplyPojo implements Serializable {
 	private int sex;
 	private String workID;
 	private String work;
-	private String phone;
 	private String workNO;
+	private String custType;
+	private String custCode;
 	private String custNO;
 	private String custNewNO;
 	private int age;
@@ -41,9 +41,9 @@ public class FamilySupportApplyPojo implements Serializable {
 
 	public FamilySupportApplyPojo(int applyID, int type, Date registerDate, String custID, String pCustID,
 			BigDecimal parentsExpense, BigDecimal amentiaExpense, String family, BigDecimal fExpense, int fNumber,
-			String note, String actID, String amentiaName, String parentsName, String workName, int sex, String workID,
-			String work, String phone, String workNO, String custNO, String custNewNO, int age, String fullName,
-			String actWork, String tel) {
+			String note, String supportID, String amentiaName, String parentName, String workName, int sex,
+			String workID, String work, String workNO, String custNO, String custNewNO, int age, String fullName,
+			String tel, String custType, String custCode) {
 		super();
 		this.applyID = applyID;
 		this.type = type;
@@ -56,21 +56,21 @@ public class FamilySupportApplyPojo implements Serializable {
 		this.fExpense = fExpense;
 		this.fNumber = fNumber;
 		this.note = note;
-		this.actID = actID;
+		this.supportID = supportID;
 		this.amentiaName = amentiaName;
-		this.parentsName = parentsName;
+		this.parentName = parentName;
 		this.workName = workName;
 		this.sex = sex;
 		this.workID = workID;
 		this.work = work;
-		this.phone = phone;
 		this.workNO = workNO;
 		this.custNO = custNO;
 		this.custNewNO = custNewNO;
 		this.age = age;
 		this.fullName = fullName;
-		this.actWork = actWork;
 		this.tel = tel;
+		this.custType = custType;
+		this.custCode = custCode;
 	}
 
 	public void setApplyID(int applyID) {
@@ -137,12 +137,12 @@ public class FamilySupportApplyPojo implements Serializable {
 		return note;
 	}
 
-	public void setActID(String actID) {
-		this.actID = actID;
+	public void setSupportID(String supportID) {
+		this.supportID = supportID;
 	}
 
-	public String getActID() {
-		return actID;
+	public String getSupportID() {
+		return supportID;
 	}
 
 	public void setAmentiaName(String amentiaName) {
@@ -153,12 +153,12 @@ public class FamilySupportApplyPojo implements Serializable {
 		return amentiaName;
 	}
 
-	public void setParentsName(String parentsName) {
-		this.parentsName = parentsName;
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
 	}
 
-	public String getParentsName() {
-		return parentsName;
+	public String getParentName() {
+		return parentName;
 	}
 
 	public String getWorkName() {
@@ -193,14 +193,6 @@ public class FamilySupportApplyPojo implements Serializable {
 		this.work = work;
 	}
 
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
 	public String getWorkNO() {
 		return workNO;
 	}
@@ -210,18 +202,34 @@ public class FamilySupportApplyPojo implements Serializable {
 	}
 
 	public String getCustNO() {
+		if ("0".equals(custType)) {
+			custNO = "";
+		} else {
+			custNO = custCode;
+		}
 		return custNO;
 	}
 
 	public void setCustNO(String custNO) {
+		if ("1".equals(custType) || "2".equals(custType)) {
+			this.custNO = custCode;
+		}
 		this.custNO = custNO;
 	}
 
 	public String getCustNewNO() {
+		if ("1".equals(custType) || "2".equals(custType)) {
+			custNewNO = "";
+		} else {
+			custNewNO = custCode;
+		}
 		return custNewNO;
 	}
 
 	public void setCustNewNO(String custNewNO) {
+		if ("0".equals(custType)) {
+			this.custCode = custNewNO;
+		}
 		this.custNewNO = custNewNO;
 	}
 
@@ -265,14 +273,6 @@ public class FamilySupportApplyPojo implements Serializable {
 		this.fNumber = fNumber;
 	}
 
-	public String getActWork() {
-		return actWork;
-	}
-
-	public void setActWork(String actWork) {
-		this.actWork = actWork;
-	}
-
 	public String getTel() {
 		return tel;
 	}
@@ -281,14 +281,31 @@ public class FamilySupportApplyPojo implements Serializable {
 		this.tel = tel;
 	}
 
+	
+	public String getCustType() {
+		return custType;
+	}
+
+	public void setCustType(String custType) {
+		this.custType = custType;
+	}
+
+	public String getCustCode() {
+		return custCode;
+	}
+
+	public void setCustCode(String custCode) {
+		this.custCode = custCode;
+	}
+
 	@Override
 	public String toString() {
 		return "FamilySupportApply [applyID=" + applyID + ",type=" + type + ",registerDate=" + registerDate + ",custID="
 				+ custID + ",pCustID=" + pCustID + ",parentsExpense=" + parentsExpense + ",amentiaExpense="
 				+ amentiaExpense + ",family=" + family + ",fExpense=" + fExpense + ",fNumber=" + fNumber + ",note="
-				+ note + ",actID=" + actID + ",amentiaName=" + amentiaName + ",parentsName=" + parentsName
-				+ ",workName=" + workName + ",sex=" + sex + ",workID=" + workID + ",work=" + work + ",phone=" + phone
-				+ ",workNO=" + workNO + ",custNO=" + custNO + ",custNewNO=" + custNewNO + ",age=" + age + ",fullName="
-				+ fullName + ",actWork=" + actWork + ",tel=" + tel + "]";
+				+ note + ",supportID=" + supportID + ",amentiaName=" + amentiaName + ",parentName=" + parentName
+				+ ",workName=" + workName + ",sex=" + sex + ",workID=" + workID + ",work=" + work + ",workNO=" + workNO
+				+ ",custNO=" + custNO + ",custNewNO=" + custNewNO + ",age=" + age + ",fullName=" + fullName + ",tel="
+				+ tel + ",custType=" + custType + ",custCode=" + custCode + "]";
 	}
 }

@@ -100,7 +100,7 @@ public class FamilySupportApplyDao extends DaoImpl{
 	
 	
 	
-	public int deleteFamilySupportApply(List<FamilySupportApply> familySupportApply) throws IOException, SQLException{
+	public int deleteFamilySupportApply(List<FamilySupportApplyPojo> familySupportApply) throws IOException, SQLException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		Object[][] params = new Object[familySupportApply.size()][1];
 		for (int i = 0;i<familySupportApply.size();i++) {
@@ -120,12 +120,12 @@ public class FamilySupportApplyDao extends DaoImpl{
 		return  (FamilySupportApply) this.findForObject(sql, params);
 	}
 	
-	public int[] insertFamilySupportApplyBatch(List<FamilySupportApply> familySupportApplyAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
+	public int[] insertFamilySupportApplyBatch(List<FamilySupportApplyPojo> familySupportApplyAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
 		String sql = this.getSqlByPropKey("insertFamilySupportApply");
 		return insertBatchByList(sql, familySupportApplyAdds);
 	}
 
-	public int[] updateFamilySupportApplyBatch(List<FamilySupportApply> familySupportApplyUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
+	public int[] updateFamilySupportApplyBatch(List<FamilySupportApplyPojo> familySupportApplyUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
 		String sql = this.getSqlByPropKey("updateFamilySupportApply");
 		return updateBatchByList(sql, familySupportApplyUpdates);
 	}

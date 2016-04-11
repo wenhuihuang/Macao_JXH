@@ -88,5 +88,8 @@ public class FamilySupportDao extends DaoImpl{
 	public String getPrimaryKey(String corpId) throws SQLException{
 		return this.getPrimaryKey("FAMILYSUPPORT", corpId, 20);
 	}
+	public String getSupportNO(String corpId) throws SQLException{
+		return this.getPrimaryKey("SUPPORTNO", corpId, 4);
+	}
 	
 }

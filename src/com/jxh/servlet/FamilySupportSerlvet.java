@@ -26,6 +26,7 @@ import com.jxh.dao.FamilySupportRecordDao;
 import com.jxh.pojo.ActivityApplyPojo;
 import com.jxh.pojo.FamilySupportApplyPojo;
 import com.jxh.pojo.FamilySupportPojo;
+import com.jxh.utils.Constants;
 import com.jxh.vo.FamilySupport;
 import com.jxh.vo.FamilySupportApply;
 import com.jxh.vo.FamilySupportRecord;
@@ -73,11 +74,15 @@ public class FamilySupportSerlvet extends FGServlet {
 		LigerUITools.writeGridJson(page, response);
 	}
 	
-	private void add(HttpServletRequest request, HttpServletResponse response) {
+	private void add(HttpServletRequest request, HttpServletResponse response) throws ParseException, SQLException {
 		try {
 
 			FamilySupport familySupport = new FamilySupport();
-
+			Date now = new Date();
+			Timestamp time = Timestamp.valueOf(ToolsUtils.getDateStringByFormat(now, null, null));
+			String ts= (time+"").replace("-", "");
+			String supportNO = "F"+ts.substring(0,8)+familySupportDao.getSupportNO(Constants.NO);
+			familySupport.setSupportNO(supportNO);
 			request.setAttribute("familySupport", familySupport);
 			forwardDispatcher("../jsp/manage/familySupport_edit.jsp", request, response);
 			
@@ -91,7 +96,6 @@ public class FamilySupportSerlvet extends FGServlet {
 		try {
 			FamilySupport familySupport = familySupportDao.getFamilySupportByCondition(" and supportID = ? ",
 					this.getParameterByName(request, "supportID"));
-			System.out.println(familySupport);
 			request.setAttribute("familySupport", familySupport);
 			
 				forwardDispatcher("../jsp/manage/familySupport_edit.jsp",request,response);
@@ -114,6 +118,8 @@ public class FamilySupportSerlvet extends FGServlet {
 			familySupportApplyDao.getFamilySupportApply2ByCondition(page, condition, supportID,type);
 		}else if("3".equals(type)){//社工
 			familySupportApplyDao.getFamilySupportApply3ByCondition(page, condition, supportID,type);
+		}else{
+			familySupportApplyDao.getFamilySupportApplyPojoByCondition(page, null);
 		}
 		
 		LigerUITools.writeGridJson(page, response);
@@ -131,10 +137,33 @@ public class FamilySupportSerlvet extends FGServlet {
 	
 	private void submit(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		List<FamilySupportApply> familySupportApplyAdds = getGridListByParamerName(FamilySupportApply.class, request, "familySupportApplyAdds");
-		List<FamilySupportApply> familySupportApplyUpdates = getGridListByParamerName(FamilySupportApply.class, request, "familySupportApplyUpdates");
-		List<FamilySupportApply> familySupportApplyDeletes = getGridListByParamerName(FamilySupportApply.class, request, "familySupportApplyDeletes");
 		
+		List<FamilySupportApplyPojo> memberDataAdds = getGridListByParamerName(FamilySupportApplyPojo.class, request, "memberDataAdds");
+		List<FamilySupportApplyPojo> memberDataUpdates = getGridListByParamerName(FamilySupportApplyPojo.class, request, "memberDataUpdates");
+		List<FamilySupportApplyPojo> memberDataDeletes = getGridListByParamerName(FamilySupportApplyPojo.class, request, "memberDataDeletes");
+		if( !"".equals(memberDataAdds) && memberDataAdds != null){
+			for(int i = 0;i<memberDataAdds.size();i++){
+				 memberDataAdds.get(i).setType(1);
+			 }
+		}
+	
+		List<FamilySupportApplyPojo> notMemberDataAdds = getGridListByParamerName(FamilySupportApplyPojo.class, request, "notMemberDataAdds");
+		List<FamilySupportApplyPojo> notMemberDataUpdates = getGridListByParamerName(FamilySupportApplyPojo.class, request, "notMemberDataUpdates");
+		List<FamilySupportApplyPojo> notMemberDataDeletes = getGridListByParamerName(FamilySupportApplyPojo.class, request, "notMemberDataDeletes");
+		if( !"".equals(notMemberDataAdds) && notMemberDataAdds != null ){
+			for(int i = 0;i<notMemberDataAdds.size();i++){
+				 notMemberDataAdds.get(i).setType(2);
+			 }
+		}
+	
+		List<FamilySupportApplyPojo> volunteerDataAdds = getGridListByParamerName(FamilySupportApplyPojo.class, request, "volunteerDataAdds");
+		List<FamilySupportApplyPojo> volunteerDataUpdates = getGridListByParamerName(FamilySupportApplyPojo.class, request, "volunteerDataUpdates");
+		List<FamilySupportApplyPojo> volunteerDataDeletes = getGridListByParamerName(FamilySupportApplyPojo.class, request, "volunteerDataDeletes");
+		if( !"".equals(volunteerDataAdds) && volunteerDataAdds != null){
+			for(int i = 0;i<volunteerDataAdds.size();i++){
+				 volunteerDataAdds.get(i).setType(3);
+			 }
+		}
 		
 		List<FamilySupportRecord>  familySupportRecordAdds = getGridListByParamerName(FamilySupportRecord.class, request, "familySupportRecordAdds");
 		List<FamilySupportRecord>  familySupportRecordUpdates = getGridListByParamerName(FamilySupportRecord.class, request, "familySupportRecordUpdates");
@@ -143,9 +172,9 @@ public class FamilySupportSerlvet extends FGServlet {
 		FamilySupport familySupport = this.getObjectByParameter(request, FamilySupport.class);
 		String message = "";
 			if (familySupport.getSupportID() != null && !"".equals(familySupport.getSupportID())) {
-				message = familySupportBiz.updateFamilySupport(familySupport, familySupportApplyAdds,familySupportApplyUpdates,familySupportApplyDeletes,familySupportRecordAdds,familySupportRecordUpdates,familySupportRecordDeletes);
+				message = familySupportBiz.updateFamilySupport(familySupport, memberDataAdds,memberDataUpdates,memberDataDeletes,notMemberDataAdds,notMemberDataUpdates,notMemberDataDeletes,volunteerDataAdds,volunteerDataUpdates,volunteerDataDeletes,familySupportRecordAdds,familySupportRecordUpdates,familySupportRecordDeletes);
 			} else {
-				message = familySupportBiz.insertFamilySupport(familySupport,familySupportApplyAdds,familySupportRecordAdds);
+				message = familySupportBiz.insertFamilySupport(familySupport,memberDataAdds,notMemberDataAdds,volunteerDataAdds,familySupportRecordAdds);
 			}
 	
 

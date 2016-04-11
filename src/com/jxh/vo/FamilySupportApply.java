@@ -8,7 +8,7 @@ import java.math.*;
  * FamilySupportApply
  * 
  * applyID,type,registerDate,custID,pCustID,parentsExpense,amentiaExpense,family
- * ,fExpense,fNumber,note,supportID,amentiaName,parentsName,actWork,tel
+ * ,fExpense,fNumber,note,supportID,amentiaName,parentName,tel,total
  * ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
  * 
  * familySupportApply.applyID,familySupportApply.type,familySupportApply.
@@ -16,12 +16,12 @@ import java.math.*;
  * familySupportApply.parentsExpense,familySupportApply.amentiaExpense,
  * familySupportApply.family,familySupportApply.fExpense,familySupportApply.
  * fNumber,familySupportApply.note,familySupportApply.supportID,
- * familySupportApply.amentiaName,familySupportApply.parentsName,
- * familySupportApply.actWork,familySupportApply.tel
+ * familySupportApply.amentiaName,familySupportApply.parentName,
+ * familySupportApply.tel,familySupportApply.total
  * 
  * applyID=?,type=?,registerDate=?,custID=?,pCustID=?,parentsExpense=?,
  * amentiaExpense=?,family=?,fExpense=?,fNumber=?,note=?,supportID=?,amentiaName
- * =?,parentsName=?,actWork=?,tel=?
+ * =?,parentName=?,tel=?,total=?
  */
 public class FamilySupportApply implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -38,9 +38,9 @@ public class FamilySupportApply implements Serializable {
 	private String note;
 	private String supportID;
 	private String amentiaName;
-	private String parentsName;
-	private String actWork;
+	private String parentName;
 	private String tel;
+	private int total;// 总人数
 
 	public FamilySupportApply() {
 		super();
@@ -48,7 +48,7 @@ public class FamilySupportApply implements Serializable {
 
 	public FamilySupportApply(int applyID, int type, Date registerDate, String custID, String pCustID,
 			BigDecimal parentsExpense, BigDecimal amentiaExpense, String family, BigDecimal fExpense, int fNumber,
-			String note, String supportID, String amentiaName, String parentsName, String actWork, String tel) {
+			String note, String supportID, String amentiaName, String parentName, String tel, int total) {
 		super();
 		this.applyID = applyID;
 		this.type = type;
@@ -63,9 +63,9 @@ public class FamilySupportApply implements Serializable {
 		this.note = note;
 		this.supportID = supportID;
 		this.amentiaName = amentiaName;
-		this.parentsName = parentsName;
-		this.actWork = actWork;
+		this.parentName = parentName;
 		this.tel = tel;
+		this.total = total;
 	}
 
 	public void setApplyID(int applyID) {
@@ -98,14 +98,6 @@ public class FamilySupportApply implements Serializable {
 
 	public void setfNumber(int fNumber) {
 		this.fNumber = fNumber;
-	}
-
-	public String getActWork() {
-		return actWork;
-	}
-
-	public void setActWork(String actWork) {
-		this.actWork = actWork;
 	}
 
 	public void setType(int type) {
@@ -180,12 +172,12 @@ public class FamilySupportApply implements Serializable {
 		return amentiaName;
 	}
 
-	public void setParentsName(String parentsName) {
-		this.parentsName = parentsName;
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
 	}
 
-	public String getParentsName() {
-		return parentsName;
+	public String getParentName() {
+		return parentName;
 	}
 
 	public String getTel() {
@@ -196,12 +188,20 @@ public class FamilySupportApply implements Serializable {
 		this.tel = tel;
 	}
 
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
 	@Override
 	public String toString() {
 		return "FamilySupportApply [applyID=" + applyID + ",type=" + type + ",registerDate=" + registerDate + ",custID="
 				+ custID + ",pCustID=" + pCustID + ",parentsExpense=" + parentsExpense + ",amentiaExpense="
 				+ amentiaExpense + ",family=" + family + ",fExpense=" + fExpense + ",fNumber=" + fNumber + ",note="
-				+ note + ",supportID=" + supportID + ",amentiaName=" + amentiaName + ",parentsName=" + parentsName
-				+ ",actWork=" + actWork + ",tel=" + tel + "]";
+				+ note + ",supportID=" + supportID + ",amentiaName=" + amentiaName + ",parentName=" + parentName
+				+ ",tel=" + tel + ",total=" + total + "]";
 	}
 }
