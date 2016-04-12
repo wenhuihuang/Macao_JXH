@@ -72,14 +72,14 @@ String basePath = request.getScheme() + "://"
     	                { display: '線下可報名名額', name: 'offlineCan', minWidth: 140 },
     	                { display: '報名開始日期', name: 'applyBDate', minWidth: 140 },
     	                { display: '報名結束日期', name: 'applyEDate', minWidth: 140 },
-    	                { display: '支援開始日期', name: 'actBDate', minWidth: 140 },
-    	                { display: '支援結束日期', name: 'actEDate', minWidth: 140 },
+    	                { display: '支援開始日期', name: 'supportBDate', minWidth: 140 },
+    	                { display: '支援結束日期', name: 'supportEDate', minWidth: 140 },
     	                { display: '支援地址', name: 'address', minWidth: 140 },
-    	                { display: '贊助機構', name: 'pegistrant', minWidth: 140 },
+    	                { display: '贊助機構', name: 'org', minWidth: 140 },
     	                { display: '支援負責人', name: 'principal', minWidth: 140 },
     	                { display: '報名總人數', name: 'applyTotal', minWidth: 140 },
     	                { display: '接受支援總人數', name: 'participationTotal', minWidth: 140 },
-    	                { display: '備註', name: 'Note', minWidth: 140 }
+    	                { display: '備註', name: 'note', minWidth: 140 }
                     ] ;
             
             var gridToolBar = [

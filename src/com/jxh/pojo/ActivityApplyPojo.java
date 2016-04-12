@@ -273,7 +273,6 @@ public class ActivityApplyPojo implements Serializable {
 	}
 
 	public int getAge() {
-		System.out.println("birthday_Chn=" + birthday_Chn);
 		Calendar cal = Calendar.getInstance();
 		if ("".equals(birthday_Chn) || birthday_Chn == null) {
 			return 0;

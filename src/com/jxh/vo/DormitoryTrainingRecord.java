@@ -5,33 +5,33 @@ import java.io.Serializable;
 
 /** DormitoryTrainingRecord
 
-tRecordID,recordID,handler,workder,standard,groupGrade
+tRecordID,recordID,handler,tutor,standardInt,groupGrade
 ?,?,?,?,?,?
 
-dormitoryTrainingRecord.tRecordID,dormitoryTrainingRecord.recordID,dormitoryTrainingRecord.handler,dormitoryTrainingRecord.workder,dormitoryTrainingRecord.standard,dormitoryTrainingRecord.groupGrade
+dormitoryTrainingRecord.tRecordID,dormitoryTrainingRecord.recordID,dormitoryTrainingRecord.tutor,dormitoryTrainingRecord.workder,dormitoryTrainingRecord.standardInt,dormitoryTrainingRecord.groupGrade
 
-tRecordID=?,recordID=?,handler=?,workder=?,standard=?
+tRecordID=?,recordID=?,tutor=?,workder=?,standardInt=?
 */
 public class DormitoryTrainingRecord implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String tRecordID;
 	private String recordID;
-	private String handler;
+	private String tutor;
 	private String workder;
-	private int standard;
+	private int standardInt;
 	private String groupGrade;
 
 	public DormitoryTrainingRecord(){
 		super();
 	}
-	public DormitoryTrainingRecord(String tRecordID, String recordID, String handler, String workder, int standard ,
+	public DormitoryTrainingRecord(String tRecordID, String recordID, String tutor, String workder, int standardInt ,
 								String groupGrade){
 		super();
 		this.tRecordID=tRecordID;
 		this.recordID=recordID;
-		this.handler=handler;
+		this.tutor=tutor;
 		this.workder=workder;
-		this.standard=standard;
+		this.standardInt=standardInt;
 		this.groupGrade=groupGrade;
 	}
 	public void settRecordID(String tRecordID){
@@ -46,11 +46,11 @@ public class DormitoryTrainingRecord implements Serializable {
 	public String getRecordID(){
 		return recordID;
 	}
-	public void setHandler(String handler){
-		this.handler=handler;
+	public void setTutor(String tutor){
+		this.tutor=tutor;
 	}
-	public String getHandler(){
-		return handler;
+	public String getTutor(){
+		return tutor;
 	}
 	public void setWorkder(String workder){
 		this.workder=workder;
@@ -58,11 +58,11 @@ public class DormitoryTrainingRecord implements Serializable {
 	public String getWorkder(){
 		return workder;
 	}
-	public void setStandard(int standard){
-		this.standard=standard;
+	public void setStandardInt(int standardInt){
+		this.standardInt=standardInt;
 	}
-	public int getStandard(){
-		return standard;
+	public int getStandardInt(){
+		return standardInt;
 	}
 	public String getGroupGrade() {
 		return groupGrade;
@@ -72,7 +72,7 @@ public class DormitoryTrainingRecord implements Serializable {
 	}
 	@Override
 	public String toString(){
-		return "DormitoryTrainingRecord [tRecordID="+tRecordID+",recordID="+recordID+",handler="+handler+",workder="+workder+",standard="+standard+
+		return "DormitoryTrainingRecord [tRecordID="+tRecordID+",recordID="+recordID+",tutor="+tutor+",workder="+workder+",standardInt="+standardInt+
 				",groupGrade="+groupGrade+"]";
 	}
 }

@@ -106,11 +106,11 @@ String basePath = request.getScheme() + "://"
 	}
     
 	$(function(){
-		if($("#gSID").val() != "" && $("#gSID").val() != 'null' && $("#gSID").val() != 'undefined'){
+	/* 	if($("#gSID").val() != "" && $("#gSID").val() != 'null' && $("#gSID").val() != 'undefined'){
 			setTabTitle(parent.$("#framecenter"),"小組設置編輯")
 		}else{
 			setTabTitle(parent.$("#framecenter"),"小組設置新增")
-		}
+		} */
 		
 		$(".toptoolbar").ligerToolBar({ items: [
             { text: '保存', click: itemclick, icon: 'save' , id:"save" },
@@ -189,6 +189,10 @@ String basePath = request.getScheme() + "://"
 				  			<label>參與學員：</label>
 				  			<textarea rows="2" cols="55" name="custs" >${groupSetting.custs }</textarea>
 				  		</div>
+				  		<div class="inline-group">
+			  				<label>備註：</label>
+			  				<textarea rows="2" cols="55" name="note" >${groupSetting.note }</textarea>
+			  			</div>
 		  		</div>
 		  			<div class="panel panel-default">
 							<div class="panel-heading">預算</div>

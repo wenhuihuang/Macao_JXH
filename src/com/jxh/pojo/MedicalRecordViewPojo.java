@@ -16,13 +16,13 @@ public class MedicalRecordViewPojo implements Serializable {
 	private int blood;
 	private int skin;
 	private int nerve;
-	private Date releaseDate;
+	private String releaseDate;
 	private String handler;
 
 	public MedicalRecordViewPojo(){
 		super();
 	}
-	public MedicalRecordViewPojo(int viewID, String recordID, Date billDate, String project, int mentality, int heartLung, int blood, int skin, int nerve, Date releaseDate, String handler ){
+	public MedicalRecordViewPojo(int viewID, String recordID, Date billDate, String project, int mentality, int heartLung, int blood, int skin, int nerve, String releaseDate, String handler ){
 		super();
 		this.viewID=viewID;
 		this.recordID=recordID;
@@ -90,10 +90,10 @@ public class MedicalRecordViewPojo implements Serializable {
 	public int getNerve(){
 		return nerve;
 	}
-	public void setReleaseDate(Date releaseDate){
+	public void setReleaseDate(String releaseDate){
 		this.releaseDate=releaseDate;
 	}
-	public Date getReleaseDate(){
+	public String getReleaseDate(){
 		return releaseDate;
 	}
 	public void setHandler(String handler){

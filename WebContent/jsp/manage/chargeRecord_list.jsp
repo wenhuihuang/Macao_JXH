@@ -35,20 +35,37 @@ String basePath = request.getScheme() + "://"
         }
         
         function deleteRow(){
-        	maingrid.deleteSelectedRow()
+        	var chargeID = getRowCell(maingrid,"chargeID");
+        	if(confirm("是否刪除？")){
+        		$.ajax({
+         			type:"post",
+         			url:"ChargeRecord/deleteChargeRecord.do",
+         			data:"chargeID="+chargeID,
+         			success:function(msg){
+         				if(msg == "true" || msg == true){
+         					maingrid.deleteSelectedRow();
+         				}else{
+         					alert("刪除失敗！");
+         				}
+         				 
+         			},
+         			error:function(){
+         				alert("刪除失敗！");
+         			}
+         		})
+        	}
+        
         }
         
         function save(){
-        	alert("d")
         	var chargeRecordAdds = getAddedRows(maingrid);
      		var chargeRecordUpdates = getEditedRows(maingrid);
      	   	var chargeRecordDeletes = getDeletedRows(maingrid);
      	   	$.ajax({
      	   		type:'post',
 	     	   	url:"ChargeRecord/submit.do",
-	 			data:"chargeRecordAdds="+chargeRecordAdds+"&chargeRecordUpdates="+chargeRecordAdds+"&chargeRecordDeletes="+chargeRecordDeletes,
+	 			data:"chargeRecordAdds="+chargeRecordAdds+"&chargeRecordUpdates="+chargeRecordUpdates+"&chargeRecordDeletes="+chargeRecordDeletes,
 	 			success:function(msg){
-	 				alert(msg)
 	 				if(msg == "true" || msg == true){
 	 				}else{
 	 					alert("刪除失敗！");
@@ -64,7 +81,7 @@ String basePath = request.getScheme() + "://"
         
         $(function ()
         {
-        	setTabTitle(parent.$("#framecenter"),"收費記錄") 
+        	/* setTabTitle(parent.$("#framecenter"),"收費記錄")  */
         	
             var columns = [
 						{ display: '收費項目編號', name: 'projectNO', minWidth: 100,type:"text",editor: { type: 'text' }},

@@ -13,12 +13,12 @@ import java.math.*;
 
 /** GroupSettingRecord
 
-recordID,gSID,beginDate,endDate,leader,qty,place,device,custs,configuration,summary
-?,?,?,?,?,?,?,?,?,?,?
+recordID,gSID,beginDate,endDate,leader,qty,place,device,custs,configuration,summary,note
+?,?,?,?,?,?,?,?,?,?,?,?
 
-groupSettingRecord.recordID,groupSettingRecord.gSID,groupSettingRecord.beginDate,groupSettingRecord.endDate,groupSettingRecord.leader,groupSettingRecord.qty,groupSettingRecord.place,groupSettingRecord.device,groupSettingRecord.custs,groupSettingRecord.configuration,groupSettingRecord.summary
+groupSettingRecord.recordID,groupSettingRecord.gSID,groupSettingRecord.beginDate,groupSettingRecord.endDate,groupSettingRecord.leader,groupSettingRecord.qty,groupSettingRecord.place,groupSettingRecord.device,groupSettingRecord.custs,groupSettingRecord.configuration,groupSettingRecord.summary,groupSettingRecord.note
 
-recordID=?,gSID=?,beginDate=?,endDate=?,leader=?,qty=?,place=?,device=?,custs=?,configuration=?,summary=?
+recordID=?,gSID=?,beginDate=?,endDate=?,leader=?,qty=?,place=?,device=?,custs=?,configuration=?,summary=?,note=?
 */
 public class GroupSettingRecord implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -33,6 +33,7 @@ public class GroupSettingRecord implements Serializable {
 	private String custs;
 	private String configuration;
 	private String summary;
+	private String note;
 	
 	private String beginDate_str;
 	private String endDate_str;
@@ -41,7 +42,7 @@ public class GroupSettingRecord implements Serializable {
 		super();
 	}
 	public GroupSettingRecord(String recordID, String gSID, Date beginDate, Date endDate, String leader, int qty, String place, String device, String custs, String configuration, String summary,
-							String beginDate_str,String endDate_str){
+							String beginDate_str,String endDate_str,String note){
 		super();
 		this.recordID=recordID;
 		this.gSID=gSID;
@@ -56,6 +57,7 @@ public class GroupSettingRecord implements Serializable {
 		this.summary=summary;
 		this.beginDate_str=beginDate_str;
 		this.endDate_str=endDate_str;
+		this.note=note;
 	}
 	public void setRecordID(String recordID){
 		this.recordID=recordID;
@@ -147,10 +149,16 @@ public class GroupSettingRecord implements Serializable {
 	public void setEndDate_str(String endDate_str) {
 		this.endDate_str = endDate_str;
 	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
 	@Override
 	public String toString(){
 		return "GroupSettingRecord [recordID="+recordID+",gSID="+gSID+",beginDate="+beginDate+",endDate="+endDate+",leader="+leader+",qty="+qty+",place="+place+",device="+device+",custs="+custs+",configuration="+configuration+",summary="+summary+
-								",beginDate_str="+beginDate_str+",endDate_str="+endDate_str+"]";
+								",beginDate_str="+beginDate_str+",endDate_str="+endDate_str+",note="+note+"]";
 	}
 }
 

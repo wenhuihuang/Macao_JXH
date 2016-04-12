@@ -443,11 +443,11 @@ String basePath = request.getScheme() + "://"
 	}
     
 	$(function(){
-		if($("#recordID").val() != "" && $("#recordID").val() != 'null' && $("#recordID").val() != 'undefined'){
+	/* 	if($("#recordID").val() != "" && $("#recordID").val() != 'null' && $("#recordID").val() != 'undefined'){
 			setTabTitle(parent.$("#framecenter"),"院舍管理編輯")
 		}else{
 			setTabTitle(parent.$("#framecenter"),"院舍管理新增")
-		}
+		} */
 		
 		$(".toptoolbar").ligerToolBar({ items: [
             { text: '保存', click: itemclick, icon: 'save' , id:"save" },
@@ -495,6 +495,7 @@ String basePath = request.getScheme() + "://"
 	<input type="hidden" name="aPlanID" id="aPlanID" value="${dormitoryTrainingADPlan.aPlanID }" >
 	<input type="hidden" name="tRecordID" id="tRecordID" value="${dormitoryTrainingRecord.tRecordID }" >
 	<input type="hidden" name="reviewID" id="reviewID" value="${dormitoryTrainingReview.reviewID }" >
+	<input type="hidden" name="planID" id="planID" value="${dormitoryTrainingPlan.planID }" >
 	<input type="hidden" name="dormitoryTrainingADPlanDetailAdds" id="dormitoryTrainingADPlanDetailAdds">
 	<input type="hidden" name="dormitoryTrainingADPlanDetailUpdates" id="dormitoryTrainingADPlanDetailUpdates">
 	<input type="hidden" name="dormitoryTrainingADPlanDetailDeletes" id="dormitoryTrainingADPlanDetailDeletes">
@@ -517,27 +518,29 @@ String basePath = request.getScheme() + "://"
 	<input type="hidden" name="dormitoryTrainingReviewSettleUpdates" id="dormitoryTrainingReviewSettleUpdates">
 	<input type="hidden" name="dormitoryTrainingReviewSettleDeletes" id="dormitoryTrainingReviewSettleDeletes" >
 	
+ 	<div class="inline-group row max-width-group-300 label-width-90" style="margin-bottom:10px;">
+  			<div class="col-md-3">
+  				<label>住客編號：</label>
+  				<input width="120px" value="${dormitoryRecord.recordNO }" name="recordNO" type="text" ltype="text"">
+  			</div>
+  			<div class="col-md-3">
+  				<label>姓名：</label>
+  				<input width="120px" value="${customer.fullName }" name="fullName" type="text" class="fullName"/>
+  			</div>
+  			<div class="col-md-3">
+  				<label>會員編號：</label>
+  				<input width="120px" value="${customer.custNO }" name="custNO" type="text" class="custNO" />
+  			</div>
+  			<div class="col-md-3">
+  				<label>非會員編號：</label>
+  				<input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" class="custNewNO" />
+  			</div>
+  		</div>
+	
 	<div id="tab">
 		  	<div title="院舍記錄" tabid="dormitoryRecord">
 		  		
-	  		 	 <div class="inline-group row max-width-group-300 label-width-90">
-		  			<div class="col-md-3">
-		  				<label>住客編號：</label>
-		  				<input width="120px" value="${dormitoryRecord.recordNO }" name="recordNO" type="text" ltype="text"">
-		  			</div>
-		  			<div class="col-md-3">
-		  				<label>姓名：</label>
-		  				<input width="120px" value="${customer.fullName }" name="fullName" type="text" class="fullName"/>
-		  			</div>
-		  			<div class="col-md-3">
-		  				<label>會員編號：</label>
-		  				<input width="120px" value="${customer.custNO }" name="custNO" type="text" class="custNO" />
-		  			</div>
-		  			<div class="col-md-3">
-		  				<label>非會員編號：</label>
-		  				<input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" class="custNewNO" />
-		  			</div>
-		  		</div>
+	  		 
 		  		
 		  		<div class="inline-group row max-width-group-300 label-width-90">
 		  			<div class="col-md-3">
@@ -622,7 +625,7 @@ String basePath = request.getScheme() + "://"
 		  	
 		  	<div tabid="trainingPlan" title="個別訓練策劃">
 		  	
-		  		<div class="inline-group row max-width-group-300 label-width-90">
+<%-- 		  		<div class="inline-group row max-width-group-300 label-width-90">
 		  			<div class="col-md-3">
 		  				<label>住客編號：</label>
 		  				<input width="120px" value="${dormitoryRecord.recordNO }" name="recordNO" type="text" ltype="text"">
@@ -639,7 +642,7 @@ String basePath = request.getScheme() + "://"
 		  				<label>非會員編號：</label>
 		  				<input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" class="custNewNO" />
 		  			</div>
-		  		</div>
+		  		</div> --%>
 		  		
 		  		<div class="inline-group row max-width-group-300 label-width-90">
 		  			<div class="col-md-3">
@@ -688,7 +691,7 @@ String basePath = request.getScheme() + "://"
 		  	
 		  	<div tabid="trainingFlow" title="個別住客整日訓練流程">
 		  	
-		  		<div class="inline-group row max-width-group-300 label-width-90">
+		 <%--  		<div class="inline-group row max-width-group-300 label-width-90">
 		  			<div class="col-md-3">
 		  				<label>住客編號：</label>
 				 		 <input width="120px" value="${dormitoryRecord.recordNO }" name="recordNO" type="text" ltype="text"">
@@ -705,7 +708,7 @@ String basePath = request.getScheme() + "://"
 		  				<label>非會員編號：</label>
 		  				<input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" class="custNewNO" />
 		  			</div>
-		  		</div>
+		  		</div> --%>
 		  		<!-- <div class="inline-group row max-width-group-300 label-width-90"> -->
 		  			<div class="inline-group">
 		  				<label style="width:90px;text-align:right;">日期：</label>
@@ -715,7 +718,7 @@ String basePath = request.getScheme() + "://"
 		  			</div>
 		  			<div class="inline-group">
 		  				<label style="width:90px;text-align:right;">負責人：</label>
-		  				<input width="120px" value="${dormitoryTrainingADPlan.handler }" name="handler" type="text" ltype="text"/>
+		  				<input width="120px" value="${dormitoryTrainingADPlan.charge }" name="charge" type="text" ltype="text"/>
 		  			</div>
 		  		<!-- </div> -->
            		<div id="trainingFlowDataGrid">
@@ -728,7 +731,7 @@ String basePath = request.getScheme() + "://"
           				<label style="width:120px;text-align:right;">組別：</label>
           				<input width="120px" value="${dormitoryTrainingRecord.groupGrade }" name="groupGrade" type="text" ltype="text"">
           				<label>導師：</label>
-          				<input width="120px" value="${dormitoryTrainingRecord.handler }" name="handler" type="text" ltype="text"">
+          				<input width="120px" value="${dormitoryTrainingRecord.tutor }" name="tutor" type="text" ltype="text"">
           			</div>
           			<div class="inline-group">
           				<label style="width:120px;text-align:right;">執行職員：</label>
@@ -737,6 +740,16 @@ String basePath = request.getScheme() + "://"
           			<div class="inline-group">
           				<label style="width:120px;text-align:right;">訓練目標：</label>
           				<input width="120px" value="${dormitoryTrainingPlan.target }" name="target" type="text" ltype="text"">
+          			</div>
+          			<div class="inline-group">
+          				<label style="width:120px;text-align:right;">評估基準：</label>
+          				<select name="standardInt" ltype="select" width="120px" >
+	                		<option width="120px" value="0" <c:if test="${dormitoryTrainingRecord.standardInt == '0' }">selected="selected"</c:if> >不能完成</option>
+	                		<option width="120px" value="1" <c:if test="${dormitoryTrainingRecord.standardInt == '1' }">selected="selected"</c:if> >執手協助</option>
+	                		<option width="120px" value="2" <c:if test="${dormitoryTrainingRecord.standardInt == '2' }">selected="selected"</c:if> >姿勢提示</option>
+	                		<option width="120px" value="3" <c:if test="${dormitoryTrainingRecord.standardInt == '3' }">selected="selected"</c:if> >口頭提示</option>
+	                		<option width="120px" value="4" <c:if test="${dormitoryTrainingRecord.standardInt == '4' }">selected="selected"</c:if> >獨立完成</option>
+	                	</select> 
           			</div>
           			 
 	            	<div class="panel panel-default">
@@ -819,11 +832,11 @@ String basePath = request.getScheme() + "://"
            		</div>
            		<div class="inline-group">
            			<label style="width:120px;text-align:right;">社區互動：</label>
-               		<textarea rows="2" cols="55" name="otherReason" id="otherReason">${dormitoryTrainingReview.interactive }</textarea>
+               		<textarea rows="2" cols="55" name="interactive" id="interactive">${dormitoryTrainingReview.interactive }</textarea>
            		</div>
            		<div class="inline-group">
            			<label style="width:120px;text-align:right;">休閒活動：</label>
-               		<textarea rows="2" cols="55" name="otherReason" id="otherReason">${dormitoryTrainingReview.activity }</textarea>
+               		<textarea rows="2" cols="55" name="activity" id="activity">${dormitoryTrainingReview.activity }</textarea>
            		</div>
          
           	<div class="panel panel-default">

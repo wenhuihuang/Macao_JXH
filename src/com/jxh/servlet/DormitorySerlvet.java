@@ -194,7 +194,6 @@ public class DormitorySerlvet extends FGServlet {
 		DormitoryTrainingRecord dormitoryTrainingRecord = this.getObjectByParameter(request, DormitoryTrainingRecord.class);
 		//小組話個別訓練策劃及檢討
 		DormitoryTrainingReview dormitoryTrainingReview = this.getObjectByParameter(request, DormitoryTrainingReview.class);
-		
 
 		String message = "";
 		if (dormitoryRecord.getRecordID() != null && !"".equals(dormitoryRecord.getRecordID())) {

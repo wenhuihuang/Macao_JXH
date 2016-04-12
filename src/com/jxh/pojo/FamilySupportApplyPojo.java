@@ -1,6 +1,7 @@
 package com.jxh.pojo;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.math.*;
 
@@ -33,7 +34,11 @@ public class FamilySupportApplyPojo implements Serializable {
 	private String custCode;
 	private String custNO;
 	private String custNewNO;
+
+	private Date birthday_Chn;
 	private int age;
+	private String job;
+	private int total;// 总人数
 
 	public FamilySupportApplyPojo() {
 		super();
@@ -43,7 +48,7 @@ public class FamilySupportApplyPojo implements Serializable {
 			BigDecimal parentsExpense, BigDecimal amentiaExpense, String family, BigDecimal fExpense, int fNumber,
 			String note, String supportID, String amentiaName, String parentName, String workName, int sex,
 			String workID, String work, String workNO, String custNO, String custNewNO, int age, String fullName,
-			String tel, String custType, String custCode) {
+			String tel, String custType, String custCode, Date birthday_Chn, String job,int total) {
 		super();
 		this.applyID = applyID;
 		this.type = type;
@@ -71,6 +76,9 @@ public class FamilySupportApplyPojo implements Serializable {
 		this.tel = tel;
 		this.custType = custType;
 		this.custCode = custCode;
+		this.birthday_Chn = birthday_Chn;
+		this.job = job;
+		this.total=total;
 	}
 
 	public void setApplyID(int applyID) {
@@ -234,6 +242,38 @@ public class FamilySupportApplyPojo implements Serializable {
 	}
 
 	public int getAge() {
+		Calendar cal = Calendar.getInstance();
+		if ("".equals(birthday_Chn) || birthday_Chn == null) {
+			return 0;
+		}
+
+		if (cal.before(birthday_Chn)) {
+			throw new IllegalArgumentException("The birthday_Chn is before Now.It's unbelievable!");
+		}
+
+		int yearNow = cal.get(Calendar.YEAR);
+		int monthNow = cal.get(Calendar.MONTH) + 1;
+		int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
+
+		cal.setTime(birthday_Chn);
+		int yearBirth = cal.get(Calendar.YEAR);
+		int monthBirth = cal.get(Calendar.MONTH);
+		int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
+
+		int age1 = yearNow - yearBirth;
+
+		if (monthNow <= monthBirth) {
+			if (monthNow == monthBirth) {
+				// monthNow==monthBirth
+				if (dayOfMonthNow < dayOfMonthBirth) {
+					age1--;
+				}
+			} else {
+				// monthNow>monthBirth
+				age1--;
+			}
+		}
+		age = age1;
 		return age;
 	}
 
@@ -281,7 +321,6 @@ public class FamilySupportApplyPojo implements Serializable {
 		this.tel = tel;
 	}
 
-	
 	public String getCustType() {
 		return custType;
 	}
@@ -298,6 +337,30 @@ public class FamilySupportApplyPojo implements Serializable {
 		this.custCode = custCode;
 	}
 
+	public Date getBirthday_Chn() {
+		return birthday_Chn;
+	}
+
+	public void setBirthday_Chn(Date birthday_Chn) {
+		this.birthday_Chn = birthday_Chn;
+	}
+
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
 	@Override
 	public String toString() {
 		return "FamilySupportApply [applyID=" + applyID + ",type=" + type + ",registerDate=" + registerDate + ",custID="
@@ -306,6 +369,7 @@ public class FamilySupportApplyPojo implements Serializable {
 				+ note + ",supportID=" + supportID + ",amentiaName=" + amentiaName + ",parentName=" + parentName
 				+ ",workName=" + workName + ",sex=" + sex + ",workID=" + workID + ",work=" + work + ",workNO=" + workNO
 				+ ",custNO=" + custNO + ",custNewNO=" + custNewNO + ",age=" + age + ",fullName=" + fullName + ",tel="
-				+ tel + ",custType=" + custType + ",custCode=" + custCode + "]";
+				+ tel + ",custType=" + custType + ",custCode=" + custCode + ",birthday_Chn" + birthday_Chn + ",job="
+				+ job + ",total="+total+ "]";
 	}
 }

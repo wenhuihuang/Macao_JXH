@@ -69,11 +69,11 @@ String basePath = request.getScheme() + "://"
 	}
     
 	$(function(){
-		if($("#gSID").val() != "" && $("#gSID").val() != 'null' && $("#gSID").val() != 'undefined'){
+	/* 	if($("#gSID").val() != "" && $("#gSID").val() != 'null' && $("#gSID").val() != 'undefined'){
 			setTabTitle(parent.$("#framecenter"),"課程設置編輯")
 		}else{
 			setTabTitle(parent.$("#framecenter"),"課程設置新增")
-		}
+		} */
 		
 		$(".toptoolbar").ligerToolBar({ items: [
             { text: '保存', click: itemclick, icon: 'save' , id:"save" },
@@ -110,7 +110,7 @@ String basePath = request.getScheme() + "://"
 	<div id="tab">
 		  	<div tabid="courseSettingGrid" title="課程設置">
 		  		<div style="padding:8px 0;">
-		  			<div class="inline-group row max-width-group-300 label-width-80">
+		  			<div class="inline-group row max-width-group-300 label-width-100">
 			  			<div class="col-md-4">
 			  				<label>課程編號：</label>
 			  				<input width="120px" value="${courseSetting.courseNO }" name="courseNO" type="text" ltype="text" />
@@ -124,7 +124,7 @@ String basePath = request.getScheme() + "://"
 			  				<input width="120px" value="${courseSetting.pay }" name="pay" type="text" ltype="float" />
 			  			</div>
 			  		</div>
-			  		<div class="inline-group row max-width-group-300 label-width-80">
+			  		<div class="inline-group row max-width-group-300 label-width-100">
 			  			<div class="col-md-4">
 			  				<label>開始日期：</label>
 			  				<input width="120px" value="${courseSetting.beginDate_str }" name="beginDate" type="text" ltype="date" />
@@ -136,6 +136,26 @@ String basePath = request.getScheme() + "://"
 			  			<div class="col-md-4">
 			  				<label>名額限制：</label>
 			  				<input width="120px" value="${courseSetting.qty }" name="qty" type="text" ltype="int" />
+			  			</div>
+			  		</div>
+			  		<div class="inline-group row max-width-group-300 label-width-100">
+			  			<div class="col-md-4">
+			  				<label>课程設定日期：</label>
+			  				<input width="120px" value="${courseSetting.settingDate_str }" name="settingDate" type="text" ltype="date" />
+			  			</div>
+			  			<div class="col-md-4">
+			  				<label>課時：</label>
+			  				<input width="120px" value="${courseSetting.classHour }" name="classHour" type="text" ltype="text" />
+			  			</div>
+			  			<div class="col-md-4">
+			  				<label>課程簡介：</label>
+			  				<input width="120px" value="${courseSetting.classNote }" name="classNote" type="text" ltype="text" />
+			  			</div>
+			  		</div>
+			  		<div class="inline-group row max-width-group-300 label-width-100">
+			  			<div class="col-md-4">
+			  				<label>備註：</label>
+			  				<input width="120px" value="${courseSetting.note }" name="note" type="text" ltype="text" />
 			  			</div>
 			  		</div>
 		  		</div>

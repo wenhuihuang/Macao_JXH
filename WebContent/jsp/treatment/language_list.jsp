@@ -34,7 +34,6 @@ String basePath = request.getScheme() + "://"
         function modifyRow(){
         	var treatmentID = getRowCell(maingrid,"treatmentID");
         	var custID = getRowCell(maingrid,"custID");
-        	alert(custID+"=custID");
         	if(treatmentID!="" && treatmentID!=null){
 	        	location.href = "Treatment/edit.do?treatmentType=1&treatmentID="+treatmentID+"&custID="+custID;        		
         	}
@@ -42,7 +41,6 @@ String basePath = request.getScheme() + "://"
         function deleteRow(){
         	var treatmentID = getRowCell(maingrid,"treatmentID");
         	var custID = getRowCell(maingrid,"custID");
-        	alert(treatmentID)
       		if(confirm("是否刪除？")){
      			$.ajax({
          			type:"post",
@@ -66,7 +64,7 @@ String basePath = request.getScheme() + "://"
         
         $(function ()
         {
-        	setTabTitle(parent.$("#framecenter"),"語言治療列表") 
+        	/* setTabTitle(parent.$("#framecenter"),"語言治療列表")  */
         	
             var isMemberData = [{isMember:0,text:'非會員'},{isMember:1,text:'會員'}];
             var serviceStatusData = [{serviceStatus:0,text:'沒有服務'},{serviceStatus:1,text:'服務中'},{serviceStatus:2,text:'服務完成'}];

@@ -3,18 +3,12 @@ package com.jxh.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fg.utils.ToolsUtils;
+
 import java.math.*;
+import java.text.ParseException;
 
-
-/** CourseSetting
-
-courseID,courseNO,courseName,beginDate,endDate,courseDate,place,leader,assistant,pay,qty,note,classHour,classNote
-?,?,?,?,?,?,?,?,?,?,?,?,?,?
-
-courseSetting.courseID,courseSetting.courseNO,courseSetting.courseName,courseSetting.beginDate,courseSetting.endDate,courseSetting.courseDate,courseSetting.place,courseSetting.leader,courseSetting.assistant,courseSetting.pay,courseSetting.qty,courseSetting.note,courseSetting.classHour,courseSetting.classNote
-
-courseID=?,courseNO=?,courseName=?,beginDate=?,endDate=?,courseDate=?,place=?,leader=?,assistant=?,pay=?,qty=?,note=?,classHour=?,classNote=?
-*/
 public class CourseSettingPojo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String courseID;
@@ -31,11 +25,13 @@ public class CourseSettingPojo implements Serializable {
 	private String note;
 	private String classHour;
 	private String classNote;
+	private Date settingDate;
+	private String settingDate_str;
 
 	public CourseSettingPojo(){
 		super();
 	}
-	public CourseSettingPojo(String courseID, String courseNO, String courseName, Date beginDate, Date endDate, Date courseDate, String place, String leader, String assistant, BigDecimal pay, int qty, String note, String classHour, String classNote ){
+	public CourseSettingPojo(String courseID, String courseNO, String courseName, Date beginDate, Date endDate, Date courseDate, String place, String leader, String assistant, BigDecimal pay, int qty, String note, String classHour, String classNote,Date settingDate,String settingDate_str ){
 		super();
 		this.courseID=courseID;
 		this.courseNO=courseNO;
@@ -51,6 +47,8 @@ public class CourseSettingPojo implements Serializable {
 		this.note=note;
 		this.classHour=classHour;
 		this.classNote=classNote;
+		this.settingDate=settingDate;
+		this.settingDate_str=settingDate_str;
 	}
 	public void setCourseID(String courseID){
 		this.courseID=courseID;
@@ -136,9 +134,30 @@ public class CourseSettingPojo implements Serializable {
 	public String getClassNote(){
 		return classNote;
 	}
+	public Date getSettingDate() {
+		return settingDate;
+	}
+
+	public void setSettingDate(Date settingDate) {
+		this.settingDate = settingDate;
+	}
+
+	public String getSettingDate_str() {
+		try {
+			return settingDate == null || "".equals(settingDate) ? ""
+					: ToolsUtils.getDateStringByFormat(settingDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public void setSettingDate_str(String settingDate_str) {
+		this.settingDate_str = settingDate_str;
+	}
 	@Override
 	public String toString(){
-		return "CourseSetting [courseID="+courseID+",courseNO="+courseNO+",courseName="+courseName+",beginDate="+beginDate+",endDate="+endDate+",courseDate="+courseDate+",place="+place+",leader="+leader+",assistant="+assistant+",pay="+pay+",qty="+qty+",note="+note+",classHour="+classHour+",classNote="+classNote+"]";
+		return "CourseSetting [courseID="+courseID+",courseNO="+courseNO+",courseName="+courseName+",beginDate="+beginDate+",endDate="+endDate+",courseDate="+courseDate+",place="+place+",leader="+leader+",assistant="+assistant+",pay="+pay+",qty="+qty+",note="+note+",classHour="+classHour+",classNote="+classNote+",settingDate="+settingDate+",settingDate_str="+settingDate_str+"]";
 	}
 }
 

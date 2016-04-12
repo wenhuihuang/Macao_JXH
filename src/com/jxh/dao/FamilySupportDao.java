@@ -13,6 +13,8 @@ import com.jxh.vo.FamilySupport;
 
 public class FamilySupportDao extends DaoImpl{
 
+	private FamilySupportApplyDao familySupportApplyDao = new FamilySupportApplyDao();
+	private FamilySupportRecordDao familySupportRecordDao = new FamilySupportRecordDao();
 	@Override
 	protected String getSqlPropertiesPath() {
 		return "/sqls/Macao_JXH/familysupport.properties";
@@ -35,6 +37,12 @@ public class FamilySupportDao extends DaoImpl{
 		Integer count = (Integer) this.findElement(getCountSql(sql), params);
 		page.setRowCount(count);
 		List<FamilySupportPojo> familySupportPojos = this.findForList(sql, params);
+		for(int i = 0; i<familySupportPojos.size();i++){
+			int applyTotal = familySupportApplyDao.getApplyTotal(familySupportPojos.get(i).getSupportID());
+			familySupportPojos.get(i).setApplyTotal(applyTotal);
+			int participationTotal = familySupportRecordDao.getParticipationTotal(familySupportPojos.get(i).getSupportID());
+			familySupportPojos.get(i).setParticipationTotal(participationTotal);
+		}
 		page.setList(familySupportPojos);
 		
 		return page;

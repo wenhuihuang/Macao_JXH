@@ -626,11 +626,16 @@ String basePath = request.getScheme() + "://"
 				<input type="text" ltype="text" width="120px" name="address" value="${familySupport.address }">
 			</div>
 			<div class="col-md-3">
-				<label>支援負責人：</label>
-				<input type="text" ltype="text" width="120px" name="principal" value="${familySupport.principal }">
+				<label>贊助機構：</label>
+				<input type="text" ltype="text" width="120px" name="org" value="${familySupport.org }">
 			</div>
 		</div>
 		<div class="inline-group row max-width-group-300 label-width-100">
+			<div class="col-md-3">
+				<label>支援負責人：</label>
+				<input type="text" ltype="text" width="120px" name="principal" value="${familySupport.principal }">
+			</div>
+	
 			<div class="col-md-3">
 				<label>登記資料人：</label>
 				<input type="text" ltype="text" width="120px" name="registrant" value="${familySupport.registrant }">

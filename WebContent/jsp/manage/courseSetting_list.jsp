@@ -33,7 +33,6 @@ String basePath = request.getScheme() + "://"
         
         function modifyRow(){
         	var courseID = getRowCell(maingrid,"courseID");
-        	alert("courseID="+courseID)
         	if(courseID!="" && courseID!=null){
 	        	location.href = "CourseSetting/edit.do?courseID="+courseID;        		
         	}
@@ -63,7 +62,7 @@ String basePath = request.getScheme() + "://"
         
         $(function ()
         {
-        	setTabTitle(parent.$("#framecenter"),"課程設置列表") 
+        	/* setTabTitle(parent.$("#framecenter"),"課程設置列表")  */
         	
         	
             var columns = [

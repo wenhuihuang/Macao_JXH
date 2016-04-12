@@ -21,7 +21,7 @@ public class MedicalRecordView implements Serializable {
 	private String recordID;
 	private Date billDate;
 	private String project;
-	private Date releaseDate;
+	private String releaseDate;
 	private String handler;
 	private int mentalitySober;
 	private int mentalityLethargy;
@@ -42,7 +42,7 @@ public class MedicalRecordView implements Serializable {
 	public MedicalRecordView(){
 		super();
 	}
-	public MedicalRecordView(int viewID, String recordID, Date billDate, String project, Date releaseDate, String handler, int mentalitySober, int mentalityLethargy, int mentalityUneasy, int heartLungBreathe, int heartLungAnhelation, int bloodWarmth, int bloodRuddy, int bloodFrozen, int bloodPallor, int bloodBruise, int bloodDe, int skinFull, int skinDamaged, int nerveDiscomfort, int nerveParalysis ){
+	public MedicalRecordView(int viewID, String recordID, Date billDate, String project, String releaseDate, String handler, int mentalitySober, int mentalityLethargy, int mentalityUneasy, int heartLungBreathe, int heartLungAnhelation, int bloodWarmth, int bloodRuddy, int bloodFrozen, int bloodPallor, int bloodBruise, int bloodDe, int skinFull, int skinDamaged, int nerveDiscomfort, int nerveParalysis ){
 		super();
 		this.viewID=viewID;
 		this.recordID=recordID;
@@ -90,10 +90,10 @@ public class MedicalRecordView implements Serializable {
 	public String getProject(){
 		return project;
 	}
-	public void setReleaseDate(Date releaseDate){
+	public void setReleaseDate(String releaseDate){
 		this.releaseDate=releaseDate;
 	}
-	public Date getReleaseDate(){
+	public String getReleaseDate(){
 		return releaseDate;
 	}
 	public void setHandler(String handler){

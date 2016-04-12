@@ -113,7 +113,12 @@ public class TreatmentSerlvet extends FGServlet {
 	private void list(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException{
 		PageUtils<TreatmentPojo> page = this.getPage(request);
 		String treatmentType = request.getParameter("treatmentType");
-		treatmentDao.getTreatmentPojo(page," and treatmentType="+treatmentType);
+		if("5".equals(treatmentType)){
+			treatmentDao.getTreatmentFnPojo(page," and treatmentType="+treatmentType);
+		}else{
+			treatmentDao.getTreatmentPojo(page," and treatmentType="+treatmentType);	
+		}
+		
 		LigerUITools.writeGridJson(page, response);
 	}
 	

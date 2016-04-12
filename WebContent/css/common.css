@@ -129,6 +129,9 @@ table.td-padding10 tbody td {
 .padding15 label{
 	padding:0 15px;
 }
+#site-wrap{
+	margin-bottom:10px;
+}
 #site-wrap div i,#site-wrap div a,#sitew-wrap div div{
 	display:inline-block;
 	vertical-align: middle;
@@ -139,7 +142,7 @@ table.td-padding10 tbody td {
     margin: 5px 0;
     margin-left:4px;
     display: block;
-    border-top: 16px solid #707D5E;
+    border-top: 16px solid #FFAD00;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
     border-bottom: 0px solid transparent;
@@ -148,7 +151,7 @@ table.td-padding10 tbody td {
 	border-radius: 10px;
     width: 20px;
     height: 20px;
-    border: 1px solid red;
+    border: 1px solid #FFAD00;
     text-align: center;
     line-height: 20px;
     font-style:normal;
@@ -228,4 +231,12 @@ a.l-link{
 }
 .padding-left-both-10{
 	padding:0 10px;
+}
+.site-del{
+	background:#FF6C00;
+	color:#fff;
+}
+.site-add{
+	background:#80D07C;
+	color:#fff;
 }

@@ -24,9 +24,9 @@ String basePath = request.getScheme() + "://"
 		
 		var medicalRecordFamilyDataGridColumn = [
 									{ display: 'familyID', name: 'familyID', hide:true },
-				                    { display: '關係', name: 'relationShip', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '病史', name: 'historyNote', width: 100 ,type:"text",editor: { type: 'text'}},
-				                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
+				                    { display: '關係', name: 'relationShip', minWidth: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '病史', name: 'historyNote', minWidth: 100 ,type:"text",editor: { type: 'text'}},
+				                    { display: '備註', name: 'note',minWidth:300, type:"text", editor: { type: 'text'}}
 				                  ];
 				
 				
@@ -169,7 +169,7 @@ String basePath = request.getScheme() + "://"
 			                				                        }	
 																}
 			                                                ]},
-			                    { display: '鬆解時間', name: 'releaseDate',width:120, type:"date", editor: { type: 'date'}},
+			                    { display: '鬆解時間', name: 'releaseDate',width:120, type:"text", editor: { type: 'text'}},
 			                    { display: '觀察者簽名', name: 'handler',width:120, type:"text", editor: { type: 'text'}},
 			                  ];
 			
@@ -219,11 +219,11 @@ function deleteMedicalRecordViewData(){
 	}
     
 	$(function(){
-		if($("#recordID").val() != "" && $("#recordID").val() != 'null' && $("#recordID").val() != 'undefined'){
+	/* 	if($("#recordID").val() != "" && $("#recordID").val() != 'null' && $("#recordID").val() != 'undefined'){
 			setTabTitle(parent.$("#framecenter"),"醫護記錄編輯")
 		}else{
 			setTabTitle(parent.$("#framecenter"),"醫護記錄新增")
-		}
+		} */
 		
 		$(".toptoolbar").ligerToolBar({ items: [
             { text: '保存', click: itemclick, icon: 'save' , id:"save" },
@@ -272,7 +272,7 @@ function deleteMedicalRecordViewData(){
 	
 	<div id="tab">
 		  	<div title="學員個人健康資料" tabid="personageData">
-				<table>
+				<table style="margin:10px 0;">
 					<tbody>
 			            <tr>
 			                <td align="right" class="l-table-edit-td">姓名：</td>
@@ -286,10 +286,16 @@ function deleteMedicalRecordViewData(){
 			              </tr>
 					</tbody>
 				</table>
-				<div id="medicalRecordFamilyDataGrid"></div>
-				<div class="inline-group">
-					<label>個人病史</label>
-					<div class="checkbox-group padding15">
+				<div class="panel panel-default">
+					<div class="panel-heading">家族病史</div>
+					<div class="panel-body">
+						<div id="medicalRecordFamilyDataGrid"></div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">個人病史</div>
+					<div class="panel-body">
+							<div class="checkbox-group padding15">
 						<p>
 						<label><input type="checkbox" class="history" value="0">糖尿病 </label>
    						<label><input type="checkbox" class="history" value="1">高血壓</label>
@@ -324,33 +330,35 @@ function deleteMedicalRecordViewData(){
    						<label><input type="checkbox" class="history" value="20">自閉症 </label>
 						</p>
 					</div>
-				</div>
-				<div class="inline-group">
-					<label style="width:75px;text-align:right;">遺傳病 ：</label>
-					<textarea rows="2" cols="55" name="genetic" >${medicalRecord.genetic }</textarea>
-				</div>
-				<div class="inline-group">
-					<label style="width:75px;text-align:right;">其他 ：</label>
-					<textarea rows="2" cols="55" name="geneticOther">${medicalRecord.geneticOther }</textarea>
-				</div>
-				
-				<div class="inline-group">
-					<label style="width:75px;text-align:right;">嗜好：</label>
-					<div class="checkbox-group">
-						<label><input type="checkbox" class="hobby" value="0" >嗜酒</label>
-   						<label><input type="checkbox" class="hobby" value="1" >吸煙</label>
-   						<label><input type="checkbox" class="hobby" value="2" >毒品</label>
-   						<label><input type="checkbox" class="hobby" value="3" >藥物 </label>
+					<div class="inline-group">
+						<label style="width:75px;text-align:right;">遺傳病 ：</label>
+						<textarea rows="2" cols="55" name="genetic" >${medicalRecord.genetic }</textarea>
+					</div>
+					<div class="inline-group">
+						<label style="width:75px;text-align:right;">其他 ：</label>
+						<textarea rows="2" cols="55" name="geneticOther">${medicalRecord.geneticOther }</textarea>
+					</div>
 					</div>
 				</div>
-				<div class="inline-group">
-					<label style="width:75px;text-align:right;">其他：</label>
-					<textarea rows="2" cols="55" name="hobbyNote" >${medicalRecord.hobbyNote }</textarea>
+				<div class="panel panel-default">
+					<div class="panel-heading">嗜好</div>
+					<div class="panel-body">
+						<div class="checkbox-group">
+							<label><input type="checkbox" class="hobby" value="0" >嗜酒</label>
+	   						<label><input type="checkbox" class="hobby" value="1" >吸煙</label>
+	   						<label><input type="checkbox" class="hobby" value="2" >毒品</label>
+	   						<label><input type="checkbox" class="hobby" value="3" >藥物 </label>
+						</div>
+						<div class="inline-group">
+							<label style="text-align:right;">其他：</label>
+							<textarea rows="2" cols="55" name="hobbyNote" >${medicalRecord.hobbyNote }</textarea>
+						</div>
+					</div>
 				</div>
-		  	<div class="inline-group">
-		  		<label>過敏病史：</label>
-		  		<div>
-		  			<div class="inline-group">
+				<div class="panel panel-default">
+					<div class="panel-heading">過敏病史</div>
+					<div class="panel-body">
+						<div class="inline-group">
 		  				<label>藥物過敏史注明：</label>
 		  				<textarea rows="2" cols="55" name="medicineNote" >${medicalRecord.medicineNote }</textarea>
 		  			</div>
@@ -358,8 +366,9 @@ function deleteMedicalRecordViewData(){
 		  				<label>食物過敏史注明：</label>
 		  				<textarea rows="2" cols="55" name="foodNote" >${medicalRecord.foodNote }</textarea>
 		  			</div>
-		  		</div>
-		  	</div>
+					</div>
+				</div>
+				
 		  	</div>
 		  	<div tabid="recordData" title="約束觀察記錄">
 		  		<div style="padding:10px 0;">

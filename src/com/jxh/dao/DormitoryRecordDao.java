@@ -27,7 +27,6 @@ public class DormitoryRecordDao extends DaoImpl {
 		Integer count = (Integer) this.findElement(getCountSql(sql), params);
 		page.setRowCount(count);
 		List<DormitoryRecordPojo> dormitoryRecordPojos = this.findForList(sql, params);
-		System.out.println("dormitoryRecordPojos="+dormitoryRecordPojos);
 		page.setList(dormitoryRecordPojos);
 		
 		return page;

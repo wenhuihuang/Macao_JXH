@@ -149,11 +149,11 @@ String basePath = request.getScheme() + "://"
 	}
     
 	$(function(){
-		if($("#recordID").val() != "" && $("#recordID").val() != 'null' && $("#recordID").val() != 'undefined'){
+	/* 	if($("#recordID").val() != "" && $("#recordID").val() != 'null' && $("#recordID").val() != 'undefined'){
 			setTabTitle(parent.$("#framecenter"),"小組記錄編輯")
 		}else{
 			setTabTitle(parent.$("#framecenter"),"小組記錄新增")
-		}
+		} */
 		
 		$(".toptoolbar").ligerToolBar({ items: [
             { text: '保存', click: itemclick, icon: 'save' , id:"save" },
@@ -278,6 +278,10 @@ String basePath = request.getScheme() + "://"
 			  		<div class="inline-group">
 			  			<label>預計參與學員：</label>
 			  			<textarea rows="2" cols="55" name="custs" >${groupSettingRecord.custs }</textarea>
+			  		</div>
+			  		<div class="inline-group">
+			  			<label>備註：</label>
+			  			<textarea rows="2" cols="55" name="note" >${groupSettingRecord.note }</textarea>
 			  		</div>
 		  		</div>
 		  		<div style="padding:8px 0;">

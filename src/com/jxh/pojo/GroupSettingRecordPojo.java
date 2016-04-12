@@ -20,6 +20,7 @@ public class GroupSettingRecordPojo implements Serializable {
 	private String custs;
 	private String configuration;
 	private String summary;
+	private String note;
 	
 	private String gSNO;
 	private String groupName;
@@ -29,7 +30,7 @@ public class GroupSettingRecordPojo implements Serializable {
 		super();
 	}
 	public GroupSettingRecordPojo(String recordID, String gSID, Date beginDate, Date endDate, String leader, int qty, String place, String device, String custs, String configuration, String summary,
-								String gSNO,String groupName,String target){
+								String gSNO,String groupName,String target,String note){
 		super();
 		this.recordID=recordID;
 		this.gSID=gSID;
@@ -45,6 +46,7 @@ public class GroupSettingRecordPojo implements Serializable {
 		this.groupName=groupName;
 		this.target=target;
 		this.gSNO=gSNO;
+		this.note=note;
 	}
 	public void setRecordID(String recordID){
 		this.recordID=recordID;
@@ -130,10 +132,16 @@ public class GroupSettingRecordPojo implements Serializable {
 	public void setgSNO(String gSNO) {
 		this.gSNO = gSNO;
 	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
 	@Override
 	public String toString(){
 		return "GroupSettingRecord [recordID="+recordID+",gSID="+gSID+",beginDate="+beginDate+",endDate="+endDate+",leader="+leader+",qty="+qty+",place="+place+",device="+device+",custs="+custs+",configuration="+configuration+",summary="+summary+
-				",groupName="+groupName+",target="+target+",gSNO="+gSNO+"]";
+				",groupName="+groupName+",target="+target+",gSNO="+gSNO+",note="+note+"]";
 	}
 }
 

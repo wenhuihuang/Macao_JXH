@@ -63,18 +63,18 @@ String basePath = request.getScheme() + "://"
         
         $(function ()
         {
-        	setTabTitle(parent.$("#framecenter"),"醫護列表") 
+        	/* setTabTitle(parent.$("#framecenter"),"醫護列表")  */
         	
-            var isMemberData = [{isMember:0,text:'非會員'},{isMember:1,text:'會員'}];
+            var custTypeData = [{custType:0,text:'非會員'},{custType:1,text:'會員'},{custType:2,text:'會員'}];
             var serviceStatusData = [{serviceStatus:0,text:'沒有服務'},{serviceStatus:1,text:'服務中'},{serviceStatus:2,text:'服務完成'}];
         	
             var columns = [
     	                { display: '姓名', name: 'fullName', minWidth: 100 },
-    	                { display: '會員/非會員', name: 'isMember',width:70 
-    	                	,editor: { data: isMemberData, valueField: 'isMember' },
+    	                { display: '會員/非會員', name: 'custType',width:70 
+    	                	,editor: { data: custTypeData, valueField: 'custType' },
 	                        render: function (item)
 	                        {
-	                        	return getGridSelectedData(isMemberData[parseInt(item.isMember)]);
+	                        	return getGridSelectedData(custTypeData[parseInt(item.custType)]);
 	                        } },
     	                { display: '會員編號', name: 'custNO', minWidth: 140 },
     	                { display: '非會員編號', name: 'custNewNO', minWidth: 140 }

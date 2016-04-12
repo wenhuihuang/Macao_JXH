@@ -34,11 +34,11 @@ String basePath = request.getScheme() + "://"
 	}
     
 	$(function(){
-		if($("#carID").val() != "" && $("#carID").val() != 'null' && $("#carID").val() != 'undefined'){
+/* 		if($("#carID").val() != "" && $("#carID").val() != 'null' && $("#carID").val() != 'undefined'){
 			setTabTitle(parent.$("#framecenter"),"校車設置編輯")
 		}else{
 			setTabTitle(parent.$("#framecenter"),"校車設置新增")
-		}
+		} */
 		
 		$(".toptoolbar").ligerToolBar({ items: [
             { text: '保存', click: itemclick, icon: 'save' , id:"save" },

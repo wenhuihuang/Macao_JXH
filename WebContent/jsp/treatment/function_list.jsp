@@ -65,7 +65,7 @@ String basePath = request.getScheme() + "://"
         
         $(function ()
         {
-        	setTabTitle(parent.$("#framecenter"),"職能訓練列表") 
+        	/* setTabTitle(parent.$("#framecenter"),"職能訓練列表")  */
         	
             var isMemberData = [{isMember:0,text:'非會員'},{isMember:1,text:'會員'}];
         	 var caseStatusData = [{caseStatus:0,text:'跟進'},{caseStatus:1,text:'結案'},{caseStatus:2,text:'轉介'}];

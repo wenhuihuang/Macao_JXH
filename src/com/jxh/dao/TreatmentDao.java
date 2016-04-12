@@ -33,6 +33,20 @@ public class TreatmentDao extends DaoImpl {
 		
 		return page;
 	}
+	
+	public PageUtils<TreatmentPojo> getTreatmentFnPojo(PageUtils<TreatmentPojo> page,String condition,Object...params) throws IOException, SQLException{
+		clazz = TreatmentPojo.class;
+		//获取SQL
+		condition = condition ==null?"":condition;
+		String sql = getSqlByPropKey(ToolsUtils.getCurrentMethodName())+condition;
+		//获取总页数
+		Integer count = (Integer) this.findElement(getCountSql(sql), params);
+		page.setRowCount(count);
+		List<TreatmentPojo> languageTreatmentPojos = this.findForList(sql, params);
+		page.setList(languageTreatmentPojos);
+		
+		return page;
+	}
 
 	public TreatmentPojo getTreatmentPojoByCondition(String condition, Object...params) throws IOException, SQLException {
 		clazz = TreatmentPojo.class;

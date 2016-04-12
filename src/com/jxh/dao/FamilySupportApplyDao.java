@@ -135,5 +135,10 @@ public class FamilySupportApplyDao extends DaoImpl{
 		return this.update(sql, supportID);
 	}
 	
-	
+	public int getApplyTotal(String supportID) throws IOException, SQLException {
+		String sql = "select sum(total) from FamilySupportApply WHERE SupportID=? ";//this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		
+
+		return this.query(sql, supportID);
+	}
 }

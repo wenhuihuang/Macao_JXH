@@ -12,12 +12,12 @@ import java.text.ParseException;
 
 /** DormitoryTrainingADPlan
 
-aPlanID,recordID,beginDate,endDate,handler
+aPlanID,recordID,beginDate,endDate,charge
 ?,?,?,?,?
 
-dormitoryTrainingADPlan.aPlanID,dormitoryTrainingADPlan.recordID,dormitoryTrainingADPlan.beginDate,dormitoryTrainingADPlan.endDate,dormitoryTrainingADPlan.handler
+dormitoryTrainingADPlan.aPlanID,dormitoryTrainingADPlan.recordID,dormitoryTrainingADPlan.beginDate,dormitoryTrainingADPlan.endDate,dormitoryTrainingADPlan.charge
 
-aPlanID=?,recordID=?,beginDate=?,endDate=?,handler=?
+aPlanID=?,recordID=?,beginDate=?,endDate=?,charge=?
 */
 public class DormitoryTrainingADPlan implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -25,7 +25,7 @@ public class DormitoryTrainingADPlan implements Serializable {
 	private String recordID;
 	private Date beginDate;
 	private Date endDate;
-	private String handler;
+	private String charge;
 	
 	private String beginDate_str;
 	private String endDate_str;
@@ -33,14 +33,14 @@ public class DormitoryTrainingADPlan implements Serializable {
 	public DormitoryTrainingADPlan(){
 		super();
 	}
-	public DormitoryTrainingADPlan(String aPlanID, String recordID, Date beginDate, Date endDate, String handler ,
+	public DormitoryTrainingADPlan(String aPlanID, String recordID, Date beginDate, Date endDate, String charge ,
 								String beginDate_str,String endDate_str){
 		super();
 		this.aPlanID=aPlanID;
 		this.recordID=recordID;
 		this.beginDate=beginDate;
 		this.endDate=endDate;
-		this.handler=handler;
+		this.charge=charge;
 		this.beginDate_str=beginDate_str;
 		this.endDate_str=endDate_str;
 	}
@@ -68,11 +68,11 @@ public class DormitoryTrainingADPlan implements Serializable {
 	public Date getEndDate(){
 		return endDate;
 	}
-	public void setHandler(String handler){
-		this.handler=handler;
+	public void setCharge(String charge){
+		this.charge=charge;
 	}
-	public String getHandler(){
-		return handler;
+	public String getCharge(){
+		return charge;
 	}
 	public String getBeginDate_str() {
 		try {
@@ -100,7 +100,7 @@ public class DormitoryTrainingADPlan implements Serializable {
 	}
 	@Override
 	public String toString(){
-		return "DormitoryTrainingADPlan [aPlanID="+aPlanID+",recordID="+recordID+",beginDate="+beginDate+",endDate="+endDate+",handler="+handler+
+		return "DormitoryTrainingADPlan [aPlanID="+aPlanID+",recordID="+recordID+",beginDate="+beginDate+",endDate="+endDate+",charge="+charge+
 				",beginDate_str="+beginDate_str+",endDate_str="+endDate_str+"]";
 	}
 }

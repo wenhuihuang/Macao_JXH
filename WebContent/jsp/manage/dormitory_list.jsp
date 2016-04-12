@@ -44,11 +44,11 @@ String basePath = request.getScheme() + "://"
         	var aPlanID = getRowCell(maingrid,"aPlanID");
         	var tRecordID = getRowCell(maingrid,"tRecordID");
         	var reviewID = getRowCell(maingrid,"reviewID");
-        	alert("recordID="+recordID)
+/*         	alert("recordID="+recordID)
         	alert("aPlanID="+aPlanID)
         	alert("tRecordID="+tRecordID)
         	alert("reviewID="+reviewID)
-      		if(confirm("是否刪除？")){
+ */      		if(confirm("是否刪除？")){
      			$.ajax({
          			type:"post",
          			url:"Dormitory/deleteDormitoryRecord.do",
@@ -71,7 +71,7 @@ String basePath = request.getScheme() + "://"
         
         $(function ()
         {
-        	setTabTitle(parent.$("#framecenter"),"院舍記錄列表") 
+        	/* setTabTitle(parent.$("#framecenter"),"院舍記錄列表")  */
         	
             var isMemberData = [{isMember:0,text:'非會員'},{isMember:1,text:'會員'}];
             var recordTypeData = [{recordType:0,text:'輪候'},{recordType:1,text:'入住'},{recordType:2,text:'離開'}];

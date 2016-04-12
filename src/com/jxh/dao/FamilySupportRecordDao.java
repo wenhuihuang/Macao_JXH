@@ -95,6 +95,9 @@ public class FamilySupportRecordDao extends DaoImpl{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		return this.update(sql, supportID);
 	}
-	
+	public int getParticipationTotal(String supportID) throws IOException, SQLException {
+		String sql = "select sum(sum) from FamilySupportRecord WHERE SupportID=? ";//this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		return this.query(sql, supportID);
+	}
 	
 }

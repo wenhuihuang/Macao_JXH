@@ -13,8 +13,8 @@ import java.text.ParseException;
  * 
  * supportID,supportName,expense1,expense2,expense3,expense4,time,way,onlineCan,
  * offlineCan,onlineThen,offlineThen,integral,isOnly,applyBDate,applyEDate,
- * supportBDate,supportEDate,address,principal,registrant,supportNO,note
- * ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
+ * supportBDate,supportEDate,address,principal,registrant,supportNO,note.org
+ * ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
  * 
  * familySupport.supportID,familySupport.supportName,familySupport.expense1,
  * familySupport.expense2,familySupport.expense3,familySupport.expense4,
@@ -23,12 +23,12 @@ import java.text.ParseException;
  * integral,familySupport.isOnly,familySupport.applyBDate,familySupport.
  * applyEDate,familySupport.supportBDate,familySupport.supportEDate,
  * familySupport.address,familySupport.principal,familySupport.registrant,
- * familySupport.supportNO,familySupport.note
+ * familySupport.supportNO,familySupport.note,familySupport.org
  * 
  * supportID=?,supportName=?,expense1=?,expense2=?,expense3=?,expense4=?,time=?,
  * way=?,onlineCan=?,offlineCan=?,onlineThen=?,offlineThen=?,integral=?,isOnly=?
  * ,applyBDate=?,applyEDate=?,supportBDate=?,supportEDate=?,address=?,principal=
- * ?,registrant=?,supportNO=?,note=?
+ * ?,registrant=?,supportNO=?,note=?,org=?
  */
 public class FamilySupport implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -55,6 +55,7 @@ public class FamilySupport implements Serializable {
 	private String registrant;
 	private String supportNO;
 	private String note;
+	private String org;
 
 	private String applyBDate_str;
 	private String applyEDate_str;
@@ -69,7 +70,8 @@ public class FamilySupport implements Serializable {
 			BigDecimal expense3, BigDecimal expense4, int time, String way, int onlineCan, int offlineCan,
 			int onlineThen, int offlineThen, String integral, int isOnly, Date applyBDate, Date applyEDate,
 			Date supportBDate, Date supportEDate, String address, String principal, String registrant, String supportNO,
-			String applyBDate_str, String applyEDate_str, String supportBDate_str, String supportEDate_str,String note) {
+			String applyBDate_str, String applyEDate_str, String supportBDate_str, String supportEDate_str, String note,
+			String org) {
 		super();
 		this.supportID = supportID;
 		this.supportName = supportName;
@@ -97,7 +99,8 @@ public class FamilySupport implements Serializable {
 		this.applyEDate_str = applyEDate_str;
 		this.supportBDate_str = supportBDate_str;
 		this.supportEDate_str = supportEDate_str;
-		this.note=note;
+		this.note = note;
+		this.org = org;
 	}
 
 	public void setSupportID(String supportID) {
@@ -340,6 +343,14 @@ public class FamilySupport implements Serializable {
 		this.note = note;
 	}
 
+	public String getOrg() {
+		return org;
+	}
+
+	public void setOrg(String org) {
+		this.org = org;
+	}
+
 	@Override
 	public String toString() {
 		return "FamilySupport [supportID=" + supportID + ",supportName=" + supportName + ",expense1=" + expense1
@@ -349,7 +360,8 @@ public class FamilySupport implements Serializable {
 				+ applyBDate + ",applyEDate=" + applyEDate + ",supportBDate=" + supportBDate + ",supportEDate="
 				+ supportEDate + ",address=" + address + ",principal=" + principal + ",registrant=" + registrant
 				+ ",supportNO=" + supportNO + ",applyBDate_str=" + applyBDate_str + ",applyEDate_str" + applyEDate_str
-				+ ",supportBDate_str=" + supportBDate_str + ",supportEDate_str=" + supportEDate_str + ",note="+note+ "]";
+				+ ",supportBDate_str=" + supportBDate_str + ",supportEDate_str=" + supportEDate_str + ",note=" + note
+				+ ",org=" + org + "]";
 	}
 
 }
