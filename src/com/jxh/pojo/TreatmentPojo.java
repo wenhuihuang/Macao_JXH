@@ -150,6 +150,8 @@ public class TreatmentPojo implements Serializable {
 	private String fullName;
 	private String isMember;
 	
+	private String custType;
+	
 	private String caseWorker;
 	private Date receiveDate;
 	private int caseStatus;
@@ -206,7 +208,7 @@ public class TreatmentPojo implements Serializable {
 								String assessDate_str,String closeDate_str,String caseWorker,int caseStatus,Date receiveDate,String receiveDate_str,
 								String diseaseHeredity, int communicationLevel, int selfLevel, int lifeLevel, int socialLevel, int recourceLevel, int guideLevel, int safetyLevel,
 								int fnLevel, int playLevel, int workerLevel, String supportPeople, String coldnessPeople, String connivePeople, String neglectPeople, String protectPeople,
-								String severePeople,String treatmentCategory,Date acceptDate,String acceptDate_str){
+								String severePeople,String treatmentCategory,Date acceptDate,String acceptDate_str,String custType){
 		super();
 		this.treatmentID=treatmentID;
 		this.treatmentType=treatmentType;
@@ -367,6 +369,8 @@ public class TreatmentPojo implements Serializable {
 		this.awaitDate_str=awaitDate_str;
 		this.assessDate_str=assessDate_str;
 		this.closeDate_str=closeDate_str;
+		
+		this.custType=custType;
 	}
 	public void setTreatmentID(String treatmentID){
 		this.treatmentID=treatmentID;
@@ -1399,6 +1403,13 @@ public class TreatmentPojo implements Serializable {
 	public void setAcceptDate_str(String acceptDate_str) {
 		this.acceptDate_str = acceptDate_str;
 	}
+	
+	public String getCustType() {
+		return custType;
+	}
+	public void setCustType(String custType) {
+		this.custType = custType;
+	}
 	@Override
 	public String toString(){
 		return "Treatment [treatmentID="+treatmentID+",treatmentType="+treatmentType+",custID="+custID+
@@ -1444,6 +1455,6 @@ public class TreatmentPojo implements Serializable {
 				",socialLevel="+socialLevel+",recourceLevel="+recourceLevel+",guideLevel="+guideLevel+",safetyLevel="+safetyLevel+",fnLevel="+fnLevel+",playLevel="+playLevel+
 				",workerLevel="+workerLevel+",supportPeople="+supportPeople+",coldnessPeople="+coldnessPeople+",connivePeople="+connivePeople+",neglectPeople="+neglectPeople+
 				",protectPeople="+protectPeople+",severePeople="+severePeople+",treatmentCategory="+treatmentCategory+
-				",acceptDate="+acceptDate+",acceptDate_str="+acceptDate_str+"]";
+				",acceptDate="+acceptDate+",acceptDate_str="+acceptDate_str+",custType="+custType+"]";
 	}
 }

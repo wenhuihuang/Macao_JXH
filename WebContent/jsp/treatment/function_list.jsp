@@ -67,17 +67,17 @@ String basePath = request.getScheme() + "://"
         {
         	/* setTabTitle(parent.$("#framecenter"),"職能訓練列表")  */
         	
-            var isMemberData = [{isMember:0,text:'非會員'},{isMember:1,text:'會員'}];
+             var custTypeData = [{custType:0,text:'非會員'},{custType:1,text:'會員'},{custType:2,text:'會員'}];
         	 var caseStatusData = [{caseStatus:0,text:'跟進'},{caseStatus:1,text:'結案'},{caseStatus:2,text:'轉介'}];
         	
             var columns = [
        	                { display: '檔案編號', name: 'treatmentNO', align: 'left', width: 100, minWidth: 60 },
     	                { display: '姓名', name: 'fullName', minWidth: 100 },
-    	                { display: '會員/非會員', name: 'isMember',width:70 
-    	                	,editor: { data: isMemberData, valueField: 'isMember' },
+    	                { display: '會員/非會員', name: 'custType',width:70 
+    	                	,editor: { data: custTypeData, valueField: 'custType' },
 	                        render: function (item)
 	                        {
-	                        	return getGridSelectedData(isMemberData[parseInt(item.isMember)]);
+	                        	return getGridSelectedData(custTypeData[parseInt(item.custType)]);
 	                        } },
     	                { display: '接案社工', name: 'caseWorker', width: 100, minWidth: 60 },
     	                { display: '接案日期', name: 'receiveDate', width: 100, minWidth: 60 },

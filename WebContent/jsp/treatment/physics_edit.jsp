@@ -217,11 +217,11 @@ String basePath = request.getScheme() + "://"
 	}
     
 	$(function(){
-		if($("#treatmentID").val() != "" && $("#treatmentID").val() != 'null' && $("#treatmentID").val() != 'undefined'){
+	/* 	if($("#treatmentID").val() != "" && $("#treatmentID").val() != 'null' && $("#treatmentID").val() != 'undefined'){
 			setTabTitle(parent.$("#framecenter"),"物理治療編輯")
 		}else{
 			setTabTitle(parent.$("#framecenter"),"物理治療新增")
-		}
+		} */
 		
 		$(".toptoolbar").ligerToolBar({ items: [
             { text: '保存', click: itemclick, icon: 'save' , id:"save" },

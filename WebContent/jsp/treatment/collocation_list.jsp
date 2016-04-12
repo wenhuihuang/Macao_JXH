@@ -65,19 +65,19 @@ String basePath = request.getScheme() + "://"
         
         $(function ()
         {
-        	setTabTitle(parent.$("#framecenter"),"暫托服務列表") 
+        /* 	setTabTitle(parent.$("#framecenter"),"暫托服務列表")  */
         	
-            var isMemberData = [{isMember:0,text:'非會員'},{isMember:1,text:'會員'}];
+            var custTypeData = [{custType:0,text:'非會員'},{custType:1,text:'會員'},{custType:2,text:'會員'}];
             var serviceStatusData = [{serviceStatus:0,text:'沒有服務'},{serviceStatus:1,text:'服務中'},{serviceStatus:2,text:'服務完成'}];
         	
             var columns = [
        	                { display: '託管服務編號', name: 'treatmentNO', align: 'left', width: 100, minWidth: 60 },
     	                { display: '姓名', name: 'fullName', minWidth: 100 },
-    	                { display: '會員/非會員', name: 'isMember',width:70 
-    	                	,editor: { data: isMemberData, valueField: 'isMember' },
+    	                { display: '會員/非會員', name: 'custType',width:70 
+    	                	,editor: { data: custTypeData, valueField: 'custType' },
 	                        render: function (item)
 	                        {
-	                        	return getGridSelectedData(isMemberData[parseInt(item.isMember)]);
+	                        	return getGridSelectedData(custTypeData[parseInt(item.custType)]);
 	                        } },
     	                { display: '申服務日期', name: 'applyDate', width: 100, minWidth: 60 },//暫時沒有寫
     	                { display: '評估日期', name: 'assessDate', minWidth: 140 },

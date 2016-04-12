@@ -30,13 +30,13 @@ String basePath = request.getScheme() + "://"
 		
 		var trainingFlowDataGridColumn = [
 									{ display: 'planID', name: 'planID', hide:true },
-				                    { display: '時間', name: 'billDate', width: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '生活日程', name: 'living', width: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '訓練項目', name: 'item', width: 100 ,type:"text",editor: { type: 'text'}},
-				                    { display: '訓練類別', name: 'type', width: 100 ,type:"text",editor: { type: 'text'}},
-				                    { display: '訓練內容', name: 'content', width: 150 ,type:"text",editor: { type: 'text'}},
-				                    { display: '訓練時數', name: 'time',width:300, type:"text", editor: { type: 'text'}},
-				                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
+				                    { display: '時間', name: 'billDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '生活日程', name: 'living', minWidth: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '訓練項目', name: 'item', minWidth: 100 ,type:"text",editor: { type: 'text'}},
+				                    { display: '訓練類別', name: 'type', minWidth: 100 ,type:"text",editor: { type: 'text'}},
+				                    { display: '訓練內容', name: 'content', minWidth: 150 ,type:"text",editor: { type: 'text'}},
+				                    { display: '訓練時數', name: 'time',minWidth:300, type:"text", editor: { type: 'text'}},
+				                    { display: '備註', name: 'note',minWidth:300, type:"text", editor: { type: 'text'}}
 				                  ];
 				
 				
@@ -282,9 +282,9 @@ String basePath = request.getScheme() + "://"
 	var budgetDataGridColumn =  [
 								{ display: 'financeID', name: 'financeID', hide:true },
 			                    { display: '收入項目', name: 'inItem', width: 100,type:"text",editor: { type: 'text' }},
-			                    { display: '收入金額', name: 'inMoney', width: 100,type:"text",editor: { type: 'text' }},
+			                    { display: '收入金額', name: 'inMoney', width: 100,type:"text",editor: { type: 'float' }},
 			                    { display: '支出項目', name: 'outItem', width: 100 ,type:"text",editor: { type: 'text'}},
-			                    { display: '支出金額', name: 'outMoney', width: 100 ,type:"text",editor: { type: 'text'}},
+			                    { display: '支出金額', name: 'outMoney', width: 100 ,type:"text",editor: { type: 'float'}},
 			                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
 			                  ];
 			
@@ -377,9 +377,9 @@ String basePath = request.getScheme() + "://"
 	var accountDataGridColumn = [
 								{ display: 'settleID', name: 'settleID', hide:true },
 			                    { display: '收入項目', name: 'inItem', width: 100,type:"text",editor: { type: 'text' }},
-			                    { display: '收入金額', name: 'inMoney', width: 100,type:"text",editor: { type: 'text' }},
+			                    { display: '收入金額', name: 'inMoney', width: 100,type:"text",editor: { type: 'float' }},
 			                    { display: '支出項目', name: 'outItem', width: 100 ,type:"text",editor: { type: 'text'}},
-			                    { display: '支出金額', name: 'outMoney', width: 100 ,type:"text",editor: { type: 'text'}},
+			                    { display: '支出金額', name: 'outMoney', width: 100 ,type:"text",editor: { type: 'float'}},
 			                    { display: '備註', name: 'note',width:300, type:"text", editor: { type: 'text'}}
 			                  ];
 			
@@ -828,15 +828,15 @@ String basePath = request.getScheme() + "://"
            		
            		<div class="inline-group">
            			<label style="width:120px;text-align:right;">個人事務：</label>
-               		<textarea rows="2" cols="55" name="task">${dormitoryTrainingReview.task }</textarea>
+               		<textarea rows="2" cols="55" name="taskR">${dormitoryTrainingReview.taskR }</textarea>
            		</div>
            		<div class="inline-group">
            			<label style="width:120px;text-align:right;">社區互動：</label>
-               		<textarea rows="2" cols="55" name="interactive" id="interactive">${dormitoryTrainingReview.interactive }</textarea>
+               		<textarea rows="2" cols="55" name="interactiveR" id="interactiveR">${dormitoryTrainingReview.interactiveR }</textarea>
            		</div>
            		<div class="inline-group">
            			<label style="width:120px;text-align:right;">休閒活動：</label>
-               		<textarea rows="2" cols="55" name="activity" id="activity">${dormitoryTrainingReview.activity }</textarea>
+               		<textarea rows="2" cols="55" name="activityR" id="activityR">${dormitoryTrainingReview.activityR }</textarea>
            		</div>
          
           	<div class="panel panel-default">

@@ -21,6 +21,7 @@ import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
 import com.jxh.biz.TreatmentBiz;
 import com.jxh.dao.BCustomerSchoolDao;
+import com.jxh.dao.CustCaseDao;
 import com.jxh.dao.CustomerDao;
 import com.jxh.dao.GroupDetailDao;
 import com.jxh.dao.GroupSettingRecordPerformanceDao;
@@ -41,6 +42,7 @@ import com.jxh.pojo.TreatmentPojo;
 import com.jxh.pojo.TreatmentAssessPojo;
 import com.jxh.pojo.TreatmentReportPojo;
 import com.jxh.utils.Constants;
+import com.jxh.vo.BCustCase;
 import com.jxh.vo.BCustomer;
 import com.jxh.vo.BCustomerSchool;
 import com.jxh.vo.CSSA;
@@ -78,6 +80,7 @@ public class TreatmentSerlvet extends FGServlet {
 	private TreatmentAssessDao treatmentAssessDao = new TreatmentAssessDao();
 	private TreatmentReportDao treatmentReportDao = new TreatmentReportDao();
 	private CustomerDao customerDao = new CustomerDao();
+	private CustCaseDao custCaseDao = new CustCaseDao();
 	private TreatmentBiz treatmentBiz = new TreatmentBiz();
 	private TreatmentTrainingDao treatmentTrainingDao = new TreatmentTrainingDao();
 	private TreatmentTrainingWorkDao treatmentTrainingWorkDao = new TreatmentTrainingWorkDao();
@@ -191,12 +194,14 @@ public class TreatmentSerlvet extends FGServlet {
 			}else if("4".equals(treatmentType)){
 				forwardDispatcher("../jsp/treatment/special_edit.jsp",request,response);
 			}else if("5".equals(treatmentType)){
+				CustCasePojo custCasePojo = custCaseDao.getCustCasePojoByCustId(" and custID = ? ",
+						this.getParameterByName(request, "custID"));
 				TreatmentTraining treatmentTraining = treatmentTrainingDao.getTreatmentTrainingByCondition(" and treatmentID = ? ",
 						this.getParameterByName(request,"treatmentID"));
 				TreatmentTrainingWork treatmentTrainingWork = treatmentTrainingWorkDao.getTreatmentTrainingWorkByCondition(" and treatmentID = ?  ",
 						this.getParameterByName(request,"treatmentID"));
 				
-				
+				request.setAttribute("custCasePojo",custCasePojo);
 				request.setAttribute("treatmentTraining", treatmentTraining);
 				request.setAttribute("treatmentTrainingWork", treatmentTrainingWork);
 				forwardDispatcher("../jsp/treatment/function_edit.jsp",request,response);

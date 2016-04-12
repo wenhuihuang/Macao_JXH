@@ -13,12 +13,12 @@ import java.math.*;
 
 /** DormitoryTrainingReview
 
-reviewID,recordID,workder,beginDate,endDate,beginWeek,beginNoon,endWeek,endNoon,task,interactive,activity,tTools,tReward,tAttention,tWorker,tWorkDate,tSuggest,tHandler,tHandleDate,tHandleSuggest,trainingNote,rTools,wholeReview,suggest,rWorker,rWorkDate,rSuggest,rHandler,rHandleDate,rHandleSuggest,groupNO
+reviewID,recordID,workder,beginDate,endDate,beginWeek,beginNoon,endWeek,endNoon,taskR,interactiveR,activityR,tTools,tReward,tAttention,tWorker,tWorkDate,tSuggest,tHandler,tHandleDate,tHandleSuggest,trainingNote,rTools,wholeReview,suggest,rWorker,rWorkDate,rSuggest,rHandler,rHandleDate,rHandleSuggest,groupNO
 ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
 
-dormitoryTrainingReview.reviewID,dormitoryTrainingReview.recordID,dormitoryTrainingReview.workder,dormitoryTrainingReview.beginDate,dormitoryTrainingReview.endDate,dormitoryTrainingReview.beginWeek,dormitoryTrainingReview.beginNoon,dormitoryTrainingReview.endWeek,dormitoryTrainingReview.endNoon,dormitoryTrainingReview.task,dormitoryTrainingReview.interactive,dormitoryTrainingReview.activity,dormitoryTrainingReview.tTools,dormitoryTrainingReview.tReward,dormitoryTrainingReview.tAttention,dormitoryTrainingReview.tWorker,dormitoryTrainingReview.tWorkDate,dormitoryTrainingReview.tSuggest,dormitoryTrainingReview.tHandler,dormitoryTrainingReview.tHandleDate,dormitoryTrainingReview.tHandleSuggest,dormitoryTrainingReview.trainingNote,dormitoryTrainingReview.rTools,dormitoryTrainingReview.wholeReview,dormitoryTrainingReview.suggest,dormitoryTrainingReview.rWorker,dormitoryTrainingReview.rWorkDate,dormitoryTrainingReview.rSuggest,dormitoryTrainingReview.rHandler,dormitoryTrainingReview.rHandleDate,dormitoryTrainingReview.rHandleSuggest,dormitoryTrainingReview.groupNO
+dormitoryTrainingReview.reviewID,dormitoryTrainingReview.recordID,dormitoryTrainingReview.workder,dormitoryTrainingReview.beginDate,dormitoryTrainingReview.endDate,dormitoryTrainingReview.beginWeek,dormitoryTrainingReview.beginNoon,dormitoryTrainingReview.endWeek,dormitoryTrainingReview.endNoon,dormitoryTrainingReview.taskR,dormitoryTrainingReview.interactiveR,dormitoryTrainingReview.activityR,dormitoryTrainingReview.tTools,dormitoryTrainingReview.tReward,dormitoryTrainingReview.tAttention,dormitoryTrainingReview.tWorker,dormitoryTrainingReview.tWorkDate,dormitoryTrainingReview.tSuggest,dormitoryTrainingReview.tHandler,dormitoryTrainingReview.tHandleDate,dormitoryTrainingReview.tHandleSuggest,dormitoryTrainingReview.trainingNote,dormitoryTrainingReview.rTools,dormitoryTrainingReview.wholeReview,dormitoryTrainingReview.suggest,dormitoryTrainingReview.rWorker,dormitoryTrainingReview.rWorkDate,dormitoryTrainingReview.rSuggest,dormitoryTrainingReview.rHandler,dormitoryTrainingReview.rHandleDate,dormitoryTrainingReview.rHandleSuggest,dormitoryTrainingReview.groupNO
 
-reviewID=?,recordID=?,workder=?,beginDate=?,endDate=?,beginWeek=?,beginNoon=?,endWeek=?,endNoon=?,task=?,interactive=?,activity=?,tTools=?,tReward=?,tAttention=?,tWorker=?,tWorkDate=?,tSuggest=?,tHandler=?,tHandleDate=?,tHandleSuggest=?,trainingNote=?,rTools=?,wholeReview=?,suggest=?,rWorker=?,rWorkDate=?,rSuggest=?,rHandler=?,rHandleDate=?,rHandleSuggest=?,groupNO=?
+reviewID=?,recordID=?,workder=?,beginDate=?,endDate=?,beginWeek=?,beginNoon=?,endWeek=?,endNoon=?,taskR=?,interactiveR=?,activityR=?,tTools=?,tReward=?,tAttention=?,tWorker=?,tWorkDate=?,tSuggest=?,tHandler=?,tHandleDate=?,tHandleSuggest=?,trainingNote=?,rTools=?,wholeReview=?,suggest=?,rWorker=?,rWorkDate=?,rSuggest=?,rHandler=?,rHandleDate=?,rHandleSuggest=?,groupNO=?
 */
 public class DormitoryTrainingReview implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -31,9 +31,9 @@ public class DormitoryTrainingReview implements Serializable {
 	private int beginNoon;
 	private int endWeek;
 	private int endNoon;
-	private String task;
-	private String interactive;
-	private String activity;
+	private String taskR;
+	private String interactiveR;
+	private String activityR;
 	private String tTools;
 	private String tReward;
 	private String tAttention;
@@ -65,7 +65,7 @@ public class DormitoryTrainingReview implements Serializable {
 	public DormitoryTrainingReview(){
 		super();
 	}
-	public DormitoryTrainingReview(String reviewID, String recordID, String workder, Date beginDate, Date endDate, int beginWeek, int beginNoon, int endWeek, int endNoon, String task, String interactive, String activity, String tTools, String tReward, String tAttention, String tWorker, Date tWorkDate, String tSuggest, String tHandler, Date tHandleDate, String tHandleSuggest, String trainingNote, String rTools, String wholeReview, String suggest, String rWorker, Date rWorkDate, String rSuggest, String rHandler, Date rHandleDate, String rHandleSuggest, String groupNO,
+	public DormitoryTrainingReview(String reviewID, String recordID, String workder, Date beginDate, Date endDate, int beginWeek, int beginNoon, int endWeek, int endNoon, String taskR, String interactiveR, String activityR, String tTools, String tReward, String tAttention, String tWorker, Date tWorkDate, String tSuggest, String tHandler, Date tHandleDate, String tHandleSuggest, String trainingNote, String rTools, String wholeReview, String suggest, String rWorker, Date rWorkDate, String rSuggest, String rHandler, Date rHandleDate, String rHandleSuggest, String groupNO,
 								String beginDate_str,String endDate_str,String tWorkDate_str,String tHandleDate_str,
 								String rWorkDate_str,String rHandleDate_str){
 		super();
@@ -78,9 +78,9 @@ public class DormitoryTrainingReview implements Serializable {
 		this.beginNoon=beginNoon;
 		this.endWeek=endWeek;
 		this.endNoon=endNoon;
-		this.task=task;
-		this.interactive=interactive;
-		this.activity=activity;
+		this.taskR=taskR;
+		this.interactiveR=interactiveR;
+		this.activityR=activityR;
 		this.tTools=tTools;
 		this.tReward=tReward;
 		this.tAttention=tAttention;
@@ -163,23 +163,23 @@ public class DormitoryTrainingReview implements Serializable {
 	public int getEndNoon(){
 		return endNoon;
 	}
-	public void setTask(String task){
-		this.task=task;
+	public void setTaskR(String taskR){
+		this.taskR=taskR;
 	}
-	public String getTask(){
-		return task;
+	public String getTaskR(){
+		return taskR;
 	}
-	public void setInteractive(String interactive){
-		this.interactive=interactive;
+	public void setInteractiveR(String interactiveR){
+		this.interactiveR=interactiveR;
 	}
-	public String getInteractive(){
-		return interactive;
+	public String getInteractiveR(){
+		return interactiveR;
 	}
-	public void setActivity(String activity){
-		this.activity=activity;
+	public void setActivityR(String activityR){
+		this.activityR=activityR;
 	}
-	public String getActivity(){
-		return activity;
+	public String getActivityR(){
+		return activityR;
 	}
 	public void setTrainingNote(String trainingNote){
 		this.trainingNote=trainingNote;
@@ -377,7 +377,7 @@ public class DormitoryTrainingReview implements Serializable {
 	}
 	@Override
 	public String toString(){
-		return "DormitoryTrainingReview [reviewID="+reviewID+",recordID="+recordID+",workder="+workder+",beginDate="+beginDate+",endDate="+endDate+",beginWeek="+beginWeek+",beginNoon="+beginNoon+",endWeek="+endWeek+",endNoon="+endNoon+",task="+task+",interactive="+interactive+",activity="+activity+",tTools="+tTools+",tReward="+tReward+",tAttention="+tAttention+",tWorker="+tWorker+",tWorkDate="+tWorkDate+",tSuggest="+tSuggest+",tHandler="+tHandler+",tHandleDate="+tHandleDate+",tHandleSuggest="+tHandleSuggest+",trainingNote="+trainingNote+",rTools="+rTools+",wholeReview="+wholeReview+",suggest="+suggest+",rWorker="+rWorker+",rWorkDate="+rWorkDate+",rSuggest="+rSuggest+",rHandler="+rHandler+",rHandleDate="+rHandleDate+",rHandleSuggest="+rHandleSuggest+",groupNO="+groupNO+
+		return "DormitoryTrainingReview [reviewID="+reviewID+",recordID="+recordID+",workder="+workder+",beginDate="+beginDate+",endDate="+endDate+",beginWeek="+beginWeek+",beginNoon="+beginNoon+",endWeek="+endWeek+",endNoon="+endNoon+",taskR="+taskR+",interactiveR="+interactiveR+",activityR="+activityR+",tTools="+tTools+",tReward="+tReward+",tAttention="+tAttention+",tWorker="+tWorker+",tWorkDate="+tWorkDate+",tSuggest="+tSuggest+",tHandler="+tHandler+",tHandleDate="+tHandleDate+",tHandleSuggest="+tHandleSuggest+",trainingNote="+trainingNote+",rTools="+rTools+",wholeReview="+wholeReview+",suggest="+suggest+",rWorker="+rWorker+",rWorkDate="+rWorkDate+",rSuggest="+rSuggest+",rHandler="+rHandler+",rHandleDate="+rHandleDate+",rHandleSuggest="+rHandleSuggest+",groupNO="+groupNO+
 									",beginDate_str="+beginDate_str+",endDate_str="+endDate_str+",tWorkDate_str="+tWorkDate_str+
 									",tHandleDate_str="+tHandleDate_str+",rWorkDate_str="+rWorkDate_str+",rHandleDate_str="+rHandleDate_str+"]";
 	}

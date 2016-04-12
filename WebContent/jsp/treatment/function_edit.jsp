@@ -379,61 +379,65 @@ String basePath = request.getScheme() + "://"
 	<div id="tab">
 	<div title="職能訓練" tabid="fn">
 	
+	<div class="inline-group row max-width-group-300 label-width-100">
+		<div class="col-md-4">
+			<label>檔案編號：</label>
+			<input width="120px" value="${treatmentPojo.treatmentNO }" name="treatmentNO" type="text" ltype="text"">
+		</div>
+		<div class="col-md-4">
+			<label>姓名：</label>
+			<input width="120px" value="${customer.fullName }" name="fullName" type="text"  class="fullName"/>
+		</div>
+		<div class="col-md-4">
+			<label>會員編號：</label>
+			<input width="120px" value="${customer.custNO }" name="custNO" type="text" class="custNO" />
+		</div>
+		<div class="col-md-4">
+			<label>非會員編號：</label>
+			<input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" class="custNewNO" />
+		</div>
+	</div>
+	<div class="inline-group row max-width-group-300 label-width-100">
+		<div class="col-md-4">
+			<label>接案日期：</label>
+			<input width="120px" value="${custCasePojo.receiveDate_str }" name="receiveDate" type="text" ltype="date" />
+		</div>
+		<div class="col-md-4">
+			<label>輪候開始日期：</label>
+			<input width="120px" value="${treatmentPojo.awaitDate_str }" name="awaitDate" type="text" ltype="date" />
+		</div>
+		<div class="col-md-4">
+			<label>評估日期：</label>
+			<input width="120px" value="${treatmentAssessPojo.assessDate_str }" name="assessDate" type="text" ltype="date" />
+		</div>
+		<div class="col-md-4">
+			<label>個案狀態：</label>
+			<select name="caseStatus" id="caseStatus" ltype="select" width="120px" >
+           		<option value="0" <c:if test="${custCasePojo.caseStatus != '1'}">selected="selected"</c:if> >跟進</option>
+           		<option value="1" <c:if test="${custCasePojo.caseStatus == '1'}">selected="selected"</c:if> >結案</option>
+           		<option value="2" <c:if test="${custCasePojo.caseStatus == '2'}">selected="selected"</c:if> >轉介</option>
+           	</select>
+		</div>
+	</div>
+	<div class="inline-group row max-width-group-300 label-width-100">
+		<div class="col-md-4">
+			<label>接案來源：</label>
+			  <select name="caseSource" id="caseSource" ltype="select" width="120px" >
+              		<option value="0" <c:if test="${custCasePojo.caseSource != '1'}">selected="selected"</c:if> >案主求助</option>
+              		<option value="1" <c:if test="${custCasePojo.caseSource == '1'}">selected="selected"</c:if> >職員發現</option>
+              		<option value="2" <c:if test="${custCasePojo.caseSource == '2'}">selected="selected"</c:if> >轉介</option>
+              	</select>
+		</div>
+		<div class="col-md-4">
+			<label>接案社工：</label>
+			<input width="120px" value="${custCasePojo.caseWorker }" name="caseWorker" type="text" id="caseWorker" ltype="text" />
+		</div>
+	</div>
 	
-	
-	<table>
-		<tbody>
-            <tr>
-            	<td align="right" class="l-table-edit-td">檔案編號：</td>
-                <td align="left" class="l-table-edit-td">
-                	<input width="120px" value="${treatmentPojo.treatmentNO }" name="treatmentNO" type="text" ltype="text"">
-                </td>
-            
-                <td align="right" class="l-table-edit-td">姓名：</td>
-                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.fullName }" name="fullName" type="text"  class="fullName"/></td>
-                
-                <td align="right" class="l-table-edit-td">會員編號：</td>
-                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNO }" name="custNO" type="text" class="custNO" /></td>
-                
-                <td align="right" class="l-table-edit-td">非會員編號：</td>
-                <td align="left" class="l-table-edit-td"><input width="120px" value="${customer.custNewNO }" name="custNewNO" type="text" class="custNewNO" /></td>
-              </tr>
-            <tr>
-            	  <td align="right" class="l-table-edit-td">接案日期:</td>
-				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${custCasePojo.receiveDate_str }" name="receiveDate" type="text" ltype="date" />
-				 </td>
-				 
-				 <td align="right" class="l-table-edit-td">輪候開始日期:</td>
-				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${treatmentPojo.awaitDate_str }" name="awaitDate" type="text" ltype="date" />
-				 </td>
-				  <td align="right" class="l-table-edit-td">評估日期:</td>
-				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${treatmentAssessPojo.assessDate_str }" name="assessDate" type="text" ltype="date" />
-				 </td>
-				   <td align="right" class="l-table-edit-td">個案狀態:</td>
-				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${custCasePojo.caseStatus }" name="caseStatus" type="text" id="caseStatus" ltype="text" />
-				 </td>
-			</tr>
-			<tr>
-				   <td align="right" class="l-table-edit-td">接案來源:</td>
-				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${custCasePojo.caseSource }" name="caseSource" type="text" id="caseSource" ltype="text" />
-				 </td>
-				   <td align="right" class="l-table-edit-td">接案社工:</td>
-				 <td align="left" class="l-table-edit-td">
-				 	<input width="120px" value="${custCasePojo.caseWorker }" name="caseWorker" type="text" id="caseWorker" ltype="text" />
-				 </td>
-				    <td align="right" class="l-table-edit-td">健康狀況:</td>
-				 <td align="left" class="l-table-edit-td" colspan="3">
-				 	<textarea rows="2" cols="55" name="familySituation" id="familySituation">${treatmentPojo.sensoryNote }</textarea>
-				 </td>
-            </tr>
-		</tbody>
-	</table>
-	<div style="padding:8px 0;">
+	<div class="panel panel-default" style="margin-top:10px">
+		<div class="panel-heading">健康狀況</div>
+		<div class="panel-body">
+				<div>
 	<table class="table-border input-style">
 		<tbody>
 			<tr>
@@ -511,6 +515,9 @@ String basePath = request.getScheme() + "://"
 		</tbody>
 	</table>
 	</div>
+		</div>
+	</div>
+
 	
 				 	<div class="panel panel-default">
 							<div class="panel-heading">語言運用</div>
@@ -1237,7 +1244,7 @@ String basePath = request.getScheme() + "://"
 							 </td>
 							  <td align="right" class="l-table-edit-td">試工地址:</td>
 							 <td align="left" class="l-table-edit-td">
-							 	<input width="120px" value="${treatmentTrainingWork.place }" name="place" type="text" id="place" ltype="text" />
+							 	<input width="120px" value="${treatmentTrainingWork.placeT }" name="placeT" type="text" ltype="text" />
 							 </td>
 							  <td align="right" class="l-table-edit-td">工作時間:</td>
 							<td align="left" class="l-table-edit-td">

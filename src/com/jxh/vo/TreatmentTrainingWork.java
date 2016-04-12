@@ -13,12 +13,12 @@ import java.math.*;
 
 /** TreatmentTrainingWork
 
-workID,treatmentID,beginDate,endDate,duty,corp,place,workTime,content,workDetail,envioment,handler,handleDate,handleSuggest
+workID,treatmentID,beginDate,endDate,duty,corp,placeT,workTime,content,workDetail,envioment,handler,handleDate,handleSuggest
 ?,?,?,?,?,?,?,?,?,?,?,?,?,?
 
-treatmentTrainingWork.workID,treatmentTrainingWork.treatmentID,treatmentTrainingWork.beginDate,treatmentTrainingWork.endDate,treatmentTrainingWork.duty,treatmentTrainingWork.corp,treatmentTrainingWork.place,treatmentTrainingWork.workTime,treatmentTrainingWork.content,treatmentTrainingWork.workDetail,treatmentTrainingWork.envioment,treatmentTrainingWork.handler,treatmentTrainingWork.handleDate,treatmentTrainingWork.handleSuggest
+treatmentTrainingWork.workID,treatmentTrainingWork.treatmentID,treatmentTrainingWork.beginDate,treatmentTrainingWork.endDate,treatmentTrainingWork.duty,treatmentTrainingWork.corp,treatmentTrainingWork.placeT,treatmentTrainingWork.workTime,treatmentTrainingWork.content,treatmentTrainingWork.workDetail,treatmentTrainingWork.envioment,treatmentTrainingWork.handler,treatmentTrainingWork.handleDate,treatmentTrainingWork.handleSuggest
 
-workID=?,treatmentID=?,beginDate=?,endDate=?,duty=?,corp=?,place=?,workTime=?,content=?,workDetail=?,envioment=?,handler=?,handleDate=?,handleSuggest=?
+workID=?,treatmentID=?,beginDate=?,endDate=?,duty=?,corp=?,placeT=?,workTime=?,content=?,workDetail=?,envioment=?,handler=?,handleDate=?,handleSuggest=?
 */
 public class TreatmentTrainingWork implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -28,7 +28,7 @@ public class TreatmentTrainingWork implements Serializable {
 	private Date endDate;
 	private String duty;
 	private String corp;
-	private String place;
+	private String placeT;
 	private String workTime;
 	private String content;
 	private String workDetail;
@@ -44,7 +44,7 @@ public class TreatmentTrainingWork implements Serializable {
 	public TreatmentTrainingWork(){
 		super();
 	}
-	public TreatmentTrainingWork(String workID, String treatmentID, Date beginDate, Date endDate, String duty, String corp, String place, String workTime, String content, String workDetail, String envioment, String handler, Date handleDate, String handleSuggest,String handleDate_str ,
+	public TreatmentTrainingWork(String workID, String treatmentID, Date beginDate, Date endDate, String duty, String corp, String placeT, String workTime, String content, String workDetail, String envioment, String handler, Date handleDate, String handleSuggest,String handleDate_str ,
 								String endDate_str, String beginDate_str){
 		super();
 		this.workID=workID;
@@ -53,7 +53,7 @@ public class TreatmentTrainingWork implements Serializable {
 		this.endDate=endDate;
 		this.duty=duty;
 		this.corp=corp;
-		this.place=place;
+		this.placeT=placeT;
 		this.workTime=workTime;
 		this.content=content;
 		this.workDetail=workDetail;
@@ -101,11 +101,11 @@ public class TreatmentTrainingWork implements Serializable {
 	public String getCorp(){
 		return corp;
 	}
-	public void setPlace(String place){
-		this.place=place;
+	public void setPlaceT(String placeT){
+		this.placeT=placeT;
 	}
-	public String getPlace(){
-		return place;
+	public String getPlaceT(){
+		return placeT;
 	}
 	public void setWorkTime(String workTime){
 		this.workTime=workTime;
@@ -196,7 +196,7 @@ public class TreatmentTrainingWork implements Serializable {
 	}
 	@Override
 	public String toString(){
-		return "TreatmentTrainingWork [workID="+workID+",treatmentID="+treatmentID+",beginDate="+beginDate+",endDate="+endDate+",duty="+duty+",corp="+corp+",place="+place+",workTime="+workTime+",content="+content+",workDetail="+workDetail+",envioment="+envioment+",handler="+handler+",handleDate="+handleDate+",handleSuggest="+handleSuggest+",handleDate_str="+handleDate_str+
+		return "TreatmentTrainingWork [workID="+workID+",treatmentID="+treatmentID+",beginDate="+beginDate+",endDate="+endDate+",duty="+duty+",corp="+corp+",placeT="+placeT+",workTime="+workTime+",content="+content+",workDetail="+workDetail+",envioment="+envioment+",handler="+handler+",handleDate="+handleDate+",handleSuggest="+handleSuggest+",handleDate_str="+handleDate_str+
 				",beginDate_str="+beginDate_str+",endDate_str="+endDate_str+"]";
 	}
 }
