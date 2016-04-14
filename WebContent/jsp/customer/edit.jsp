@@ -335,7 +335,7 @@ String basePath = request.getScheme() + "://"
 	                        {
 	                        	return getGridSelectedData(isLateData[parseInt(item.isLate)]);
 	                        } },
-                   { display: '參與人數', name: '', align: 'center',  minWidth: 120, editor:{type:'text'} },
+                   { display: '參與人數', name: 'sum', align: 'center',  minWidth: 120, editor:{type:'text'} },
                    { display: '備註', name: 'note', align: 'center', minWidth: 120, editor:{type:'text'} }
                   ];
  		var ActivityGridToolBar = [
@@ -399,7 +399,9 @@ String basePath = request.getScheme() + "://"
                             	type: 'popup', valueField: 'actName', textField: 'actName', grid:  getActName(true), onSelected:actName_onSelected
                         	}
                     },
-                    { display: '備註', name: 'note', align: 'left', minWidth: 120 , editor:{type:'text'}}
+                    { display: '活動日期', name: 'actBDate', minWidth:100, type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+                    { display: '工作崗位', name: 'work', align: 'center', minWidth: 120 , editor:{type:'text'}},
+                    { display: '備註', name: 'note', align: 'center', minWidth: 120 , editor:{type:'text'}}
                    ];
   		var VolunteerGridToolBar = [
         	          { text: '新增', click: addVolunteer, icon: 'add' , id:"add" },

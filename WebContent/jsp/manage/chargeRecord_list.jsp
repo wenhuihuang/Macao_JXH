@@ -67,13 +67,14 @@ String basePath = request.getScheme() + "://"
 	 			data:"chargeRecordAdds="+chargeRecordAdds+"&chargeRecordUpdates="+chargeRecordUpdates+"&chargeRecordDeletes="+chargeRecordDeletes,
 	 			success:function(msg){
 	 				if(msg == "true" || msg == true){
+	 					alert("保存成功！")
 	 				}else{
-	 					alert("刪除失敗！");
+	 					alert("保存失敗！");
 	 				}
 	 				 
 	 			},
 	 			error:function(){
-	 				alert("刪除失敗！");
+	 				alert("保存失敗！");
 	 			}
      	   	})
         }

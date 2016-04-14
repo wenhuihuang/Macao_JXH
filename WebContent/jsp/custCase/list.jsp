@@ -25,7 +25,6 @@ String basePath = request.getScheme() + "://"
         	var caseID = getRowCell(maingrid,"caseID");
         	var custID = getRowCell(maingrid,"custID");
         	if(caseID!=""){
-        		alert(caseID)
 	        	location.href = "CustCase/edit.do?caseID="+caseID+"&custID="+custID;        		
         	}
         }

@@ -204,6 +204,7 @@ td {width: auto;}
 		
 		if(gridHeight==null||""==gridHeight){
 			return $("#"+gridId).ligerGrid({
+				width:'99%',
 	            columns: columns , url:url , usePager:usePager,dataAction:"server",  pageSize:30 ,rownumbers:true, isTabCover:isTabCover
 	            ,enabledEdit :true,isScroll: false
 	            ,toolbar:{ items: toolbar }, 
@@ -224,6 +225,7 @@ td {width: auto;}
 		}else{
 			return $("#"+gridId).ligerGrid({
 	            height:gridHeight,
+	            width:'99%',
 	            columns: columns , url:url , usePager:usePager,dataAction:"server",  pageSize:30 ,rownumbers:true, isTabCover:isTabCover
 	            ,enabledEdit :true
 	            ,toolbar:{ items: toolbar }, 

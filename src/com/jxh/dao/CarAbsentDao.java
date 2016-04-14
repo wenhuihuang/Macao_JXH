@@ -76,6 +76,11 @@ public class CarAbsentDao extends DaoImpl{
 		//String sql = "delete from TreatmentPlan where treatmentID = ? ";
 		return this.update(sql, carID);
 	}
+	public int deleteCarAbsentByAbsentID(String absentID) throws SQLException, IOException{
+		String sql = this.getSqlByPropKey("deleteCarAbsent");
+		//String sql = "delete from TreatmentPlan where treatmentID = ? ";
+		return this.update(sql, absentID);
+	}
 	
 	public CarAbsent getCarAbsentByCondition(String condition, Object...params) throws IOException, SQLException {
 		clazz = CarAbsent.class;

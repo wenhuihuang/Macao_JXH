@@ -10,6 +10,8 @@ import com.fg.utils.ToolsUtils;
 import com.jxh.dao.BCustomerSchoolDao;
 import com.jxh.dao.GroupDetailDao;
 import com.jxh.dao.GroupSettingRecordPerformanceDao;
+import com.jxh.dao.GroupTrainingPlanDao;
+import com.jxh.dao.GroupTrainingRecordDao;
 import com.jxh.dao.TreatmentAssessDao;
 import com.jxh.dao.TreatmentDao;
 import com.jxh.dao.TreatmentFamilyDao;
@@ -28,6 +30,8 @@ import com.jxh.vo.BCustomer;
 import com.jxh.vo.BCustomerSchool;
 import com.jxh.vo.GroupDetail;
 import com.jxh.vo.GroupSettingRecordPerformance;
+import com.jxh.vo.GroupTrainingPlan;
+import com.jxh.vo.GroupTrainingRecord;
 import com.jxh.vo.Treatment;
 import com.jxh.vo.TreatmentAssess;
 import com.jxh.vo.TreatmentFamily;
@@ -55,7 +59,8 @@ public class TreatmentBiz {
 	private GroupSettingRecordPerformanceDao groupSettingRecordPerformanceDao = new GroupSettingRecordPerformanceDao();
 	private TreatmentTrainingPlanDao treatmentTrainingPlanDao = new TreatmentTrainingPlanDao();
 	private TreatmentTrainingWorkRecordDao treatmentTrainingWorkRecordDao = new TreatmentTrainingWorkRecordDao();
-	
+	private GroupTrainingPlanDao groupTrainingPlanDao = new GroupTrainingPlanDao();
+	private GroupTrainingRecordDao groupTrainingRecordDao = new GroupTrainingRecordDao();
 
 	public String updateTreatment(Treatment treatment,TreatmentAssess treatmentAssess,TreatmentReport treatmentReport,List<TreatmentPlan> treatmentPlanAdds,List<TreatmentPlan> treatmentPlanUpdates,List<TreatmentPlan> treatmentPlanDeletes,List<TreatmentRecord> treatmentRecordAdds,List<TreatmentRecord> treatmentRecordUpdates,List<TreatmentRecord> treatmentRecordDeletes,List<TreatmentHistory> treatmentHistoryAdds,List<TreatmentHistory> treatmentHistoryUpdates,List<TreatmentHistory> treatmentHistoryDeletes, List<BCustomerSchool> bCustomerSchoolAdds, List<BCustomerSchool> bCustomerSchoolUpdates, List<BCustomerSchool> bCustomerSchoolDeletes,List<TreatmentFamily> treatmentFamilyAdds,List<TreatmentFamily> treatmentFamilyUpdates,List<TreatmentFamily> treatmentFamilyDeletes) throws Exception {
 
@@ -161,11 +166,11 @@ public class TreatmentBiz {
 				if("5".equals(treatmentType)){
 					
 					
-					if(deleteGroupDetailByCustID(custID) < 0){
+					if(deleteGroupTrainingPlanByTreatmentID(treatmentID) < 0){
 						throw new Exception("個案撮要記錄刪除失敗！");
 					}
 					
-					if(deleteGroupSettingRecordPerformanceByCustID(custID) < 0){
+					if(deleteGroupTrainingRecordByTreatmentID(treatmentID) < 0){
 						throw new Exception("個案撮要記錄刪除失敗！");
 					}
 					
@@ -218,12 +223,12 @@ public class TreatmentBiz {
 		return treatmentTrainingDao.deleteTreatmentTrainingByTreatmentID(treatmentID);
 	}
 
-	private int deleteGroupSettingRecordPerformanceByCustID(String custID) throws SQLException, IOException {
-		return groupSettingRecordPerformanceDao.deleteGroupSettingRecordPerformanceByCustID(custID);
+	private int deleteGroupTrainingRecordByTreatmentID(String treatmentID) throws SQLException, IOException {
+		return groupTrainingRecordDao.deleteGroupTrainingRecordByTreatmentID(treatmentID);
 	}
 
-	private int deleteGroupDetailByCustID(String custID) throws SQLException, IOException {
-		return groupDetailDao.deleteGroupDetailByCustID(custID);
+	private int deleteGroupTrainingPlanByTreatmentID(String treatmentID) throws SQLException, IOException {
+		return groupTrainingRecordDao.deleteGroupTrainingRecordByTreatmentID(treatmentID);
 	}
 
 	private int deleteTreatmentReportByTreatmentID(String treatmentID) throws SQLException, IOException {
@@ -569,16 +574,17 @@ public class TreatmentBiz {
 
 
 	public String updateTreatmentFunction(Treatment treatment, TreatmentAssess treatmentAssess,
+			TreatmentReport treatmentReport,
 			List<TreatmentHistory> treatmentHistoryAdds, List<TreatmentHistory> treatmentHistoryUpdates,
 			List<TreatmentHistory> treatmentHistoryDeletes, List<BCustomerSchool> bCustomerSchoolAdds,
 			List<BCustomerSchool> bCustomerSchoolUpdates, List<BCustomerSchool> bCustomerSchoolDeletes,
 			List<TreatmentFamily> treatmentFamilyAdds, List<TreatmentFamily> treatmentFamilyUpdates,
 			List<TreatmentFamily> treatmentFamilyDeletes, TreatmentTraining treatmentTraining,
-			TreatmentTrainingWork treatmentTrainingWork, List<GroupDetail> groupDetailAdds,
-			List<GroupDetail> groupDetailUpdates, List<GroupDetail> groupDetailDeletes,
-			List<GroupSettingRecordPerformance> groupSettingRecordPerformanceAdds,
-			List<GroupSettingRecordPerformance> groupSettingRecordPerformanceUpdates,
-			List<GroupSettingRecordPerformance> groupSettingRecordPerformanceDeletes,
+			TreatmentTrainingWork treatmentTrainingWork, List<GroupTrainingPlan> groupTrainingPlanAdds,
+			List<GroupTrainingPlan> groupTrainingPlanUpdates, List<GroupTrainingPlan> groupTrainingPlanDeletes,
+			List<GroupTrainingRecord> groupTrainingRecordAdds,
+			List<GroupTrainingRecord> groupTrainingRecordUpdates,
+			List<GroupTrainingRecord> groupTrainingRecordDeletes,
 			List<TreatmentTrainingPlan> treatmentTrainingPlanAdds,
 			List<TreatmentTrainingPlan> treatmentTrainingPlanUpdates,
 			List<TreatmentTrainingPlan> treatmentTrainingPlanDeletes,
@@ -638,27 +644,27 @@ public class TreatmentBiz {
 				throw new Exception("新增個案撮要失败！");
 			}
 			
-			if(addGroupDetail(treatment, groupDetailAdds)<0){
+			if(addGroupTrainingPlan(treatment, groupTrainingPlanAdds)<0){
 				throw new Exception("新增個案撮要失败！");
 			}
 			
-			if(updateGroupDetail(treatment, groupDetailUpdates)<0){
+			if(updateGroupTrainingPlan(treatment, groupTrainingPlanUpdates)<0){
 				throw new Exception("新增個案撮要失败！");
 			}
 			
-			if(deleteGroupDetail(treatment, groupDetailDeletes)<0){
+			if(deleteGroupTrainingPlan(treatment, groupTrainingPlanDeletes)<0){
 				throw new Exception("新增個案撮要失败！");
 			}
 			
-			if(addGroupSettingRecordPerformance(treatment, groupSettingRecordPerformanceAdds)<0){
+			if(addGroupTrainingRecord(treatment, groupTrainingRecordAdds)<0){
 				throw new Exception("新增個案撮要失败！");
 			}
 			
-			if(updateGroupSettingRecordPerformance(treatment, groupSettingRecordPerformanceUpdates)<0){
+			if(updateGroupTrainingRecord(treatment, groupTrainingRecordUpdates)<0){
 				throw new Exception("新增個案撮要失败！");
 			}
 			
-			if(deleteGroupSettingRecordPerformance(treatment, groupSettingRecordPerformanceDeletes)<0){
+			if(deleteGroupTrainingRecord(treatment, groupTrainingRecordDeletes)<0){
 				throw new Exception("新增個案撮要失败！");
 			}
 			
@@ -683,6 +689,9 @@ public class TreatmentBiz {
 			}
 			
 			if(deleteTreatmentTrainingWorkRecord(treatmentTrainingWork, treatmentTrainingWorkRecordDeletes)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
+			if(updateTreatmentReport(treatment, treatmentReport)<0){
 				throw new Exception("新增個案撮要失败！");
 			}
 			
@@ -715,19 +724,19 @@ public class TreatmentBiz {
 		return treatmentTrainingPlanDao.updateTreatmentTrainingPlan(treatmentTrainingPlanUpdates);
 	}
 
-	private int deleteGroupSettingRecordPerformance(Treatment treatment,
-			List<GroupSettingRecordPerformance> groupSettingRecordPerformanceDeletes) throws IOException, SQLException {
-		if (groupSettingRecordPerformanceDeletes == null || groupSettingRecordPerformanceDeletes.size() <= 0) {
+	private int deleteGroupTrainingRecord(Treatment treatment,
+			List<GroupTrainingRecord> groupTrainingRecordDeletes) throws IOException, SQLException {
+		if (groupTrainingRecordDeletes == null || groupTrainingRecordDeletes.size() <= 0) {
 			return 1;
 		}
-		return groupSettingRecordPerformanceDao.deleteGroupSettingRecordPerformance(groupSettingRecordPerformanceDeletes);
+		return groupTrainingRecordDao.deleteGroupTrainingRecord(groupTrainingRecordDeletes);
 	}
 
-	private int deleteGroupDetail(Treatment treatment, List<GroupDetail> groupDetailDeletes) throws IOException, SQLException {
-		if (groupDetailDeletes == null || groupDetailDeletes.size() <= 0) {
+	private int deleteGroupTrainingPlan(Treatment treatment, List<GroupTrainingPlan> groupTrainingPlanDeletes) throws IOException, SQLException {
+		if (groupTrainingPlanDeletes == null || groupTrainingPlanDeletes.size() <= 0) {
 			return 1;
 		}
-		return groupDetailDao.deleteGroupDetail(groupDetailDeletes);
+		return groupTrainingPlanDao.deleteGroupTrainingPlan(groupTrainingPlanDeletes);
 	}
 
 	private int updateTreatmentTrainingWorkRecord(TreatmentTrainingWork treatmentTrainingWork,
@@ -753,21 +762,21 @@ public class TreatmentBiz {
 		//return treatmentTrainingWorkRecordDao.updateTreatmentTrainingWorkRecord(treatmentTrainingWorkRecordUpdates);
 	}
 
-	private int updateGroupSettingRecordPerformance(Treatment treatment,
-			List<GroupSettingRecordPerformance> groupSettingRecordPerformanceUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
+	private int updateGroupTrainingRecord(Treatment treatment,
+			List<GroupTrainingRecord> groupTrainingRecordUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
 		
-		if (groupSettingRecordPerformanceUpdates == null || groupSettingRecordPerformanceUpdates.size() <= 0) {
+		if (groupTrainingRecordUpdates == null || groupTrainingRecordUpdates.size() <= 0) {
 			return 1;
 		}
-		return groupSettingRecordPerformanceDao.updateGroupSettingRecordPerformance(groupSettingRecordPerformanceUpdates);
+		return groupTrainingRecordDao.updateGroupTrainingRecord(groupTrainingRecordUpdates);
 	}
 
-	private int updateGroupDetail(Treatment treatment, List<GroupDetail> groupDetailUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
+	private int updateGroupTrainingPlan(Treatment treatment, List<GroupTrainingPlan> groupTrainingPlanUpdates) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException {
 		
-		if (groupDetailUpdates == null || groupDetailUpdates.size() <= 0) {
+		if (groupTrainingPlanUpdates == null || groupTrainingPlanUpdates.size() <= 0) {
 			return 1;
 		}
-		return groupDetailDao.updateGroupDetail(groupDetailUpdates);
+		return groupTrainingPlanDao.updateGroupTrainingPlan(groupTrainingPlanUpdates);
 	}
 
 	private int updateTreatmentTrainingWork(Treatment treatment,
@@ -791,10 +800,11 @@ public class TreatmentBiz {
 	}
 
 	public String insertTreatmentFunction(Treatment treatment, TreatmentAssess treatmentAssess,
+			TreatmentReport treatmentReport,
 			List<TreatmentHistory> treatmentHistoryAdds, List<BCustomerSchool> bCustomerSchoolAdds,
 			List<TreatmentFamily> treatmentFamilyAdds, TreatmentTraining treatmentTraining,
-			TreatmentTrainingWork treatmentTrainingWork, List<GroupDetail> groupDetailAdds,
-			List<GroupSettingRecordPerformance> groupSettingRecordPerformanceAdds,
+			TreatmentTrainingWork treatmentTrainingWork, List<GroupTrainingPlan> groupTrainingPlanAdds,
+			List<GroupTrainingRecord> groupTrainingRecordAdds,
 			List<TreatmentTrainingPlan> treatmentTrainingPlanAdds,
 			List<TreatmentTrainingWorkRecord> treatmentTrainingWorkRecordAdds) throws Exception {
 		
@@ -802,7 +812,9 @@ public class TreatmentBiz {
 		treatment.setTreatmentID(treatmentID);
 		int row = treatmentDao.insertTreatment(treatment);
 		if (row > 0) {
-			
+			if(addTreatmentReport(treatment, treatmentReport)<0){
+				throw new Exception("新增個案撮要失败！");
+			}
 			//新增個案轉介評估
 			if (addTreatmentAssess(treatment, treatmentAssess) < 0) {
 				throw new Exception("個案轉介評估保存失敗！");
@@ -830,11 +842,11 @@ public class TreatmentBiz {
 				throw new Exception("新增個案撮要失败！");
 			}
 			
-			if(addGroupDetail(treatment, groupDetailAdds)<0){
+			if(addGroupTrainingPlan(treatment, groupTrainingPlanAdds)<0){
 				throw new Exception("新增個案撮要失败！");
 			}
 			
-			if(addGroupSettingRecordPerformance(treatment, groupSettingRecordPerformanceAdds)<0){
+			if(addGroupTrainingRecord(treatment, groupTrainingRecordAdds)<0){
 				throw new Exception("新增個案撮要失败！");
 			}
 			
@@ -892,18 +904,18 @@ public class TreatmentBiz {
 		return 1;
 	}
 
-	private int addGroupSettingRecordPerformance(Treatment treatment,
-			List<GroupSettingRecordPerformance> groupSettingRecordPerformanceAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
+	private int addGroupTrainingRecord(Treatment treatment,
+			List<GroupTrainingRecord> groupTrainingRecordAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
 		
-		if (groupSettingRecordPerformanceAdds == null || groupSettingRecordPerformanceAdds.size() <= 0) {
+		if (groupTrainingRecordAdds == null || groupTrainingRecordAdds.size() <= 0) {
 			return 1;
 		}
 
-		for (GroupSettingRecordPerformance add : groupSettingRecordPerformanceAdds) {
-			add.setCustID(treatment.getCustID());
+		for (GroupTrainingRecord add : groupTrainingRecordAdds) {
+			add.setTreatmentID(treatment.getTreatmentID());
 		}
 
-		int[] rows = groupSettingRecordPerformanceDao.insertGroupSettingRecordPerformance(groupSettingRecordPerformanceAdds);
+		int[] rows = groupTrainingRecordDao.insertGroupTrainingRecord(groupTrainingRecordAdds);
 		for (int i : rows) {
 			if (i < 1) {
 				return i;
@@ -913,16 +925,16 @@ public class TreatmentBiz {
 		return 1;
 	}
 
-	private int addGroupDetail(Treatment treatment, List<GroupDetail> groupDetailAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
-		if (groupDetailAdds == null || groupDetailAdds.size() <= 0) {
+	private int addGroupTrainingPlan(Treatment treatment, List<GroupTrainingPlan> groupTrainingPlanAdds) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException, IOException, SQLException {
+		if (groupTrainingPlanAdds == null || groupTrainingPlanAdds.size() <= 0) {
 			return 1;
 		}
 
-		for (GroupDetail add : groupDetailAdds) {
-			add.setCustID(treatment.getCustID());
+		for (GroupTrainingPlan add : groupTrainingPlanAdds) {
+			add.setTreatmentID(treatment.getTreatmentID());
 		}
 
-		int[] rows = groupDetailDao.insertGroupDetail(groupDetailAdds);
+		int[] rows = groupTrainingPlanDao.insertGroupTrainingPlan(groupTrainingPlanAdds);
 		for (int i : rows) {
 			if (i < 1) {
 				return i;

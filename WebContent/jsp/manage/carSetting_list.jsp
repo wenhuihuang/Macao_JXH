@@ -112,16 +112,12 @@ String basePath = request.getScheme() + "://"
 	            var grid = liger.get("carRecordDataGrid");
 
 	            var selected = e.data[0]; 
-	            alert(selected.carNO)
-	            debugger
 	            grid.updateRow(grid.lastEditRow, {
 	                carID: selected.carID,
 	                carNumber1: selected.carNumber,
 	                carNO1: selected.carNO
 	            });
 
-	          /*   var out = JSON.stringify(selected);
-	            $("#message").html('最后选择:'+out); */
 	        } 
     	
     	var carRecordDataGridColumn = [
@@ -174,7 +170,28 @@ String basePath = request.getScheme() + "://"
     		carRecordDataGrid.addRow();
     	}
     	function deleteCarRecordData(){
-    		carRecordDataGrid.deleteSelectedRow();
+    		var recordID = getRowCell(carRecordDataGrid,"recordID");
+    		if(confirm("是否刪除？")){
+    	 		 $.ajax({
+ 		    		type:"post",
+ 		 			url:"CarRecord/deleteCarRecord.do",
+ 		 			data:"recordID="+recordID,
+ 		 			success:function(msg){
+ 		 				if(msg == "true" || msg == true){
+ 		 					//maingrid.deleteSelectedRow();
+ 		 					carRecordDataGrid.deleteSelectedRow();
+ 		 					alert("刪除成功！")
+ 		 				}else{
+ 		 					alert("刪除失敗！");
+ 		 				}
+ 		 				 
+ 		 			},
+ 		 			error:function(){
+ 		 				alert("刪除失敗！");
+ 		 			}
+     		}) 
+    		}
+    		
     	}
     	function saveCarRecordDate(){
      		var carRecordAdds= getAddedRows(carRecordDataGrid),
@@ -302,7 +319,28 @@ String basePath = request.getScheme() + "://"
     		carAbsentDataGrid.addRow();
     	}
     	function deleteCarAbsentData(){
-    		carAbsentDataGrid.deleteSelectedRow();
+    		var absentID = getRowCell(carAbsentDataGrid,"absentID");
+    		if(confirm("是否刪除？")){
+    	 		 $.ajax({
+ 		    		type:"post",
+ 		 			url:"CarAbsent/deleteCarAbsent.do",
+ 		 			data:"absentID="+absentID,
+ 		 			success:function(msg){
+ 		 				if(msg == "true" || msg == true){
+ 		 					//maingrid.deleteSelectedRow();
+ 		 					carAbsentDataGrid.deleteSelectedRow();
+ 		 					alert("刪除成功！")
+ 		 				}else{
+ 		 					alert("刪除失敗！");
+ 		 				}
+ 		 				 
+ 		 			},
+ 		 			error:function(){
+ 		 				alert("刪除失敗！");
+ 		 			}
+     		}) 
+    		}
+    		
     	}
     	function saveCarAbsentDate(){
     		var carAbsentAdds= getAddedRows(carAbsentDataGrid),

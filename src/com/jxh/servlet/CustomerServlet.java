@@ -440,7 +440,6 @@ public class CustomerServlet extends FGServlet {
 		PageUtils<VoluntaryPojo> page = this.getPage(request);
 		String condition = " and SocialWork.custID = ? ";
 		socialWorkDao.getVoluntaryPojo(page, condition, custID);
-		System.out.println("進");
 		LigerUITools.writeGridJson(page, response);
 	}
 	

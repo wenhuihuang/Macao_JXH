@@ -29,15 +29,12 @@ String basePath = request.getScheme() + "://"
  	}
 
  	ligerUiFn.save=function(){
- 		//console.log("90)"+getAddedRows(WorkerWaysGrid))
  		$("#bCustCaseRecordAdds").val(getAddedRows(bCustCaseRecordGrid));
  		$("#bCustCaseRecordUpdates").val(getEditedRows(bCustCaseRecordGrid));
  		$("#bCustCaseRecordDeletes").val(getDeletedRows(bCustCaseRecordGrid));
  		$("#bCustCaseSummaryHandleAdds").val(getAddedRows(WorkerWaysGrid));
  		$("#bCustCaseSummaryHandleUpdates").val(getEditedRows(WorkerWaysGrid));
  		$("#bCustCaseSummaryHandleDeletes").val(getDeletedRows(WorkerWaysGrid)); 
- 		console.log($("#bCustCaseRecordDeletes").val())
- 		console.log($("#bCustCaseRecordUpdates").val())
  		$("#submit").click()
  	}
 	ligerUiFn.back=function(){
@@ -59,11 +56,11 @@ String basePath = request.getScheme() + "://"
 	
 	
 	$(function(){
-		if($("#caseID").val() != "" && $("#caseID").val() != 'null' && $("#caseID").val() != 'undefined'){
+	/* 	if($("#caseID").val() != "" && $("#caseID").val() != 'null' && $("#caseID").val() != 'undefined'){
 			setTabTitle(parent.$("#framecenter"),"個案編輯")
 		}else{
 			setTabTitle(parent.$("#framecenter"),"個案新增")
-		}
+		} */
 		$(".toptoolbar").ligerToolBar({ items: [
              { text: '保存', click: ligerUiFn.itemClick, icon: 'save' , id:"save" },
              { line: true },
@@ -216,10 +213,8 @@ String basePath = request.getScheme() + "://"
 		var row = getSelectedRow(bCustCaseRecordGrid);
 		
 		if(row!=null){
-			console.log(row)
 			if(row.caseID==null||""==row.caseID){
 				//如果当前行是新增并没有保存的行
-				alert("0")
 				editBCustCaseRecordDlg = openDialog("jsp/custCase/bCustCaseRecord_detail.jsp?jsonData="+JSON.stringify(row),"编辑個案撮要記錄资料","editBCustCaseRecordByDlg");	
 			}else{
 				editBCustCaseRecordDlg = openDialog("CustCase/editBCustCaseRecord.do?caseID="+row.caseID,"编辑個案撮要記錄资料","editBCustCaseRecordByDlg");
@@ -301,7 +296,7 @@ String basePath = request.getScheme() + "://"
 		</div>
 		<div class="col-md-3">
 			<label>教育程度：</label>
-			<select disabled="disabled" name="edulevel" id="edulevel" ltype="select" width="120px" >
+			<select onlyread="onlyread" name="edulevel" id="edulevel" ltype="select" width="120px" >
            		<option value="1" <c:if test="${custCasePojo.edulevel != '2' and cust.edulevel != '3' and cust.edulevel != '4' and cust.edulevel != '5' }">selected="selected"</c:if> >無</option>
            		<option value="2" <c:if test="${custCasePojo.edulevel == '2' }">selected="selected"</c:if> >小學</option>
            		<option value="3" <c:if test="${custCasePojo.edulevel == '3' }">selected="selected"</c:if> >中學</option>

@@ -90,6 +90,11 @@ public class CarRecordDao extends DaoImpl{
 		//String sql = "delete from TreatmentPlan where treatmentID = ? ";
 		return this.update(sql, carID);
 	}
+	public int deleteCarRecordByRecordID(String recordID) throws SQLException, IOException{
+		String sql = this.getSqlByPropKey("deleteCarRecord");
+		//String sql = "delete from TreatmentPlan where treatmentID = ? ";
+		return this.update(sql, recordID);
+	}
 	
 	public CarRecord getCarRecordByCondition(String condition, Object...params) throws IOException, SQLException {
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());

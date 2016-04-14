@@ -70,22 +70,22 @@ String basePath = request.getScheme() + "://"
             var cardTypeData = [{cardType:1,text:'永久身份證'},{cardType:2,text:'非永久身份證'},{cardType:3,text:'其他'}];
         	
             var columns = [
-       	                { display: '會員編碼', name: 'custCode', align: 'left', width: 100, minWidth: 60 },
+       	                { display: '會員編碼', name: 'custCode', align: 'left', minWidth: 60 },
     	                { display: '姓名', name: 'fullName', minWidth: 100 },
     	                { display: '英文名', name: 'fullNameEng', minWidth: 120 },
-    	                { display: '性別', name: 'sex',width:70 
+    	                { display: '性別', name: 'sex',minWidth: 100
     	                	,editor: { data: sexData, valueField: 'sex' },
 	                        render: function (item)
 	                        {
 	                        	return getGridSelectedData(sexData[parseInt(item.sex)-1]);
 	                        } },
-    	                { display: '會員類別', name: 'custType'
+    	                { display: '會員類別', name: 'custType',minWidth: 100
     	                	,editor: { data: custTypeData, valueField: 'custType' },
 	                        render: function (item)
 	                        {
 	                        	return getGridSelectedData(custTypeData[parseInt(item.custType)]);
 	                        }},
-    	                { display: '會員證狀態', name: 'cardStatus' 
+    	                { display: '會員證狀態', name: 'cardStatus' ,minWidth: 100
     	                	,editor: { data: cardStatusData, valueField: 'cardStatus' },
 	                        render: function (item)
 	                        {
