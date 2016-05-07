@@ -10,6 +10,7 @@ import java.util.List;
 import com.fg.daoImpl.DaoImpl;
 import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
+import com.jxh.pojo.BcustBelongOrgPayPojo;
 import com.jxh.pojo.Customer;
 import com.jxh.vo.BCustomer;
 
@@ -189,4 +190,46 @@ public class CustomerDao extends DaoImpl<BCustomer> {
 		return this.update(sql, custID);
 	}
 
+	public PageUtils<BCustomer> getBirthDayCusts(PageUtils<BCustomer> page,String condition,Object...params) throws IOException, SQLException{
+		//获取SQL
+		condition = condition ==null?"":condition;
+		String sql = "select bCustBelongOrg.*,bTypeCode.TypeName,bTypeCode.Cost,bTypeCode.Cycle,bCustomer.CustCode,bCustomer.FullName from bCustBelongOrg left outer join bTypeCode on bCustBelongOrg.TypeCode = bTypeCode.TypeCode  left outer join bCustomer on bCustBelongOrg.CustID = bCustomer.CustID where (Validay is null or   DATEDIFF(MONTH,  GetDate(),Validay ) <2) "+condition;
+		//String sql = getSqlByPropKey(ToolsUtils.getCurrentMethodName())+condition;
+		//获取总页数
+		Integer count = (Integer) this.findElement(getCountSql(sql), params);
+		page.setRowCount(count);
+		List<BCustomer> pojos = this.findForList(sql, params);
+		page.setList(pojos);
+		
+		return page;
+	}
+	
+	public PageUtils<BCustomer> getOldAgeCusts(PageUtils<BCustomer> page,String condition,Object...params) throws IOException, SQLException{
+		//获取SQL
+		condition = condition ==null?"":condition;
+		String sql = "select * from bCustomer where ( DATEDIFF(year, Birthday_GRE, GetDate() ) ) >= 60";
+		//String sql = getSqlByPropKey(ToolsUtils.getCurrentMethodName())+condition;
+		//获取总页数
+		Integer count = (Integer) this.findElement(getCountSql(sql), params);
+		page.setRowCount(count);
+		List<BCustomer> pojos = this.findForList(sql, params);
+		page.setList(pojos);
+		
+		return page;
+	}
+	
+	public PageUtils<BCustomer> getCertificates(PageUtils<BCustomer> page,String condition,Object...params) throws IOException, SQLException{
+		//获取SQL
+		condition = condition ==null?"":condition;
+		String sql =  "select * from bCustomer  where DATEDIFF(day, GetDate(), convert(datetime, cast(year(getdate()) as char(4)) + substring(convert(char(10), assessCardTime, 120),5, 6) ) ) between 0 and 7";
+		//String sql = getSqlByPropKey(ToolsUtils.getCurrentMethodName())+condition;
+		//获取总页数
+		Integer count = (Integer) this.findElement(getCountSql(sql), params);
+		page.setRowCount(count);
+		List<BCustomer> pojos = this.findForList(sql, params);
+		page.setList(pojos);
+		
+		return page;
+	}
+	
 }

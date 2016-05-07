@@ -2,7 +2,11 @@ package com.jxh.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fg.utils.ToolsUtils;
+
 import java.math.*;
+import java.text.ParseException;
 
 public class ActivitySettingPojo implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -30,8 +34,13 @@ public class ActivitySettingPojo implements Serializable {
 	private String actNO;
 	private String note;
 
-	private int participationTotal;//參與總人數
-	private int applyTotal;//報名總人數
+	private int participationTotal;// 參與總人數
+	private int applyTotal;// 報名總人數
+
+	private String applyBDate_str;
+	private String applyEDate_str;
+	private String actBDate_str;
+	private String actEDate_str;
 
 	public ActivitySettingPojo() {
 		super();
@@ -40,8 +49,9 @@ public class ActivitySettingPojo implements Serializable {
 	public ActivitySettingPojo(String actID, String actName, BigDecimal expense1, BigDecimal expense2,
 			BigDecimal expense3, BigDecimal expense4, int time, String way, int onlineCan, int offlineCan,
 			int onlineThen, int offlineThen, String integral, int isOnly, Date applyBDate, Date applyEDate,
-			Date actBDate, Date actEDate, String address, String principal, String registrant, String actNO,
-			int participationTotal, int ApplyTotal,String note) {
+			Date actBDate, Date actEDate, String applyBDate_str, String applyEDate_str, String actBDate_str,
+			String actEDate_str, String address, String principal, String registrant, String actNO,
+			int participationTotal, int ApplyTotal, String note) {
 		super();
 		this.actID = actID;
 		this.actName = actName;
@@ -61,13 +71,17 @@ public class ActivitySettingPojo implements Serializable {
 		this.applyEDate = applyEDate;
 		this.actBDate = actBDate;
 		this.actEDate = actEDate;
+		this.applyBDate_str = applyBDate_str;
+		this.applyEDate_str = applyEDate_str;
+		this.actBDate_str = actBDate_str;
+		this.actEDate_str = actEDate_str;
 		this.address = address;
 		this.principal = principal;
 		this.registrant = registrant;
 		this.actNO = actNO;
 		this.participationTotal = participationTotal;
 		this.applyTotal = applyTotal;
-		this.note=note;
+		this.note = note;
 	}
 
 	public void setActID(String actID) {
@@ -270,6 +284,62 @@ public class ActivitySettingPojo implements Serializable {
 		this.note = note;
 	}
 
+	public String getApplyBDate_str() {
+		try {
+			return applyBDate == null || "".equals(applyBDate) ? ""
+					: ToolsUtils.getDateStringByFormat(applyBDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public void setApplyBDate_str(String applyBDate_str) {
+		this.applyBDate_str = applyBDate_str;
+	}
+
+	public String getApplyEDate_str() {
+		try {
+			return applyEDate == null || "".equals(applyEDate) ? ""
+					: ToolsUtils.getDateStringByFormat(applyEDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public void setApplyEDate_str(String applyEDate_str) {
+		this.applyEDate_str = applyEDate_str;
+	}
+
+	public String getActBDate_str() {
+		try {
+			return actBDate == null || "".equals(actBDate) ? ""
+					: ToolsUtils.getDateStringByFormat(actBDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public void setActBDate_str(String actBDate_str) {
+		this.actBDate_str = actBDate_str;
+	}
+
+	public String getActEDate_str() {
+		try {
+			return actEDate == null || "".equals(actEDate) ? ""
+					: ToolsUtils.getDateStringByFormat(actEDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public void setActEDate_str(String actEDate_str) {
+		this.actEDate_str = actEDate_str;
+	}
+
 	@Override
 	public String toString() {
 		return "ActivitySetting [actID=" + actID + ",actName=" + actName + ",expense1=" + expense1 + ",expense2="
@@ -277,7 +347,9 @@ public class ActivitySettingPojo implements Serializable {
 				+ ",onlineCan=" + onlineCan + ",offlineCan=" + offlineCan + ",onlineThen=" + onlineThen
 				+ ",offlineThen=" + offlineThen + ",integral=" + integral + ",isOnly=" + isOnly + ",applyBDate="
 				+ applyBDate + ",applyEDate=" + applyEDate + ",actBDate=" + actBDate + ",actEDate=" + actEDate
-				+ ",address=" + address + ",principal=" + principal + ",registrant=" + registrant + ",actNO=" + actNO
-				+ ",participationTotal=" + participationTotal + ",applyTotal=" + applyTotal + ",note="+note+ "]";
+				+ ",applyBDate_str=" + applyBDate_str + ",applyEDate_str=" + applyEDate_str + ",actBDate_str="
+				+ actBDate_str + ",actEDate_str=" + actEDate_str + ",address=" + address + ",principal=" + principal
+				+ ",registrant=" + registrant + ",actNO=" + actNO + ",participationTotal=" + participationTotal
+				+ ",applyTotal=" + applyTotal + ",note=" + note + "]";
 	}
 }

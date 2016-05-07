@@ -343,7 +343,7 @@ public class Util {
 	 */
 	public static void main(String[] args) {
 		Util t = new Util();
-		t.tableToEntity("GroupTrainingRecord");
+		t.tableToEntity("bTypeCode");
 		
 	/*	String[] colNames = {"name","descr"};
 		String[] colTypes = {"String","String"};

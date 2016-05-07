@@ -12,9 +12,18 @@ String basePath = request.getScheme() + "://"
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="/jsp/head.jsp"></jsp:include>
+<script type="text/javascript" src="gridReport/CreateControl.js"></script>
+<script type="text/javascript" src="gridReport/GRInstall.js"></script>
+<script type="text/javascript" src="gridReport/GRUtility.js"></script>
+
+
+<script type="text/javascript" src="js/makeCard.js"></script>
+
+<script type="text/javascript" src="windows/keycode.js"></script>
+<script type="text/javascript" src="windows/jsUnitCore.js"></script>
 <title>會員資料管理</title>
 <script type="text/javascript">
-        
+		CreateReport("Report");
 		var maingrid = null;
         
         function itemclick(item)
@@ -23,6 +32,7 @@ String basePath = request.getScheme() + "://"
             	case "add":addRow();break;
             	case "modify":modifyRow();break;
             	case "delete":deleteRow();break;
+            	case "makeCard":setBarCode();break;
             	default : break;
             }
         }
@@ -59,7 +69,37 @@ String basePath = request.getScheme() + "://"
          		})
      		}
      	}
-        
+		function setBarCode(){
+			
+			var reportType = Report+"";
+			if(reportType.indexOf("Plugin")<=-1){
+				alert("系統檢測到該計算機未安裝報表插件，需要安裝報表插件。\n 安装后，請刷新頁面或重新打開瀏覽器再試！");
+				window.open("gridReport/grbsctl5.exe",'self');
+				return;
+			}
+			Report.LoadFromURL("../../gridReport/Barcode.grf");
+			
+			
+			
+			
+			var rows = maingrid.getSelectedRows();
+			
+			if(rows==null||rows.length<=0){
+				alert("請選擇打印條碼的會員！");
+				return;
+			}
+			
+			
+			Report.PrepareRecordset();
+			for(var i = 0;i<rows.length;i++){
+				
+				Report.DetailGrid.Recordset.Append();
+				Report.FieldByName("fCustCode").AsString = rows[i].custCode;
+				Report.DetailGrid.Recordset.Post();
+			 
+			}
+			Report.PrintPreview(true);
+		}
         
         $(function ()
         {
@@ -106,9 +146,32 @@ String basePath = request.getScheme() + "://"
                                { line: true },
                                { text: '修改', click: itemclick, icon: 'modify' , id:"modify" },
                                { line: true },
-                               { text: '删除', click: itemclick, icon: 'delete' , id:"delete" }
+                               { text: '删除', click: itemclick, icon: 'delete' , id:"delete" },
+                               { line: true },
+                               { text: '條碼', click: itemclick, icon: 'myaccount' , id:"makeCard" }
                              ];
-            maingrid = ligerGrid("maingrid",'99%',columns,"Customer/list.do",gridToolBar,true);
+            maingrid = $("#maingrid").ligerGrid({
+               		columns:columns ,
+	                pagesizeParmName :"page.pageSize",
+	                pageParmName  :"page.currentPage",
+	                pageSize:30,
+	                enabledEdit: true,
+                  	clickToEdit:false,
+                	fixedCellHeight:false,
+	                checkbox: true,
+	                dataAction : "server",
+	                url : 'Customer/list.do',
+	               // parms : {"currentMasterid" :currentMasterID},
+	                usePager:true,
+	                width: '100%',height:'97%',
+	                toolbar:{ items: gridToolBar },
+	                onDblClickRow : function (data, rowindex, rowobj)
+	                {
+	                	var currentRow = gridMain.getRow(rowindex);
+	                	
+	                	editByfrmMDIChild_DB(currentRow);
+	                } 
+            })
              
 
             $("#pageloading").hide();

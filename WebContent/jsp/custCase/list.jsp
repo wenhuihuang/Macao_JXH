@@ -55,7 +55,7 @@ String basePath = request.getScheme() + "://"
         $(function ()
         {
         	setTabTitle(parent.$("#framecenter"),"個案列表")
-            var isMemberData = [{isMember:0,text:'非會員'},{isMember:1,text:'會員'}];
+            var custTypeData = [{custType:0,text:'非會員'},{custType:1,text:'會員'},{custType:2,text:'會員'}];
             var caseStatusData = [{caseStatus:0,text:'跟進'},{caseStatus:1,text:'結案'},{caseStatus:2,text:'轉介'}];
             var cardStatusData = [{cardStatus:0,text:'退會'},{cardStatus:1,text:'正常'},{cardStatus:2,text:'欠費'}];
             var cardTypeData = [{cardType:1,text:'永久身份證'},{cardType:2,text:'非永久身份證'},{cardType:3,text:'其他'}];
@@ -63,11 +63,11 @@ String basePath = request.getScheme() + "://"
             var columns = [
        	                { display: '個案編號', name: 'caseNO', align: 'left', width: 100, minWidth: 60 },
     	                { display: '姓名', name: 'fullName', minWidth: 100 },
-    	                { display: '會員/非會員', name: 'isMember',width:70 
-    	                	,editor: { data: isMemberData, valueField: 'isMember' },
+    	                { display: '會員/非會員', name: 'custType',width:70 
+    	                	,editor: { data: custTypeData, valueField: 'custType' },
 	                        render: function (item)
 	                        {
-	                        	return getGridSelectedData(isMemberData[parseInt(item.isMember)]);
+	                        	return getGridSelectedData(custTypeData[parseInt(item.custType)]);
 	                        } },
     	                { display: '接案日期', name: 'receiveDate', width: 100, minWidth: 60 },
     	                //{ display: '會談日期', name: '', width: 100, minWidth: 60 },//暫時沒有寫

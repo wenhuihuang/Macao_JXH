@@ -73,17 +73,17 @@ String basePath = request.getScheme() + "://"
         {
         	/* setTabTitle(parent.$("#framecenter"),"院舍記錄列表")  */
         	
-            var isMemberData = [{isMember:0,text:'非會員'},{isMember:1,text:'會員'}];
+            var custTypeData = [{custType:0,text:'非會員'},{custType:1,text:'會員'},{custType:2,text:'會員'}];
             var recordTypeData = [{recordType:0,text:'輪候'},{recordType:1,text:'入住'},{recordType:2,text:'離開'}];
         	
             var columns = [
        	                { display: '住客編號', name: 'recordNO', align: 'left', width: 100, minWidth: 60 },
     	                { display: '姓名', name: 'fullName', minWidth: 100 },
-    	                { display: '會員/非會員', name: 'isMember',width:70 
-    	                	,editor: { data: isMemberData, valueField: 'isMember' },
+    	                { display: '會員/非會員', name: 'custType',width:70 
+    	                	,editor: { data: custTypeData, valueField: 'custType' },
 	                        render: function (item)
 	                        {
-	                        	return getGridSelectedData(isMemberData[parseInt(item.isMember)]);
+	                        	return getGridSelectedData(custTypeData[parseInt(item.custType)]);
 	                        } },
     	                { display: '申請日期', name: 'applyDate', width: 100, minWidth: 60 },
     	                { display: '入住狀態', name: 'RecordType', minWidth: 100
