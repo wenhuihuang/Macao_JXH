@@ -3,7 +3,11 @@ package com.jxh.vo;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fg.utils.ToolsUtils;
+
 import java.math.*;
+import java.text.ParseException;
 
 
 /** SmsSendDetail
@@ -39,11 +43,13 @@ public class SmsSendDetail implements Serializable {
 	private String recManType;
 	private Integer tryTimes;
 	private String sMSCenterSN;
+	
+	private String sendDateTime_str;
 
 	public SmsSendDetail(){
 		super();
 	}
-	public SmsSendDetail(String billDetailID, String billMasterID, String telNO, String telName, String fetionNO, int state, Date sendDateTime, String recManID, String recManType, Integer tryTimes, String sMSCenterSN ){
+	public SmsSendDetail(String billDetailID, String billMasterID, String telNO, String telName, String fetionNO, int state, Date sendDateTime, String recManID, String recManType, Integer tryTimes, String sMSCenterSN,String sendDateTime_str ){
 		super();
 		this.billDetailID=billDetailID;
 		this.billMasterID=billMasterID;
@@ -56,6 +62,7 @@ public class SmsSendDetail implements Serializable {
 		this.recManType=recManType;
 		this.tryTimes=tryTimes;
 		this.sMSCenterSN=sMSCenterSN;
+		this.sendDateTime_str=sendDateTime_str;
 	}
 	public void setBillDetailID(String billDetailID){
 		this.billDetailID=billDetailID;
@@ -123,9 +130,28 @@ public class SmsSendDetail implements Serializable {
 	public String getSMSCenterSN(){
 		return sMSCenterSN;
 	}
+	
+	public String getsMSCenterSN() {
+		return sMSCenterSN;
+	}
+	public void setsMSCenterSN(String sMSCenterSN) {
+		this.sMSCenterSN = sMSCenterSN;
+	}
+	public String getSendDateTime_str() {
+		try {
+			return sendDateTime == null || "".equals(sendDateTime) ? ""
+					: ToolsUtils.getDateStringByFormat(sendDateTime, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void setSendDateTime_str(String sendDateTime_str) {
+		this.sendDateTime_str = sendDateTime_str;
+	}
 	@Override
 	public String toString(){
-		return "SmsSendDetail [billDetailID="+billDetailID+",billMasterID="+billMasterID+",telNO="+telNO+",telName="+telName+",fetionNO="+fetionNO+",state="+state+",sendDateTime="+sendDateTime+",recManID="+recManID+",recManType="+recManType+",tryTimes="+tryTimes+",sMSCenterSN="+sMSCenterSN+"]";
+		return "SmsSendDetail [billDetailID="+billDetailID+",billMasterID="+billMasterID+",telNO="+telNO+",telName="+telName+",fetionNO="+fetionNO+",state="+state+",sendDateTime="+sendDateTime+",recManID="+recManID+",recManType="+recManType+",tryTimes="+tryTimes+",sMSCenterSN="+sMSCenterSN+",sendDateTime_str="+sendDateTime_str+"]";
 	}
 }
 

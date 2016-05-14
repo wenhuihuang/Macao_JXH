@@ -2,6 +2,7 @@ package com.jxh.vo;
 
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 
 import com.fg.utils.ToolsUtils;
@@ -76,6 +77,8 @@ public class BCustomer implements Serializable {
 	private String custNO;
 	private String custNewNO;
 
+	private int age;
+
 	public BCustomer() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -92,7 +95,7 @@ public class BCustomer implements Serializable {
 			int isLiveTogether, String guardianCustID, String isMember, String telNO_Work, String jobSitution,
 			String jobType, String birthday_ChnStr, String validDateStr, String regDateStr, String changeDateStr,
 			String makeCardDateStr, String reciveCardDateStr, String disabilityEndDateStr, String custNO,
-			String custNewNO, String job, String isSociaWork) {
+			String custNewNO, String job, String isSociaWork, int age) {
 		super();
 		this.custID = custID;
 		this.custCode = custCode;
@@ -153,6 +156,7 @@ public class BCustomer implements Serializable {
 		this.custNewNO = custNewNO;
 		this.job = job;
 		this.isSociaWork = isSociaWork;
+		this.age = age;
 	}
 
 	public String getCustID() {
@@ -495,7 +499,6 @@ public class BCustomer implements Serializable {
 			return regDate == null || "".equals(regDate) ? ""
 					: ToolsUtils.getDateStringByFormat(regDate, null, "yyyy-MM-dd");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -695,6 +698,43 @@ public class BCustomer implements Serializable {
 	public void setIsSociaWork(String isSociaWork) {
 		this.isSociaWork = isSociaWork;
 	}
+	
+	public int getAge() {
+        Calendar cal = Calendar.getInstance(); 
+
+        if (cal.before(birthday_Chn)) { 
+            throw new IllegalArgumentException( 
+                "The birthday_Chn is before Now.It's unbelievable!"); 
+        } 
+
+        int yearNow = cal.get(Calendar.YEAR); 
+        int monthNow = cal.get(Calendar.MONTH)+1; 
+        int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH); 
+        
+        cal.setTime(birthday_Chn); 
+        int yearBirth = cal.get(Calendar.YEAR); 
+        int monthBirth = cal.get(Calendar.MONTH); 
+        int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH); 
+
+        int age = yearNow - yearBirth; 
+
+        if (monthNow <= monthBirth) { 
+            if (monthNow == monthBirth) { 
+                //monthNow==monthBirth 
+                if (dayOfMonthNow < dayOfMonthBirth) { 
+                    age--; 
+                } 
+            } else { 
+                //monthNow>monthBirth 
+                age--; 
+            } 
+        } 
+        return age; 
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
 
 	@Override
 	public String toString() {
@@ -718,7 +758,7 @@ public class BCustomer implements Serializable {
 				+ ", regDateStr=" + regDateStr + ", changeDateStr=" + changeDateStr + ", makeCardDateStr="
 				+ makeCardDateStr + ", reciveCardDateStr=" + reciveCardDateStr + ", disabilityEndDateStr="
 				+ disabilityEndDateStr + ",custNO=" + custNO + ",custNewNO=" + custNewNO + ",job=" + job
-				+ ",isSociaWork=" + isSociaWork + "]";
+				+ ",isSociaWork=" + isSociaWork + ",age=" + age + "]";
 	}
 
 }

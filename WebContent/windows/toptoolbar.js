@@ -316,26 +316,27 @@ $(function ()
 		 	
 		 	
 		 	$("#SmsSend_ShowList_toptoolbar").ligerToolBar({ items: [
-  	           { text: '增加(F2)', click: function (item)
+  	           { text: '增加', click: function (item)
   	               {
   	           		addByfrmMDIChild_DB();
   	               }, icon:'add'},
   	           { line:true },
-  	           { text: '刪除選中的短信(F3)', click: function(item){
+  	           { text: '刪除選中的短信', click: function(item){
   	        	   deleteMasterRow();
   	           } ,icon:"delete"},
-  	           { text: '刪除不需要發送的會員(F4)', click: function(item){
+  	           { text: '刪除不需要發送的會員', click: function(item){
   	        	   deleteDetailRow();
+  	        	 gridLeft.reload();
   	           } ,icon:"delete"},
   	           { line:true },
-  	           { text: '修改(F6)', click: function(){
+  	           { text: '修改', click: function(){
   	       			editByfrmMDIChild_DB();
   	           } ,icon:"modify"},
   	           { line:true },
-  	           { text: '確定發送(F7)', click: function(){
+  	           { text: '確定發送', click: function(){
   	        	   sendSelectMessage();
   	           } ,icon:"lock"},
-  	         { text: '統計(F8)', click: function(){
+  	         { text: '統計', click: function(){
 	        	   count();
 	           } ,icon:"attibutes"}
   	       ]
@@ -345,11 +346,11 @@ $(function ()
 		 	
 	 	
 		 	$("#SmsSend_toptoolbar").ligerToolBar({ items: [
-     		  { text: '再添加一條短信(Shift+F2)', click: function(){
+     		  { text: '再添加一條短信', click: function(){
      			  editPrimaryKey = "";
      			 renewData();
      		  },icon:"add"},
-     		  { text: '保存当前編輯的短信(Shift+F3)', click: function(){
+     		  { text: '保存当前編輯的短信', click: function(){
      			  
      			  frmBaseEditSaveSingle();
      			  
@@ -760,7 +761,17 @@ $(function ()
 				  data:frmBaseEditFormData,
 				  async : false,
 				  success : function(msg){
-					  alert(msg);
+					  if(msg.indexOf("新增成功") > 0){
+						  $.ligerDialog.success("新增成功！")
+						  if(editPrimaryKey==null||editPrimaryKey==""){
+							  editPrimaryKey=msg.replace(/新增成功/g,"");
+						  }
+					  }else if(msg.indexOf("成功") > 0){
+						  $.ligerDialog.success(msg);
+					  }else{
+						  $.ligerDialog.error(msg);
+					  }
+					 
 					   
 				  },
 				  error : function(XMLHttpRequest, textStatus, errorThrown) {

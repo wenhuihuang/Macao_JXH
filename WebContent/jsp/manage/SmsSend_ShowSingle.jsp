@@ -254,7 +254,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								 		}
 								 		,
 	 							 
-								 	{ display: '手提電話', name: 'mobileTelNo', align: 'left'	
+								 	{ display: '手提電話', name: 'mobileTelNO', align: 'left'	
 								 		, width: '120' 
 								 		
 								 		}
@@ -297,7 +297,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							 		,type:"text",editor:{type:"text"}
 							 		},
 							 
-							 	{ display: '手提電話', name: 'mobileTelNo', align: 'left'	
+							 	{ display: '手提電話', name: 'mobileTelNO', align: 'left'	
 							 		, width: '120' 
 							 		,type:"text",editor:{type:"text"}
 							 		},
@@ -325,7 +325,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function f_add(){
 			var rows = gridSelectCust.getSelectedRows();
 			if(rows==null||rows.length<=0){
-				alert("請選擇需要添加的會員！");
+				 $.ligerDialog.error("請選擇需要添加的會員！");
 				return;
 			}
 			
@@ -333,7 +333,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			for(var i = 0;i<rows.length;i++){
 				
-				if(rows[i].mobileTelNo==""){
+				if(rows[i].mobileTelNO==""){
 					continue;
 				}
 				
@@ -342,7 +342,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				if(selectedRows!=null&&selectedRows.length>0){
 					for(var j = 0;j<selectedRows.length;j++){
 						
-						if(rows[i].mobileTelNo==selectedRows[j].mobileTelNo){
+						if(rows[i].mobileTelNO==selectedRows[j].mobileTelNO){
 							isExists = true;
 							break;
 						}
@@ -350,7 +350,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 				
 				if(isExists==false){
-					var rowData = {"custId":rows[i].custId,"custCode":rows[i].custCode,"fullName":rows[i].fullName,"mobileTelNo":rows[i].mobileTelNo}
+					var rowData = {"custId":rows[i].custId,"custCode":rows[i].custCode,"fullName":rows[i].fullName,"mobileTelNO":rows[i].mobileTelNO}
 					gridSelectedCust.addRow(rowData);
 				}
 			}
@@ -361,7 +361,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		function f_del(){
 			var selectedRows = gridSelectedCust.getSelectedRows();
 			if(selectedRows==null||selectedRows.length<=0){
-				alert("請選擇序號刪除的會員！");
+				 $.ligerDialog.error("請選擇序號刪除的會員！");
 				return;
 			}
 			
@@ -385,11 +385,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 formData.sms = $("#sms").val();
 			 //alert(formData.billDate);
 			 if(formData.makeUserID==null||formData.makeUserID==""){
-				 alert("請選擇發送人！");
+				 $.ligerDialog.error("請選擇發送人！");
 				 return false;
 			 }
 			 if(formData.sms==null||formData.sms==""){
-				alert("請填寫短信內容！");
+				 $.ligerDialog.error("請填寫短信內容！");
 				 return false;
 			 }
 			 
@@ -403,7 +403,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var selectedData = gridSelectedCust.getData();
 		
 		if(selectedData!=null&&selectedData.length>0){
-			alert("請勿關閉瀏覽器\n正在記錄需要發送短信的會員，會員過多可能需要一段時間才能完成，操作成功后系統會提示完成。");
+			 $.ligerDialog.success("請勿關閉瀏覽器\n正在記錄需要發送短信的會員，會員過多可能需要一段時間才能完成，操作成功后系統會提示完成。");
 		
 			var saveData = [];
 			for(var i = 0;i<selectedData.length;i++){
@@ -414,14 +414,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			}
 			
-			alert("記錄完畢！");
+			$.ligerDialog.success("記錄完畢！");
 		}
 		
 		
 		}
 	
 	function addCustomerToSMS(saveData){
-		
 		$.ajax({
 			type:"POST",
 			url:"SmsSendServlet/addCustomerToSMS.do",
@@ -429,17 +428,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			data:{"editPrimaryKey":editPrimaryKey,"custArrays":JSON.stringify(saveData)},
 			async:false,
 			success:function(data){
-				
-				if(data.flag=="false"){
-					alert(data.title);
-					//return false;
+			
+				if(data == true || data == 'true'){
+					$.ligerDialog.success('添加成功！');
+				}else{
+					$.ligerDialog.error("添加失敗！")
 				}
-				
-				//return true;
 				
 			}, error : function(XMLHttpRequest, textStatus, errorThrown) {
 				  
-				alert("服务器获取数据失败："+errorThrown);
+				$.ligerDialog.error("服务器获取数据失败："+errorThrown);
 				//return false;		
 			}
 		});

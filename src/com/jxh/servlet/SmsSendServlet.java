@@ -39,12 +39,15 @@ import com.jxh.pojo.BtypeCode;
 import com.jxh.pojo.Customer;
 import com.jxh.pojo.QxUserRights;
 import com.jxh.pojo.QxUsers;
+import com.jxh.pojo.SmsSendDetailPojo;
 import com.jxh.vo.ActivityRecordNew;
 import com.jxh.vo.ActivitySetting;
 import com.jxh.vo.SmsSendDetail;
 import com.jxh.vo.SmsSendMaster;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 
 /**
  * Servlet implementation class User
@@ -201,22 +204,30 @@ public class SmsSendServlet extends FGServlet {
 	/**
 	 * 保存短信人员
 	 * @return
+	 * @throws ParseException 
+	 * @throws SQLException 
+	 * @throws IllegalAccessException 
+	 * @throws IllegalArgumentException 
+	 * @throws SecurityException 
+	 * @throws NoSuchFieldException 
+	 * @throws IOException 
 	 */
-	private void addCustomerToSMS(HttpServletRequest request, HttpServletResponse response){
-	/*	try {
-			String resutls = "{\"flag:\":\"false\"}";;
+	private void addCustomerToSMS(HttpServletRequest request, HttpServletResponse response) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException{
+		String editPrimaryKey = request.getParameter("editPrimaryKey");
+		String custArrays = request.getParameter("custArrays");
+		boolean flag = false;
+		try {
 			if(custArrays!=null&&!"".equals(custArrays)){
 				
-				List<SmsSendDetailVO> vos = JSONArray.toList(JSONArray.fromObject(custArrays),new SmsSendDetailVO(),new JsonConfig());
-				
+				List<SmsSendDetailPojo> pojos = JSONArray.toList(JSONArray.fromObject(custArrays),new SmsSendDetailPojo(),new JsonConfig());
 				List<SmsSendDetail> details = new ArrayList<SmsSendDetail>();
-				for (SmsSendDetailVO smsSendDetailVO : vos) {
-					if(smsSendBiz.findSmsUserIsExistInMaster(getEditPrimaryKey(), smsSendDetailVO.getMobileTelNo())<=0){
+				for (SmsSendDetailPojo smsSendDetailPojo : pojos) {
+					if(smsSendDetailDao.findSmsUserIsExistInMaster(editPrimaryKey, smsSendDetailPojo.getMobileTelNO())<=0){
 						SmsSendDetail detail = new SmsSendDetail();
-						detail.setBillDetailId(smsSendBiz.getSmsDetailId());
-						detail.setBillMasterId(getEditPrimaryKey());
-						detail.setTelNo(smsSendDetailVO.getMobileTelNo());
-						detail.setTelName(smsSendDetailVO.getFullName());
+						detail.setBillDetailID(smsSendDetailDao.getPrimaryKey("0001"));
+						detail.setBillMasterID(editPrimaryKey);
+						detail.setTelNO(smsSendDetailPojo.getMobileTelNO());
+						detail.setTelName(smsSendDetailPojo.getFullName());
 						detail.setState(0);
 						details.add(detail);
 					}
@@ -225,16 +236,17 @@ public class SmsSendServlet extends FGServlet {
 				
 				
 				
-				if(smsSendBiz.addCustomerToSMS(details)==false){
-					resutls = "{\"title\":\"添加客戶失敗，請檢查客戶資料是否規範。\",\"flag:\":\"false\"}";
+				if(smsSendDetailDao.addCustomerToSMS(details)){
+					flag = true;
 				}
 				
 			}
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
+		
+		response.getWriter().print(flag);
 		
 	}
 	
@@ -363,10 +375,7 @@ public class SmsSendServlet extends FGServlet {
 	 * @return
 	 */
 	private void sendSelectedMessages(HttpServletRequest request, HttpServletResponse response){
-		
 		String editPrimaryKey = request.getParameter("editPrimaryKey");
-		System.out.println("----");
-		System.out.println(editPrimaryKey);
 		
 		try {
 			
@@ -426,7 +435,7 @@ public class SmsSendServlet extends FGServlet {
 			}
 			
 			
-			smsSendDetailDao.addCustomerToSMS(newDetails);
+			smsSendDetailDao.updateCustomerToSMS(newDetails);
 			
 			
 			if(result.length()>0){
@@ -451,7 +460,7 @@ public class SmsSendServlet extends FGServlet {
 		if( "add".equals(_status)){
 			if(smsSendMasterDao.insertSmsSendMaster(smsSendMaster) > 0)
 			{
-				response.getWriter().print("新增成功！");
+				response.getWriter().print(smsSendMaster.getBillMasterID()+"新增成功");
 			}else{
 				response.getWriter().print("新增失敗！");
 			}
@@ -463,6 +472,33 @@ public class SmsSendServlet extends FGServlet {
 			}
 		}
 		
+	}
+	
+	private void deleteMasterRowById(HttpServletRequest request, HttpServletResponse response) throws IOException, InstantiationException, IllegalAccessException, NoSuchFieldException, SecurityException, ParseException, SQLException{
+		boolean flag = false;
+		SmsSendMaster smsSendMaster = this.getObjectByParameter(request, SmsSendMaster.class);
+		if(!"".equals(smsSendMaster) && smsSendMaster != null){
+			String billMasterID = smsSendMaster.getBillMasterID();
+			smsSendDetailDao.deleteSmsSendDetailByBillMasterID(billMasterID);
+			if(smsSendMasterDao.deleteSmsSendMaster(smsSendMaster) > 0){
+				flag=true;
+			}
+			
+		}
+		response.getWriter().print(flag);
+	}
+	
+	private void deleteDetailById(HttpServletRequest request, HttpServletResponse response) throws InstantiationException, IllegalAccessException, NoSuchFieldException, SecurityException, ParseException, IOException, SQLException{
+		//SmsSendDetail smsSendDetail = this.getObjectByParameter(request, SmsSendDetail.class);
+		boolean flag = false;
+		String billDetailID = request.getParameter("billDetailID");
+		System.out.println("billDetailID="+billDetailID);
+		if(!"".equals(billDetailID) && billDetailID != null){
+			if(smsSendDetailDao.deleteSmsSendDetail(billDetailID) > 0){
+				flag = true;
+			}
+		}
+		response.getWriter().print(flag);
 	}
 	
 }

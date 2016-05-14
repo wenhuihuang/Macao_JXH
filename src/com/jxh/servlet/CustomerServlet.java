@@ -355,7 +355,6 @@ public class CustomerServlet extends FGServlet {
 	 */
 	private void list(HttpServletRequest request, HttpServletResponse response) {
 		String type = request.getParameter("type");
-		System.out.println("type="+type);
 		try {
 			PageUtils<Customer> page = getPage(request);
 			String condition = " and CustType2 != 2 and CustType2 != 3 ";//and custid = ?

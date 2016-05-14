@@ -131,7 +131,7 @@ String basePath = request.getScheme() + "://"
 	                        {
 	                        	return getGridSelectedData(cardStatusData[parseInt(item.cardStatus)]);
 	                        }},
-    	                { display: '會員有效期', name: 'validDate', minWidth: 140 },
+    	                { display: '會員有效期', name: 'validDate_str', minWidth: 140 },
     	                { display: '證件類型', name: 'cardType', minWidth: 100
     	                	,editor: { data: cardTypeData, valueField: 'cardType' },
 	                        render: function (item)

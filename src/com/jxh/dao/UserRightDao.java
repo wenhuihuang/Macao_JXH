@@ -36,11 +36,8 @@ public class UserRightDao extends DaoImpl<QxUserRights> {
 	public int[] updateQxUserRightsBatch(List<QxUserRights> qxUserRights) throws NoSuchFieldException, SecurityException,
 			IllegalArgumentException, IllegalAccessException, ParseException, SQLException, IOException {
 		String sql = "update qx_UserRights set userID=?,funcID=?,fView=?,fAdd=?,fModify=?,fDelete=?,fViewPrice=?,fPrint=?,fDesignReport=?,fExportData=?,fCheck=?,fUnCheck=?,fDisuse=?,fUnDisuse=?,fExecute=?,allCorpRight=? where userRightsID = ? ";
-		Object[][] params = new Object[qxUserRights.size()][];
-		for (int i = 0; i < qxUserRights.size(); i++) {
-			params[i] = getUpdateParams(sql, qxUserRights.get(i));
-		}
-		return this.updateBatch(sql, params);
+		return  updateBatchByList(sql, qxUserRights);
+		
 	}
 
 }

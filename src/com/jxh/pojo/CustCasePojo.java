@@ -277,7 +277,6 @@ public class CustCasePojo implements Serializable {
 			return receiveDate == null || "".equals(receiveDate) ? ""
 					: ToolsUtils.getDateStringByFormat(receiveDate, null, "yyyy-MM-dd");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}

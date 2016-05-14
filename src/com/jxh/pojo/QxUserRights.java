@@ -1,20 +1,38 @@
 package com.jxh.pojo;
 
-/**
- * QxUserRights entity. @author MyEclipse Persistence Tools
- */
+import java.io.Serializable;
 
-public class QxUserRights implements java.io.Serializable {
+/** qx_UserRights
+	USERRIGHTSID	INT(10)
+	USERID	VARCHAR(16)
+	FUNCID	VARCHAR(32)
+	FVIEW	CHAR(1)
+	FADD	CHAR(1)
+	FMODIFY	CHAR(1)
+	FDELETE	CHAR(1)
+	FVIEWPRICE	CHAR(1)
+	FPRINT	CHAR(1)
+	FDESIGNREPORT	CHAR(1)
+	FEXPORTDATA	CHAR(1)
+	FCHECK	CHAR(1)
+	FUNCHECK	CHAR(1)
+	FDISUSE	CHAR(1)
+	FUNDISUSE	CHAR(1)
+	FEXECUTE	CHAR(1)
+	ALLCORPRIGHT	CHAR(1)
 
-	// Fields
+userRightsID,userID,funcID,fView,fAdd,fModify,fDelete,fViewPrice,fPrint,fDesignReport,fExportData,fCheck,fUnCheck,fDisuse,fUnDisuse,fExecute,allCorpRight
+?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
 
-	/**
-	 * 
-	 */
+qx_UserRights.userRightsID,qx_UserRights.userID,qx_UserRights.funcID,qx_UserRights.fView,qx_UserRights.fAdd,qx_UserRights.fModify,qx_UserRights.fDelete,qx_UserRights.fViewPrice,qx_UserRights.fPrint,qx_UserRights.fDesignReport,qx_UserRights.fExportData,qx_UserRights.fCheck,qx_UserRights.fUnCheck,qx_UserRights.fDisuse,qx_UserRights.fUnDisuse,qx_UserRights.fExecute,qx_UserRights.allCorpRight
+
+userRightsID=?,userID=?,funcID=?,fView=?,fAdd=?,fModify=?,fDelete=?,fViewPrice=?,fPrint=?,fDesignReport=?,fExportData=?,fCheck=?,fUnCheck=?,fDisuse=?,fUnDisuse=?,fExecute=?,allCorpRight=?
+*/
+public class QxUserRights implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Integer userRightsId;
-	private String userId;
-	private String funcId;
+	private Integer userRightsID;
+	private String userID;
+	private String funcID;
 	private String fview;
 	private String fadd;
 	private String fmodify;
@@ -30,11 +48,9 @@ public class QxUserRights implements java.io.Serializable {
 	private String fexecute;
 	private String allCorpRight;
 
-	private String funcType;
-	private String funcName;
 	
 	public String getFuncType() {
-		return funcId;
+		return funcID;
 	}
 
 	public void setFuncType(String funcType) {
@@ -42,13 +58,15 @@ public class QxUserRights implements java.io.Serializable {
 	}
 
 	public String getFuncName() {
-		return funcId;
+		return funcID;
 	}
 
 	public void setFuncName(String funcName) {
 		this.funcName = funcName;
 	}
 
+	private String funcType;
+	private String funcName;
 	// Constructors
 
 	/** default constructor */
@@ -56,21 +74,21 @@ public class QxUserRights implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public QxUserRights(Integer userRightsId, String userId, String funcId) {
-		this.userRightsId = userRightsId;
-		this.userId = userId;
-		this.funcId = funcId;
+	public QxUserRights(Integer userRightsID, String userID, String funcID) {
+		this.userRightsID = userRightsID;
+		this.userID = userID;
+		this.funcID = funcID;
 	}
 
 	/** full constructor */
-	public QxUserRights(Integer userRightsId, String userId, String funcId,
+	public QxUserRights(Integer userRightsID, String userID, String funcID,
 			String fview, String fadd, String fmodify, String fdelete,
 			String fviewPrice, String fprint, String fdesignReport,
 			String fexportData, String fcheck, String funCheck, String fdisuse,
 			String funDisuse, String fexecute, String allCorpRight) {
-		this.userRightsId = userRightsId;
-		this.userId = userId;
-		this.funcId = funcId;
+		this.userRightsID = userRightsID;
+		this.userID = userID;
+		this.funcID = funcID;
 		this.fview = fview;
 		this.fadd = fadd;
 		this.fmodify = fmodify;
@@ -89,28 +107,28 @@ public class QxUserRights implements java.io.Serializable {
 
 	// Property accessors
 
-	public Integer getUserRightsId() {
-		return this.userRightsId;
+	public Integer getUserRightsID() {
+		return this.userRightsID;
 	}
 
-	public void setUserRightsId(Integer userRightsId) {
-		this.userRightsId = userRightsId;
+	public void setUserRightsID(Integer userRightsID) {
+		this.userRightsID = userRightsID;
 	}
 
-	public String getUserId() {
-		return this.userId;
+	public String getUserID() {
+		return this.userID;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserID(String userID) {
+		this.userID = userID;
 	}
 
-	public String getFuncId() {
-		return this.funcId;
+	public String getFuncID() {
+		return this.funcID;
 	}
 
-	public void setFuncId(String funcId) {
-		this.funcId = funcId;
+	public void setFuncID(String funcID) {
+		this.funcID = funcID;
 	}
 
 	public String getFview() {
@@ -224,5 +242,8 @@ public class QxUserRights implements java.io.Serializable {
 	public void setAllCorpRight(String allCorpRight) {
 		this.allCorpRight = allCorpRight;
 	}
-
+	@Override
+	public String toString(){
+		return "Qx_UserRights [userRightsID="+userRightsID+",userID="+userID+",funcID="+funcID+",fview="+fview+",fadd="+fadd+",fmodify="+fmodify+",fdelete="+fdelete+",fviewPrice="+fviewPrice+",fprint="+fprint+",fdesignReport="+fdesignReport+",fexportData="+fexportData+",fcheck="+fcheck+",funCheck="+funCheck+",fdisuse="+fdisuse+",funDisuse="+funDisuse+",fexecute="+fexecute+",allCorpRight="+allCorpRight+"]";
+	}
 }

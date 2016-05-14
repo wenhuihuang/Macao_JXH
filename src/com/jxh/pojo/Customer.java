@@ -1,7 +1,10 @@
 package com.jxh.pojo;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
+
+import com.fg.utils.ToolsUtils;
 
 public class Customer implements Serializable {
 
@@ -30,6 +33,8 @@ public class Customer implements Serializable {
 	private String custNewNO;
 
 	private String amentiaName;// 活動
+	private String regDate_str;
+	private String validDate_str;
 
 	public Customer() {
 		super();
@@ -38,7 +43,8 @@ public class Customer implements Serializable {
 
 	public Customer(String custID, String custCode, String fullName, String fullNameEng, String sex, String custType,
 			int cardStatus, Date regDate, Date validDate, String cardType, String cardNo, String telNo,
-			String mobileTelNO, String relationship, String custNO, String custNewNO, String job, String isSociaWork,String amentiaName) {
+			String mobileTelNO, String relationship, String custNO, String custNewNO, String job, String isSociaWork,
+			String amentiaName, String regDate_str, String validDate_str) {
 		super();
 		this.custID = custID;
 		this.custCode = custCode;
@@ -58,7 +64,9 @@ public class Customer implements Serializable {
 		this.custNewNO = custNewNO;
 		this.job = job;
 		this.isSociaWork = isSociaWork;
-		this.amentiaName=amentiaName;
+		this.amentiaName = amentiaName;
+		this.regDate_str = regDate_str;
+		this.validDate_str = validDate_str;
 	}
 
 	public String getCustID() {
@@ -224,15 +232,42 @@ public class Customer implements Serializable {
 	public void setIsSociaWork(String isSociaWork) {
 		this.isSociaWork = isSociaWork;
 	}
-	
 
 	public String getAmentiaName() {
-		//amentiaName = fullName;
+		// amentiaName = fullName;
 		return fullName;
 	}
 
 	public void setAmentiaName(String amentiaName) {
 		this.amentiaName = amentiaName;
+	}
+
+	public String getRegDate_str() {
+		try {
+			return regDate == null || "".equals(regDate) ? ""
+					: ToolsUtils.getDateStringByFormat(regDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public void setRegDate_str(String regDate_str) {
+		this.regDate_str = regDate_str;
+	}
+
+	public String getValidDate_str() {
+		try {
+			return validDate == null || "".equals(validDate) ? ""
+					: ToolsUtils.getDateStringByFormat(validDate, null, "yyyy-MM-dd");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public void setValidDate_str(String validDate_str) {
+		this.validDate_str = validDate_str;
 	}
 
 	@Override
@@ -241,7 +276,8 @@ public class Customer implements Serializable {
 				+ fullNameEng + ", sex=" + sex + ", custType=" + custType + ", cardStatus=" + cardStatus + ", regDate="
 				+ regDate + ", validDate=" + validDate + ", cardType=" + cardType + ", cardNo=" + cardNo + ", telNo="
 				+ telNo + ", mobileTelNO=" + mobileTelNO + ", relationship=" + relationship + ",custNO=" + custNO
-				+ ",custNewNO=" + custNewNO + ",job=" + job + ",isSociaWork=" + isSociaWork +",amentiaName="+amentiaName+ "]";
+				+ ",custNewNO=" + custNewNO + ",job=" + job + ",isSociaWork=" + isSociaWork + ",amentiaName="
+				+ amentiaName + ",regDate_str=" + regDate_str + ",validDate_str=" + validDate_str + "]";
 	}
 
 }

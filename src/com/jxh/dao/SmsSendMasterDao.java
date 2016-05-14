@@ -8,6 +8,7 @@ import java.util.List;
 import com.fg.daoImpl.DaoImpl;
 import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
+import com.jxh.pojo.ActivityApplyPojo;
 import com.jxh.pojo.QxUsers;
 import com.jxh.vo.ActivityApply;
 import com.jxh.vo.SmsSendMaster;
@@ -60,5 +61,21 @@ public class SmsSendMasterDao extends DaoImpl<SmsSendMaster>{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		Object[] params = getUpdateParams(sql, smsSendMaster);
 		return this.update(sql, params);
+	}
+	
+	public int deleteSmsSendMaster(List<SmsSendMaster> smsSendMaster) throws IOException, SQLException{
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		Object[][] params = new Object[smsSendMaster.size()][1];
+		for (int i = 0;i<smsSendMaster.size();i++) {
+			params[i][0] = smsSendMaster.get(i).getBillMasterID();
+		}
+		int[] rows = this.updateBatch(sql, params);
+		return getflagByIntArray(rows);
+	}
+	
+	public int deleteSmsSendMaster(SmsSendMaster smsSendMaster) throws IOException, SQLException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, ParseException{
+		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
+		String billMasterID = smsSendMaster.getBillMasterID();
+		return this.update(sql, billMasterID);
 	}
 }

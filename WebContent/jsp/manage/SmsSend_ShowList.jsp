@@ -138,13 +138,13 @@ String basePath = request.getScheme() + "://"
 						 		}
 						 		,
 						 
-						 	{ display: '手機號碼', name: 'telNo', align: 'left'	
+						 	{ display: '手機號碼', name: 'telNO', align: 'left'	
 						 		, width: '150' 
 						 		
 						 		}
 						 		,
 						 
-						 	{ display: '發送時間', name: 'sendDateTimeStr', align: 'left'	
+						 	{ display: '發送時間', name: 'sendDateTime_str', align: 'left'	
 						 		, width: '150' 
 						 		
 						 		}
@@ -177,7 +177,7 @@ String basePath = request.getScheme() + "://"
 function addByfrmMDIChild_DB(){
 		
 		
-		$.ligerDialog.open({ url: 'SmsSendServlet/showSingle.do?addOrEdit=0&editForeignKey='+editForeignKey,
+		$.ligerDialog.open({ url: 'SmsSendServlet/showSingle.do?addOrEdit=0&editPrimaryKey='+editForeignKey,
 			title:"編輯短信",
 			data : { editPrimaryKey : "" , editForeignKey : ""},
 			height: '700', width: '1024', buttons: [
@@ -220,27 +220,28 @@ function addByfrmMDIChild_DB(){
 			alert("請選擇需要刪除的短信！");
 			return;
 		}
-		
-		if (confirm('确定删除?'))
-     {
-			$.ajax({
-				   type: "POST",
-				   url: 'SmsSendActiondeleteMasterRowByfrmMDIChild_DB?masterVO=com.model.SmsSendMaster&masterPrimaryKey=billMasterId',
-				   data: row,
-				   dataType:"json", 
-				   success: function(msg){
-				   		
-					   if(msg.title.indexOf("成功")>-1){
-					   	gridLeft.deleteRow(row.__id);
-					   }
-				   		alert(msg.title);
-				   },
-					error : function(XMLHttpRequest, textStatus, errorThrown) {
-						alert("服务器获取数据失败："+errorThrown);
-						
-					}
-				});
-     }
+		$.ligerDialog.confirm('确定删除?',function(yes){
+			   
+					$.ajax({
+						   type: "POST",
+						   url: 'SmsSendServlet/deleteMasterRowById.do',
+						   data: row,
+						   dataType:"json", 
+						   success: function(msg){
+						   		if(msg || msg == 'true'){
+						   			gridLeft.deleteRow(row.__id);
+						   		}else{
+						   			alert("刪除失敗！")
+						   		}
+						   },
+							error : function(XMLHttpRequest, textStatus, errorThrown) {
+								alert("服务器获取数据失败："+errorThrown);
+								
+							}
+						});
+		     
+		})
+  
 	}
 	
 	function deleteDetailRow(){
@@ -268,22 +269,23 @@ function addByfrmMDIChild_DB(){
 			var row = rows[i];
 	  		$.ajax({
 	  			type:"POST",
-	  			url:"SmsSendActiondeleteDetailById",
-	  			data:{"detailRowId":row.billDetailId},
-	  			dataType:"json",
+	  			url:"SmsSendServlet/deleteDetailById.do",
+	  			data:"billDetailID="+row.billDetailID,
+	  			//dataType:"json",
 	  			async:false,
 	  			success:function(data){
-	  				
-	  				if(data.title.indexOf("成功")>-1){
-	  				 	gridMain.deleteRow(row.__id);
+	  				if(data){
+	  					gridMain.deleteRow(row.__id);
+	  				}else{
+	  					
 	  				}
-	  				
+	  			},
+	  			error:function(){
+	  				alert("網絡出錯了！")
 	  			}
 	  			
 	  		});
 		}
-		
-		alert("刪除成功！");
 		
 	}
 	
@@ -298,6 +300,7 @@ function addByfrmMDIChild_DB(){
 			alert("請選擇需要發送的短信！");
 			return;
 		}
+		var message = $.ligerDialog.waitting('正在發送,请稍候...');
 
 	$.ajax({
 		type:"POST",
@@ -306,11 +309,17 @@ function addByfrmMDIChild_DB(){
 		/* dataType:"json", */
 		asnyc:false,
 		success:function(data){
-			alert(data);
+			if(data.indexOf("成功") > 0 ){
+				message.close();
+				$.ligerDialog.success(data);
+				gridLeft.reload();
+			}else{
+				$.ligerDialog.error(data);
+			}
 			
 		},
 		error:function(msg){
-			alert("發送失敗！")
+			$.ligerDialog.error("網絡出錯！")
 		}
 	});
 		
@@ -325,7 +334,7 @@ function addByfrmMDIChild_DB(){
 
 		$.ajax({
 		type:"POST",
-		url:"SmsSendActioncancelSendSelectedMessages",
+		url:"SmsSendServlet/cancelSendSelectedMessages.do",
 		data:{"editPrimaryKey":row.billMasterId},
 		dataType:"json",
 		asnyc:false,

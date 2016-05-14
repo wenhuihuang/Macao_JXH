@@ -27,7 +27,7 @@ public class UserFilter implements Filter{
 		
 		HttpSession session = request.getSession();
 		
-		/*if(session.getAttribute("user")==null){
+		if(session.getAttribute("user")==null){
 			
 			String url = request.getRequestURI();
 			System.out.println("url == "+url);
@@ -37,8 +37,8 @@ public class UserFilter implements Filter{
 				return;
 			}
 			
-		}*/
-		
+		}
+		System.out.println("执行filter");
 		chain.doFilter(req, res);
 		
 	}

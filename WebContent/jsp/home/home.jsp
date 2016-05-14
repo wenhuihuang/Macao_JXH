@@ -303,11 +303,11 @@ function loadAgeGrid2(){
 			 		, width: '120' 
 			 		}
 			 		,
-			 	{ display: '生日', name: 'birthdayGreStr', align: 'left'	
+			 	{ display: '生日', name: 'birthday_ChnStr', align: 'left'	
 			 		, width: '120' 
 			 		}
 			 		,
-			 	{ display: '年齡', name: 'spaceDays', align: 'left'	
+			 	{ display: '年齡', name: 'age', align: 'left'	
 			 		, width: '70' 
 			 		}
 			 		,
@@ -315,7 +315,7 @@ function loadAgeGrid2(){
 			 		, width: '120' 
 			 		}
 			 		,
-			 	{ display: '手提', name: 'mobileTelNo', align: 'left'	
+			 	{ display: '手提', name: 'mobileTelNO', align: 'left'	
 			 		, width: '120' 
 			 		}
 			 		,

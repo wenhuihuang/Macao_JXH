@@ -119,7 +119,6 @@ public class SocialWorkPojo implements Serializable {
                 age--; 
             } 
         } 
-        System.out.println("age="+age);
         return age +""; 
     }
 

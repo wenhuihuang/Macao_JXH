@@ -259,7 +259,7 @@ public class UserServlet extends FGServlet {
 				
 			}
 			
-			
+			System.out.println(rights);
 			int[] rows = userRightDao.updateQxUserRightsBatch(rights);
 			for( int row : rows){
 				if(row > 0){
