@@ -94,7 +94,7 @@ public class ActivityApplyDao extends DaoImpl{
 	
 	public int updateActivityApply(ActivityApply activityApply) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, ParseException, IOException{
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
-		Object[] params = getInsertParams(sql, activityApply);
+		Object[] params = getUpdateParams(sql, activityApply);
 		return this.update(sql, params);
 	}
 	

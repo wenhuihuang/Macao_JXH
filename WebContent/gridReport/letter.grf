@@ -1,0 +1,168 @@
+﻿Object Report
+	Version='5.8.0.6'
+	Title='你的报表标题'
+	Object Font
+		Name='宋体'
+		Size=105000,0
+		Weight=400
+		Charset=134
+	End
+	Object Printer
+	End
+	Object DetailGrid
+		BorderWidth=0
+		ShowColLine=F
+		ShowRowLine=F
+		ColLineWidth=0
+		RowLineWidth=0
+		BorderPrintType=Content
+		GridLinePrintType=Content
+		NewPage=BeforeAfter
+		Object Recordset
+			Items Field
+				Item
+					Name='fCustCode'
+					Length=100
+					RTrimBlankChars=T
+				End
+				Item
+					Name='fLinkAdr'
+					Length=255
+					RTrimBlankChars=T
+				End
+				Item
+					Name='fFullName'
+					Length=255
+					RTrimBlankChars=T
+				End
+			End
+		End
+		Items Column
+			Item
+				Name='fCustCode'
+				Width=15.9808
+			End
+		End
+		Object ColumnContent
+			Height=18.9971
+			KeepTogether=F
+			RowsPerPage=1
+			Items ColumnContentCell
+				Item
+					Column='fCustCode'
+					FreeCell=T
+					Items Control
+						Item
+							Type=FieldBox
+							Name='FieldBox1'
+							Left=2.01083
+							Top=9.41917
+							Width=5.00063
+							Height=0.608542
+							Object Font
+								Name='宋体'
+								Size=142500,0
+								Bold=T
+								Charset=134
+							End
+							DataField='fCustCode'
+						End
+						Item
+							Type=FieldBox
+							Name='FieldBox2'
+							Left=3.4925
+							Top=10.4246
+							Width=10.9273
+							Height=0.608542
+							Object Font
+								Name='宋体'
+								Size=142500,0
+								Bold=T
+								Charset=134
+							End
+							DataField='fLinkAdr'
+						End
+						Item
+							Type=StaticBox
+							Name='StaticBox1'
+							Left=2.19604
+							Top=10.4246
+							Width=1.00542
+							Height=0.608542
+							Object Font
+								Name='宋体'
+								Size=142500,0
+								Bold=T
+								Charset=134
+							End
+							Text='寄：'
+						End
+						Item
+							Type=FieldBox
+							Name='FieldBox3'
+							Left=3.4925
+							Top=11.43
+							Width=4.39208
+							Height=0.608542
+							Object Font
+								Name='宋体'
+								Size=142500,0
+								Bold=T
+								Charset=134
+							End
+							DataField='fFullName'
+						End
+						Item
+							Type=StaticBox
+							Name='StaticBox2'
+							Left=8.20208
+							Top=11.43
+							Width=3.59833
+							Height=0.608542
+							Object Font
+								Name='宋体'
+								Size=142500,0
+								Bold=T
+								Charset=134
+							End
+							Text='家長   台啟'
+						End
+						Item
+							Type=MemoBox
+							Name='MemoBox1'
+							ForeColor=Gray
+							Left=6.40292
+							Top=13.0175
+							Width=9.60438
+							Height=1.5875
+							Object Font
+								Name='仿宋'
+								Size=105000,0
+								Weight=400
+								Charset=134
+							End
+							Text='澳門弱智人士家長協進會\r\n地址: 黑沙環馬埸東大馬路173號A美蓮大廈第三座閣樓B\r\n電話: 28474103 / 28436750'
+						End
+					End
+				End
+			End
+		End
+		Object ColumnTitle
+			Height=0
+			Items ColumnTitleCell
+				Item
+					GroupTitle=F
+					Column='fCustCode'
+				End
+			End
+		End
+	End
+	Items Section
+		Item
+			Type=ReportHeader
+			Name='ReportHeader1'
+			Height=0
+			KeepTogether=F
+		End
+	End
+End

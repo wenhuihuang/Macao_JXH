@@ -10,6 +10,7 @@ import java.util.List;
 import com.fg.daoImpl.DaoImpl;
 import com.fg.utils.PageUtils;
 import com.fg.utils.ToolsUtils;
+import com.jxh.pojo.BcustBelongOrgPayPojo;
 import com.jxh.pojo.Customer;
 import com.jxh.vo.BCustomer;
 
@@ -44,7 +45,6 @@ public class CustomerDao extends DaoImpl<BCustomer> {
 		String sql = this.getSqlByPropKey(ToolsUtils.getCurrentMethodName());
 		condition = condition == null ? "" : condition;
 		sql += condition;
-		System.out.println(sql);
 		Integer count = this.findElement(getCountSql(sql), params);
 		page.setRowCount(count);
 
@@ -61,7 +61,7 @@ public class CustomerDao extends DaoImpl<BCustomer> {
 				custs.add(new Customer(cust.getCustID(), cust.getCustCode(), cust.getFullName(), cust.getFullNameEng(),
 						cust.getSex(), cust.getCustType(), cust.getCardStatus(), regDate, validDate, cust.getCardType(),
 						cust.getCardNo(), cust.getTelNo(), cust.getMobileTelNO(), cust.getRelationship(),
-						cust.getCustNO(), cust.getCustNewNO(), cust.getJob(), cust.getIsSociaWork(),cust.getFullName()));
+						cust.getCustNO(), cust.getCustNewNO(), cust.getJob(), cust.getIsSociaWork(),cust.getFullName(),cust.getRegDateStr(),cust.getValidDateStr()));
 			}
 		}
 
@@ -189,4 +189,47 @@ public class CustomerDao extends DaoImpl<BCustomer> {
 		return this.update(sql, custID);
 	}
 
+	public PageUtils<BCustomer> getBirthDayCusts(PageUtils<BCustomer> page,String condition,Object...params) throws IOException, SQLException{
+		//获取SQL
+		condition = condition ==null?"":condition;
+		String sql = "select * from bCustomer where MONTH(Birthday_CHN) = MONTH(getdate()) and DAY(Birthday_CHN) - DAY(GETDATE()) <=7 "+condition;
+		//String sql = getSqlByPropKey(ToolsUtils.getCurrentMethodName())+condition;
+		//获取总页数
+		Integer count = (Integer) this.findElement(getCountSql(sql), params);
+		page.setRowCount(count);
+		List<BCustomer> pojos = this.findForList(sql, params);
+		System.out.println("pojos="+pojos);
+		page.setList(pojos);
+		
+		return page;
+	}
+	
+	public PageUtils<BCustomer> getOldAgeCusts(PageUtils<BCustomer> page,String condition,Object...params) throws IOException, SQLException{
+		//获取SQL
+		condition = condition ==null?"":condition;
+		String sql = "select * from bCustomer where year(getdate())-year(Birthday_CHN) >= 60";
+		//String sql = getSqlByPropKey(ToolsUtils.getCurrentMethodName())+condition;
+		//获取总页数
+		Integer count = (Integer) this.findElement(getCountSql(sql), params);
+		page.setRowCount(count);
+		List<BCustomer> pojos = this.findForList(sql, params);
+		page.setList(pojos);
+		
+		return page;
+	}
+	
+	public PageUtils<BCustomer> getCertificates(PageUtils<BCustomer> page,String condition,Object...params) throws IOException, SQLException{
+		//获取SQL
+		condition = condition ==null?"":condition;
+		String sql =  "select * from bCustomer  where DATEDIFF(day, GetDate(), convert(datetime, cast(year(getdate()) as char(4)) + substring(convert(char(10), assessCardTime, 120),5, 6) ) ) between 0 and 7";
+		//String sql = getSqlByPropKey(ToolsUtils.getCurrentMethodName())+condition;
+		//获取总页数
+		Integer count = (Integer) this.findElement(getCountSql(sql), params);
+		page.setRowCount(count);
+		List<BCustomer> pojos = this.findForList(sql, params);
+		page.setList(pojos);
+		
+		return page;
+	}
+	
 }

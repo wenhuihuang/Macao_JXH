@@ -242,13 +242,10 @@ public class CustCaseServlet extends FGServlet {
 		List<BCustCaseSummaryHandle>  bCustCaseSummaryHandleUpdates = getGridListByParamerName(BCustCaseSummaryHandle.class, request, "bCustCaseSummaryHandleUpdates");
 		List<BCustCaseSummaryHandle>  bCustCaseSummaryHandleDeletes = getGridListByParamerName(BCustCaseSummaryHandle.class, request, "bCustCaseSummaryHandleDeletes");
 
-		System.out.println("bCustCaseSummaryHandle="+bCustCaseSummaryHandleAdds);
 		String caseNO = request.getParameter("caseNO");
-		System.out.println(caseNO+"caseNO");
 		
 		//接案登記
 		BCustCase bCustCase = this.getObjectByParameter(request, BCustCase.class);
-		System.out.println("bCustCase__"+bCustCase);
 		//個案轉介評估
 		BCustCaseAssess bCustCaseAssess = this.getObjectByParameter(request, BCustCaseAssess.class);
 		//結案摘要
@@ -256,7 +253,6 @@ public class CustCaseServlet extends FGServlet {
 		//個案撮要記錄
 		//BCustCaseRecord bCustCaseRecord = this.getObjectByParameter(request, BCustCaseRecord.class);
 		
-		System.out.println("bCustCaseRecordUpdates=="+bCustCaseRecordUpdates);
 
 		String message = "";
 		if (bCustCase.getCaseID() != null && !"".equals(bCustCase.getCaseID())) {

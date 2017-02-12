@@ -137,5 +137,16 @@ public class CarAbsentSerlvet extends FGServlet {
 		
 		LigerUITools.writeGridJson(page, response);
 	}
+	private void deleteCarAbsent(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		boolean flag = false;
+		String absentID = request.getParameter("absentID");
+		if(absentID != null && !"".equals(absentID)){
+			int row = carAbsentDao.deleteCarAbsentByAbsentID(absentID);
+			if(row > 0){
+				flag=true;
+			}
+		}
+		response.getWriter().print(flag);
+	}
 	
 }

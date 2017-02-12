@@ -18,12 +18,14 @@ public class VoluntaryPojo implements Serializable {
 
 	private String actName;
 	private String actNO;
+	private Date actBDate;
 
 	public VoluntaryPojo() {
 		super();
 	}
 
-	public VoluntaryPojo(String workID, String work, String note, String custID, String actName, String actNO) {
+	public VoluntaryPojo(String workID, String work, String note, String custID, String actName, String actNO,
+			Date actBDate) {
 		super();
 		this.workID = workID;
 		this.work = work;
@@ -31,6 +33,7 @@ public class VoluntaryPojo implements Serializable {
 		this.custID = custID;
 		this.actName = actName;
 		this.actNO = actNO;
+		this.actBDate = actBDate;
 	}
 
 	public void setWorkID(String workID) {
@@ -81,10 +84,18 @@ public class VoluntaryPojo implements Serializable {
 		this.actNO = actNO;
 	}
 
+	public Date getActBDate() {
+		return actBDate;
+	}
+
+	public void setActBDate(Date actBDate) {
+		this.actBDate = actBDate;
+	}
+
 	@Override
 	public String toString() {
 		return "SocialWork [workID=" + workID + ",work=" + work + ",note=" + note + ",custID=" + custID + ",actName="
-				+ actName + ",actNO=" + actNO + "]";
+				+ actName + ",actNO=" + actNO + ",actBDate=" + actBDate + "]";
 	}
 
 }

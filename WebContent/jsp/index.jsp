@@ -309,6 +309,8 @@
                      <div title="基礎" class="l-scroll">
                           <!-- <ul id="tree1" style="margin-top:3px;">  -->
                          <a class="l-link" href="javascript:f_addTab('customer','會員資料列表','jsp/customer/list.jsp')">會員資料</a>
+                         <a class="l-link" href="javascript:f_addTab('papers','證件管理','jsp/customer/papers_list.jsp')">證件管理</a>
+                         <a class="l-link" href="javascript:f_addTab('Users','用戶及權限管理','jsp/customer/Users_ShowList.jsp')">用戶及權限管理</a>
                     </div>
                     <div title="社工個案">
                     <div style=" height:7px;"></div>
@@ -334,14 +336,14 @@
                           <a class="l-link" href="javascript:f_addTab('carSetting','校車支援列表','jsp/manage/carSetting_list.jsp')">校車支援</a>
                           <a class="l-link" href="javascript:f_addTab('activity','活動設定列表','jsp/manage/activity_list.jsp')">活動設定</a>
                           <a class="l-link" href="javascript:f_addTab('familySupport','家庭支援列表','jsp/manage/familySupport_list.jsp')">家庭支援</a>
-                          <a class="l-link" href="javascript:f_addTab('message','信息平臺列表','jsp/manage/message_list.jsp')">信息平臺</a>
+                          <a class="l-link" href="javascript:f_addTab('message','信息平臺列表','jsp/manage/SmsSend_ShowList.jsp')">信息平臺</a>
                           <a class="l-link" href="javascript:f_addTab('chargeRecord','收費記錄列表','jsp/manage/chargeRecord_list.jsp')">收費記錄</a> 
                           <a class="l-link" href="javascript:f_addTab('statistics','統計報表','jsp/manage/statistics_list.jsp')">統計報表</a>
                     </div> 
         </div>
         <div position="center" id="framecenter"> 
             <div tabid="home" title="我的主页" style="height:300px" >
-                <iframe frameborder="0" name="home" id="home" src="welcome.htm"></iframe>
+                <iframe frameborder="0" name="home" id="home" src="jsp/home/home.jsp"></iframe>
             </div> 
         </div> 
         

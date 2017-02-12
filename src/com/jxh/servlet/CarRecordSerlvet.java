@@ -105,6 +105,17 @@ public class CarRecordSerlvet extends FGServlet {
 		}
 
 	}
+	private void deleteCarRecord(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		boolean flag = false;
+		String recordID = request.getParameter("recordID");
+		if(recordID != null && !"".equals(recordID)){
+			int row = carRecordDao.deleteCarRecordByRecordID(recordID);
+			if(row > 0){
+				flag=true;
+			}
+		}
+		response.getWriter().print(flag);
+	}
 	
 	private void deleteCarSetting(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		boolean flag = false;

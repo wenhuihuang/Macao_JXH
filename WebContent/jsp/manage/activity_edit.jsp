@@ -397,8 +397,8 @@ String basePath = request.getScheme() + "://"
             var selected = e.data[0]; 
             grid.updateRow(grid.getSelectedRow(), {
             	parentName: selected.parentName,
-                custID: selected.custID,
-                custCode: selected.custCode
+         /*        custID: selected.custID,
+                custCode: selected.custCode */
             });
         } 
 	

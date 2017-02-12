@@ -25,6 +25,8 @@ import com.jxh.dao.CustCaseDao;
 import com.jxh.dao.CustomerDao;
 import com.jxh.dao.GroupDetailDao;
 import com.jxh.dao.GroupSettingRecordPerformanceDao;
+import com.jxh.dao.GroupTrainingPlanDao;
+import com.jxh.dao.GroupTrainingRecordDao;
 import com.jxh.dao.TreatmentAssessDao;
 import com.jxh.dao.TreatmentDao;
 import com.jxh.dao.TreatmentFamilyDao;
@@ -49,6 +51,8 @@ import com.jxh.vo.CSSA;
 import com.jxh.vo.GroupDetail;
 import com.jxh.vo.GroupSetting;
 import com.jxh.vo.GroupSettingRecordPerformance;
+import com.jxh.vo.GroupTrainingPlan;
+import com.jxh.vo.GroupTrainingRecord;
 import com.jxh.vo.Retarded;
 import com.jxh.vo.SpecialAllowance;
 import com.jxh.vo.Treatment;
@@ -88,7 +92,9 @@ public class TreatmentSerlvet extends FGServlet {
 	private GroupSettingRecordPerformanceDao groupSettingRecordPerformanceDao = new GroupSettingRecordPerformanceDao();
 	private TreatmentTrainingPlanDao treatmentTrainingPlanDao = new TreatmentTrainingPlanDao();
 	private TreatmentTrainingWorkRecordDao  treatmentTrainingWorkRecordDao = new TreatmentTrainingWorkRecordDao();
-       
+    private GroupTrainingPlanDao groupTrainingPlanDao = new GroupTrainingPlanDao();
+    private GroupTrainingRecordDao groupTrainingRecordDao = new GroupTrainingRecordDao();
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -262,11 +268,11 @@ public class TreatmentSerlvet extends FGServlet {
 		LigerUITools.writeGridJson(page, response);
 	}
 	
-	private void getTreatmentGroupPlan(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
-		String custID = this.getParameterByName(request, "custID");
-		PageUtils<GroupDetail> page = this.getPage(request);
-		String condition = " and custID = ? ";
-		groupDetailDao.getGroupDetailByCondition(page, condition, custID);
+	private void getGroupTrainingPlan(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+		String treatmentID = this.getParameterByName(request, "treatmentID");
+		PageUtils<GroupTrainingPlan> page = this.getPage(request);
+		String condition = " and treatmentID = ? ";
+		groupTrainingPlanDao.getGroupTrainingPlanByCondition(page, condition, treatmentID);
 		
 		LigerUITools.writeGridJson(page, response);
 	}
@@ -280,11 +286,11 @@ public class TreatmentSerlvet extends FGServlet {
 		LigerUITools.writeGridJson(page, response);
 	}
 	
-	private void getTreatmentGroupRecord(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
-		String custID = this.getParameterByName(request, "custID");
-		PageUtils<GroupSettingRecordPerformance> page = this.getPage(request);
-		String condition = " and custID = ? ";
-		groupSettingRecordPerformanceDao.getGroupSettingRecordPerformanceByCondition(page, condition, custID);
+	private void getGroupTrainingRecord(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException{
+		String treatmentID = this.getParameterByName(request, "treatmentID");
+		PageUtils<GroupTrainingRecord> page = this.getPage(request);
+		String condition = " and treatmentID = ? ";
+		groupTrainingRecordDao.getGroupTrainingRecordByCondition(page, condition, treatmentID);
 		
 		LigerUITools.writeGridJson(page, response);
 	}
@@ -335,13 +341,13 @@ public class TreatmentSerlvet extends FGServlet {
 		if("5".equals(treatmentType)){
 			TreatmentTraining treatmentTraining = this.getObjectByParameter(request, TreatmentTraining.class);
 			TreatmentTrainingWork treatmentTrainingWork = this.getObjectByParameter(request, TreatmentTrainingWork.class);
-			List<GroupDetail>  groupDetailAdds = getGridListByParamerName(GroupDetail.class, request, "groupDetailAdds");
-			List<GroupDetail>  groupDetailUpdates = getGridListByParamerName(GroupDetail.class, request, "groupDetailUpdates");
-			List<GroupDetail>  groupDetailDeletes = getGridListByParamerName(GroupDetail.class, request, "groupDetailDeletes");
+			List<GroupTrainingPlan>  groupTrainingPlanAdds = getGridListByParamerName(GroupTrainingPlan.class, request, "groupTrainingPlanAdds");
+			List<GroupTrainingPlan>  groupTrainingPlanUpdates = getGridListByParamerName(GroupTrainingPlan.class, request, "groupTrainingPlanUpdates");
+			List<GroupTrainingPlan>  groupTrainingPlanDeletes = getGridListByParamerName(GroupTrainingPlan.class, request, "groupTrainingPlanDeletes");
 			
-			List<GroupSettingRecordPerformance>  groupSettingRecordPerformanceAdds = getGridListByParamerName(GroupSettingRecordPerformance.class, request, "groupSettingRecordPerformanceAdds");
-			List<GroupSettingRecordPerformance>  groupSettingRecordPerformanceUpdates = getGridListByParamerName(GroupSettingRecordPerformance.class, request, "groupSettingRecordPerformanceUpdates");
-			List<GroupSettingRecordPerformance>  groupSettingRecordPerformanceDeletes = getGridListByParamerName(GroupSettingRecordPerformance.class, request, "groupSettingRecordPerformanceDeletes");
+			List<GroupTrainingRecord>  groupTrainingRecordAdds = getGridListByParamerName(GroupTrainingRecord.class, request, "groupTrainingRecordAdds");
+			List<GroupTrainingRecord>  groupTrainingRecordUpdates = getGridListByParamerName(GroupTrainingRecord.class, request, "groupTrainingRecordUpdates");
+			List<GroupTrainingRecord>  groupTrainingRecordDeletes = getGridListByParamerName(GroupTrainingRecord.class, request, "groupTrainingRecordDeletes");
 			
 			List<TreatmentTrainingPlan>  treatmentTrainingPlanAdds = getGridListByParamerName(TreatmentTrainingPlan.class, request, "treatmentTrainingPlanAdds");
 			List<TreatmentTrainingPlan>  treatmentTrainingPlanUpdates = getGridListByParamerName(TreatmentTrainingPlan.class, request, "treatmentTrainingPlanUpdates");
@@ -351,9 +357,9 @@ public class TreatmentSerlvet extends FGServlet {
 			List<TreatmentTrainingWorkRecord>  treatmentTrainingWorkRecordUpdates = getGridListByParamerName(TreatmentTrainingWorkRecord.class, request, "treatmentTrainingWorkRecordUpdates");
 			List<TreatmentTrainingWorkRecord>  treatmentTrainingWorkRecordDeletes = getGridListByParamerName(TreatmentTrainingWorkRecord.class, request, "treatmentTrainingWorkRecordDeletes");
 			if(treatment.getTreatmentID() != null && !"".equals(treatment.getTreatmentID())){
-				message = treatmentBiz.updateTreatmentFunction(treatment, treatmentAssess,treatmentHistoryAdds,treatmentHistoryUpdates,treatmentHistoryDeletes,bCustomerSchoolAdds,bCustomerSchoolUpdates,bCustomerSchoolDeletes,treatmentFamilyAdds,treatmentFamilyUpdates,treatmentFamilyDeletes,treatmentTraining,treatmentTrainingWork,groupDetailAdds,groupDetailUpdates,groupDetailDeletes,groupSettingRecordPerformanceAdds,groupSettingRecordPerformanceUpdates,groupSettingRecordPerformanceDeletes,treatmentTrainingPlanAdds,treatmentTrainingPlanUpdates,treatmentTrainingPlanDeletes,treatmentTrainingWorkRecordAdds,treatmentTrainingWorkRecordUpdates,treatmentTrainingWorkRecordDeletes);
+				message = treatmentBiz.updateTreatmentFunction(treatment, treatmentAssess,treatmentReport,treatmentHistoryAdds,treatmentHistoryUpdates,treatmentHistoryDeletes,bCustomerSchoolAdds,bCustomerSchoolUpdates,bCustomerSchoolDeletes,treatmentFamilyAdds,treatmentFamilyUpdates,treatmentFamilyDeletes,treatmentTraining,treatmentTrainingWork,groupTrainingPlanAdds,groupTrainingPlanUpdates,groupTrainingPlanDeletes,groupTrainingRecordAdds,groupTrainingRecordUpdates,groupTrainingRecordDeletes,treatmentTrainingPlanAdds,treatmentTrainingPlanUpdates,treatmentTrainingPlanDeletes,treatmentTrainingWorkRecordAdds,treatmentTrainingWorkRecordUpdates,treatmentTrainingWorkRecordDeletes);
 			}else{
-				message = treatmentBiz.insertTreatmentFunction(treatment, treatmentAssess,treatmentHistoryAdds,bCustomerSchoolAdds,treatmentFamilyAdds,treatmentTraining,treatmentTrainingWork,groupDetailAdds,groupSettingRecordPerformanceAdds,treatmentTrainingPlanAdds,treatmentTrainingWorkRecordAdds);
+				message = treatmentBiz.insertTreatmentFunction(treatment, treatmentAssess,treatmentReport,treatmentHistoryAdds,bCustomerSchoolAdds,treatmentFamilyAdds,treatmentTraining,treatmentTrainingWork,groupTrainingPlanAdds,groupTrainingRecordAdds,treatmentTrainingPlanAdds,treatmentTrainingWorkRecordAdds);
 			}
 		}
 		

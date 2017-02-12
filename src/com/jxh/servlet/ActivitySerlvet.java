@@ -144,7 +144,6 @@ public class ActivitySerlvet extends FGServlet {
 		List<ActivityApplyPojo> memberDataAdds = getGridListByParamerName(ActivityApplyPojo.class, request, "memberDataAdds");
 		List<ActivityApplyPojo> memberDataUpdates = getGridListByParamerName(ActivityApplyPojo.class, request, "memberDataUpdates");
 		List<ActivityApplyPojo> memberDataDeletes = getGridListByParamerName(ActivityApplyPojo.class, request, "memberDataDeletes");
-		System.out.println("memberDataAdds=="+memberDataAdds);
 		if( !"".equals(memberDataAdds) && memberDataAdds != null){
 			for(int i = 0;i<memberDataAdds.size();i++){
 				 memberDataAdds.get(i).setType(1);

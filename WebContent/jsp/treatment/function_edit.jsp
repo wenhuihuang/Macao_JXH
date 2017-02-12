@@ -126,11 +126,11 @@ String basePath = request.getScheme() + "://"
 	function bindingGroupPlanDataGrid(){
 		
 		var groupPlanDataGridColumn = [
-									{ display: 'GSID', name: 'GSID', hide:true },
-				                    { display: '小組編號', name: 'GSNO', minWidth: 100,type:"text",editor: { type: 'text' }},
+									{ display: 'planID', name: 'planID', hide:true },
+				                    { display: '小組編號', name: 'groupNO', minWidth: 100,type:"text",editor: { type: 'text' }},
 				                    { display: '小組名稱', name: 'groupName', minWidth: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '小組目標', name: 'target', minWidth: 100 ,type:"text",editor: { type: 'text'}},
-				                    { display: '負責人', name: 'handler', minWidth: 100 ,type:"text",editor: { type: 'text'}},
+				                    { display: '小組目標', name: 'goal', minWidth: 100 ,type:"text",editor: { type: 'text'}},
+				                    { display: '負責人', name: 'principal', minWidth: 100 ,type:"text",editor: { type: 'text'}},
 				                    { display: '開始日期', name: 'beginDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
 				                    { display: '結束日期', name: 'endDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
 				                    { display: '備註', name: 'note',minWidth:300, type:"text", editor: { type: 'text'}}
@@ -142,7 +142,7 @@ String basePath = request.getScheme() + "://"
 	          { line: true },
 	          { text: '删除', click: deleteGroupPlanData, icon: 'delete' , id:"delete" }];
 		
-		var url = "Treatment/getTreatmentGroupPlan.do?custID="+$("#custID").val();
+		var url = "Treatment/getGroupTrainingPlan.do?treatmentID="+$("#treatmentID").val();
 		
 		groupPlanDataGrid = ligerGrid("groupPlanDataGrid",null,groupPlanDataGridColumn,url,groupPlanDataGridToolBar,false,true);
 		
@@ -158,10 +158,10 @@ String basePath = request.getScheme() + "://"
 	function bindingGroupRecordDataGrid(){
 		
 		var groupRecordDataGridColumn = [
-									{ display: 'planID', name: 'planID', hide:true },
-				                    { display: '小組編號', name: 'GSNO', minWidth: 100,type:"text",editor: { type: 'text' }},
-				                    { display: '訓練日期', name: 'beginDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
-				                    { display: '表現', name: 'performance',minWidth:300, type:"text", editor: { type: 'text'}},
+									{ display: 'recordID', name: 'recordID', hide:true },
+				                    { display: '小組編號', name: 'groupNO', minWidth: 100,type:"text",editor: { type: 'text' }},
+				                    { display: '訓練日期', name: 'trainingDate', minWidth: 150 , type: 'date', format: 'yyyy-MM-dd', editor: { type: 'date'}},
+				                    { display: '表現', name: 'expression',minWidth:300, type:"text", editor: { type: 'text'}},
 				                    { display: '備註', name: 'note',minWidth:300, type:"text", editor: { type: 'text'}}
 				                  ];
 				
@@ -171,7 +171,7 @@ String basePath = request.getScheme() + "://"
 	          { line: true },
 	          { text: '删除', click: deleteGroupRecordData, icon: 'delete' , id:"delete" }];
 		
-		var url = "Treatment/getTreatmentGroupRecord.do?custID="+$("#custID").val();
+		var url = "Treatment/getGroupTrainingRecord.do?treatmentID="+$("#treatmentID").val();
 		
 		groupRecordDataGrid = ligerGrid("groupRecordDataGrid",null,groupRecordDataGridColumn,url,groupRecordDataGridToolBar,false,true);
 		
@@ -266,12 +266,12 @@ String basePath = request.getScheme() + "://"
 		$("#treatmentHistoryAdds").val(getAddedRows(cureDataGrid));
  		$("#treatmentHistoryUpdates").val(getEditedRows(cureDataGrid));
  		$("#treatmentHistoryDeletes").val(getDeletedRows(cureDataGrid)); 
- 	 	$("#groupDetailAdds").val(getAddedRows(groupPlanDataGrid));//GroupDetail
- 		$("#groupDetailUpdates").val(getEditedRows(groupPlanDataGrid));
- 		$("#groupDetailDeletes").val(getDeletedRows(groupPlanDataGrid));  
-  		$("#groupSettingRecordPerformanceAdds").val(getAddedRows(groupRecordDataGrid));//GroupSettingRecordPerformance
- 		$("#groupSettingRecordPerformanceUpdates").val(getEditedRows(groupRecordDataGrid));
- 		$("#groupSettingRecordPerformanceDeletes").val(getDeletedRows(groupRecordDataGrid));
+ 	 	$("#groupTrainingPlanAdds").val(getAddedRows(groupPlanDataGrid));//GroupDetail
+ 		$("#groupTrainingPlanUpdates").val(getEditedRows(groupPlanDataGrid));
+ 		$("#groupTrainingPlanDeletes").val(getDeletedRows(groupPlanDataGrid));  
+  		$("#groupTrainingRecordAdds").val(getAddedRows(groupRecordDataGrid));//GroupSettingRecordPerformance
+ 		$("#groupTrainingRecordUpdates").val(getEditedRows(groupRecordDataGrid));
+ 		$("#groupTrainingRecordDeletes").val(getDeletedRows(groupRecordDataGrid));
  		$("#treatmentTrainingPlanAdds").val(getAddedRows(flowPlanDataGrid));//TreatmentTrainingPlan
  		$("#treatmentTrainingPlanUpdates").val(getEditedRows(flowPlanDataGrid));
  		$("#treatmentTrainingPlanDeletes").val(getDeletedRows(flowPlanDataGrid));  
@@ -279,7 +279,7 @@ String basePath = request.getScheme() + "://"
  		$("#treatmentTrainingWorkRecordUpdates").val(getEditedRows(manifestationDataGrid));
  		$("#treatmentTrainingWorkRecordDeletes").val(getDeletedRows(manifestationDataGrid));
  		checkboxValue(["disease","attack","temper","behavior"])
-		$("#Button1").click();	
+ 		$("#Button1").click();	
 	}
     
 	$(function(){
@@ -358,12 +358,12 @@ String basePath = request.getScheme() + "://"
 	<input type="hidden" name="treatmentHistoryUpdates" id="treatmentHistoryUpdates">
 	<input type="hidden" name="treatmentHistoryDeletes" id="treatmentHistoryDeletes">
 	
-	<input type="hidden" name="groupDetailAdds" id="groupDetailAdds">
-	<input type="hidden" name="groupDetailUpdates" id="groupDetailUpdates">
-	<input type="hidden" name="groupDetailDeletes" id="groupDetailDeletes">
-	<input type="hidden" name="groupSettingRecordPerformanceAdds" id="groupSettingRecordPerformanceAdds">
-	<input type="hidden" name="groupSettingRecordPerformanceUpdates" id="groupSettingRecordPerformanceUpdates">
-	<input type="hidden" name="groupSettingRecordPerformanceDeletes" id="groupSettingRecordPerformanceDeletes">
+	<input type="hidden" name="groupTrainingPlanAdds" id="groupTrainingPlanAdds">
+	<input type="hidden" name="groupTrainingPlanUpdates" id="groupTrainingPlanUpdates">
+	<input type="hidden" name="groupTrainingPlanDeletes" id="groupTrainingPlanDeletes">
+	<input type="hidden" name="groupTrainingRecordAdds" id="groupTrainingRecordAdds">
+	<input type="hidden" name="groupTrainingRecordUpdates" id="groupTrainingRecordUpdates">
+	<input type="hidden" name="groupTrainingRecordDeletes" id="groupTrainingRecordDeletes">
 	<input type="hidden" name="treatmentTrainingPlanAdds" id="treatmentTrainingPlanAdds">
 	<input type="hidden" name="treatmentTrainingPlanUpdates" id="treatmentTrainingPlanUpdates">
 	<input type="hidden" name="treatmentTrainingPlanDeletes" id="treatmentTrainingPlanDeletes">
@@ -403,6 +403,10 @@ String basePath = request.getScheme() + "://"
 			<input width="120px" value="${custCasePojo.receiveDate_str }" name="receiveDate" type="text" ltype="date" />
 		</div>
 		<div class="col-md-4">
+			<label>申請日期：</label>
+			<input width="120px" value="${treatmentPojo.applyDate_str }" name="applyDate" type="text" id="applyDate" ltype="date"/>
+		</div>
+		<div class="col-md-4">
 			<label>輪候開始日期：</label>
 			<input width="120px" value="${treatmentPojo.awaitDate_str }" name="awaitDate" type="text" ltype="date" />
 		</div>
@@ -431,6 +435,14 @@ String basePath = request.getScheme() + "://"
 		<div class="col-md-4">
 			<label>接案社工：</label>
 			<input width="120px" value="${custCasePojo.caseWorker }" name="caseWorker" type="text" id="caseWorker" ltype="text" />
+		</div>
+		<div class="col-md-4">
+			<label>訓練開始日期：</label>
+			<input width="120px" value="${treatmentPojo.startDate_str }" name="startDate" type="text" id="startDate" ltype="date" />
+		</div>
+		<div class="col-md-4">
+			<label>訓練結束日期：</label>
+			<input width="120px" value="${treatmentReportPojo.closeDate_str }" name="closeDate" type="text" id="closeDate" ltype="date" />
 		</div>
 	</div>
 	
