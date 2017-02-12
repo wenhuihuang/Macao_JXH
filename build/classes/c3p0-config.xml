@@ -6,9 +6,9 @@
   	<property name="user">root</property>
   	<property name="password">root</property> -->
   	<property name="driverClass">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-  	<property name="jdbcUrl">jdbc:sqlserver://192.168.0.101:1433;DatabaseName=Macao_JXH</property>
+  	<property name="jdbcUrl">jdbc:sqlserver://192.168.75.133:1433;DatabaseName=Macao_JXH</property>
   	<property name="user">sa</property>
-  	<property name="password">root</property>
+  	<property name="password">Hwh759547235</property>
   	
     <property name="acquireIncrement">50</property>
     <property name="initialPoolSize">100</property>
